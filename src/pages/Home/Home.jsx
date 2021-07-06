@@ -1,11 +1,15 @@
 import React from "react";
+import MainTitle from "../../components/mainTitle/MainTitle";
 import NavBar from "../../components/navBar/NavBar";
 
 function Home() {
   return (
-    <div>
+    <>
       <NavBar />
-    </div>
+      <div className="tw-mt-28">
+        <MainTitle />
+      </div>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import {
   EVENT_DATA,
   RETREAT_DESTINATION,
 } from "./navData/navData";
+import { upperCase } from "../../utils/utils";
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
@@ -45,7 +46,7 @@ function NavBar() {
                   className="tw-mr-8 tw-flex tw-items-center"
                   onClick={() => handleShow(ACTIVITY_DATA)}
                 >
-                  <span className="tw-mr-2">Activity Type</span>
+                  <span className="tw-mr-2">{upperCase("Activity Type")}</span>
                   <span className="tw-pt-1">
                     <DownArrow />
                   </span>
@@ -56,7 +57,7 @@ function NavBar() {
                   className="tw-mr-8 tw-flex tw-items-center"
                   onClick={() => handleShow(EVENT_DATA)}
                 >
-                  <span className="tw-mr-2">Event Type</span>
+                  <span className="tw-mr-2">{upperCase("Event Type")}</span>
                   <span className="tw-pt-1">
                     <DownArrow />
                   </span>
@@ -67,7 +68,9 @@ function NavBar() {
                   className="tw-flex tw-items-center"
                   onClick={handleShowReterat}
                 >
-                  <span className="tw-mr-2">Retreat Destination</span>
+                  <span className="tw-mr-2">
+                    {upperCase("Retreat Destination")}
+                  </span>
                   <span className="tw-pt-1">
                     <DownArrow />
                   </span>
@@ -81,7 +84,7 @@ function NavBar() {
                 <span className="tw-mr-2">
                   <Location />
                 </span>
-                <span>Location</span>
+                <span>{upperCase("Location")}</span>
               </li>
               <li className="tw-mr-6 tw-flex tw-items-center">
                 <span className="tw-mr-2">
@@ -89,11 +92,11 @@ function NavBar() {
                 </span>
                 <span>1800-1200-1400</span>
               </li>
-              <li className="tw-mr-10">BLOG</li>
-              <li className="tw-mr-3">LOGIN</li>
+              <li className="tw-mr-10">{upperCase("BLOG")}</li>
+              <li className="tw-mr-3">{upperCase("LOGIN")}</li>
             </ul>
-            <button className="tw-bg-secondary-color tw-px-6 tw-py-3 tw-rounded-md">
-              GET STARTED
+            <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
+              {upperCase("GET STARTED")}
             </button>
           </div>
         </Container>

@@ -15,3 +15,5 @@ export function chunkArray(myArray, chunk_size = 5) {
 
   return results;
 }
+
+export const upperCase = (text) => text.toUpperCase();

@@ -3,6 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const primaryBackground = "#FCFCFC";
 const primaryText = "#0E0E0E";
 const backgroundYellow = "#FFEE58";
+const secondaryText = "#939393";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -27,9 +28,11 @@ module.exports = {
       borderColor: {},
       textColor: {
         "primary-color": primaryText,
+        "secondary-color": secondaryText,
       },
       fontFamily: {
         sans: ["Roboto", ...defaultTheme.fontFamily.sans],
+        lato: ["Lato", ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         h1: "2.5rem",
