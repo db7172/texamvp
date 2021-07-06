@@ -7,3 +7,27 @@
 body {
   @apply tw-bg-primary-color tw-text-primary-color tw-text-body;
 }
+
+.tw-gh-tabs {
+  @apply tw-text-primary-color tw-font-medium tw-py-6 tw-px-14 tw-block tw-text-base focus:tw-outline-none;
+}
+.tw-gh-tabs.active {
+  @apply tw-shadow-tab tw-rounded-xl tw-relative tw-bg-primary-color;
+}
+
+.tw-gh-tabs.active::after {
+  @apply tw-bg-primary-color;
+  content: "";
+  position: absolute;
+  height: 25px;
+  width: 100%;
+  bottom: -14px;
+  left: 0;
+  z-index: 2;
+}
+
+.tw-tab-container {
+  @apply tw-shadow-tab tw-min-h-32 tw-relative tw-bg-primary-color tw-rounded-xl;
+  top: -2px;
+  z-index: -1;
+}

@@ -3,11 +3,7 @@ import React from "react";
 function NavBarOption({ isShow = false, data }) {
   const { title, options = [] } = data;
   return (
-    <div
-      className={`${
-        isShow ? "tw-block" : "tw-hidden"
-      } tw-z-9999 tw-relative tw-py-6`}
-    >
+    <div className={`${isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
         <h3 className="tw-text-h4 tw-font-medium">{title}</h3>
       </div>

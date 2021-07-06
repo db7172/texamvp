@@ -20,6 +20,7 @@ module.exports = {
     extend: {
       boxShadow: {
         "nav-bar": "0px 2px 2px rgba(0, 0, 0, 0.04)",
+        tab: "0px 4px 30px rgba(230, 230, 230, 0.3), 4px 0px 30px rgba(229, 229, 229, 0.3);",
       },
       backgroundColor: {
         "primary-color": primaryBackground,

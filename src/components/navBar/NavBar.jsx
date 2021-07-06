@@ -101,26 +101,28 @@ function NavBar() {
           </div>
         </Container>
       </div>
-      <Container>
-        {showReterat ? (
-          <div className="tw-flex tw-justify-evenly tw-items-center">
-            <div className="">
-              <NavBarOption
-                isShow={showReterat}
-                data={RETREAT_DESTINATION.workcation}
-              />
+      <Container className="tw-relative">
+        <div className="tw-z-10 tw-w-full tw-absolute tw-bg-primary-color">
+          {showReterat ? (
+            <div className="tw-flex tw-justify-evenly tw-items-center">
+              <div className="">
+                <NavBarOption
+                  isShow={showReterat}
+                  data={RETREAT_DESTINATION.workcation}
+                />
+              </div>
+              <div className="tw-min-h-32 tw-border-r-2" />
+              <div className="tw-pl-24">
+                <NavBarOption
+                  isShow={showReterat}
+                  data={RETREAT_DESTINATION.reterat}
+                />
+              </div>
             </div>
-            <div className="tw-min-h-32 tw-border-r-2" />
-            <div className="tw-pl-24">
-              <NavBarOption
-                isShow={showReterat}
-                data={RETREAT_DESTINATION.reterat}
-              />
-            </div>
-          </div>
-        ) : (
-          <NavBarOption isShow={isShow} data={navData} />
-        )}
+          ) : (
+            <NavBarOption isShow={isShow} data={navData} />
+          )}
+        </div>
       </Container>
     </>
   );
