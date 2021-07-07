@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from "react";
 import Container from "../common/Container";
 import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
 import { ReactComponent as Location } from "../../assets/svg/location.svg";
@@ -15,6 +16,26 @@ function NavBar() {
   const [isShow, setIsShow] = useState(false);
   const [showReterat, setShowReterat] = useState(false);
   const [navData, setNavData] = useState({});
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setIsShow(false);
+          setShowReterat(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   const handleShow = (data) => {
     setShowReterat(false);
@@ -33,7 +54,7 @@ function NavBar() {
     setShowReterat(!showReterat);
   };
   return (
-    <>
+    <div ref={wrapperRef}>
       <div className="tw-bg-white tw-shadow-nav-bar">
         <Container className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-black">
           <div>
@@ -124,7 +145,7 @@ function NavBar() {
           )}
         </div>
       </Container>
-    </>
+    </div>
   );
 }
 
