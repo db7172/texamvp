@@ -9,7 +9,7 @@ import {
   ACTIVITY_DATA,
   EVENT_DATA,
   RETREAT_DESTINATION,
-} from "./navData/navData";
+} from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 
 function NavBar() {

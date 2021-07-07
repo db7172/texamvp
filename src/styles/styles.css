@@ -1,0 +1,14 @@
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  display: block;
+  background: url("../assets/svg/calendar.svg") no-repeat;
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+}
+
+select {
+  background: url("../assets/svg/dropdown-arrow.svg") no-repeat right;
+  -webkit-appearance: none;
+  background-position-x: 90%;
+}

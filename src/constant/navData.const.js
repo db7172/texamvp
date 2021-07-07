@@ -1,6 +1,6 @@
-import { chunkArray } from "../../../utils/utils";
+import { chunkArray } from "../utils/utils";
 
-const activityOptions = [
+export const activityOptions = [
   "Trekking",
   "Camping",
   "Skiingg",
@@ -22,7 +22,7 @@ const activityOptions = [
   "Ladakh",
 ];
 
-const eventOptions = [
+export const eventOptions = [
   "Comedy",
   "Music Fest",
   "Online Course",
@@ -39,7 +39,7 @@ const eventOptions = [
   "Theatre",
 ];
 
-const workcationOptions = [
+export const workcationOptions = [
   "Kashmir",
   "Himachal",
   "Uttarakhand",
@@ -56,7 +56,7 @@ const workcationOptions = [
   "Kerala",
 ];
 
-const reteratOptions = [
+export const reteratOptions = [
   "Kashmir",
   "Himachal",
   "Uttarakhand",
