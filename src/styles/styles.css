@@ -12,3 +12,27 @@ select {
   -webkit-appearance: none;
   background-position-x: 90%;
 }
+
+.slick-prev,
+.slick-next {
+  height: 60px !important;
+  width: 60px !important;
+  padding: 20px 5px !important;
+  border-radius: 50% !important;
+}
+
+.slick-prev {
+  left: -75px !important;
+}
+.slick-next {
+  right: -75px !important;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  box-shadow: 0px 4px 30px rgba(143, 143, 143, 0.3);
+}
+.slick-track {
+  display: flex !important;
+  align-items: baseline !important;
+}

@@ -6,10 +6,13 @@ import { TentIcon, HotelIcon, CalendarIcon } from "../../assets/svg/SVGIcon";
 import { SECONDARY_COLOR } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
+import DestinationCarousel from "../../components/common/DestinationCarousel";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
 };
+
+//TODO:- remove dummy data once API come
 
 const activityOptions = [
   "Trekking",
@@ -60,7 +63,8 @@ function Home() {
   };
 
   return (
-    <>
+    //TODO: remove mb-10 class once the page is created
+    <div className="tw-mb-10">
       <NavBar />
       <Container>
         <div className="tw-mt-28">
@@ -130,8 +134,21 @@ function Home() {
             </div>
           </div>
         </div>
+        <div className="tw-mt-32">
+          <div className="tw-text-center">
+            <p className="tw-text-2xl tw-tracking-wider">
+              Escape to your faviourite
+            </p>
+            <h3 className="tracking-wider tw-font-bold tw-text-7xl">
+              Destination
+            </h3>
+          </div>
+          <div className="tw-mt-14">
+            <DestinationCarousel />
+          </div>
+        </div>
       </Container>
-    </>
+    </div>
   );
 }
 
