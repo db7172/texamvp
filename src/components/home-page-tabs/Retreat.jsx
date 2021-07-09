@@ -30,8 +30,8 @@ const Retreat = () => {
     console.log({ selectedOption, checkInDate, checkOutDate, numberOfPeople });
   };
   return (
-    <div className="tw-flex">
-      <div className="tw-flex-auto tw-grid tw-grid-cols-4 tw-mr-10 tw-gap-10">
+    <div className="tw-flex tw-flex-col xl:tw-flex-row">
+      <div className="tw-flex-auto tw-grid xl:tw-grid-cols-4 md:tw-grid-cols-2 xl:tw-mr-5 tw-gap-5">
         <div className="">
           <DropDown
             label={upperCase("Destination")}
@@ -71,7 +71,7 @@ const Retreat = () => {
         </div>
       </div>
       <button
-        className="tw-bg-secondary-color tw-self-end tw-font-medium tw-px-14 tw-py-5 tw-rounded-xl"
+        className="tw-bg-secondary-color tw-self-end tw-font-medium tw-px-14 tw-py-5 tw-rounded-xl xl:tw-w-max xl:tw-mt-0 tw-mt-5 tw-w-full"
         onClick={handleClick}
       >
         Search

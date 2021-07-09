@@ -19,13 +19,7 @@ select {
   width: 60px !important;
   padding: 20px 5px !important;
   border-radius: 50% !important;
-}
-
-.slick-prev {
-  left: -75px !important;
-}
-.slick-next {
-  right: -75px !important;
+  background: white !important;
 }
 
 .slick-prev:hover,
@@ -35,4 +29,13 @@ select {
 .slick-track {
   display: flex !important;
   align-items: baseline !important;
+}
+
+@media only screen and (min-width: 1920px) {
+  .slick-prev {
+    left: -50px !important;
+  }
+  .slick-next {
+    right: -50px !important;
+  }
 }

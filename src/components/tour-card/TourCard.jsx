@@ -19,7 +19,7 @@ const TourCard = ({
         <div>
           <img className="tw-rounded-lg" src={imgUrl} alt="" />
         </div>
-        <div className="tw-flex tw-justify-between tw-mt-3 tw-text-secondary-color">
+        <div className="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-mt-3 tw-text-secondary-color">
           <div>
             <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-black">
               {activityName}
@@ -43,14 +43,14 @@ const TourCard = ({
             <p>{otherDetails}</p>
           </div>
           <div className="tw-mt-3 tw-flex tw-flex-col tw-justify-between">
-            <div className="tw-flex tw-flex-col tw-items-end">
+            <div className="lg:tw-flex tw-flex-col tw-items-end">
               <p className="tw-text-xs">Starting from</p>
               <p className="tw-text-2xl tw-text-yellow-color">
                 {indCurrency(price)}
               </p>
               <p className="tw-text-xs">Per Person</p>
             </div>
-            <button className="tw-px-5 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+            <button className="tw-px-4 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
               View Details
             </button>
           </div>

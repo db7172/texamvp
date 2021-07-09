@@ -71,7 +71,7 @@ function Home() {
   return (
     //TODO: remove mb-10 class once the page is created
     <div className="tw-mb-10">
-      <NavBar />
+      {/* <NavBar /> */}
       <Container>
         <div className="tw-mt-28">
           <MainTitle />
@@ -152,35 +152,35 @@ function Home() {
           <div className="tw-mt-14">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
-          <div className="tw-mt-32">
-            <ActivityCarousel
-              setting={{ slidesToShow: 3 }}
-              title="Popular Activities"
-              data={ACTIVITY}
-            />
+        </div>
+        <div className="tw-mt-20">
+          <ActivityCarousel
+            setting={{ slidesToShow: 3 }}
+            title="Popular Activities"
+            data={ACTIVITY}
+          />
+        </div>
+        <div className="tw-mt-20">
+          <Title title="Browse Activities" />
+          <div className="tw-flex tw-justify-between tw-mt-10">
+            {activityIcon.map(({ icon, name }, i) => (
+              <IconCard path={icon} name={name} number={124} key={i} />
+            ))}
           </div>
-          <div className="tw-mt-20">
-            <Title title="Browse Activities" />
-            <div className="tw-flex tw-justify-between tw-mt-10">
-              {activityIcon.map(({ icon, name }, i) => (
-                <IconCard path={icon} name={name} number={124} key={i} />
-              ))}
-            </div>
-          </div>
-          <div className="tw-mt-20">
-            <ActivityCarousel
-              setting={{ slidesToShow: 3 }}
-              title="Activity of the Month"
-              data={ACTIVITY}
-            />
-          </div>
-          <div className="tw-mt-20">
-            <ActivityCarousel
-              setting={{ slidesToShow: 3 }}
-              title="Best Activity of Maldives"
-              data={ACTIVITY}
-            />
-          </div>
+        </div>
+        <div className="tw-mt-20">
+          <ActivityCarousel
+            setting={{ slidesToShow: 3 }}
+            title="Activity of the Month"
+            data={ACTIVITY}
+          />
+        </div>
+        <div className="tw-mt-20">
+          <ActivityCarousel
+            setting={{ slidesToShow: 3 }}
+            title="Best Activity of Maldives"
+            data={ACTIVITY}
+          />
         </div>
       </Container>
     </div>
