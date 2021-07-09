@@ -7,6 +7,8 @@ import { SECONDARY_COLOR } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/DestinationCarousel";
+import ActivityCarousel from "../../components/common/ActivityCarousel";
+import { ACTIVITY } from "../../constant/dummyData";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -144,7 +146,14 @@ function Home() {
             </h3>
           </div>
           <div className="tw-mt-14">
-            <DestinationCarousel />
+            <DestinationCarousel setting={{ slidesToShow: 4 }} />
+          </div>
+          <div className="tw-mt-32">
+            <ActivityCarousel
+              setting={{ slidesToShow: 3 }}
+              title="Popular Activities"
+              data={ACTIVITY}
+            />
           </div>
         </div>
       </Container>

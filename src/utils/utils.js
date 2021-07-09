@@ -1,3 +1,6 @@
+import rightArrow from "../assets/svg/nextArrow.svg";
+import leftArrow from "../assets/svg/prevArrow.svg";
+
 /**
  * Returns an array with arrays of the given size.
  *
@@ -17,3 +20,37 @@ export function chunkArray(myArray, chunk_size = 5) {
 }
 
 export const upperCase = (text) => text.toUpperCase();
+
+// carousel settings
+export const defaultSettings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  nextArrow: (
+    <img
+      className="tw-flex tw-justify-center tw-items-center tw-rounded-full hover:tw-shadow-nav-bar"
+      src={rightArrow}
+      alt=""
+    />
+  ),
+  prevArrow: (
+    <img
+      className="tw-flex tw-justify-center tw-items-center tw-rounded-full"
+      src={leftArrow}
+      alt=""
+    />
+  ),
+};
+
+// currency formatter
+
+export const indCurrency = (amount) => {
+  const rupeeIndian = Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0,
+  });
+
+  return rupeeIndian.format(amount) + "/-";
+};

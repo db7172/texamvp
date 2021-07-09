@@ -3,6 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const primaryBackground = "#FCFCFC";
 const primaryText = "#0E0E0E";
 const backgroundYellow = "#FFEE58";
+const textYellow = "#FFEE58";
 const secondaryText = "#939393";
 
 module.exports = {
@@ -20,7 +21,8 @@ module.exports = {
     extend: {
       boxShadow: {
         "nav-bar": "0px 2px 2px rgba(0, 0, 0, 0.04)",
-        tab: "0px 4px 30px rgba(230, 230, 230, 0.3), 4px 0px 30px rgba(229, 229, 229, 0.3);",
+        tab: "0px 4px 30px rgba(230, 230, 230, 0.3), 4px 0px 30px rgba(229, 229, 229, 0.3)",
+        card: "4px 4px 30px rgba(196, 196, 196, 0.3)",
       },
       backgroundColor: {
         "primary-color": primaryBackground,
@@ -30,6 +32,7 @@ module.exports = {
       textColor: {
         "primary-color": primaryText,
         "secondary-color": secondaryText,
+        "yellow-color": textYellow,
       },
       fontFamily: {
         sans: ["Roboto", ...defaultTheme.fontFamily.sans],
