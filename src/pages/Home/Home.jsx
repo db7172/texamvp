@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import Container from "../../components/common/Container";
+import Container from "../../components/common/container/Container";
 import MainTitle from "../../components/mainTitle/MainTitle";
 import NavBar from "../../components/navBar/NavBar";
 import { TentIcon, HotelIcon, CalendarIcon } from "../../assets/svg/SVGIcon";
 import { SECONDARY_COLOR } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
-import DestinationCarousel from "../../components/common/DestinationCarousel";
-import ActivityCarousel from "../../components/common/ActivityCarousel";
+import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
+import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import { ACTIVITY } from "../../constant/dummyData";
+import Title from "../../components/common/title/Title";
+import { getActivityIcon } from "../../constant/activity-icon";
+import IconCard from "../../components/common/icon-card/IconCard";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -59,6 +62,7 @@ const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 
 function Home() {
   const [activeTab, setActiveTab] = useState(1);
+  const [activityIcon] = useState(getActivityIcon(8));
 
   const handleClick = (activity, date) => {
     console.log({ activity, date });
@@ -152,6 +156,28 @@ function Home() {
             <ActivityCarousel
               setting={{ slidesToShow: 3 }}
               title="Popular Activities"
+              data={ACTIVITY}
+            />
+          </div>
+          <div className="tw-mt-20">
+            <Title title="Browse Activities" />
+            <div className="tw-flex tw-justify-between tw-mt-10">
+              {activityIcon.map(({ icon, name }, i) => (
+                <IconCard path={icon} name={name} number={124} key={i} />
+              ))}
+            </div>
+          </div>
+          <div className="tw-mt-20">
+            <ActivityCarousel
+              setting={{ slidesToShow: 3 }}
+              title="Activity of the Month"
+              data={ACTIVITY}
+            />
+          </div>
+          <div className="tw-mt-20">
+            <ActivityCarousel
+              setting={{ slidesToShow: 3 }}
+              title="Best Activity of Maldives"
               data={ACTIVITY}
             />
           </div>

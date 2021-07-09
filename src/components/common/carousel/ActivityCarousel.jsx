@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { defaultSettings } from "../../utils/utils";
-import CheckBox from "../form-component/CheckBox";
-import TourCard from "../tour-card/TourCard";
-import Title from "./Title";
+import { defaultSettings } from "../../../utils/utils";
+import CheckBox from "../../form-component/CheckBox";
+import TourCard from "../../tour-card/TourCard";
+import Title from "../title/Title";
 
 const ActivityCarousel = ({ setting, title, data }) => {
   const [multiday, setMultiday] = useState(true);

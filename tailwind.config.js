@@ -23,6 +23,7 @@ module.exports = {
         "nav-bar": "0px 2px 2px rgba(0, 0, 0, 0.04)",
         tab: "0px 4px 30px rgba(230, 230, 230, 0.3), 4px 0px 30px rgba(229, 229, 229, 0.3)",
         card: "4px 4px 30px rgba(196, 196, 196, 0.3)",
+        "icon-card": "4px 4px 25px rgba(196, 196, 196, 0.25)",
       },
       backgroundColor: {
         "primary-color": primaryBackground,

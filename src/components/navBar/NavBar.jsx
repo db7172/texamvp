@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
-import Container from "../common/Container";
+import Container from "../common/container/Container";
 import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
 import { ReactComponent as Location } from "../../assets/svg/location.svg";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
