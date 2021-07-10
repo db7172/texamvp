@@ -3,6 +3,7 @@ import place2 from "../assets/png/place2.png";
 import place3 from "../assets/png/place3.png";
 import event from "../assets/png/event.png";
 import retreat from "../assets/png/retreat.png";
+import workation from "../assets/png/workation.png";
 
 export const ACTIVITY = [
   {
@@ -208,5 +209,92 @@ export const RETREAT = [
     price: 16999,
     imgUrl: retreat,
     language: "english",
+  },
+];
+
+export const WORKATION = [
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+  {
+    name: "Tashi namgay resort",
+    duration: "3 Days & 4 Nights",
+    facility: { Breakfast: true, FreeWifi: true },
+    price: 16999,
+    imgUrl: workation,
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    name: "Robert Fox",
+    msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
+    rating: 5,
+  },
+  {
+    name: "Robert Fox",
+    msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
+    rating: 3,
+  },
+  {
+    name: "Robert Fox",
+    msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
+    rating: 4,
+  },
+  {
+    name: "Robert Fox",
+    msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
+    rating: 4,
+  },
+  {
+    name: "Robert Fox",
+    msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
+    rating: 5,
   },
 ];

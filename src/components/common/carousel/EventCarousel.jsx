@@ -59,7 +59,11 @@ const EventCarousel = ({ title, setting, data, event }) => {
         {show ? (
           <Slider {...settings}>
             {eventData?.map((d, i) =>
-              event ? <EventCard {...d} /> : <RetreatCard {...d} />
+              event ? (
+                <EventCard {...d} key={i} />
+              ) : (
+                <RetreatCard {...d} key={i} />
+              )
             )}
           </Slider>
         ) : (

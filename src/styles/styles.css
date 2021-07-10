@@ -39,3 +39,15 @@ select {
     right: -50px !important;
   }
 }
+
+.left_qoute {
+  position: absolute;
+  top: 6px;
+  left: -19px;
+}
+
+.right_qoute {
+  position: absolute;
+  bottom: 4px;
+  right: -15px;
+}

@@ -8,13 +8,15 @@ import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
-import { ACTIVITY, EVENT, RETREAT } from "../../constant/dummyData";
+import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
 import Title from "../../components/common/title/Title";
 import { getActivityIcon } from "../../constant/activity-icon";
 import IconCard from "../../components/card/icon-card/IconCard";
 import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
 import ImageGallery from "../../components/home-page-tabs/ImageGallery";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
+import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
+import Testimonials from "../../components/common/carousel/Testimonials";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -244,6 +246,23 @@ function Home() {
             data={RETREAT}
             setting={{ slidesToShow: 3 }}
           />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <WorkationCarousel
+            title="Popular Workation"
+            data={WORKATION}
+            setting={{ slidesToShow: 3 }}
+          />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <div className="tw-max-w-6xl tw-mx-auto">
+            <h3 className="tw-text-4xl tw-font-medium tw-text-center">
+              Over 40 Lac+ Happy Travelers
+            </h3>
+            <div className="tw-mt-14">
+              <Testimonials />
+            </div>
+          </div>
         </div>
       </Container>
     </div>
