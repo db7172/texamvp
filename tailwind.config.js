@@ -4,6 +4,7 @@ const primaryBackground = "#FCFCFC";
 const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
 const secondaryText = "#939393";
+const green = "#00B112";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -26,6 +27,7 @@ module.exports = {
       backgroundColor: {
         "primary-color": primaryBackground,
         "secondary-color": yellow,
+        "green-background": green,
       },
       borderColor: {
         "primary-yellow": yellow,

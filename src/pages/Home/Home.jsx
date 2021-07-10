@@ -8,12 +8,13 @@ import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
-import { ACTIVITY } from "../../constant/dummyData";
+import { ACTIVITY, EVENT, RETREAT } from "../../constant/dummyData";
 import Title from "../../components/common/title/Title";
 import { getActivityIcon } from "../../constant/activity-icon";
-import IconCard from "../../components/common/icon-card/IconCard";
+import IconCard from "../../components/card/icon-card/IconCard";
 import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
 import ImageGallery from "../../components/home-page-tabs/ImageGallery";
+import EventCarousel from "../../components/common/carousel/EventCarousel";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -212,6 +213,37 @@ function Home() {
               <ImageGallery />
             </div>
           </div>
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <EventCarousel
+            title="Popular Events"
+            data={EVENT}
+            setting={{ slidesToShow: 3 }}
+            event
+          />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <EventCarousel
+            title="Worshop"
+            data={EVENT}
+            setting={{ slidesToShow: 3 }}
+            event
+          />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <EventCarousel
+            title="Music"
+            data={EVENT}
+            setting={{ slidesToShow: 3 }}
+            event
+          />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <EventCarousel
+            title="Popular Retreat"
+            data={RETREAT}
+            setting={{ slidesToShow: 3 }}
+          />
         </div>
       </Container>
     </div>

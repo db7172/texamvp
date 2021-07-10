@@ -1,6 +1,6 @@
 import React from "react";
-import star from "../../assets/svg/star.svg";
-import { indCurrency } from "../../utils/utils";
+import star from "../../../assets/svg/star.svg";
+import { indCurrency } from "../../../utils/utils";
 
 const TourCard = ({
   activityName,
@@ -17,7 +17,7 @@ const TourCard = ({
     <div className="tw-mx-2 tw-my-4">
       <div className="tw-bg-white tw-shadow-card tw-rounded-lg tw-p-3">
         <div>
-          <img className="tw-rounded-lg" src={imgUrl} alt="" />
+          <img className="tw-rounded-lg" src={imgUrl} alt={activityName} />
         </div>
         <div className="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-mt-3 tw-text-secondary-color">
           <div>

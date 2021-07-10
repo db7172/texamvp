@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { defaultSettings } from "../../../utils/utils";
 import CheckBox from "../../form-component/CheckBox";
-import TourCard from "../../tour-card/TourCard";
+import TourCard from "../../card/tour-card/TourCard";
 import Title from "../title/Title";
 
 const ActivityCarousel = ({ setting, title, data }) => {
@@ -13,7 +13,7 @@ const ActivityCarousel = ({ setting, title, data }) => {
   const [singleday, setSingleday] = useState(true);
   const [hourly, setHourly] = useState(true);
   const [show, setShow] = useState(true);
-  const [activityData, setActivityData] = useState();
+  const [activityData, setActivityData] = useState([]);
 
   const settings = {
     ...defaultSettings,

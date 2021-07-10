@@ -4,7 +4,7 @@ import { IMAGE_GALLERY } from "../../constant/home.const";
 const ImageCard = ({ path, text }) => (
   <>
     <img
-      className="tw-h-auto tw-w-full lg:tw-h-full lg:tw-w-auto"
+      className="tw-h-auto tw-w-full lg:tw-h-full lg:tw-w-auto tw-rounded-xl"
       src={path}
       alt={text}
     />
