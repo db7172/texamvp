@@ -41,7 +41,7 @@ const ActivityCarousel = ({ setting, title, data }) => {
     <div>
       <div>
         <Title title={title} />
-        <div className="tw-mt-5 tw-flex">
+        <div className="tw-mt-5 tw-flex tw-flex-wrap">
           <div className="tw-mr-12">
             <CheckBox
               label="Multi Day Activity"

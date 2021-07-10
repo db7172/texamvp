@@ -14,7 +14,7 @@ const TourCard = ({
   price,
 }) => {
   return (
-    <div className="tw-m-4">
+    <div className="tw-mx-2 tw-my-4">
       <div className="tw-bg-white tw-shadow-card tw-rounded-lg tw-p-3">
         <div>
           <img className="tw-rounded-lg" src={imgUrl} alt="" />
@@ -50,7 +50,7 @@ const TourCard = ({
               </p>
               <p className="tw-text-xs">Per Person</p>
             </div>
-            <button className="tw-px-4 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+            <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
               View Details
             </button>
           </div>

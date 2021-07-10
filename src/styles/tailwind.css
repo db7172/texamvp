@@ -10,7 +10,7 @@
   }
 
   .tw-gh-tabs {
-    @apply tw-text-primary-color tw-font-medium tw-py-6 tw-px-14 tw-block tw-text-base focus:tw-outline-none;
+    @apply tw-text-primary-color tw-font-medium tw-py-4 md:tw-px-14 tw-px-4 tw-block tw-text-base focus:tw-outline-none;
   }
   .tw-gh-tabs.active {
     @apply tw-shadow-tab tw-rounded-xl tw-relative tw-bg-primary-color;

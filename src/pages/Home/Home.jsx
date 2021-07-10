@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/common/container/Container";
 import MainTitle from "../../components/mainTitle/MainTitle";
 import NavBar from "../../components/navBar/NavBar";
@@ -12,6 +12,7 @@ import { ACTIVITY } from "../../constant/dummyData";
 import Title from "../../components/common/title/Title";
 import { getActivityIcon } from "../../constant/activity-icon";
 import IconCard from "../../components/common/icon-card/IconCard";
+import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -62,7 +63,20 @@ const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 
 function Home() {
   const [activeTab, setActiveTab] = useState(1);
-  const [activityIcon] = useState(getActivityIcon(8));
+  const [activityIcon, setActivityIcon] = useState([]);
+  const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if (width >= 1440) {
+      setActivityIcon(getActivityIcon(8));
+    } else if (width < 1440 && width >= 1024) {
+      setActivityIcon(getActivityIcon(6));
+    } else if (width < 1024 && width >= 768) {
+      setActivityIcon(getActivityIcon(4));
+    } else {
+      setActivityIcon(getActivityIcon(3));
+    }
+  }, [width]);
 
   const handleClick = (activity, date) => {
     console.log({ activity, date });
@@ -73,10 +87,10 @@ function Home() {
     <div className="tw-mb-10">
       {/* <NavBar /> */}
       <Container>
-        <div className="tw-mt-28">
+        <div className="md:tw-mt-28 tw-mt-14">
           <MainTitle />
         </div>
-        <div className="tw-mt-24">
+        <div className="md:tw-mt-24 tw-mt-14">
           <div className={`${!(activeTab === 3) && "tw-max-w-4xl"} tw-mx-auto`}>
             <div className="tw-flex tw-justify-center">
               <nav className="tw-flex tw-flex-row tw-px-4">
@@ -140,27 +154,27 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="tw-mt-32">
+        <div className="md:tw-mt-32 tw-mt-14">
           <div className="tw-text-center">
-            <p className="tw-text-2xl tw-tracking-wider">
+            <p className="md:tw-text-2xl tw-text-lg tw-tracking-wider">
               Escape to your faviourite
             </p>
-            <h3 className="tracking-wider tw-font-bold tw-text-7xl">
+            <h3 className="tracking-wider tw-font-bold md:tw-text-7xl tw-text-5xl">
               Destination
             </h3>
           </div>
-          <div className="tw-mt-14">
+          <div className="md:tw-mt-14 tw-mt-11">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>
-        <div className="tw-mt-20">
+        <div className="md:tw-mt-20 tw-mt-14">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Popular Activities"
             data={ACTIVITY}
           />
         </div>
-        <div className="tw-mt-20">
+        <div className="md:tw-mt-20 tw-mt-14">
           <Title title="Browse Activities" />
           <div className="tw-flex tw-justify-between tw-mt-10">
             {activityIcon.map(({ icon, name }, i) => (
@@ -168,14 +182,14 @@ function Home() {
             ))}
           </div>
         </div>
-        <div className="tw-mt-20">
+        <div className="md:tw-mt-20 tw-mt-14">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Activity of the Month"
             data={ACTIVITY}
           />
         </div>
-        <div className="tw-mt-20">
+        <div className="md:tw-mt-20 tw-mt-14">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Best Activity of Maldives"
