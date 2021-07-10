@@ -13,6 +13,7 @@ import Title from "../../components/common/title/Title";
 import { getActivityIcon } from "../../constant/activity-icon";
 import IconCard from "../../components/common/icon-card/IconCard";
 import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
+import ImageGallery from "../../components/home-page-tabs/ImageGallery";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -195,6 +196,22 @@ function Home() {
             title="Best Activity of Maldives"
             data={ACTIVITY}
           />
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <div className="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-items-center">
+            <div className="lg:tw-w-2/4 tw-mb-10 lg:tw-mb-0">
+              <p className="xl:tw-text-4xl lg:tw-text-2xl tw-text-xl tw-pl-2 tw-tracking-wide ">
+                Find perfect{" "}
+                <span className="tw-inline-block tw-border-b-4 xl:tw-w-20 tw-w-10 tw-border-primary-yellow" />
+              </p>
+              <h4 className="xl:tw-text-8xl lg:tw-text-6xl tw-text-5xl tw-tracking-wide tw-font-bold">
+                Events
+              </h4>
+            </div>
+            <div>
+              <ImageGallery />
+            </div>
+          </div>
         </div>
       </Container>
     </div>
