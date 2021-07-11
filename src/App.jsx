@@ -1,10 +1,13 @@
-import Home from "./pages/Home/Home";
+import NavBar from "./components/navBar/NavBar";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRouter from "./pages/router/AppRouter";
 
 function App() {
   return (
-    <div>
-      <Home />
-    </div>
+    <Router>
+      <NavBar />
+      <AppRouter />
+    </Router>
   );
 }
 

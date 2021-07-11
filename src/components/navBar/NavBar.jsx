@@ -11,6 +11,7 @@ import {
   RETREAT_DESTINATION,
 } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
@@ -54,11 +55,17 @@ function NavBar() {
     setShowReterat(!showReterat);
   };
   return (
+    // <div ref={wrapperRef} className="tw-fixed tw-top-0 tw-right-0 tw-left-0 tw-z-9999">
+
     <div ref={wrapperRef}>
       <div className="tw-bg-white tw-shadow-nav-bar">
         <Container className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-primary-color">
           <div>
-            <h1 className="tw-font-bold tw-text-4xl">Texa Trove</h1>
+            <Link to="/">
+              <button>
+                <h1 className="tw-font-bold tw-text-4xl">Texa Trove</h1>
+              </button>
+            </Link>
           </div>
           <div>
             <ul className="tw-flex">

@@ -65,7 +65,9 @@ const Retreat = () => {
             label={upperCase("Number of People")}
             type="number"
             name="numberOfPeople"
+            min={1}
             value={numberOfPeople}
+            placeholder="Select No. of People"
             handleChange={(e) => setNumberOfPeople(e.target.value)}
           />
         </div>

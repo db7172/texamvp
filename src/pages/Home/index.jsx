@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/common/container/Container";
 import MainTitle from "../../components/mainTitle/MainTitle";
-import NavBar from "../../components/navBar/NavBar";
 import { TentIcon, HotelIcon, CalendarIcon } from "../../assets/svg/SVGIcon";
 import { SECONDARY_COLOR } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
@@ -89,9 +88,8 @@ function Home() {
 
   return (
     //TODO: remove mb-10 class once the page is created
-    <div className="tw-mb-10">
-      <NavBar />
-      <Container>
+    <Container>
+      <div className="tw-mb-10">
         <div className="md:tw-mt-28 tw-mt-14">
           <MainTitle />
         </div>
@@ -268,8 +266,8 @@ function Home() {
         <div className="md:tw-mt-20 tw-mt-14">
           <BlogCarousel />
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 }
 
