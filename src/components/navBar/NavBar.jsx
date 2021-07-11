@@ -121,7 +121,9 @@ function NavBar() {
                 <span>1800-1200-1400</span>
               </li>
               <li className="tw-mr-10">{upperCase("BLOG")}</li>
-              <li className="tw-mr-3">{upperCase("LOGIN")}</li>
+              <li className="tw-mr-3 tw-underline tw-cursor-pointer">
+                {upperCase("LOGIN")}
+              </li>
             </ul>
             <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
               {upperCase("GET STARTED")}
