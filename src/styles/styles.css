@@ -42,12 +42,12 @@ select {
 
 .left_qoute {
   position: absolute;
-  top: 6px;
-  left: -19px;
+  top: 4px;
+  left: -50px;
 }
 
 .right_qoute {
   position: absolute;
   bottom: 4px;
-  right: -15px;
+  right: -50px;
 }

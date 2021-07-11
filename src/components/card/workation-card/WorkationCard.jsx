@@ -20,12 +20,12 @@ export const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
               .map((_, i) => (
                 <img key={i} className="tw-w-3 tw-mr-1" src={star} alt="" />
               ))}
-            <p className="tw-text-black tw-ml-2">Hotel</p>
+            <p className="tw-text-primary-color tw-ml-2">Hotel</p>
           </div>
           <GreenBadge ratting={4.4} />
         </div>
-        <p className="tw-text-black tw-mt-1">Phuentsholing</p>
-        <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-black">
+        <p className="tw-text-primary-color tw-mt-1">Phuentsholing</p>
+        <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-primary-color">
           {name}
         </h3>
         <p className="tw-flex tw-my-3">
@@ -53,7 +53,7 @@ export const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
             Per Person
           </span>
         </p>
-        <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+        <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
           View Details
         </button>
       </div>

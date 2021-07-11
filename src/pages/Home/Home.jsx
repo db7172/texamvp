@@ -17,6 +17,7 @@ import ImageGallery from "../../components/home-page-tabs/ImageGallery";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -89,7 +90,7 @@ function Home() {
   return (
     //TODO: remove mb-10 class once the page is created
     <div className="tw-mb-10">
-      {/* <NavBar /> */}
+      <NavBar />
       <Container>
         <div className="md:tw-mt-28 tw-mt-14">
           <MainTitle />
@@ -263,6 +264,9 @@ function Home() {
               <Testimonials />
             </div>
           </div>
+        </div>
+        <div className="md:tw-mt-20 tw-mt-14">
+          <BlogCarousel />
         </div>
       </Container>
     </div>

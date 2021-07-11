@@ -8,6 +8,7 @@ import TestimonialCard from "../../card/testimonial-card/TestimonialCard";
 const Testimonials = () => {
   const settings = {
     ...defaultSettings,
+    responsive: [],
   };
   return (
     <Slider {...settings}>

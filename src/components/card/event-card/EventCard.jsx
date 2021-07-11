@@ -8,7 +8,7 @@ const EventCard = ({ name, datetime, type, price, imgUrl }) => {
         <img className="tw-rounded-lg" src={imgUrl} alt={name} />
       </div>
       <div className="tw-mt-5 tw-text-secondary-color">
-        <h4 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-black">
+        <h4 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-primary-color">
           {name}
         </h4>
         <p className="tw-font-medium tw-mt-2">{datetime}</p>
@@ -20,7 +20,7 @@ const EventCard = ({ name, datetime, type, price, imgUrl }) => {
               Onwards
             </span>
           </p>
-          <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+          <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
             View Details
           </button>
         </div>

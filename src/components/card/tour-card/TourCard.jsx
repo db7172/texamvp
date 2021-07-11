@@ -21,7 +21,7 @@ const TourCard = ({
         </div>
         <div className="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-mt-3 tw-text-secondary-color">
           <div>
-            <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-black">
+            <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-primary-color">
               {activityName}
             </h3>
             <p className="tw-font-medium tw-mb-2">{duration}</p>
@@ -50,7 +50,7 @@ const TourCard = ({
               </p>
               <p className="tw-text-xs">Per Person</p>
             </div>
-            <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+            <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
               View Details
             </button>
           </div>

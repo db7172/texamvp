@@ -12,7 +12,7 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
       <div className="tw-border-b tw-border-gray-200">
         <div className="tw-mt-5 tw-text-secondary-color">
           <div className="tw-flex ">
-            <h4 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-black">
+            <h4 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-primary-color">
               {name}
             </h4>
             <div className="tw-min-w-max tw-ml-3 tw-mt-1">
@@ -35,7 +35,7 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
             Per Person
           </span>
         </p>
-        <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-black tw-text-xs tw-font-medium">
+        <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
           View Details
         </button>
       </div>

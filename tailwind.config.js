@@ -1,6 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 const primaryBackground = "#FCFCFC";
+const gray = "#F5F5F5";
 const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
 const secondaryText = "#939393";
@@ -28,6 +29,7 @@ module.exports = {
         "primary-color": primaryBackground,
         "secondary-color": yellow,
         "green-background": green,
+        "gray-background": gray,
       },
       borderColor: {
         "primary-yellow": yellow,

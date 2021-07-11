@@ -56,7 +56,7 @@ function NavBar() {
   return (
     <div ref={wrapperRef}>
       <div className="tw-bg-white tw-shadow-nav-bar">
-        <Container className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-black">
+        <Container className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-primary-color">
           <div>
             <h1 className="tw-font-bold tw-text-4xl">Texa Trove</h1>
           </div>

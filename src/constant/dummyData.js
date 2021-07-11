@@ -5,6 +5,11 @@ import event from "../assets/png/event.png";
 import retreat from "../assets/png/retreat.png";
 import workation from "../assets/png/workation.png";
 
+//blogs
+import blog1 from "../assets/png/blog1.png";
+import blog2 from "../assets/png/blog2.png";
+import blog3 from "../assets/png/blog3.png";
+
 export const ACTIVITY = [
   {
     activityName: "Soothing Bhutan Tour Package",
@@ -296,5 +301,53 @@ export const TESTIMONIALS = [
     name: "Robert Fox",
     msg: "Neha shares her epic Bali experience with us. She elaborates on her romantic beach walks with her husband, their underwater adventures, shopping & a host of things that made their honeymoon a success.",
     rating: 5,
+  },
+];
+
+export const BLOGS = [
+  {
+    imgUrl: blog1,
+    title: "5 Shady Retro Bars In India That Are Home To All Things Illegal",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog2,
+    title: "A Life Long Travel Spot Of Many Bollywood Celebrities!",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog3,
+    title: "Place Your Must See Before Your Die",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog1,
+    title: "5 Shady Retro Bars In India That Are Home To All Things Illegal",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog2,
+    title: "A Life Long Travel Spot Of Many Bollywood Celebrities!",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog3,
+    title: "Place Your Must See Before Your Die",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog1,
+    title: "5 Shady Retro Bars In India That Are Home To All Things Illegal",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog2,
+    title: "A Life Long Travel Spot Of Many Bollywood Celebrities!",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
+  },
+  {
+    imgUrl: blog3,
+    title: "Place Your Must See Before Your Die",
+    tags: ["india", "mumbai", "bhutan", "bali", "paro"],
   },
 ];
