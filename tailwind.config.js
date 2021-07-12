@@ -6,6 +6,7 @@ const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
 const secondaryText = "#939393";
 const green = "#00B112";
+const lightGray = "#C4C4C4";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -33,6 +34,7 @@ module.exports = {
       },
       borderColor: {
         "primary-yellow": yellow,
+        "gray-color": lightGray,
       },
       textColor: {
         "primary-color": primaryText,

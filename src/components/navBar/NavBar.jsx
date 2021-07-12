@@ -12,11 +12,13 @@ import {
 } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
+import { LoginModal } from "../modals/login-modal/LoginModal";
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
   const [showReterat, setShowReterat] = useState(false);
   const [navData, setNavData] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
@@ -121,14 +123,26 @@ function NavBar() {
                 <span>1800-1200-1400</span>
               </li>
               <li className="tw-mr-10">{upperCase("BLOG")}</li>
-              <li className="tw-mr-3 tw-underline tw-cursor-pointer">
-                {upperCase("LOGIN")}
+              <li className="tw-mr-3">
+                <button
+                  className="tw-underline"
+                  onClick={() => setShowModal(true)}
+                >
+                  {upperCase("LOGIN")}
+                </button>
               </li>
             </ul>
             <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
               {upperCase("GET STARTED")}
             </button>
           </div>
+
+          {showModal && (
+            <LoginModal
+              onCancel={() => setShowModal(!showModal)}
+              onSave={() => console.log("Saved!")}
+            />
+          )}
         </Container>
       </div>
       <Container className="tw-relative">
