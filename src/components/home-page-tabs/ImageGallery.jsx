@@ -1,5 +1,5 @@
 import React from "react";
-import { IMAGE_GALLERY } from "../../constant/home.const";
+import { IMAGE_GALLERY } from "../../constant/imageConst";
 
 const ImageCard = ({ path, text }) => (
   <>

@@ -11,6 +11,9 @@ import workshop from "../assets/png/image-gallery/work_space.png";
 import game from "../assets/png/image-gallery/game.png";
 import food from "../assets/png/image-gallery/food.png";
 
+// destination
+import destination from "../assets/png/destination.png";
+
 export const DESTINATION_IMG = {
   MUMBAI: mumbai,
   AGRA: agra,
@@ -27,3 +30,5 @@ export const IMAGE_GALLERY = {
   GAME: game,
   FOOD: food,
 };
+
+export const DESTINATION_IMAGE = destination;

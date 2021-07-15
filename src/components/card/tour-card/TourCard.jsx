@@ -1,6 +1,6 @@
 import React from "react";
-import star from "../../../assets/svg/star.svg";
 import { indCurrency } from "../../../utils/utils";
+import RattingReview from "../../common/ratting/RattingReview";
 
 const TourCard = ({
   activityName,
@@ -15,7 +15,7 @@ const TourCard = ({
 }) => {
   return (
     <div className="tw-mx-2 tw-my-4">
-      <div className="tw-bg-white tw-shadow-card tw-rounded-lg tw-p-3">
+      <div className="tw-bg-white tw-shadow-md tw-rounded-lg tw-p-3">
         <div>
           <img className="tw-rounded-lg" src={imgUrl} alt={activityName} />
         </div>
@@ -25,16 +25,7 @@ const TourCard = ({
               {activityName}
             </h3>
             <p className="tw-font-medium tw-mb-2">{duration}</p>
-            <div className="tw-flex tw-mb-1">
-              <div className="tw-flex">
-                {Array(rating)
-                  .fill(null)
-                  .map((_, i) => (
-                    <img key={i} className="tw-w-3 tw-mr-1" src={star} alt="" />
-                  ))}
-              </div>
-              <p>( {review} )</p>
-            </div>
+            <RattingReview ratting={rating} review={review} />
             <p className="tw-mb-1">Cities: {cities}</p>
             <p className="tw-mb-1">
               Offered by{" "}

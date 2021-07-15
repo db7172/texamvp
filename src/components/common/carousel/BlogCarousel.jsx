@@ -5,14 +5,14 @@ import { defaultSettings } from "../../../utils/utils";
 import BlogCard from "../../card/blog-card/BlogCard";
 import Title from "../title/Title";
 
-const BlogCarousel = () => {
+const BlogCarousel = ({ title }) => {
   const settings = {
     ...defaultSettings,
     slidesToShow: 3,
   };
   return (
     <div>
-      <Title title="Binge worthy blogs by members" />
+      <Title title={title} />
       <div className="tw-mt-16">
         <Slider {...settings}>
           {BLOGS.map((d, i) => (

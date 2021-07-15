@@ -264,7 +264,7 @@ function Home() {
           </div>
         </div>
         <div className="md:tw-mt-20 tw-mt-14">
-          <BlogCarousel />
+          <BlogCarousel title="Binge worthy blogs by members" />
         </div>
       </div>
     </Container>
