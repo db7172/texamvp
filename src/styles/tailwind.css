@@ -37,7 +37,7 @@
   }
 
   .tw-form-input {
-    @apply tw-w-full tw-text-secondary-color tw-border-2 tw-border-gray-color tw-rounded-xl  tw-px-8 tw-py-4 tw-font-medium;
+    @apply tw-w-full tw-bg-white tw-text-secondary-color tw-border-2 tw-border-gray-color tw-rounded-xl  tw-px-8 tw-py-4 tw-font-medium focus:tw-outline-none;
   }
 
   .link-title {

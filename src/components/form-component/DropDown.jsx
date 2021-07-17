@@ -17,7 +17,7 @@ const DropDown = ({
       </label>
 
       <select
-        className="tw-form-input"
+        className="tw-form-input arrowGray"
         id={name}
         name={name}
         value={initialValue}

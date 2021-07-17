@@ -8,7 +8,7 @@ import CheckBox from "../../form-component/CheckBox";
 import TourCard from "../../card/tour-card/TourCard";
 import Title from "../title/Title";
 
-const ActivityCarousel = ({ setting, title, data }) => {
+const ActivityCarousel = ({ setting, title, data, path }) => {
   const [multiday, setMultiday] = useState(true);
   const [singleday, setSingleday] = useState(true);
   const [hourly, setHourly] = useState(true);
@@ -40,7 +40,7 @@ const ActivityCarousel = ({ setting, title, data }) => {
   return (
     <div>
       <div>
-        <Title title={title} />
+        <Title title={title} path={path || "#"} />
         <div className="tw-mt-5 tw-flex tw-flex-wrap">
           <div className="tw-mr-12">
             <CheckBox
