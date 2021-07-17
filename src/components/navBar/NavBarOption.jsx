@@ -1,7 +1,15 @@
 import React from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
-function NavBarOption({ isShow = false, data }) {
-  const { title, options = [] } = data;
+function NavBarOption({ isShow = false, data, toggleNavBar }) {
+  const { path, data: pageInfo } = data;
+  const { title, options } = pageInfo;
+  let { url } = useRouteMatch();
+
+  const handleLinkClick = (label) => {
+    console.log(`${url}${path}/${label}`);
+    toggleNavBar();
+  };
   return (
     <div className={`${isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
@@ -11,8 +19,12 @@ function NavBarOption({ isShow = false, data }) {
         {options.map((option, index) => (
           <ul key={index} className="tw-mr-24">
             {option.map((label, i) => (
-              <li key={i} className="tw-p-1 tw-cursor-pointer">
-                {label}
+              <li
+                key={i}
+                className="tw-p-1 tw-cursor-pointer"
+                onClick={() => handleLinkClick(label)}
+              >
+                <Link to={`${url}${path}/${label}`}>{label}</Link>
               </li>
             ))}
             {options.length - 1 === index && (

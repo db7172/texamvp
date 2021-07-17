@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { startCase } from "lodash";
+import { isEmpty, startCase, uniq } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ActivityCard from "../../components/activity-page/ActivityCard";
@@ -11,7 +11,6 @@ import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
-import { uniq } from "lodash";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 
 const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
@@ -58,21 +57,38 @@ const Activity = () => {
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
+  const coverTitle = `${activityType}${
+    isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
+  }`;
+
   useEffect(() => {
-    setSlashedTableName([
-      {
-        name: "Home",
-        url: "/",
-      },
-      {
-        name: ACTIVITY_TYPE,
-        url: "/",
-      },
-      {
-        name: DESTINATION_NAME,
-        url: "",
-      },
-    ]);
+    if (isEmpty(DESTINATION_NAME)) {
+      setSlashedTableName([
+        {
+          name: "Home",
+          url: "/",
+        },
+        {
+          name: ACTIVITY_TYPE,
+          url: "",
+        },
+      ]);
+    } else {
+      setSlashedTableName([
+        {
+          name: "Home",
+          url: "/",
+        },
+        {
+          name: ACTIVITY_TYPE,
+          url: `/activity/${ACTIVITY_TYPE}`,
+        },
+        {
+          name: DESTINATION_NAME,
+          url: "",
+        },
+      ]);
+    }
 
     const unq = uniq(option);
     const unqLevel = uniq(ACTIVITY_LEVEL);
@@ -89,7 +105,7 @@ const Activity = () => {
       level: formatActiveButton(unqLevel),
       categories: formatActiveButton(unqCategories),
     });
-  }, []);
+  }, [DESTINATION_NAME, ACTIVITY_TYPE]);
 
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
@@ -125,18 +141,18 @@ const Activity = () => {
   return (
     <ExploreMoreWrapper
       coverImage={DESTINATION_IMAGE}
-      coverTitle={`${activityType} in ${destinationName}`}
+      coverTitle={coverTitle}
       coverDescription="Go on a trekking trip to the man-made heaven"
       ratting={5}
       review="1970 reviews"
       startingPrice={16949}
-      destinationName={DESTINATION_NAME}
+      destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
       <div className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">
-        <PageHeader title={destinationName} />
+        <PageHeader title={coverTitle} />
       </div>
       <div className="tw-mt-9 tw-grid tw-grid-cols-4 tw-gap-3">
         {/* filter part */}
@@ -187,7 +203,11 @@ const Activity = () => {
         <div className="tw-col-span-3">
           <div className="tw-flex tw-justify-between tw-items-center">
             <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
-              {startCase(`${activityType} in ${destinationName}`)}
+              {startCase(
+                `${activityType} ${
+                  destinationName ? `in ${destinationName}` : ""
+                }`
+              )}
             </h1>
             <div className="tw-flex">
               <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-md tw-items-center">

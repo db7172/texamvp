@@ -14,10 +14,15 @@ import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { LoginModal } from "../modals/login-modal/LoginModal";
 
+const default_Options = {
+  data: { title: "", options: [] },
+  path: "",
+};
+
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
   const [showReterat, setShowReterat] = useState(false);
-  const [navData, setNavData] = useState({});
+  const [navData, setNavData] = useState(default_Options);
   const [showModal, setShowModal] = useState(false);
 
   const wrapperRef = useRef(null);
@@ -42,9 +47,9 @@ function NavBar() {
 
   const handleShow = (data) => {
     setShowReterat(false);
-    if (data.title === navData.title) {
+    if (data.data.title === navData.data.title) {
       setIsShow(false);
-      setNavData({});
+      setNavData(default_Options);
     } else {
       setIsShow(true);
       setNavData(data);
@@ -53,8 +58,13 @@ function NavBar() {
 
   const handleShowReterat = () => {
     setIsShow(false);
-    setNavData({});
+    setNavData(default_Options);
     setShowReterat(!showReterat);
+  };
+
+  const handleLinkClick = () => {
+    setIsShow(false);
+    setShowReterat(false);
   };
   return (
     // <div ref={wrapperRef} className="tw-fixed tw-top-0 tw-right-0 tw-left-0 tw-z-9999">
@@ -74,7 +84,9 @@ function NavBar() {
               <li>
                 <button
                   className="tw-mr-8 tw-flex tw-items-center"
-                  onClick={() => handleShow(ACTIVITY_DATA)}
+                  onClick={() =>
+                    handleShow({ data: ACTIVITY_DATA, path: "activity" })
+                  }
                 >
                   <span className="tw-mr-2">{upperCase("Activity Type")}</span>
                   <span className="tw-pt-1">
@@ -85,7 +97,9 @@ function NavBar() {
               <li>
                 <button
                   className="tw-mr-8 tw-flex tw-items-center"
-                  onClick={() => handleShow(EVENT_DATA)}
+                  onClick={() =>
+                    handleShow({ data: EVENT_DATA, path: "event" })
+                  }
                 >
                   <span className="tw-mr-2">{upperCase("Event Type")}</span>
                   <span className="tw-pt-1">
@@ -125,16 +139,16 @@ function NavBar() {
               <li className="tw-mr-10">{upperCase("BLOG")}</li>
               <li className="tw-mr-3">
                 <button
-                  className="tw-underline"
+                  className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
                   onClick={() => setShowModal(true)}
                 >
                   {upperCase("LOGIN")}
                 </button>
               </li>
             </ul>
-            <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
+            {/* <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
               {upperCase("GET STARTED")}
-            </button>
+            </button> */}
           </div>
 
           {showModal && (
@@ -146,25 +160,37 @@ function NavBar() {
         </Container>
       </div>
       <Container className="tw-relative">
-        <div className="tw-z-10 tw-w-full tw-absolute tw-bg-primary-color">
+        <div className="tw-z-9999 tw-w-full tw-absolute tw-bg-primary-color">
           {showReterat ? (
             <div className="tw-flex tw-justify-evenly tw-items-center">
               <div className="">
                 <NavBarOption
+                  toggleNavBar={handleLinkClick}
                   isShow={showReterat}
-                  data={RETREAT_DESTINATION.workcation}
+                  data={{
+                    data: RETREAT_DESTINATION.workcation,
+                    path: "destination",
+                  }}
                 />
               </div>
               <div className="tw-min-h-32 tw-border-r-2" />
               <div className="tw-pl-24">
                 <NavBarOption
+                  toggleNavBar={handleLinkClick}
                   isShow={showReterat}
-                  data={RETREAT_DESTINATION.reterat}
+                  data={{
+                    data: RETREAT_DESTINATION.reterat,
+                    path: "destination",
+                  }}
                 />
               </div>
             </div>
           ) : (
-            <NavBarOption isShow={isShow} data={navData} />
+            <NavBarOption
+              toggleNavBar={handleLinkClick}
+              isShow={isShow}
+              data={navData}
+            />
           )}
         </div>
       </Container>

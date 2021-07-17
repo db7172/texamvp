@@ -28,11 +28,19 @@ const ExploreMoreWrapper = ({
       </div>
       {children}
       <div className="md:tw-mt-20 tw-mt-14">
-        <BlogCarousel title={`Things to do in ${destinationName}`} />
+        <BlogCarousel
+          title={`Things to do ${
+            destinationName ? `in ${destinationName}` : ""
+          }`}
+        />
       </div>
 
       <div className="md:tw-mt-20 tw-mt-14">
-        <BlogCarousel title={`Places to visit in ${destinationName}`} />
+        <BlogCarousel
+          title={`Places to visit ${
+            destinationName ? `in ${destinationName}` : ""
+          }`}
+        />
       </div>
 
       <div className="md:tw-mt-20 tw-mt-14">

@@ -54,7 +54,7 @@ const ActivityCard = ({
               <span className="tw-text-secondary-color">Activity By : </span>
               <span>{activityBy}</span>
             </p>
-            <p className="tw-font-medium tw-mt-3 tw-flex  tw-items-center">
+            <div className="tw-font-medium tw-mt-3 tw-flex  tw-items-center">
               <span className="tw-text-secondary-color tw-mr-3">
                 Includes :{" "}
               </span>
@@ -69,7 +69,7 @@ const ActivityCard = ({
                   <img className="tw-w-full h-auto" src={camera} alt="" />
                 </div>
               </span>
-            </p>
+            </div>
           </div>
           <div className="tw-w-5/12 tw-flex tw-flex-col tw-justify-end tw-pl-5">
             <div>

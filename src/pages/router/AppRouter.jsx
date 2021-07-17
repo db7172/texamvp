@@ -12,6 +12,7 @@ const AppRouter = () => {
       <Route exact component={NotFound} path={ROUTES.NOT_FOUND} />
       <Route exact component={Home} path={ROUTES.HOME} />
       <Route component={DestinationPage} path={ROUTES.DESTINATION} />
+      <Route exact component={Activity} path={ROUTES.ACTIVITY_IN_CITY} />
       <Route component={Activity} path={ROUTES.ACTIVITY} />
       <Redirect to={ROUTES.NOT_FOUND} />
     </Switch>

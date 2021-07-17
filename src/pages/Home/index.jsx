@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import Container from "../../components/common/container/Container";
 import MainTitle from "../../components/mainTitle/MainTitle";
 import { TentIcon, HotelIcon, CalendarIcon } from "../../assets/svg/SVGIcon";
-import { SECONDARY_COLOR } from "../../constant/comman.const";
+import {
+  getActivityPagePath,
+  SECONDARY_COLOR,
+} from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
@@ -175,6 +178,7 @@ function Home() {
             setting={{ slidesToShow: 3 }}
             title="Popular Activities"
             data={ACTIVITY}
+            path={getActivityPagePath("Popular Activities")}
           />
         </div>
         <div className="md:tw-mt-20 tw-mt-14">
