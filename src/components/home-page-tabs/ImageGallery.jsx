@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { getEventPagePath } from "../../constant/comman.const";
 import { IMAGE_GALLERY } from "../../constant/imageConst";
 
 const ImageCard = ({ path, text }) => (
@@ -20,25 +22,39 @@ const ImageGallery = () => {
   return (
     <div className="tw-grid tw-grid-cols-3 tw-gap-5">
       <div className="tw-row-span-2 tw-relative">
-        <ImageCard path={IMAGE_GALLERY.COMEDY} text="Comedy" />
+        <Link to={getEventPagePath("Comedy")}>
+          <ImageCard path={IMAGE_GALLERY.COMEDY} text="Comedy" />
+        </Link>
       </div>
       <div className="tw-relative">
-        <ImageCard path={IMAGE_GALLERY.COURSE} text="Online Course" />
+        <Link to={getEventPagePath("Online Course")}>
+          <ImageCard path={IMAGE_GALLERY.COURSE} text="Online Course" />
+        </Link>
       </div>
       <div className="tw-relative">
-        <ImageCard path={IMAGE_GALLERY.GAME} text="Game" />
+        <Link to={getEventPagePath("Game")}>
+          <ImageCard path={IMAGE_GALLERY.GAME} text="Game" />
+        </Link>
       </div>
       <div className="tw-relative">
-        <ImageCard path={IMAGE_GALLERY.DANCE} text="Dance" />
+        <Link to={getEventPagePath("Dance")}>
+          <ImageCard path={IMAGE_GALLERY.DANCE} text="Dance" />
+        </Link>
       </div>
       <div className="tw-row-span-2 tw-relative">
-        <ImageCard path={IMAGE_GALLERY.FOOD} text="Food" />
+        <Link to={getEventPagePath("Food")}>
+          <ImageCard path={IMAGE_GALLERY.FOOD} text="Food" />
+        </Link>
       </div>
       <div className="tw-relative">
-        <ImageCard path={IMAGE_GALLERY.MUSIC} text="Music" />
+        <Link to={getEventPagePath("Music")}>
+          <ImageCard path={IMAGE_GALLERY.MUSIC} text="Music" />
+        </Link>
       </div>
       <div className="tw-relative">
-        <ImageCard path={IMAGE_GALLERY.WORKSHOP} text="Workshop" />
+        <Link to={getEventPagePath("Workshop")}>
+          <ImageCard path={IMAGE_GALLERY.WORKSHOP} text="Workshop" />
+        </Link>
       </div>
     </div>
   );

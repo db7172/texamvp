@@ -1,57 +1,48 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { isEmpty, startCase, uniq } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ActivityCard from "../../components/activity-page/ActivityCard";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { POPULAR_ACTIVITY } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
+import { EVENT } from "../../constant/dummyData";
+import EventPageCard from "../../components/event-page/EventPageCard";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
 
-const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
+// dummy data
+
+const option = ["All", "Toaday", "Tommorrow", "Weekend"];
 const MIN = 10000,
   MAX = 80000;
 const INITIAL_RANGE = [MIN, MAX];
-const ACTIVITY_LEVEL = [
-  "Easy",
-  "Moderate",
-  "Difficult",
-  "Pro",
-  "Difficult",
-  "Pro",
+const EVENT_TYPES = [
+  "Music",
+  "Food",
+  "Comedy",
+  "Dance",
+  "Workshop",
+  "Courses",
+  "Games",
 ];
-const CATEGORIES = [
-  "Adventure",
-  "Trekking",
-  "Rentals",
-  "Local Experiences",
-  "Water Sports",
-  "Outdoors",
-  "Theme Park",
-  "Resorts",
-  "Events",
-  "Activity",
-];
+const CATEGORIES = ["Online", "Offline"];
 
-const Activity = () => {
-  const { destinationName, activityType } = useParams();
+const EventPage = () => {
+  const { destinationName, eventType } = useParams();
   const DESTINATION_NAME = startCase(destinationName);
-  const ACTIVITY_TYPE = startCase(activityType);
+  const EVENT_TYPE = startCase(eventType);
   const [slashedTableName, setSlashedTableName] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [activeDuration, setActiveDuration] = useState({});
-  const [activeLevel, setActiveLevel] = useState({});
-  const [activeCategories, setActiveCategorie] = useState({});
+  const [eventDuration, setEventDuration] = useState({});
+  const [eventTypes, setEventTypes] = useState({});
+  const [eventCategories, setEventCategorie] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
-  const coverTitle = `${activityType}${
+  const coverTitle = `${eventType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
   }`;
 
@@ -63,7 +54,7 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: ACTIVITY_TYPE,
+          name: EVENT_TYPE,
           url: "",
         },
       ]);
@@ -74,8 +65,8 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: ACTIVITY_TYPE,
-          url: `/activity/${ACTIVITY_TYPE}`,
+          name: EVENT_TYPE,
+          url: `/event/${EVENT_TYPE}`,
         },
         {
           name: DESTINATION_NAME,
@@ -85,51 +76,50 @@ const Activity = () => {
     }
 
     const unq = uniq(option);
-    const unqLevel = uniq(ACTIVITY_LEVEL);
+    const unqTypes = uniq(EVENT_TYPES);
     const unqCategories = uniq(CATEGORIES);
 
-    setActiveDuration(formatActiveButton(unq));
-    setActiveLevel(formatActiveButton(unqLevel));
-    setActiveCategorie(formatActiveButton(unqCategories));
-
+    setEventDuration(formatActiveButton(unq));
+    setEventTypes(formatActiveButton(unqTypes));
+    setEventCategorie(formatActiveButton(unqCategories));
     setResetValue({
       ...resetValue,
       duration: formatActiveButton(unq),
       priceRange: INITIAL_RANGE,
-      level: formatActiveButton(unqLevel),
+      types: formatActiveButton(unqTypes),
       categories: formatActiveButton(unqCategories),
     });
-  }, [DESTINATION_NAME, ACTIVITY_TYPE]);
+  }, [DESTINATION_NAME, EVENT_TYPE]);
 
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
-  const handleDurationClick = (e) => {
-    const name = e.target.name;
-    setActiveDuration((pre) => ({ ...pre, [name]: !pre[name] }));
+  const handleReset = () => {
+    setEventDuration(resetValue.duration);
+    setEventTypes(resetValue.types);
+    setEventCategorie(resetValue.categories);
+    setPriceRange(resetValue.priceRange);
   };
 
-  const handleLevelClick = (e) => {
+  const handleDurationClick = (e) => {
     const name = e.target.name;
-    setActiveLevel((pre) => ({ ...pre, [name]: !pre[name] }));
+    setEventDuration((pre) => ({ ...pre, [name]: !pre[name] }));
+  };
+
+  const handleTypesClick = (e) => {
+    const name = e.target.name;
+    setEventTypes((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleCategoriesClick = (e) => {
     const name = e.target.name;
-    setActiveCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
+    setEventCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
-  };
-
-  const handleReset = () => {
-    setActiveDuration(resetValue.duration);
-    setActiveLevel(resetValue.level);
-    setActiveCategorie(resetValue.categories);
-    setPriceRange(resetValue.priceRange);
   };
 
   return (
@@ -164,7 +154,7 @@ const Activity = () => {
             <div className="tw-py-7 tw-border-b">
               <ButtonGroup
                 title="Duration ( in Days )"
-                option={activeDuration}
+                option={eventDuration}
                 handleClick={handleDurationClick}
               />
             </div>
@@ -177,18 +167,18 @@ const Activity = () => {
                 handleClick={handleRangeChange}
               />
             </div>
-            <div className="tw-py-7 tw-border-b">
-              <ButtonGroup
-                title="Activity Level"
-                option={activeLevel}
-                handleClick={handleLevelClick}
-              />
-            </div>
             <div className="tw-py-7">
               <ButtonGroup
                 title="Categories"
-                option={activeCategories}
+                option={eventCategories}
                 handleClick={handleCategoriesClick}
+              />
+            </div>
+            <div className="tw-py-7 tw-border-b">
+              <ButtonGroup
+                title="Activity Level"
+                option={eventTypes}
+                handleClick={handleTypesClick}
               />
             </div>
           </div>
@@ -198,9 +188,7 @@ const Activity = () => {
           <div className="tw-flex tw-justify-between tw-items-center">
             <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
               {startCase(
-                `${activityType} ${
-                  destinationName ? `in ${destinationName}` : ""
-                }`
+                `${eventType} ${destinationName ? `in ${destinationName}` : ""}`
               )}
             </h1>
             <div className="tw-flex">
@@ -226,8 +214,8 @@ const Activity = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {POPULAR_ACTIVITY.map((d, i) => (
-                <ActivityCard {...d} key={i} />
+              {EVENT.map((d, i) => (
+                <EventPageCard {...d} key={i} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">
@@ -245,4 +233,4 @@ const Activity = () => {
   );
 };
 
-export default Activity;
+export default EventPage;

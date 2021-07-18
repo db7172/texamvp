@@ -74,3 +74,11 @@ export const indCurrency = (amount) => {
 
   return rupeeIndian.format(amount) + "/-";
 };
+
+// initial state for filters
+export const formatActiveButton = (arr) => {
+  return arr.reduce((pre, value) => {
+    pre[value] = false;
+    return pre;
+  }, {});
+};

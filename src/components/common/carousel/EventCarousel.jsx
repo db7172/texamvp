@@ -6,7 +6,7 @@ import RetreatCard from "../../card/retreat-card/RetreatCard";
 import CheckBox from "../../form-component/CheckBox";
 import Title from "../title/Title";
 
-const EventCarousel = ({ title, setting, data, event }) => {
+const EventCarousel = ({ title, setting, data, event, path }) => {
   const [online, setOnline] = useState(true);
   const [offline, setOffline] = useState(true);
   const [show, setShow] = useState(true);
@@ -35,7 +35,7 @@ const EventCarousel = ({ title, setting, data, event }) => {
   return (
     <>
       <div>
-        <Title title={title} />
+        <Title title={title} path={path || "#"} />
         <div className="tw-mt-5 tw-flex tw-flex-wrap">
           <div className="tw-mr-12">
             <CheckBox

@@ -7,7 +7,10 @@ import WorkationCarousel from "../../components/common/carousel/WorkationCarouse
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { getActivityPageWithCityPath } from "../../constant/comman.const";
+import {
+  getActivityPageWithCityPath,
+  getEventPageWithCityPath,
+} from "../../constant/comman.const";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 
@@ -62,6 +65,7 @@ const DestinationPage = () => {
           data={EVENT}
           setting={{ slidesToShow: 3 }}
           event
+          path={getEventPageWithCityPath("popular events", destinationName)}
         />
       </div>
       <div className="md:tw-mt-20 tw-mt-14">

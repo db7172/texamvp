@@ -18,7 +18,7 @@ const ActivityCard = ({
 }) => {
   return (
     <div className="tw-mx-2 tw-my-5">
-      <div className="tw-bg-white tw-shadow-md tw-border tw-rounded-lg tw-p-5 tw-grid tw-grid-cols-2 tw-gap-3">
+      <div className="tw-bg-white tw-shadow-md tw-border tw-rounded-lg tw-p-3 tw-grid tw-grid-cols-2 tw-gap-3">
         <div className="tw-flex tw-justify-center tw-items-center">
           <img
             src={imgUrl}

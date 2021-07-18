@@ -2,6 +2,10 @@
   --yellow-color: rgba(255, 238, 88);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 1;
   display: block;

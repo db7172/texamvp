@@ -4,6 +4,8 @@ import MainTitle from "../../components/mainTitle/MainTitle";
 import { TentIcon, HotelIcon, CalendarIcon } from "../../assets/svg/SVGIcon";
 import {
   getActivityPagePath,
+  getActivityPageWithCityPath,
+  getEventPagePath,
   SECONDARY_COLOR,
 } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
@@ -194,6 +196,7 @@ function Home() {
             setting={{ slidesToShow: 3 }}
             title="Activity of the Month"
             data={ACTIVITY}
+            path={getActivityPagePath("Activity of the Month")}
           />
         </div>
         <div className="md:tw-mt-20 tw-mt-14">
@@ -201,6 +204,7 @@ function Home() {
             setting={{ slidesToShow: 3 }}
             title="Best Activity of Maldives"
             data={ACTIVITY}
+            path={getActivityPageWithCityPath("Best Activity", "Maldives")}
           />
         </div>
         <div className="md:tw-mt-20 tw-mt-14">
@@ -224,6 +228,7 @@ function Home() {
             title="Popular Events"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
+            path={getEventPagePath("Popular Events")}
             event
           />
         </div>
@@ -232,6 +237,7 @@ function Home() {
             title="Worshop"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
+            path={getEventPagePath("Worshop")}
             event
           />
         </div>
@@ -240,6 +246,7 @@ function Home() {
             title="Music"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
+            path={getEventPagePath("Music")}
             event
           />
         </div>
