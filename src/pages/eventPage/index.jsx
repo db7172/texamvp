@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { isEmpty, startCase, uniq } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
