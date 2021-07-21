@@ -1,10 +1,10 @@
 import React from "react";
 import Slider from "react-slick";
 import { defaultSettings } from "../../../utils/utils";
-import { WorkationCard } from "../../card/workation-card/WorkationCard";
+import WorkationCard from "../../card/workation-card/WorkationCard";
 import Title from "../title/Title";
 
-const WorkationCarousel = ({ title, data, setting }) => {
+const WorkationCarousel = ({ title, data, setting, path }) => {
   const settings = {
     ...defaultSettings,
     ...setting,
@@ -12,7 +12,7 @@ const WorkationCarousel = ({ title, data, setting }) => {
 
   return (
     <div>
-      <Title title={title} />
+      <Title title={title} path={path} />
       <div className="tw-mt-7">
         {Boolean(data.length) ? (
           <Slider {...settings}>

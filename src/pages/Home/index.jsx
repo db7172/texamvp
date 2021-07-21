@@ -6,6 +6,8 @@ import {
   getActivityPagePath,
   getActivityPageWithCityPath,
   getEventPagePath,
+  getRetreatPagePath,
+  getWorkationPagePath,
   SECONDARY_COLOR,
 } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
@@ -255,6 +257,7 @@ function Home() {
             title="Popular Retreat"
             data={RETREAT}
             setting={{ slidesToShow: 3 }}
+            path={getRetreatPagePath("Popular Retreat")}
           />
         </div>
         <div className="md:tw-mt-20 tw-mt-14">
@@ -262,6 +265,7 @@ function Home() {
             title="Popular Workation"
             data={WORKATION}
             setting={{ slidesToShow: 3 }}
+            path={getWorkationPagePath("Popular Workation")}
           />
         </div>
         <div className="md:tw-mt-20 tw-mt-14">

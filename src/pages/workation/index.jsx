@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { isEmpty, startCase, uniq } from "lodash";
+import { isEmpty, startCase } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
@@ -8,42 +8,56 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
-import { EVENT } from "../../constant/dummyData";
-import EventPageCard from "../../components/event-page/EventPageCard";
-import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
+import { WORKATION } from "../../constant/dummyData";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
+import WorkationPageCard from "../../components/workation-page/WorkationPageCard";
+import RadioButton from "../../components/form-component/filters/RadioButton";
+import HotelStarFilter from "../../components/form-component/filters/HotelStar";
+import RattingFilter from "../../components/form-component/filters/RattingFilter";
 
 // dummy data
-
-const option = ["All", "Toaday", "Tommorrow", "Weekend"];
 const MIN = 10000,
   MAX = 80000;
 const INITIAL_RANGE = [MIN, MAX];
-const EVENT_TYPES = [
-  "Music",
-  "Food",
-  "Comedy",
-  "Dance",
-  "Workshop",
-  "Courses",
-  "Games",
+const ACCOMODATION = [
+  "Apartment",
+  "Villa",
+  "Hotel",
+  "Homestay",
+  "Resort",
+  "Test 1",
+  "Test 2",
+  "Test 3",
 ];
-const CATEGORIES = ["Online", "Offline"];
 
-const EventPage = () => {
-  const { destinationName, eventType } = useParams();
+const hotel = ["1", "2", "3", "4", "5"];
+
+const AMENITIES = [
+  "Air Conditioning",
+  "Airport Tranfer (on demand)",
+  "Banquet Hall",
+  "Bonfire",
+  "Business Service",
+  "Test1",
+  "Test2",
+  "Test3",
+];
+
+const WorkationPage = () => {
+  const { destinationName, workationType } = useParams();
   const DESTINATION_NAME = startCase(destinationName);
-  const EVENT_TYPE = startCase(eventType);
+  const WORKATION_TYPE = startCase(workationType);
   const [slashedTableName, setSlashedTableName] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [eventDuration, setEventDuration] = useState({});
-  const [eventTypes, setEventTypes] = useState({});
-  const [eventCategories, setEventCategorie] = useState({});
+  const [accomodation, setAccomodation] = useState("");
+  const [amenities, setAmenities] = useState("");
+  const [hotelRatting, setHotelRatting] = useState({});
+  const [reviewRatting, setReviewRatting] = useState("");
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
-  const coverTitle = `${eventType}${
+  const coverTitle = `${workationType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
   }`;
 
@@ -55,7 +69,7 @@ const EventPage = () => {
           url: "/",
         },
         {
-          name: EVENT_TYPE,
+          name: WORKATION_TYPE,
           url: "",
         },
       ]);
@@ -66,8 +80,8 @@ const EventPage = () => {
           url: "/",
         },
         {
-          name: EVENT_TYPE,
-          url: `/event/${EVENT_TYPE}`,
+          name: WORKATION_TYPE,
+          url: `/event/${WORKATION_TYPE}`,
         },
         {
           name: DESTINATION_NAME,
@@ -76,21 +90,17 @@ const EventPage = () => {
       ]);
     }
 
-    const unq = uniq(option);
-    const unqTypes = uniq(EVENT_TYPES);
-    const unqCategories = uniq(CATEGORIES);
+    setHotelRatting(formatActiveButton(hotel));
 
-    setEventDuration(formatActiveButton(unq));
-    setEventTypes(formatActiveButton(unqTypes));
-    setEventCategorie(formatActiveButton(unqCategories));
     setResetValue({
       ...resetValue,
-      duration: formatActiveButton(unq),
       priceRange: INITIAL_RANGE,
-      types: formatActiveButton(unqTypes),
-      categories: formatActiveButton(unqCategories),
+      accomodation: "",
+      amenities: "",
+      reviewRatting: "",
+      ratting: formatActiveButton(hotel),
     });
-  }, [DESTINATION_NAME, EVENT_TYPE]);
+  }, [DESTINATION_NAME, WORKATION_TYPE]);
 
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
@@ -98,29 +108,32 @@ const EventPage = () => {
   };
 
   const handleReset = () => {
-    setEventDuration(resetValue.duration);
-    setEventTypes(resetValue.types);
-    setEventCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
-  };
-
-  const handleDurationClick = (e) => {
-    const name = e.target.name;
-    setEventDuration((pre) => ({ ...pre, [name]: !pre[name] }));
-  };
-
-  const handleTypesClick = (e) => {
-    const name = e.target.name;
-    setEventTypes((pre) => ({ ...pre, [name]: !pre[name] }));
-  };
-
-  const handleCategoriesClick = (e) => {
-    const name = e.target.name;
-    setEventCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
+    setAccomodation(resetValue.accomodation);
+    setAmenities(resetValue.amenities);
+    setHotelRatting(resetValue.ratting);
+    setReviewRatting(resetValue.reviewRatting);
   };
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
+  };
+
+  const handleAccomodationChange = (e) => {
+    setAccomodation(e.target.value);
+  };
+
+  const handleAmenitiesChange = (e) => {
+    setAmenities(e.target.value);
+  };
+
+  const handleHotelStarFilter = (e) => {
+    const name = e.target.name;
+    setHotelRatting((pre) => ({ ...pre, [name]: !pre[name] }));
+  };
+
+  const handleReviewRattingFilter = (e) => {
+    setReviewRatting(e.target.value);
   };
 
   return (
@@ -153,13 +166,6 @@ const EventPage = () => {
               </button>
             </div>
             <div className="tw-py-7 tw-border-b">
-              <ButtonGroup
-                title="Duration ( in Days )"
-                option={eventDuration}
-                handleClick={handleDurationClick}
-              />
-            </div>
-            <div className="tw-py-7 tw-border-b">
               <RangeSelector
                 title="Budget Per Person ( in Rs. )"
                 min={MIN}
@@ -169,17 +175,31 @@ const EventPage = () => {
               />
             </div>
             <div className="tw-py-7 tw-border-b">
-              <ButtonGroup
-                title="Categories"
-                option={eventCategories}
-                handleClick={handleCategoriesClick}
+              <RattingFilter
+                selected={reviewRatting}
+                onChange={handleReviewRattingFilter}
               />
             </div>
-            <div className="tw-py-7">
-              <ButtonGroup
-                title="Activity Level"
-                option={eventTypes}
-                handleClick={handleTypesClick}
+            <div className="tw-py-7 tw-border-b">
+              <HotelStarFilter
+                ratting={hotelRatting}
+                handleClick={handleHotelStarFilter}
+              />
+            </div>
+            <div className="tw-py-7 tw-border-b">
+              <RadioButton
+                title="Accomodation"
+                value={ACCOMODATION}
+                selected={accomodation}
+                onChange={handleAccomodationChange}
+              />
+            </div>
+            <div className="tw-py-7 tw-border-b">
+              <RadioButton
+                title="Amenities"
+                value={AMENITIES}
+                selected={amenities}
+                onChange={handleAmenitiesChange}
               />
             </div>
           </div>
@@ -189,7 +209,9 @@ const EventPage = () => {
           <div className="tw-flex tw-justify-between tw-items-center">
             <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
               {startCase(
-                `${eventType} ${destinationName ? `in ${destinationName}` : ""}`
+                `${workationType} ${
+                  destinationName ? `in ${destinationName}` : ""
+                }`
               )}
             </h1>
             <div className="tw-flex">
@@ -215,8 +237,8 @@ const EventPage = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {EVENT.map((d, i) => (
-                <EventPageCard {...d} key={i} />
+              {WORKATION.map((d, i) => (
+                <WorkationPageCard {...d} key={i} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">
@@ -234,4 +256,4 @@ const EventPage = () => {
   );
 };
 
-export default EventPage;
+export default WorkationPage;

@@ -6,7 +6,7 @@ import wifi from "../../../assets/svg/wifi.svg";
 import cooking from "../../../assets/svg/cooking.svg";
 import { indCurrency } from "../../../utils/utils";
 
-export const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
+const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
   return (
     <div className="tw-mx-2 tw-my-4">
       <div className="tw-bg-white tw-shadow-md tw-rounded-lg tw-p-3">
@@ -63,3 +63,5 @@ export const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
     </div>
   );
 };
+
+export default WorkationCard;

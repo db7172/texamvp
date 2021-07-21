@@ -4,8 +4,10 @@ const primaryBackground = "#FCFCFC";
 const gray = "#F5F5F5";
 const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
+const darkYellow = "#FFC107";
 const secondaryText = "#939393";
 const green = "#00B112";
+const lightGreen = "#29DF0B";
 const lightGray = "#C4C4C4";
 
 module.exports = {
@@ -31,6 +33,8 @@ module.exports = {
         "secondary-color": yellow,
         "green-background": green,
         "gray-background": gray,
+        "lightGreen-background": lightGreen,
+        "darkYellow-background": darkYellow,
       },
       borderColor: {
         "primary-yellow": yellow,

@@ -10,6 +10,8 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import {
   getActivityPageWithCityPath,
   getEventPageWithCityPath,
+  getRetreatPageWithCityPath,
+  getWorkationPageWithCityPath,
 } from "../../constant/comman.const";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
@@ -73,6 +75,10 @@ const DestinationPage = () => {
           title={`Popular Workation ${DESTINATION_NAME}`}
           data={WORKATION}
           setting={{ slidesToShow: 3 }}
+          path={getWorkationPageWithCityPath(
+            "Popular Workation",
+            DESTINATION_NAME
+          )}
         />
       </div>
       <div className="md:tw-mt-20 tw-mt-14">
@@ -80,6 +86,7 @@ const DestinationPage = () => {
           title={`Popular Retreat ${DESTINATION_NAME}`}
           data={RETREAT}
           setting={{ slidesToShow: 3 }}
+          path={getRetreatPageWithCityPath("Popular Retreat", DESTINATION_NAME)}
         />
       </div>
     </ExploreMoreWrapper>

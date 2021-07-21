@@ -8,42 +8,34 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
-import { EVENT } from "../../constant/dummyData";
-import EventPageCard from "../../components/event-page/EventPageCard";
+import { RETREAT } from "../../constant/dummyData";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
+import RetreatPageCard from "../../components/retreat-page/RetreatPageCard";
 
 // dummy data
 
-const option = ["All", "Toaday", "Tommorrow", "Weekend"];
+const option = ["Hourly", "Single-day", "Multi-day"];
 const MIN = 10000,
   MAX = 80000;
 const INITIAL_RANGE = [MIN, MAX];
-const EVENT_TYPES = [
-  "Music",
-  "Food",
-  "Comedy",
-  "Dance",
-  "Workshop",
-  "Courses",
-  "Games",
-];
+const RETREAT_TYPES = ["Yoga", "Meditaion", "Spiritual Balnce"];
 const CATEGORIES = ["Online", "Offline"];
 
-const EventPage = () => {
-  const { destinationName, eventType } = useParams();
+const RetreatPage = () => {
+  const { destinationName, retreatType } = useParams();
   const DESTINATION_NAME = startCase(destinationName);
-  const EVENT_TYPE = startCase(eventType);
+  const RETREAT_TYPE = startCase(retreatType);
   const [slashedTableName, setSlashedTableName] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [eventDuration, setEventDuration] = useState({});
-  const [eventTypes, setEventTypes] = useState({});
-  const [eventCategories, setEventCategorie] = useState({});
+  const [duration, setDuration] = useState({});
+  const [types, setTypes] = useState({});
+  const [categories, setCategorie] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
-  const coverTitle = `${eventType}${
+  const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
   }`;
 
@@ -55,7 +47,7 @@ const EventPage = () => {
           url: "/",
         },
         {
-          name: EVENT_TYPE,
+          name: RETREAT_TYPE,
           url: "",
         },
       ]);
@@ -66,8 +58,8 @@ const EventPage = () => {
           url: "/",
         },
         {
-          name: EVENT_TYPE,
-          url: `/event/${EVENT_TYPE}`,
+          name: RETREAT_TYPE,
+          url: `/retreat/${RETREAT_TYPE}`,
         },
         {
           name: DESTINATION_NAME,
@@ -77,12 +69,12 @@ const EventPage = () => {
     }
 
     const unq = uniq(option);
-    const unqTypes = uniq(EVENT_TYPES);
+    const unqTypes = uniq(RETREAT_TYPES);
     const unqCategories = uniq(CATEGORIES);
 
-    setEventDuration(formatActiveButton(unq));
-    setEventTypes(formatActiveButton(unqTypes));
-    setEventCategorie(formatActiveButton(unqCategories));
+    setDuration(formatActiveButton(unq));
+    setTypes(formatActiveButton(unqTypes));
+    setCategorie(formatActiveButton(unqCategories));
     setResetValue({
       ...resetValue,
       duration: formatActiveButton(unq),
@@ -90,7 +82,7 @@ const EventPage = () => {
       types: formatActiveButton(unqTypes),
       categories: formatActiveButton(unqCategories),
     });
-  }, [DESTINATION_NAME, EVENT_TYPE]);
+  }, [DESTINATION_NAME, RETREAT_TYPE]);
 
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
@@ -98,25 +90,25 @@ const EventPage = () => {
   };
 
   const handleReset = () => {
-    setEventDuration(resetValue.duration);
-    setEventTypes(resetValue.types);
-    setEventCategorie(resetValue.categories);
+    setDuration(resetValue.duration);
+    setTypes(resetValue.types);
+    setCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
   };
 
   const handleDurationClick = (e) => {
     const name = e.target.name;
-    setEventDuration((pre) => ({ ...pre, [name]: !pre[name] }));
+    setDuration((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleTypesClick = (e) => {
     const name = e.target.name;
-    setEventTypes((pre) => ({ ...pre, [name]: !pre[name] }));
+    setTypes((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleCategoriesClick = (e) => {
     const name = e.target.name;
-    setEventCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
+    setCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleRangeChange = (e) => {
@@ -155,7 +147,7 @@ const EventPage = () => {
             <div className="tw-py-7 tw-border-b">
               <ButtonGroup
                 title="Duration ( in Days )"
-                option={eventDuration}
+                option={duration}
                 handleClick={handleDurationClick}
               />
             </div>
@@ -171,14 +163,14 @@ const EventPage = () => {
             <div className="tw-py-7 tw-border-b">
               <ButtonGroup
                 title="Categories"
-                option={eventCategories}
+                option={categories}
                 handleClick={handleCategoriesClick}
               />
             </div>
             <div className="tw-py-7">
               <ButtonGroup
                 title="Activity Level"
-                option={eventTypes}
+                option={types}
                 handleClick={handleTypesClick}
               />
             </div>
@@ -189,7 +181,9 @@ const EventPage = () => {
           <div className="tw-flex tw-justify-between tw-items-center">
             <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
               {startCase(
-                `${eventType} ${destinationName ? `in ${destinationName}` : ""}`
+                `${retreatType} ${
+                  destinationName ? `in ${destinationName}` : ""
+                }`
               )}
             </h1>
             <div className="tw-flex">
@@ -215,8 +209,8 @@ const EventPage = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {EVENT.map((d, i) => (
-                <EventPageCard {...d} key={i} />
+              {RETREAT.map((d, i) => (
+                <RetreatPageCard {...d} key={i} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">
@@ -234,4 +228,4 @@ const EventPage = () => {
   );
 };
 
-export default EventPage;
+export default RetreatPage;
