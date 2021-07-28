@@ -19,7 +19,6 @@ import Title from "../../components/common/title/Title";
 import { getActivityIcon } from "../../constant/activity-icon";
 import IconCard from "../../components/card/icon-card/IconCard";
 import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
-import ImageGallery from "../../components/home-page-tabs/ImageGallery";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
@@ -79,7 +78,7 @@ function Home() {
 
   useEffect(() => {
     if (width >= 1440) {
-      setActivityIcon(getActivityIcon(8));
+      setActivityIcon(getActivityIcon(6));
     } else if (width < 1440 && width >= 1024) {
       setActivityIcon(getActivityIcon(6));
     } else if (width < 1024 && width >= 768) {
@@ -97,10 +96,10 @@ function Home() {
     //TODO: remove mb-10 class once the page is created
     <Container>
       <div className="tw-mb-10">
-        <div className="md:tw-mt-28 tw-mt-14">
+        <div className="tw-mt-28">
           <MainTitle />
         </div>
-        <div className="md:tw-mt-24 tw-mt-14">
+        <div className="tw-mt-24">
           <div className={`${!(activeTab === 3) && "tw-max-w-4xl"} tw-mx-auto`}>
             <div className="tw-flex tw-justify-center">
               <nav className="tw-flex tw-flex-row tw-px-4">
@@ -164,111 +163,113 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="md:tw-mt-32 tw-mt-14">
-          <div className="tw-text-center">
-            <p className="md:tw-text-2xl tw-text-lg tw-tracking-wider">
-              Escape to your faviourite
-            </p>
-            <h3 className="tracking-wider tw-font-bold md:tw-text-7xl tw-text-5xl">
-              Destination
-            </h3>
-          </div>
-          <div className="md:tw-mt-14 tw-mt-11">
+        <div className="tw-mt-32">
+          <Title
+            title="Destination"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-14">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Popular Activities"
             data={ACTIVITY}
             path={getActivityPagePath("Popular Activities")}
+            description="Lorem ipsum is the dummy text for placing any thing"
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
-          <Title title="Browse Activities" />
+        <div className="tw-mt-20">
+          <Title
+            title="Browse Activities"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
           <div className="tw-flex tw-justify-between tw-mt-10">
             {activityIcon.map(({ icon, name }, i) => (
               <IconCard path={icon} name={name} number={124} key={i} />
             ))}
           </div>
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Activity of the Month"
             data={ACTIVITY}
             path={getActivityPagePath("Activity of the Month")}
+            description="Lorem ipsum is the dummy text for placing any thing"
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <ActivityCarousel
             setting={{ slidesToShow: 3 }}
             title="Best Activity of Maldives"
             data={ACTIVITY}
             path={getActivityPageWithCityPath("Best Activity", "Maldives")}
+            description="Lorem ipsum is the dummy text for placing any thing"
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
-          <div className="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-items-center">
-            <div className="lg:tw-w-2/4 tw-mb-10 lg:tw-mb-0">
-              <p className="xl:tw-text-4xl lg:tw-text-2xl tw-text-xl tw-pl-2 tw-tracking-wide ">
-                Find perfect{" "}
-                <span className="tw-inline-block tw-border-b-4 xl:tw-w-20 tw-w-10 tw-border-primary-yellow" />
-              </p>
-              <h4 className="xl:tw-text-8xl lg:tw-text-6xl tw-text-5xl tw-tracking-wide tw-font-bold">
-                Events
-              </h4>
-            </div>
-            <div>
-              <ImageGallery />
-            </div>
+        <div className="tw-mt-20">
+          <Title
+            title="Events"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-14">
+            {/* <ImageGallery /> */}
+            <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
+          {/* </div> */}
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <EventCarousel
             title="Popular Events"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
             path={getEventPagePath("Popular Events")}
+            description="Lorem ipsum is the dummy text for placing any thing"
             event
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <EventCarousel
             title="Worshop"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
             path={getEventPagePath("Worshop")}
+            description="Lorem ipsum is the dummy text for placing any thing"
             event
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <EventCarousel
             title="Music"
             data={EVENT}
             setting={{ slidesToShow: 3 }}
             path={getEventPagePath("Music")}
+            description="Lorem ipsum is the dummy text for placing any thing"
             event
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <EventCarousel
             title="Popular Retreat"
             data={RETREAT}
             setting={{ slidesToShow: 3 }}
+            description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Popular Retreat")}
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <WorkationCarousel
             title="Popular Workation"
             data={WORKATION}
             setting={{ slidesToShow: 3 }}
+            description="Lorem ipsum is the dummy text for placing any thing"
             path={getWorkationPagePath("Popular Workation")}
           />
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <div className="tw-max-w-6xl tw-mx-auto">
             <h3 className="tw-text-4xl tw-font-medium tw-text-center">
               Over 40 Lac+ Happy Travelers
@@ -278,7 +279,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="md:tw-mt-20 tw-mt-14">
+        <div className="tw-mt-20">
           <BlogCarousel title="Binge worthy blogs by members" />
         </div>
       </div>

@@ -8,8 +8,8 @@ import { indCurrency } from "../../../utils/utils";
 
 const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
   return (
-    <div className="tw-mx-2 tw-my-4">
-      <div className="tw-bg-white tw-shadow-md tw-rounded-lg tw-p-3">
+    <div className="card-wrapper">
+      <div className="card-container">
         <div>
           <img className="tw-rounded-lg" src={imgUrl} alt={name} />
         </div>
@@ -21,19 +21,21 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
                 .map((_, i) => (
                   <img key={i} className="tw-w-3 tw-mr-1" src={star} alt="" />
                 ))}
-              <p className="tw-text-primary-color tw-ml-2">Hotel</p>
+              <p className="tw-text-primary-color tw-text-xs tw-ml-2">Hotel</p>
             </div>
             <GreenBadge ratting={4.4} />
           </div>
-          <p className="tw-text-primary-color tw-mt-1">Phuentsholing</p>
-          <h3 className="tw-font-medium tw-text-lg tw-mb-2 tw-text-primary-color">
+          <p className="tw-text-primary-color tw-mt-1 tw-mb-1 tw-font-medium">
+            Phuentsholing
+          </p>
+          <h3 className="tw-font-medium tw-text-lg tw-mb-5 tw-text-primary-color">
             {name}
           </h3>
-          <p className="tw-flex tw-my-3">
+          <p className="tw-flex tw-mb-5">
             <img src={time} alt="" />{" "}
             <span className="tw-ml-2">{duration}</span>
           </p>
-          <div className="tw-flex tw-mb-4">
+          <div className="tw-flex tw-mb-5">
             {facility.Breakfast && (
               <p className="tw-flex tw-mr-3">
                 <img src={cooking} alt="" />{" "}
@@ -49,7 +51,7 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
           </div>
         </div>
         <div className="tw-mt-3 tw-flex tw-justify-between tw-items-center">
-          <p className="tw-text-yellow-color tw-font-bold tw-text-xl">
+          <p className="tw-price tw-text-xl">
             {indCurrency(price)}
             <span className="tw-text-secondary-color tw-font-normal tw-ml-2 tw-text-xs">
               Per Person

@@ -1,5 +1,5 @@
+import { capitalize } from "lodash";
 import React, { useState } from "react";
-import { upperCase } from "../../utils/utils";
 import DropDown from "../form-component/DropDown";
 import Input from "../form-component/Input";
 
@@ -22,7 +22,7 @@ const ActivityTab = ({
       <div className="tw-flex-auto tw-grid md:tw-grid-cols-2 md:tw-mr-5 tw-gap-5">
         <div>
           <DropDown
-            label={upperCase(dropDownLabel)}
+            label={capitalize(dropDownLabel)}
             optionsArr={DropDownOptions}
             handleChange={(e) => setSelectedOption(e.target.value)}
             name="selectedOption"
@@ -32,11 +32,14 @@ const ActivityTab = ({
         </div>
         <div>
           <Input
-            label={upperCase(dateLabel)}
-            type="date"
+            label={capitalize(dateLabel)}
+            type="text"
             name="dateTime"
             value={dateTime}
+            onFocus={(e) => (e.currentTarget.type = "date")}
+            onBlur={(e) => (e.currentTarget.type = "text")}
             handleChange={(e) => setDateTime(e.target.value)}
+            placeHolder="Select Your Date"
           />
         </div>
       </div>

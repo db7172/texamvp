@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { upperCase } from "../../utils/utils";
 import DropDown from "../form-component/DropDown";
 import Input from "../form-component/Input";
 
@@ -34,7 +33,7 @@ const Retreat = () => {
       <div className="tw-flex-auto tw-grid xl:tw-grid-cols-4 md:tw-grid-cols-2 xl:tw-mr-5 tw-gap-5">
         <div className="">
           <DropDown
-            label={upperCase("Destination")}
+            label="Destination"
             optionsArr={reteratOptions}
             handleChange={(e) => setSelectedOption(e.target.value)}
             name="selectedOption"
@@ -44,7 +43,7 @@ const Retreat = () => {
         </div>
         <div className="">
           <Input
-            label={upperCase("Check In")}
+            label="Check In"
             type="date"
             name="checkInDate"
             value={checkInDate}
@@ -53,7 +52,7 @@ const Retreat = () => {
         </div>
         <div className="">
           <Input
-            label={upperCase("Check Out")}
+            label="Check Out"
             type="date"
             name="checkOutDate"
             value={checkOutDate}
@@ -62,7 +61,7 @@ const Retreat = () => {
         </div>
         <div className="">
           <Input
-            label={upperCase("Number of People")}
+            label="Number of People"
             type="number"
             name="numberOfPeople"
             min={1}

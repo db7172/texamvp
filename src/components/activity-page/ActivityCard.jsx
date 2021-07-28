@@ -77,7 +77,7 @@ const ActivityCard = ({
                 Starting from
               </p>
               <p>
-                <span className="tw-mr-2 tw-text-yellow-color tw-text-xl">
+                <span className="tw-mr-2 tw-price tw-text-xl">
                   {indCurrency(price)}
                 </span>
                 <span className="tw-text-secondary-color tw-text-xs">

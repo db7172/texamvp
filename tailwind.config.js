@@ -4,6 +4,7 @@ const primaryBackground = "#FCFCFC";
 const gray = "#F5F5F5";
 const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
+const yellowText = "#FFE500";
 const darkYellow = "#FFC107";
 const secondaryText = "#939393";
 const green = "#00B112";
@@ -19,13 +20,13 @@ module.exports = {
       sm: "480px",
       md: "768px",
       lg: "1024px",
-      xl: "1440px",
+      xl: "1280px",
     },
     extend: {
       boxShadow: {
         "nav-bar": "0px 2px 2px rgba(0, 0, 0, 0.04)",
-        tab: "0px 4px 30px rgba(230, 230, 230, 0.3), 4px 0px 30px rgba(229, 229, 229, 0.3)",
-        card: "4px 4px 30px rgba(196, 196, 196, 0.3)",
+        tab: "0px 4px 10px rgba(230, 230, 230, 0.3), 4px 0px 10px rgba(229, 229, 229, 0.3)",
+        card: "4px 4px 15px rgba(196, 196, 196, 0.3)",
         "icon-card": "4px 4px 25px rgba(196, 196, 196, 0.25)",
       },
       backgroundColor: {
@@ -43,7 +44,7 @@ module.exports = {
       textColor: {
         "primary-color": primaryText,
         "secondary-color": secondaryText,
-        "yellow-color": yellow,
+        "yellow-color": yellowText,
       },
       fontFamily: {
         sans: ["Roboto", ...defaultTheme.fontFamily.sans],
@@ -57,6 +58,8 @@ module.exports = {
         h5: "1.25rem",
         h6: "1rem",
         body: "14px",
+        "3rem": "3rem",
+        "32px": "32px",
       },
       minHeight: {
         32: "8rem",
@@ -67,6 +70,12 @@ module.exports = {
       },
       zIndex: {
         9999: 9999,
+      },
+      letterSpacing: {
+        1: "1px",
+      },
+      lineHeight: {
+        "42px": "42px",
       },
     },
   },

@@ -4,8 +4,8 @@ import star from "../../../assets/svg/star.svg";
 
 const RattingReview = ({ ratting, review, className }) => {
   return (
-    <div className={classNames("tw-flex", className)}>
-      <div className="tw-flex">
+    <div className={classNames("tw-flex tw-flex-wrap", className)}>
+      <div className="tw-flex tw-mb-2">
         {Array(ratting)
           .fill(null)
           .map((_, i) => (

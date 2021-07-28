@@ -9,6 +9,44 @@
     @apply tw-bg-primary-color tw-text-primary-color tw-text-body;
   }
 
+  .tw-subtitle-main {
+    @apply tw-text-h1 tw-tracking-1 tw-font-normal;
+  }
+
+  .tw-subtitle-secondary {
+    @apply tw-text-2xl tw-font-semibold;
+  }
+
+  .tw-title-main {
+    @apply tw-text-3rem tw-tracking-1 tw-font-bold;
+  }
+
+  .tw-section-title {
+    @apply tw-text-32px tw-leading-42px tw-font-bold;
+  }
+
+  .tw-section-description {
+    @apply tw-text-lg tw-text-secondary-color tw-font-normal;
+  }
+
+  .tw-price {
+    @apply tw-text-yellow-color tw-font-semibold;
+  }
+
+  /* card */
+  .card-wrapper {
+    @apply tw-mx-2 tw-my-4 tw-border tw-rounded-lg;
+  }
+
+  .card-container {
+    @apply tw-bg-white tw-shadow-md tw-rounded-lg tw-p-7;
+  }
+
+  /* Nav bar */
+  .tw-navbar-link {
+    @apply tw-mr-4 tw-flex tw-items-center tw-font-semibold tw-text-base;
+  }
+
   .tw-gh-tabs {
     @apply tw-text-primary-color tw-font-medium tw-py-5 md:tw-px-14 tw-px-4 tw-block tw-text-base focus:tw-outline-none;
   }
@@ -37,7 +75,7 @@
   }
 
   .tw-form-input {
-    @apply tw-w-full tw-bg-white tw-text-secondary-color tw-border-2 tw-border-gray-color tw-rounded-xl  tw-px-8 tw-py-4 tw-font-medium focus:tw-outline-none;
+    @apply tw-w-full tw-bg-white tw-text-secondary-color tw-text-sm tw-border-2 tw-border-gray-color tw-rounded-xl  tw-px-4 tw-py-4 tw-font-medium focus:tw-outline-none;
   }
 
   .link-title {

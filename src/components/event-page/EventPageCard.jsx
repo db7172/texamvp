@@ -21,7 +21,7 @@ const EventPageCard = ({ name, datetime, type, price, imgUrl }) => {
             <p className="tw-mt-3 tw-font-medium">{type}</p>
           </div>
           <div className="tw-flex tw-flex-col tw-justify-center tw-pl-4">
-            <p className="tw-text-yellow-color tw-font-bold tw-text-xl">
+            <p className="tw-price tw-text-xl">
               {indCurrency(price)}
               <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-ml-2">
                 Onwards

@@ -6,7 +6,7 @@ import RetreatCard from "../../card/retreat-card/RetreatCard";
 import CheckBox from "../../form-component/CheckBox";
 import Title from "../title/Title";
 
-const EventCarousel = ({ title, setting, data, event, path }) => {
+const EventCarousel = ({ title, setting, data, event, path, description }) => {
   const [online, setOnline] = useState(true);
   const [offline, setOffline] = useState(true);
   const [show, setShow] = useState(true);
@@ -35,25 +35,27 @@ const EventCarousel = ({ title, setting, data, event, path }) => {
   return (
     <>
       <div>
-        <Title title={title} path={path || "#"} />
-        <div className="tw-mt-5 tw-flex tw-flex-wrap">
-          <div className="tw-mr-12">
-            <CheckBox
-              label="Online"
-              checked={online}
-              name="online"
-              onChange={() => setOnline(!online)}
-            />
+        <Title title={title} description={description} path={path || "#"} />
+        {event && (
+          <div className="tw-mt-5 tw-flex tw-flex-wrap">
+            <div className="tw-mr-12">
+              <CheckBox
+                label="Online"
+                checked={online}
+                name="online"
+                onChange={() => setOnline(!online)}
+              />
+            </div>
+            <div className="tw-mr-12">
+              <CheckBox
+                label="Offline"
+                checked={offline}
+                name="offline"
+                onChange={() => setOffline(!offline)}
+              />
+            </div>
           </div>
-          <div className="tw-mr-12">
-            <CheckBox
-              label="Offline"
-              checked={offline}
-              name="offline"
-              onChange={() => setOffline(!offline)}
-            />
-          </div>
-        </div>
+        )}
       </div>
       <div className="tw-mt-7">
         {show ? (

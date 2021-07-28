@@ -4,7 +4,8 @@ import { defaultSettings } from "../../../utils/utils";
 import WorkationCard from "../../card/workation-card/WorkationCard";
 import Title from "../title/Title";
 
-const WorkationCarousel = ({ title, data, setting, path }) => {
+const WorkationCarousel = ({ title, data, setting, path, description }) => {
+
   const settings = {
     ...defaultSettings,
     ...setting,
@@ -12,7 +13,7 @@ const WorkationCarousel = ({ title, data, setting, path }) => {
 
   return (
     <div>
-      <Title title={title} path={path} />
+      <Title title={title} path={path} description={description} />
       <div className="tw-mt-7">
         {Boolean(data.length) ? (
           <Slider {...settings}>

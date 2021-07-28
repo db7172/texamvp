@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
-import Container from "../common/container/Container";
 import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
 import { ReactComponent as Location } from "../../assets/svg/location.svg";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
@@ -71,51 +70,49 @@ function NavBar() {
 
     <div ref={wrapperRef}>
       <div className="tw-bg-white tw-shadow-nav-bar">
-        <Container className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-primary-color">
+        <div className="tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-primary-color tw-px-7">
           <div>
             <Link to="/">
-              <button>
+              <button onClick={handleLinkClick}>
                 <h1 className="tw-font-bold tw-text-4xl">Texa Trove</h1>
               </button>
             </Link>
           </div>
           <div>
-            <ul className="tw-flex">
+            <ul className="tw-flex tw-gap-4">
               <li>
                 <button
-                  className="tw-mr-8 tw-flex tw-items-center"
+                  className="tw-navbar-link"
                   onClick={() =>
                     handleShow({ data: ACTIVITY_DATA, path: "activity" })
                   }
                 >
-                  <span className="tw-mr-2">{upperCase("Activity Type")}</span>
-                  <span className="tw-pt-1">
+                  <span className="tw-mr-2">Activity Type</span>
+                  <span className="">
                     <DownArrow />
                   </span>
                 </button>
               </li>
               <li>
                 <button
-                  className="tw-mr-8 tw-flex tw-items-center"
+                  className="tw-navbar-link"
                   onClick={() =>
                     handleShow({ data: EVENT_DATA, path: "event" })
                   }
                 >
-                  <span className="tw-mr-2">{upperCase("Event Type")}</span>
-                  <span className="tw-pt-1">
+                  <span className="tw-mr-2">Event Type</span>
+                  <span className="">
                     <DownArrow />
                   </span>
                 </button>
               </li>
               <li>
                 <button
-                  className="tw-flex tw-items-center"
+                  className="tw-navbar-link tw-mr-0"
                   onClick={handleShowReterat}
                 >
-                  <span className="tw-mr-2">
-                    {upperCase("Retreat Destination")}
-                  </span>
-                  <span className="tw-pt-1">
+                  <span className="tw-mr-2">Retreat Destination</span>
+                  <span className="">
                     <DownArrow />
                   </span>
                 </button>
@@ -123,21 +120,21 @@ function NavBar() {
             </ul>
           </div>
           <div className="tw-flex">
-            <ul className="tw-flex tw-items-center">
-              <li className="tw-mr-6 tw-flex tw-items-center">
+            <ul className="tw-flex tw-gap-4 tw-items-center">
+              <li className="tw-mr-3 tw-navbar-link">
                 <span className="tw-mr-2">
                   <Location />
                 </span>
-                <span>{upperCase("Location")}</span>
+                <span>Location</span>
               </li>
-              <li className="tw-mr-6 tw-flex tw-items-center">
+              <li className="tw-mr-3 tw-navbar-link">
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
                 <span>1800-1200-1400</span>
               </li>
-              <li className="tw-mr-10">{upperCase("BLOG")}</li>
-              <li className="tw-mr-3">
+              <li className="tw-mr-5 tw-navbar-link">Blog</li>
+              <li className="tw-mr-3 tw-navbar-link">
                 <button
                   className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
                   onClick={() => setShowModal(true)}
@@ -157,43 +154,45 @@ function NavBar() {
               onSave={() => console.log("Saved!")}
             />
           )}
-        </Container>
-      </div>
-      <Container className="tw-relative">
-        <div className="tw-z-9999 tw-w-full tw-absolute tw-bg-primary-color">
-          {showReterat ? (
-            <div className="tw-flex tw-justify-evenly tw-items-center">
-              <div className="">
-                <NavBarOption
-                  toggleNavBar={handleLinkClick}
-                  isShow={showReterat}
-                  data={{
-                    data: RETREAT_DESTINATION.workcation,
-                    path: "destination",
-                  }}
-                />
-              </div>
-              <div className="tw-min-h-32 tw-border-r-2" />
-              <div className="tw-pl-24">
-                <NavBarOption
-                  toggleNavBar={handleLinkClick}
-                  isShow={showReterat}
-                  data={{
-                    data: RETREAT_DESTINATION.reterat,
-                    path: "destination",
-                  }}
-                />
-              </div>
-            </div>
-          ) : (
-            <NavBarOption
-              toggleNavBar={handleLinkClick}
-              isShow={isShow}
-              data={navData}
-            />
-          )}
         </div>
-      </Container>
+      </div>
+      <div className="tw-relative">
+        <div className="tw-z-9999 tw-absolute tw-w-full">
+          <div className="tw-w-10/12 tw-mx-auto tw-flex tw-justify-center tw-items-center tw-bg-white tw-border tw-border-t-0">
+            {showReterat ? (
+              <div className="tw-flex tw-justify-evenly tw-items-center">
+                <div className="">
+                  <NavBarOption
+                    toggleNavBar={handleLinkClick}
+                    isShow={showReterat}
+                    data={{
+                      data: RETREAT_DESTINATION.workcation,
+                      path: "destination",
+                    }}
+                  />
+                </div>
+                <div className="tw-min-h-32 tw-border-r-2" />
+                <div className="tw-pl-24">
+                  <NavBarOption
+                    toggleNavBar={handleLinkClick}
+                    isShow={showReterat}
+                    data={{
+                      data: RETREAT_DESTINATION.reterat,
+                      path: "destination",
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <NavBarOption
+                toggleNavBar={handleLinkClick}
+                isShow={isShow}
+                data={navData}
+              />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
