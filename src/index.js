@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./styles/styles.less";
 import "./styles/tailwind.css";
-import "./styles/styles.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

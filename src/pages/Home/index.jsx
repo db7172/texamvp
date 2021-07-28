@@ -23,6 +23,7 @@ import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import { Button, Input } from "antd";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
