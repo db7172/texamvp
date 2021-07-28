@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import DropDown from "../form-component/DropDown";
+// import DropDown from "../form-component/DropDown";
 import Input from "../form-component/Input";
+import { Form, Button, DatePicker, Select, InputNumber } from "antd";
+import { capitalize } from "lodash";
 
 export const reteratOptions = [
   "Kashmir",
@@ -25,58 +27,65 @@ const Retreat = () => {
   const [checkOutDate, setCheckOutDate] = useState("");
   const [numberOfPeople, setNumberOfPeople] = useState();
 
+  const [form] = Form.useForm();
+
   const handleClick = () => {
     console.log({ selectedOption, checkInDate, checkOutDate, numberOfPeople });
   };
   return (
-    <div className="tw-flex tw-flex-col xl:tw-flex-row">
-      <div className="tw-flex-auto tw-grid xl:tw-grid-cols-4 md:tw-grid-cols-2 xl:tw-mr-5 tw-gap-5">
-        <div className="">
-          <DropDown
-            label="Destination"
-            optionsArr={reteratOptions}
-            handleChange={(e) => setSelectedOption(e.target.value)}
-            name="selectedOption"
-            initialValue={selectedOption}
-            placeHolder="Select your Destinaion"
-          />
-        </div>
-        <div className="">
-          <Input
-            label="Check In"
-            type="date"
-            name="checkInDate"
-            value={checkInDate}
-            handleChange={(e) => setCheckInDate(e.target.value)}
-          />
-        </div>
-        <div className="">
-          <Input
-            label="Check Out"
-            type="date"
-            name="checkOutDate"
-            value={checkOutDate}
-            handleChange={(e) => setCheckOutDate(e.target.value)}
-          />
-        </div>
-        <div className="">
-          <Input
-            label="Number of People"
-            type="number"
-            name="numberOfPeople"
-            min={1}
-            value={numberOfPeople}
-            placeholder="Select No. of People"
-            handleChange={(e) => setNumberOfPeople(e.target.value)}
-          />
-        </div>
-      </div>
-      <button
-        className="tw-bg-secondary-color tw-self-end tw-font-medium tw-px-14 tw-py-5 tw-rounded-xl xl:tw-w-max xl:tw-mt-0 tw-mt-5 tw-w-full"
-        onClick={handleClick}
+    <div className="tw-flex tw-flex-col xl:tw-flex-row tw-items-center">
+      <Form
+        layout="vertical"
+        form={form}
+        size="large"
+        className="tw-flex-auto tw-grid xl:tw-grid-cols-4 md:tw-grid-cols-2 xl:tw-mr-5 tw-gap-5"
       >
-        Search
-      </button>
+        <Form.Item name="retreat" label="Destination">
+          <Select
+            showSearch
+            placeholder="Select your Destinaion"
+            optionFilterProp="children"
+            onChange={(e) => setSelectedOption(e)}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {reteratOptions.map((o, i) => (
+              <Select.Option key={i} value={o}>
+                {capitalize(o)}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item name="startDate" label="Check In">
+          <DatePicker
+            onChange={(_, d) => setCheckInDate(d)}
+            placeholder="Select Your Date"
+            className="width_full"
+          />
+        </Form.Item>
+
+        <Form.Item name="endDate" label="Check Out">
+          <DatePicker
+            onChange={(_, d) => setCheckOutDate(d)}
+            placeholder="Select Your Date"
+            className="width_full"
+          />
+        </Form.Item>
+
+        <Form.Item name="numberOfPeople" label="Number of People">
+          <InputNumber
+            min={1}
+            placeholder="Select No. of People"
+            handleChange={(e) => setNumberOfPeople(e)}
+            className="width_full"
+          />
+        </Form.Item>
+      </Form>
+      <Button onClick={handleClick} className="btn" size="large" type="default">
+        Submit
+      </Button>
     </div>
   );
 };

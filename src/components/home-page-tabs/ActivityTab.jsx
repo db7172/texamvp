@@ -1,7 +1,6 @@
 import { capitalize } from "lodash";
 import React, { useState } from "react";
-import DropDown from "../form-component/DropDown";
-import Input from "../form-component/Input";
+import { Form, Button, DatePicker, Select } from "antd";
 
 const ActivityTab = ({
   dropDownLabel,
@@ -12,43 +11,48 @@ const ActivityTab = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [dateTime, setDateTime] = useState("");
+  const [form] = Form.useForm();
 
   const handleClick = () => {
     onClick(selectedOption, dateTime);
   };
 
   return (
-    <div className="tw-flex tw-flex-col md:tw-flex-row">
-      <div className="tw-flex-auto tw-grid md:tw-grid-cols-2 md:tw-mr-5 tw-gap-5">
-        <div>
-          <DropDown
-            label={capitalize(dropDownLabel)}
-            optionsArr={DropDownOptions}
-            handleChange={(e) => setSelectedOption(e.target.value)}
-            name="selectedOption"
-            initialValue={selectedOption}
-            placeHolder={placeHolder}
-          />
-        </div>
-        <div>
-          <Input
-            label={capitalize(dateLabel)}
-            type="text"
-            name="dateTime"
-            value={dateTime}
-            onFocus={(e) => (e.currentTarget.type = "date")}
-            onBlur={(e) => (e.currentTarget.type = "text")}
-            handleChange={(e) => setDateTime(e.target.value)}
-            placeHolder="Select Your Date"
-          />
-        </div>
-      </div>
-      <button
-        className="tw-bg-secondary-color tw-self-end tw-font-medium tw-px-14 tw-py-5 tw-rounded-xl tw-mt-5 md:tw-mt-0 tw-w-full md:tw-w-max"
-        onClick={handleClick}
+    <div className="tw-flex tw-items-center">
+      <Form
+        layout="vertical"
+        form={form}
+        size="large"
+        className="activity_tab_container_form"
       >
-        Search
-      </button>
+        <Form.Item name="activity" label={capitalize(dropDownLabel)}>
+          <Select
+            showSearch
+            placeholder={placeHolder}
+            optionFilterProp="children"
+            onChange={(e) => setSelectedOption(e)}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {DropDownOptions.map((o, i) => (
+              <Select.Option key={i} value={o}>
+                {capitalize(o)}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item name="startDate" label={capitalize(dateLabel)}>
+          <DatePicker
+            onChange={(_, d) => setDateTime(d)}
+            placeholder="Select Your Date"
+            className="width_full"
+          />
+        </Form.Item>
+      </Form>
+      <Button onClick={handleClick} className="btn" size="large" type="default">
+        Submit
+      </Button>
     </div>
   );
 };
