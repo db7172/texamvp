@@ -572,6 +572,12 @@ body {
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   border-width: 1px;
+  border-color: #fcfcfc;
+  transition: transform 0.2s;
+}
+
+.card-wrapper:hover {
+  transform: scale(1.01);
 }
 
 .card-container {

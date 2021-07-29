@@ -129,6 +129,7 @@ function NavBar() {
                   <Location />
                 </span>
                 <Select
+                  showSearch
                   defaultValue="mumbai"
                   style={{ width: 120 }}
                   bordered={false}
@@ -157,9 +158,6 @@ function NavBar() {
                 </button>
               </li>
             </ul>
-            {/* <button className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md">
-              {upperCase("GET STARTED")}
-            </button> */}
           </div>
 
           {showModal && (
