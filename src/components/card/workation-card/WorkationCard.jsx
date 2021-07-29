@@ -10,11 +10,11 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
   return (
     <div className="card-wrapper">
       <div className="card-container">
-        <div>
+        <div className="card_img_height">
           <img className="tw-rounded-lg" src={imgUrl} alt={name} />
         </div>
-        <div className="tw-mt-5 tw-text-secondary-color tw-border-b tw-border-gray-200">
-          <div className="tw-flex tw-mb-1 tw-justify-between tw-items-center">
+        <div className="tw-mt-5 tw-text-secondary-color">
+          <div className="tw-flex tw-justify-between tw-items-center">
             <div className="tw-flex">
               {Array(5)
                 .fill(null)
@@ -25,17 +25,17 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
             </div>
             <GreenBadge ratting={4.4} />
           </div>
-          <p className="tw-text-primary-color tw-mt-1 tw-mb-1 tw-font-medium">
+          <p className="tw-text-primary-color tw-mt-2 tw-font-medium">
             Phuentsholing
           </p>
-          <h3 className="tw-font-medium tw-text-lg tw-mb-5 tw-text-primary-color">
+          <h3 className="tw-font-medium tw-text-base tw-mt-2 tw-text-primary-color">
             {name}
           </h3>
-          <p className="tw-flex tw-mb-5">
+          <p className="tw-flex tw-mt-2">
             <img src={time} alt="" />{" "}
             <span className="tw-ml-2">{duration}</span>
           </p>
-          <div className="tw-flex tw-mb-5">
+          <div className="tw-flex tw-mt-2">
             {facility.Breakfast && (
               <p className="tw-flex tw-mr-3">
                 <img src={cooking} alt="" />{" "}
@@ -50,17 +50,20 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
             )}
           </div>
         </div>
-        <div className="tw-mt-3 tw-flex tw-justify-between tw-items-center">
+        <div className="tw-my-5 tw-border-y tw-py-2 tw-border-gray-200">
           <p className="tw-price tw-text-xl">
+            <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
+              Starting from
+            </span>
             {indCurrency(price)}
-            <span className="tw-text-secondary-color tw-font-normal tw-ml-2 tw-text-xs">
-              Per Person
+            <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-ml-2">
+              Onwards
             </span>
           </p>
-          <button className="tw-px-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
-            View Details
-          </button>
         </div>
+        <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+          View Details
+        </button>
       </div>
     </div>
   );

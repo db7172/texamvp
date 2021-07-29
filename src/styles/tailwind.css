@@ -1385,7 +1385,16 @@ body {
   border-right-width: 1px;
 }
 
+.tw-border-t {
+  border-top-width: 1px;
+}
+
 .tw-border-b {
+  border-bottom-width: 1px;
+}
+
+.tw-border-y {
+  border-top-width: 1px;
   border-bottom-width: 1px;
 }
 
