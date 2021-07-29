@@ -12,6 +12,9 @@ import {
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { LoginModal } from "../modals/login-modal/LoginModal";
+import { Select } from "antd";
+import { CITY_ARR } from "../../constant/city-array";
+import { lowerCase } from "lodash";
 
 const default_Options = {
   data: { title: "", options: [] },
@@ -121,20 +124,31 @@ function NavBar() {
           </div>
           <div className="tw-flex">
             <ul className="tw-flex tw-gap-4 tw-items-center">
-              <li className="tw-mr-3 tw-navbar-link">
-                <span className="tw-mr-2">
+              <li className="tw-navbar-link">
+                <span>
                   <Location />
                 </span>
-                <span>Location</span>
+                <Select
+                  defaultValue="mumbai"
+                  style={{ width: 120 }}
+                  bordered={false}
+                  placeholder="Location"
+                >
+                  {CITY_ARR.map((c, i) => (
+                    <Select.Option key={i} value={lowerCase(c)}>
+                      {c}
+                    </Select.Option>
+                  ))}
+                </Select>
               </li>
-              <li className="tw-mr-3 tw-navbar-link">
+              <li className="tw-navbar-link">
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
                 <span>1800-1200-1400</span>
               </li>
-              <li className="tw-mr-5 tw-navbar-link">Blog</li>
-              <li className="tw-mr-3 tw-navbar-link">
+              <li className="tw-navbar-link">Blog</li>
+              <li className="tw-navbar-link">
                 <button
                   className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
                   onClick={() => setShowModal(true)}

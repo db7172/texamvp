@@ -16,7 +16,7 @@ const ExploreMoreWrapper = ({
 }) => {
   return (
     <>
-      <div className="tw-mt-5 tw-px-7">
+      <div className="tw-mt-1">
         <Jumbotron
           image={coverImage}
           title={coverTitle}

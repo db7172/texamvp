@@ -1,11 +1,10 @@
+import { Carousel } from "antd";
 import React from "react";
-import Slider from "react-slick";
 import { defaultSettings } from "../../../utils/utils";
 import WorkationCard from "../../card/workation-card/WorkationCard";
 import Title from "../title/Title";
 
 const WorkationCarousel = ({ title, data, setting, path, description }) => {
-
   const settings = {
     ...defaultSettings,
     ...setting,
@@ -14,13 +13,13 @@ const WorkationCarousel = ({ title, data, setting, path, description }) => {
   return (
     <div>
       <Title title={title} path={path} description={description} />
-      <div className="tw-mt-7">
+      <div className="tw-mt-5">
         {Boolean(data.length) ? (
-          <Slider {...settings}>
+          <Carousel autoplay {...settings}>
             {data?.map((d, i) => (
               <WorkationCard {...d} key={i} />
             ))}
-          </Slider>
+          </Carousel>
         ) : (
           <div className="tw-flex tw-justify-center tw-items-center tw-h-96">
             <h1 className="tw-text-h1 tw-text-secondary-color">

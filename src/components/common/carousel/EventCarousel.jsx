@@ -1,5 +1,5 @@
+import { Carousel } from "antd";
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
 import { defaultSettings } from "../../../utils/utils";
 import EventCard from "../../card/event-card/EventCard";
 import RetreatCard from "../../card/retreat-card/RetreatCard";
@@ -7,9 +7,8 @@ import CheckBox from "../../form-component/CheckBox";
 import Title from "../title/Title";
 
 const EventCarousel = ({ title, setting, data, event, path, description }) => {
-  const [online, setOnline] = useState(true);
-  const [offline, setOffline] = useState(true);
-  const [show, setShow] = useState(true);
+  const [online, setOnline] = useState(false);
+  const [offline, setOffline] = useState(false);
   const [eventData, setEventData] = useState([]);
 
   const settings = {
@@ -20,13 +19,12 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
     const modifiedData = data?.filter((d) => {
-      setShow(true);
       if (online && d.type === "Online") {
         return d;
       } else if (offline && d.type === "Offline") {
         return d;
       } else if (!online && !offline) {
-        setShow(false);
+        return d;
       }
     });
     setEventData(modifiedData);
@@ -57,24 +55,16 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
           </div>
         )}
       </div>
-      <div className="tw-mt-7">
-        {show ? (
-          <Slider {...settings}>
-            {eventData?.map((d, i) =>
-              event ? (
-                <EventCard {...d} key={i} />
-              ) : (
-                <RetreatCard {...d} key={i} />
-              )
-            )}
-          </Slider>
-        ) : (
-          <div className="tw-flex tw-justify-center tw-items-center tw-h-96">
-            <h1 className="tw-text-h1 tw-text-secondary-color">
-              Select Event Type
-            </h1>
-          </div>
-        )}
+      <div className="tw-mt-5">
+        <Carousel autoplay {...settings}>
+          {eventData?.map((d, i) =>
+            event ? (
+              <EventCard {...d} key={i} />
+            ) : (
+              <RetreatCard {...d} key={i} />
+            )
+          )}
+        </Carousel>
       </div>
     </>
   );

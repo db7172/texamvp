@@ -1,5 +1,5 @@
+import { Carousel } from "antd";
 import React from "react";
-import Slider from "react-slick";
 import { BLOGS } from "../../../constant/dummyData";
 import { defaultSettings } from "../../../utils/utils";
 import BlogCard from "../../card/blog-card/BlogCard";
@@ -13,12 +13,12 @@ const BlogCarousel = ({ title }) => {
   return (
     <div>
       <Title title={title} />
-      <div className="tw-mt-16">
-        <Slider {...settings}>
+      <div className="tw-mt-5">
+        <Carousel autoplay {...settings}>
           {BLOGS.map((d, i) => (
             <BlogCard {...d} key={i} />
           ))}
-        </Slider>
+        </Carousel>
       </div>
     </div>
   );

@@ -23,7 +23,6 @@ import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
-import { Button, Input } from "antd";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -97,10 +96,10 @@ function Home() {
     //TODO: remove mb-10 class once the page is created
     <Container>
       <div className="tw-mb-10">
-        <div className="tw-mt-28">
+        <div className="tw-mt-32">
           <MainTitle />
         </div>
-        <div className="tw-mt-24">
+        <div className="tw-mt-20">
           <div className={`${!(activeTab === 3) && "tw-max-w-4xl"} tw-mx-auto`}>
             <div className="tw-flex tw-justify-center">
               <nav className="tw-flex tw-flex-row tw-px-4">
@@ -169,7 +168,7 @@ function Home() {
             title="Destination"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
-          <div className="tw-mt-14">
+          <div className="tw-mt-5">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>
@@ -216,11 +215,9 @@ function Home() {
             title="Events"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
-          <div className="tw-mt-14">
-            {/* <ImageGallery /> */}
+          <div className="tw-mt-5">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
-          {/* </div> */}
         </div>
         <div className="tw-mt-20">
           <EventCarousel

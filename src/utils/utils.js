@@ -25,8 +25,10 @@ export const upperCase = (text) => text.toUpperCase();
 export const defaultSettings = {
   infinite: true,
   speed: 500,
+  dots: false,
   slidesToShow: 1,
   slidesToScroll: 1,
+  arrows: true,
   nextArrow: (
     <img
       className="tw-flex tw-justify-center tw-items-center tw-rounded-full hover:tw-shadow-nav-bar"

@@ -15,16 +15,16 @@ const Jumbotron = ({
 }) => {
   return (
     <>
-      <div
-        className={classNames(
-          "tw-w-full tw-h-auto tw-relative tw-rounded-xl",
-          className
-        )}
-      >
-        <img className="tw-w-full tw-h-auto" src={image} alt="" />
+      <div className={classNames("tw-w-full tw-h-auto tw-relative", className)}>
+        {/* <img className="tw-w-full tw-h-auto" src={image} alt="" /> */}
+        <img
+          className="tw-w-full tw-h-auto"
+          src="https://img.traveltriangle.com/attachments/pictures/847421/original/Kerala-honeymoon-packages-g.jpg"
+          alt=""
+        />
         <div className="tw-absolute tw-inset-0 tw-z-10 tw-flex tw-items-center tw-flex-col tw-justify-evenly tw-text-white">
           <div className="tw-text-center">
-            <h3 className="tw-title-main">{startCase(title)}</h3>
+            <h3 className="tw-title-main tw-text-white">{startCase(title)}</h3>
             <p className="tw-subtitle-secondary lg:tw-mt-4 tw-mt-0">
               {description}
             </p>

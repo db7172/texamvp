@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import DropDown from "../form-component/DropDown";
-import Input from "../form-component/Input";
 import { Form, Button, DatePicker, Select, InputNumber } from "antd";
 import { capitalize } from "lodash";
 
@@ -62,7 +60,7 @@ const Retreat = () => {
           <DatePicker
             onChange={(_, d) => setCheckInDate(d)}
             placeholder="Select Your Date"
-            className="width_full"
+            className="width_full tw-rounded-md"
           />
         </Form.Item>
 
@@ -70,7 +68,7 @@ const Retreat = () => {
           <DatePicker
             onChange={(_, d) => setCheckOutDate(d)}
             placeholder="Select Your Date"
-            className="width_full"
+            className="width_full tw-rounded-md"
           />
         </Form.Item>
 
@@ -79,7 +77,7 @@ const Retreat = () => {
             min={1}
             placeholder="Select No. of People"
             handleChange={(e) => setNumberOfPeople(e)}
-            className="width_full"
+            className="width_full tw-rounded-md"
           />
         </Form.Item>
       </Form>

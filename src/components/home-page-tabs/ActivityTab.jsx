@@ -46,7 +46,7 @@ const ActivityTab = ({
           <DatePicker
             onChange={(_, d) => setDateTime(d)}
             placeholder="Select Your Date"
-            className="width_full"
+            className="width_full tw-rounded-md"
           />
         </Form.Item>
       </Form>
