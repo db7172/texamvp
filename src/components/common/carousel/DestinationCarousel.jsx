@@ -2,11 +2,11 @@ import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { defaultSettings } from "../../../utils/utils";
-import { upperCase } from "lodash";
 import { Link } from "react-router-dom";
 import { getDestinationPagePath } from "../../../constant/comman.const";
 import place from "../../../assets/png/place4.png";
 import { Carousel } from "antd";
+import { capitalize } from "lodash";
 
 const DestinationCarousel = ({ setting }) => {
   const settings = {
@@ -55,10 +55,14 @@ const DestinationCarousel = ({ setting }) => {
         <div className="tw-mr-3 tw-zoom-effect" key={i}>
           <Link to={getDestinationPagePath(title)}>
             <div className="tw-relative tw-p-1 tw-flex tw-justify-center">
-              <img className="scal-effec" src={href} alt="" />
-              <div className="tw-absolute tw-inset-1 tw-flex tw-items-end tw-justify-center tw-text-white hover:tw-bg-opacity-20 hover:tw-bg-black">
-                <p className="tw-text-2xl tw-font-medium tw-mb-3">
-                  {upperCase(title)}
+              <img
+                className="tw-w-full tw-h-auto tw-rounded-md"
+                src={href}
+                alt=""
+              />
+              <div className="tw-absolute tw-bottom-1 tw-right-1 tw-left-1 tw-rounded tw-bg-gray-900 tw-bg-opacity-70 tw-p-1">
+                <p className="tw-m-3 tw-text-xl tw-font-semibold tw-text-white">
+                  {capitalize(title)}
                 </p>
               </div>
             </div>
