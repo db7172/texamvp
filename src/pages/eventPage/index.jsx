@@ -55,6 +55,10 @@ const EventPage = () => {
           url: "/",
         },
         {
+          name: "Event",
+          url: "/events",
+        },
+        {
           name: EVENT_TYPE,
           url: "",
         },
@@ -64,6 +68,10 @@ const EventPage = () => {
         {
           name: "Home",
           url: "/",
+        },
+        {
+          name: "Event",
+          url: "/events",
         },
         {
           name: EVENT_TYPE,

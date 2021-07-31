@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 function NavBarOption({ isShow = false, data, toggleNavBar }) {
@@ -6,10 +6,32 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
   const { title, options } = pageInfo;
   let { url } = useRouteMatch();
 
-  const handleLinkClick = (label) => {
+  const [viewAllPath, setViewAllPath] = useState("#");
+
+  useEffect(() => {
+    switch (path) {
+      case "destination":
+        setViewAllPath("destinations");
+        break;
+
+      case "event":
+        setViewAllPath("events");
+        break;
+
+      case "activity":
+        setViewAllPath("activites");
+        break;
+
+      default:
+        break;
+    }
+  }, [path]);
+
+  const handleLinkClick = (label = "") => {
     console.log(`${url}${path}/${label}`);
     toggleNavBar();
   };
+
   return (
     <div className={`${isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
@@ -31,8 +53,9 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
               <li
                 key={"viewAll"}
                 className="tw-p-1 tw-cursor-pointer tw-text-blue-600 tw-underline"
+                onClick={() => handleLinkClick()}
               >
-                View All
+                <Link to={`${url}${viewAllPath}`}>View All</Link>
               </li>
             )}
           </ul>

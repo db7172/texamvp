@@ -63,6 +63,10 @@ const Activity = () => {
           url: "/",
         },
         {
+          name: "Activites",
+          url: "/activites",
+        },
+        {
           name: ACTIVITY_TYPE,
           url: "",
         },
@@ -72,6 +76,10 @@ const Activity = () => {
         {
           name: "Home",
           url: "/",
+        },
+        {
+          name: "Activites",
+          url: "/activites",
         },
         {
           name: ACTIVITY_TYPE,

@@ -8,7 +8,7 @@ import { indCurrency } from "../../../utils/utils";
 
 const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
   return (
-    <div className="card-wrapper">
+    <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
         <div className="card_img_height">
           <img className="tw-rounded-lg" src={imgUrl} alt={name} />

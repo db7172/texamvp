@@ -31,7 +31,7 @@ export const defaultSettings = {
   arrows: true,
   nextArrow: (
     <img
-      className="tw-flex tw-justify-center tw-items-center tw-rounded-full hover:tw-shadow-nav-bar"
+      className="tw-flex tw-justify-center tw-items-center tw-rounded-full"
       src={rightArrow}
       alt=""
     />

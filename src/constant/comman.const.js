@@ -1,4 +1,5 @@
 export const SECONDARY_COLOR = "#FFE606";
+export const PAGE_SPACING = [0, 80];
 
 // email id validation regex
 export const emailRegex =
@@ -14,8 +15,11 @@ const RETREAT_TYPE = ":retreatType";
 export const ROUTES = {
   HOME: "/",
   DESTINATION: `/destination/${DESTINATION_NAME}`,
+  DESTINATIONS: `/destinations`,
+  ACTIVITES: `/activites`,
   ACTIVITY: `/activity/${ACTIVITY_TYPE}`,
   ACTIVITY_IN_CITY: `/activity/${ACTIVITY_TYPE}/${DESTINATION_NAME}`,
+  EVENTS: `/events`,
   EVENT: `/event/${EVENT_TYPE}`,
   EVENT_IN_CITY: `/event/${EVENT_TYPE}/${DESTINATION_NAME}`,
   WORKATION: `/workation/${WORKATION_TYPE}`,

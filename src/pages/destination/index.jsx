@@ -28,6 +28,10 @@ const DestinationPage = () => {
         url: "/",
       },
       {
+        name: "Destinations",
+        url: "/destinations",
+      },
+      {
         name: DESTINATION_NAME,
         url: "",
       },

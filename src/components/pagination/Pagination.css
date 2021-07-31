@@ -14,6 +14,10 @@ item,
   min-width: 350px;
 }
 
+.pagination a:hover {
+  color: #939393;
+}
+
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,

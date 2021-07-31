@@ -40,6 +40,7 @@ module.exports = {
       borderColor: {
         "primary-yellow": yellow,
         "gray-color": lightGray,
+        "light-white": primaryBackground,
       },
       textColor: {
         "primary-color": primaryText,

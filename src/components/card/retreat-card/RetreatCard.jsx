@@ -5,7 +5,7 @@ import GreenBadge from "../../green-badge/GreenBadge";
 
 const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
   return (
-    <div className="card-wrapper">
+    <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
         <div className="card_img_height">
           <img className="tw-rounded-md" src={imgUrl} alt={name} />

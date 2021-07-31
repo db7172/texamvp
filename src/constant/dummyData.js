@@ -11,6 +11,26 @@ import blog1 from "../assets/png/blog1.png";
 import blog2 from "../assets/png/blog2.png";
 import blog3 from "../assets/png/blog3.png";
 
+// view all
+
+// activity
+import trekking from "../assets/png/trakking.png";
+import skyDiving from "../assets/png/sky-diving.png";
+import camping from "../assets/png/camping.png";
+import jundleSafari from "../assets/png/jungle-suffary.png";
+
+// event
+import theater from "../assets/png/theater.png";
+import course from "../assets/png/cours.png";
+import music from "../assets/png/music.png";
+import comedy from "../assets/png/comedy.png";
+
+// destination
+import netherlands from "../assets/png/netharland.png";
+import canada from "../assets/png/Canada.png";
+import australia from "../assets/png/australia.png";
+import azerbaijan from "../assets/png/azerbaijan.png";
+
 export const ACTIVITY = [
   {
     activityName: "Soothing Bhutan Tour Package",
@@ -464,4 +484,117 @@ export const POPULAR_ACTIVITY = [
     activityBy: "Vishal Joshi",
     price: 23354,
   },
+];
+
+export const VIEW_ALL_CARD = [
+  {
+    name: "Trekking",
+    imgUrl: trekking,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Sky Diving",
+    imgUrl: skyDiving,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Camping",
+    imgUrl: camping,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Jungle Safari",
+    imgUrl: jundleSafari,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Trekking",
+    imgUrl: trekking,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Sky Diving",
+    imgUrl: skyDiving,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Camping",
+    imgUrl: camping,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Jungle Safari",
+    imgUrl: jundleSafari,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+];
+
+export const VIEW_ALL_EVENTS = [
+  {
+    name: "Comedy",
+    imgUrl: comedy,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Music Fest",
+    imgUrl: music,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Online Courses",
+    imgUrl: course,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Theatre",
+    imgUrl: theater,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Comedy",
+    imgUrl: comedy,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Music Fest",
+    imgUrl: music,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Online Courses",
+    imgUrl: course,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+  {
+    name: "Theatre",
+    imgUrl: theater,
+    price: 12000,
+    numberOfActivity: 1250,
+  },
+];
+
+export const VIEW_ALL_DESTINATION = [
+  { description: "Netherlands", name: "Amsterdam", imgUrl: netherlands },
+  { description: "Australia", name: "Hobart", imgUrl: australia },
+  { description: "Canada", name: "Toronto", imgUrl: canada },
+  { description: "Azerbaijan", name: "Baku", imgUrl: netherlands },
+  { description: "Netherlands", name: "Amsterdam", imgUrl: netherlands },
+  { description: "Australia", name: "Hobart", imgUrl: australia },
+  { description: "Canada", name: "Toronto", imgUrl: canada },
+  { description: "Azerbaijan", name: "Baku", imgUrl: netherlands },
 ];

@@ -52,7 +52,7 @@ const DestinationCarousel = ({ setting }) => {
   return (
     <Carousel autoplay {...settings}>
       {destinationPlace.map(({ href, title }, i) => (
-        <div className="tw-mr-3 zoom-effect" key={i}>
+        <div className="tw-mr-3 tw-zoom-effect" key={i}>
           <Link to={getDestinationPagePath(title)}>
             <div className="tw-relative tw-p-1 tw-flex tw-justify-center">
               <img className="scal-effec" src={href} alt="" />

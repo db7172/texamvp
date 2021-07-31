@@ -3,7 +3,7 @@ import Tags from "../../Tags/Tags";
 
 const BlogCard = ({ imgUrl, title, tags }) => {
   return (
-    <div className="card-wrapper">
+    <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
         <div className="card_img_height">
           <img className="tw-rounded-lg" src={imgUrl} alt={title} />
