@@ -11,6 +11,7 @@ import EventPage from "../eventPage";
 import Events from "../events";
 import Home from "../Home";
 import RetreatPage from "../retreat";
+import ViewMoreDetailsForActivity from "../view-all/ViewMoreDetailsForActivity";
 import WorkationPage from "../workation";
 
 const AppRouter = () => {
@@ -52,6 +53,12 @@ const AppRouter = () => {
           path={ROUTES.WORKATION_IN_CITY}
         />
         <Route component={WorkationPage} path={ROUTES.WORKATION} />
+
+        {/* View All */}
+        <Route
+          component={ViewMoreDetailsForActivity}
+          path={ROUTES.VIEW_MORE_DETAILS_ACTIVITY}
+        />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />

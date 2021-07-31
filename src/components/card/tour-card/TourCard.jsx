@@ -1,18 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { getViewMoreDetailsForActivityPath } from "../../../constant/comman.const";
 import { indCurrency } from "../../../utils/utils";
 import RattingReview from "../../common/ratting/RattingReview";
 
-const TourCard = ({
-  activityName,
-  duration,
-  cities,
-  offerBy,
-  otherDetails,
-  imgUrl,
-  rating,
-  review,
-  price,
-}) => {
+const TourCard = (props) => {
+  const {
+    activityName,
+    duration,
+    cities,
+    offerBy,
+    otherDetails,
+    imgUrl,
+    rating,
+    review,
+    price,
+  } = props;
+  const type = "Trekking";
+
+  const routingDetails = {
+    pathname: getViewMoreDetailsForActivityPath(type, activityName),
+    state: { ...props },
+  };
+
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
@@ -47,9 +57,11 @@ const TourCard = ({
               </span>
             </p>
           </div>
-          <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-            View Details
-          </button>
+          <Link to={routingDetails}>
+            <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

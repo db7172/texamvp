@@ -14,6 +14,11 @@ import food from "../assets/png/image-gallery/food.png";
 // destination
 import destination from "../assets/png/destination.png";
 
+// carousel
+import carousal1 from "../assets/png/carousal1.png";
+import carousal2 from "../assets/png/carousal2.png";
+import carousal3 from "../assets/png/carousal3.png";
+
 export const DESTINATION_IMG = {
   MUMBAI: mumbai,
   AGRA: agra,
@@ -32,3 +37,5 @@ export const IMAGE_GALLERY = {
 };
 
 export const DESTINATION_IMAGE = destination;
+
+export const CAROUSAL_ACTIVITY = [carousal1, carousal2, carousal3];

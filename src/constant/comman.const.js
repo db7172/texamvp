@@ -8,6 +8,7 @@ export const emailRegex =
 
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
+const ACTIVITY_NAME = ":activityName";
 const EVENT_TYPE = ":eventType";
 const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
@@ -26,6 +27,7 @@ export const ROUTES = {
   WORKATION_IN_CITY: `/workation/${WORKATION_TYPE}/${DESTINATION_NAME}`,
   RETREAT: `/retreat/${RETREAT_TYPE}`,
   RETREAT_IN_CITY: `/retreat/${RETREAT_TYPE}/${DESTINATION_NAME}`,
+  VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}`,
   NOT_FOUND: "/404",
 };
 
@@ -99,6 +101,19 @@ export const getWorkationPageWithCityPath = (
   let path = ROUTES.WORKATION_IN_CITY;
   path = path.replace(WORKATION_TYPE, workationType);
   path = path.replace(DESTINATION_NAME, destinationName);
+
+  return path;
+};
+
+// VIEW DETAILS
+
+export const getViewMoreDetailsForActivityPath = (
+  activityType,
+  activityName
+) => {
+  let path = ROUTES.VIEW_MORE_DETAILS_ACTIVITY;
+  path = path.replace(ACTIVITY_TYPE, activityType);
+  path = path.replace(ACTIVITY_NAME, activityName);
 
   return path;
 };

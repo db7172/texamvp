@@ -38,7 +38,7 @@ const Destinations = () => {
 
   return (
     <Container>
-      <Row className="tw-mt-20" gutter={PAGE_SPACING}>
+      <Row className="tw-top-m" gutter={PAGE_SPACING}>
         <Col span={24}>
           <TitleBreadcrumb titleLinks={slashedTableName} />
           <div className="tw-mt-5">

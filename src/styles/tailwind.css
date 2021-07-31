@@ -14,6 +14,10 @@
     @apply tw-bg-primary-color tw-text-primary-color tw-text-body;
   }
 
+  .tw-top-m {
+    @apply tw-mt-10;
+  }
+
   .tw-subtitle-main {
     @apply tw-text-h1 tw-tracking-1 tw-font-normal;
   }

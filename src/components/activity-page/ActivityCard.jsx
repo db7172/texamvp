@@ -4,18 +4,26 @@ import Tags from "../Tags/Tags";
 import hotel from "../../assets/png/hotel.png";
 import camera from "../../assets/png/photo-camera.png";
 import taxi from "../../assets/png/taxi.png";
+import { getViewMoreDetailsForActivityPath } from "../../constant/comman.const";
+import { Link } from "react-router-dom";
 
-const ActivityCard = ({
-  imgUrl,
-  title,
-  tags,
-  cities,
-  duration,
-  activityType,
-  activityLevel,
-  activityBy,
-  price,
-}) => {
+const ActivityCard = (props) => {
+  const {
+    imgUrl,
+    title,
+    tags,
+    cities,
+    duration,
+    activityType,
+    activityLevel,
+    activityBy,
+    price,
+  } = props;
+  const routingDetails = {
+    pathname: getViewMoreDetailsForActivityPath(activityType, title),
+    state: { ...props },
+  };
+
   return (
     <div className="tw-mx-2 tw-my-5">
       <div className="tw-bg-white tw-shadow-md tw-border tw-rounded-lg tw-p-3 tw-grid tw-grid-cols-2 tw-gap-3">
@@ -86,9 +94,11 @@ const ActivityCard = ({
               </p>
             </div>
             <div>
-              <button className="tw-px-4 tw-mt-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
-                View Details
-              </button>
+              <Link to={routingDetails}>
+                <button className="tw-px-4 tw-mt-4 lg:tw-px-3 tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-text-xs tw-font-medium">
+                  View Details
+                </button>
+              </Link>
             </div>
           </div>
         </div>
