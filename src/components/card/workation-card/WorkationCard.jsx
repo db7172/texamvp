@@ -28,7 +28,7 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
           <p className="tw-text-primary-color tw-mt-2 tw-font-medium">
             Phuentsholing
           </p>
-          <h3 className="tw-font-medium tw-text-base tw-mt-2 tw-text-primary-color">
+          <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-mt-2 tw-text-primary-color">
             {name}
           </h3>
           <p className="tw-flex tw-mt-2">

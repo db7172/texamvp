@@ -61,6 +61,7 @@ module.exports = {
         body: "14px",
         "3rem": "3rem",
         "32px": "32px",
+        "34px": "2.125rem",
       },
       minHeight: {
         32: "8rem",
@@ -77,6 +78,7 @@ module.exports = {
       },
       lineHeight: {
         "42px": "42px",
+        11: "2.75rem",
       },
     },
   },

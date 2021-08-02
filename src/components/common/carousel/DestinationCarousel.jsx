@@ -56,12 +56,12 @@ const DestinationCarousel = ({ setting }) => {
           <Link to={getDestinationPagePath(title)}>
             <div className="tw-relative tw-p-1 tw-flex tw-justify-center">
               <img
-                className="tw-w-full tw-h-auto tw-rounded-md"
+                className="tw-w-full tw-h-auto tw-rounded-lg"
                 src={href}
                 alt=""
               />
-              <div className="tw-absolute tw-bottom-1 tw-right-1 tw-left-1 tw-rounded tw-bg-gray-900 tw-bg-opacity-70 tw-p-1">
-                <p className="tw-m-3 tw-text-xl tw-font-semibold tw-text-white">
+              <div className="tw-absolute tw-bottom-1 tw-right-1 tw-left-1 tw-rounded-lg tw-bg-gray-900 tw-bg-opacity-70 tw-p-1">
+                <p className="tw-m-3 tw-text-base tw-font-semibold tw-text-white">
                   {capitalize(title)}
                 </p>
               </div>

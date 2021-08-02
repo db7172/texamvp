@@ -3,6 +3,7 @@ import BlogCarousel from "../carousel/BlogCarousel";
 import DestinationCarousel from "../carousel/DestinationCarousel";
 import Container from "../container/Container";
 import Jumbotron from "../jumbotron/Jumbotron";
+import Title from "../title/Title";
 
 const ExploreMoreWrapper = ({
   children,
@@ -13,16 +14,18 @@ const ExploreMoreWrapper = ({
   review,
   startingPrice,
   destinationName,
+  path,
 }) => {
   return (
     <>
-      <div className="tw-mt-1">
+      <div className="tw-mt-0">
         <Jumbotron
           image={coverImage}
           title={coverTitle}
           description={coverDescription}
           ratting={ratting}
           review={review}
+          path={path}
           startingPrice={startingPrice}
         />
       </div>
@@ -30,6 +33,7 @@ const ExploreMoreWrapper = ({
         {children}
         <div className="md:tw-mt-20 tw-mt-14">
           <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
             title={`Things to do ${
               destinationName ? `in ${destinationName}` : ""
             }`}
@@ -38,6 +42,7 @@ const ExploreMoreWrapper = ({
 
         <div className="md:tw-mt-20 tw-mt-14">
           <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
             title={`Places to visit ${
               destinationName ? `in ${destinationName}` : ""
             }`}
@@ -45,11 +50,11 @@ const ExploreMoreWrapper = ({
         </div>
 
         <div className="md:tw-mt-20 tw-mt-14">
-          <p className="md:tw-text-2xl tw-text-lg tw-font-medium">
-            Places You Like
-          </p>
-
-          <div className="md:tw-mt-14 tw-mt-3">
+          <Title
+            title="Events"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-3">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>

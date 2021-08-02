@@ -22,9 +22,7 @@ const TestimonialCard = ({ image, name, msg, rating }) => {
         </div>
         <div className="tw-w-4/6 tw-text-center tw-mx-auto tw-relative tw-p-10">
           <img className="left_qoute" src={left} alt="" />
-          <p className="tw-text-secondary-color lg:tw-text-xl tw-text-base">
-            {msg}
-          </p>
+          <p className="tw-text-secondary-color tw-text-lg">{msg}</p>
           <img className="right_qoute" src={right} alt="" />
         </div>
       </div>

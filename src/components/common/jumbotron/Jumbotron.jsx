@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { indCurrency } from "../../../utils/utils";
 import star from "../../../assets/svg/star.svg";
 import { startCase } from "lodash";
+import { DoubleRightOutlined } from "@ant-design/icons";
 
 const Jumbotron = ({
   className,
@@ -12,28 +13,37 @@ const Jumbotron = ({
   startingPrice,
   ratting,
   review,
+  path = "#",
 }) => {
   return (
     <>
-      <div className={classNames("tw-w-full tw-h-auto tw-relative", className)}>
+      <div className={classNames("tw-w-full tw-h-96 tw-relative", className)}>
         {/* <img className="tw-w-full tw-h-auto" src={image} alt="" /> */}
         <img
-          className="tw-w-full tw-h-auto"
-          src="https://img.traveltriangle.com/attachments/pictures/847421/original/Kerala-honeymoon-packages-g.jpg"
+          className="tw-h-full tw-w-full tw-object-cover"
+          src="https://images.unsplash.com/photo-1501555088652-021faa106b9b"
           alt=""
         />
-        <div className="tw-absolute tw-inset-0 tw-z-10 tw-flex tw-items-center tw-flex-col tw-justify-evenly tw-text-white">
+        <div className="tw-absolute tw-inset-0 tw-bg-black tw-bg-opacity-20 tw-z-10 tw-flex tw-items-center tw-flex-col tw-justify-evenly tw-text-white">
           <div className="tw-text-center">
-            <h3 className="tw-title-main tw-text-white">{startCase(title)}</h3>
-            <p className="tw-subtitle-secondary lg:tw-mt-4 tw-mt-0">
+            <h3 className="tw-main-title-other-page tw-text-white">
+              {startCase(title)}
+            </h3>
+            <p className="tw-subtitle-other-page lg:tw-mt-4 tw-mt-0">
               {description}
             </p>
-          </div>
-          <div>
-            <p className="md:tw-text-xl tw-text-base tw-font-lato tw-font-medium">
-              Scroll down to descover
+            <p className="tw-subtitle-other-page tw-mt-14 tw-font-lato tw-animate-bounce">
+              <a
+                className="hover:tw-text-white tw-flex tw-items-center tw-justify-center"
+                href={path}
+              >
+                <DoubleRightOutlined rotate={90} />
+                <span className="tw-mx-2">Scroll down to discover</span>
+                <DoubleRightOutlined rotate={90} />
+              </a>
             </p>
           </div>
+          <div className="tw-max-h-16" />
         </div>
       </div>
       <div className="tw-relative tw-z-20 md:tw-w-5/6 lg:tw-px-9 tw-px-3 lg:tw-py-12 tw-py-6 tw-mx-auto md:tw-flex tw-bg-white xl:tw-text-lg tw-text-base tw-items-center tw-shadow-md lg:tw--top-16 md:tw--top-12 tw-rounded-xl">

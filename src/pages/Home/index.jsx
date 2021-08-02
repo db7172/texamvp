@@ -168,7 +168,7 @@ function Home() {
             title="Destination"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
-          <div className="tw-mt-5">
+          <div className="tw-mt-3">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>
@@ -186,7 +186,7 @@ function Home() {
             title="Browse Activities"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
-          <div className="tw-flex tw-justify-between tw-mt-10">
+          <div className="tw-flex tw-justify-between tw-mt-5">
             {activityIcon.map(({ icon, name }, i) => (
               <IconCard path={icon} name={name} number={124} key={i} />
             ))}
@@ -215,7 +215,7 @@ function Home() {
             title="Events"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
-          <div className="tw-mt-5">
+          <div className="tw-mt-3">
             <DestinationCarousel setting={{ slidesToShow: 4 }} />
           </div>
         </div>
@@ -269,7 +269,7 @@ function Home() {
         </div>
         <div className="tw-mt-20">
           <div className="tw-max-w-6xl tw-mx-auto">
-            <h3 className="tw-text-4xl tw-font-medium tw-text-center">
+            <h3 className="tw-text-2xl tw-font-medium tw-text-center">
               Over 40 Lac+ Happy Travelers
             </h3>
             <div className="tw-mt-14">
@@ -278,7 +278,10 @@ function Home() {
           </div>
         </div>
         <div className="tw-mt-20">
-          <BlogCarousel title="Binge worthy blogs by members" />
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title="Binge worthy blogs by members"
+          />
         </div>
       </div>
     </Container>

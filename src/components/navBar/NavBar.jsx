@@ -184,7 +184,7 @@ function NavBar() {
                   />
                 </div>
                 <div className="tw-min-h-32 tw-border-r-2" />
-                <div className="tw-pl-24">
+                <div className="tw-pl-12">
                   <NavBarOption
                     toggleNavBar={handleLinkClick}
                     isShow={showReterat}

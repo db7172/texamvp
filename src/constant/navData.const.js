@@ -85,7 +85,7 @@ export const EVENT_DATA = {
 
 export const RETREAT_DESTINATION = {
   workcation: {
-    title: "Workcation Destination",
+    title: "Workcation",
     options: chunkArray(workcationOptions, 5),
   },
   reterat: { title: "Reterat", options: chunkArray(reteratOptions, 5) },

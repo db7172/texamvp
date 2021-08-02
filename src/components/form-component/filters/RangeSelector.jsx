@@ -6,7 +6,7 @@ import { indCurrency } from "../../../utils/utils";
 const RangeSelector = ({ title, min, max, value, handleClick }) => {
   return (
     <>
-      <h3 className="tw-text-lg tw-font-medium">{title}</h3>
+      <h3 className="tw-filter-title tw-font-medium">{title}</h3>
       <div className="tw-mt-4 tw-pr-3">
         <Nouislider
           range={{ min: min, max: max }}

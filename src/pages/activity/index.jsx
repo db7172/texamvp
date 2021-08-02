@@ -147,10 +147,11 @@ const Activity = () => {
       coverDescription="Go on a trekking trip to the man-made heaven"
       ratting={5}
       review="1970 reviews"
+      path="#activity"
       startingPrice={16949}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
-      <div className="tw--mt-5">
+      <div id="activity" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">
@@ -161,7 +162,7 @@ const Activity = () => {
         <div>
           <div className="tw-px-5 tw-shadow-md">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
-              <p className="tw-text-lg tw-font-medium">Filters</p>
+              <p className="tw-filter-title tw-font-medium">Filters</p>
               <button
                 className="tw-text-secondary-color tw-text-base"
                 onClick={handleReset}

@@ -8,7 +8,7 @@ const BlogCard = ({ imgUrl, title, tags }) => {
         <div className="card_img_height">
           <img className="tw-rounded-lg" src={imgUrl} alt={title} />
         </div>
-        <div className="tw-mt-5 tw-text-secondary-color tw-h-28 tw-flex tw-flex-col tw-justify-between">
+        <div className="tw-mt-2 tw-text-secondary-color tw-h-28 tw-flex tw-flex-col tw-justify-between">
           <h3 className="tw-font-medium tw-text-base tw-mt-2 tw-text-primary-color">
             {title}
           </h3>

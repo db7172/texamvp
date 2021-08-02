@@ -122,10 +122,11 @@ const RetreatPage = () => {
       coverDescription="Go on a trekking trip to the man-made heaven"
       ratting={5}
       review="1970 reviews"
+      path="#retreat"
       startingPrice={16949}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
-      <div className="tw--mt-5">
+      <div id="retreat" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">

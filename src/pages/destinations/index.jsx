@@ -48,7 +48,7 @@ const Destinations = () => {
         <Col span={24}>
           <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>
-        <Col span={24}>
+        {/* <Col span={24}>
           <EventCarousel
             title="Popular Retreat"
             data={RETREAT}
@@ -56,11 +56,11 @@ const Destinations = () => {
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Popular Retreat")}
           />
-        </Col>
+        </Col> */}
         <Col span={24}>
           <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>
-        <Col span={24}>
+        {/* <Col span={24}>
           <EventCarousel
             title="Popular Retreat"
             data={RETREAT}
@@ -68,11 +68,11 @@ const Destinations = () => {
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Popular Retreat")}
           />
-        </Col>
+        </Col> */}
         <Col span={24}>
           <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>
-        <Col span={24}>
+        {/* <Col span={24}>
           <EventCarousel
             title="Popular Retreat"
             data={RETREAT}
@@ -80,7 +80,7 @@ const Destinations = () => {
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Popular Retreat")}
           />
-        </Col>
+        </Col> */}
         <Col span={24}>
           <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>

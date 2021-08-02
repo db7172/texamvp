@@ -35,11 +35,11 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
   return (
     <div className={`${isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
-        <h3 className="tw-text-h4 tw-font-medium">{title}</h3>
+        <h3 className="tw-text-lg tw-font-medium">{title}</h3>
       </div>
       <div className="tw-flex tw-mt-2">
         {options.map((option, index) => (
-          <ul key={index} className="tw-mr-24">
+          <ul key={index} className="tw-mr-12">
             {option.map((label, i) => (
               <li
                 key={i}

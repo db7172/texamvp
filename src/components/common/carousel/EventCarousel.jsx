@@ -35,7 +35,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
       <div>
         <Title title={title} description={description} path={path || "#"} />
         {event && (
-          <div className="tw-mt-5 tw-flex tw-flex-wrap">
+          <div className="tw-mt-3 tw-flex tw-flex-wrap">
             <div className="tw-mr-12">
               <CheckBox
                 label="Online"
@@ -55,7 +55,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
           </div>
         )}
       </div>
-      <div className="tw-mt-5">
+      <div className="tw-mt-3">
         <Carousel autoplay {...settings}>
           {eventData?.map((d, i) =>
             event ? (

@@ -24,7 +24,7 @@ const RadioButton = ({ title, value, onChange, selected }) => {
 
   return (
     <>
-      <h3 className="tw-text-lg tw-font-medium">{title}</h3>
+      <h3 className="tw-filter-title tw-font-medium">{title}</h3>
       <div className="tw-mt-4">
         {getBuckets(value, viewMore).map((v, i) => (
           <div key={i}>
@@ -37,9 +37,7 @@ const RadioButton = ({ title, value, onChange, selected }) => {
               checked={selected === v}
               onChange={onChange}
             />
-            <label className="tw-text-base" htmlFor={v}>
-              {v}
-            </label>
+            <label htmlFor={v}>{v}</label>
           </div>
         ))}
         {getLinkText(value.length, viewMore, setViewMore)}

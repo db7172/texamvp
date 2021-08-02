@@ -14,7 +14,7 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
         <div className="tw-mt-5 tw-text-secondary-color">
           <div>
             <div className="tw-flex">
-              <h3 className="tw-font-medium tw-text-base tw-text-primary-color">
+              <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color">
                 {name}
               </h3>
               <div className="tw-min-w-max tw-ml-3 tw-mt-1">

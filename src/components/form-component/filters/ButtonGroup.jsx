@@ -5,7 +5,7 @@ import classNames from "classnames";
 const ButtonGroup = ({ title, option, handleClick }) => {
   return (
     <>
-      <h3 className="tw-text-lg tw-font-medium">{title}</h3>
+      <h3 className="tw-filter-title tw-font-medium">{title}</h3>
       <div className="tw-mt-4 tw-flex tw-flex-wrap">
         {Object.keys(option).map((o, i) => (
           <button

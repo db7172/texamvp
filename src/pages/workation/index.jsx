@@ -145,11 +145,12 @@ const WorkationPage = () => {
       review="1970 reviews"
       startingPrice={16949}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
+      path="#workation"
     >
       <div className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
-      <div className="tw-mt-9">
+      <div id="workation" className="tw-mt-9">
         <PageHeader title={coverTitle} />
       </div>
       <div className="tw-mt-9 tw-grid tw-grid-cols-4 tw-gap-3">

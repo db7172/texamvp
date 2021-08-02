@@ -13,7 +13,7 @@ const WorkationCarousel = ({ title, data, setting, path, description }) => {
   return (
     <div>
       <Title title={title} path={path} description={description} />
-      <div className="tw-mt-5">
+      <div className="tw-mt-3">
         {Boolean(data.length) ? (
           <Carousel autoplay {...settings}>
             {data?.map((d, i) => (

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const TitleBreadcrumb = ({ titleLinks, className = "" }) => {
   return (
     <nav className={className}>
-      <ol className="list-reset tw-py-2 tw-rounded tw-flex">
+      <ol className="list-reset tw-py-2 tw-rounded tw-flex tw-items-center">
         {titleLinks.map((link, index) => (
           <li key={index}>
             {index < titleLinks.length - 1 ? (

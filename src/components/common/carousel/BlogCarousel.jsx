@@ -5,15 +5,15 @@ import { defaultSettings } from "../../../utils/utils";
 import BlogCard from "../../card/blog-card/BlogCard";
 import Title from "../title/Title";
 
-const BlogCarousel = ({ title }) => {
+const BlogCarousel = ({ title, description }) => {
   const settings = {
     ...defaultSettings,
     slidesToShow: 3,
   };
   return (
     <div>
-      <Title title={title} />
-      <div className="tw-mt-5">
+      <Title title={title} description={description} />
+      <div className="tw-mt-3">
         <Carousel autoplay {...settings}>
           {BLOGS.map((d, i) => (
             <BlogCard {...d} key={i} />

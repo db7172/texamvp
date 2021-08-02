@@ -137,11 +137,12 @@ const EventPage = () => {
       coverTitle={coverTitle}
       coverDescription="Go on a trekking trip to the man-made heaven"
       ratting={5}
+      path="#event"
       review="1970 reviews"
       startingPrice={16949}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
-      <div className="tw--mt-5">
+      <div id="event" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">

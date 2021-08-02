@@ -22,20 +22,28 @@
     @apply tw-text-h1 tw-tracking-1 tw-font-normal;
   }
 
-  .tw-subtitle-secondary {
-    @apply tw-text-2xl tw-font-semibold;
-  }
-
   .tw-title-main {
     @apply tw-text-3rem tw-tracking-1 tw-font-bold;
   }
 
   .tw-section-title {
-    @apply tw-text-32px tw-leading-42px tw-font-bold;
+    @apply tw-text-2xl tw-font-bold tw-tracking-1;
   }
 
   .tw-section-description {
-    @apply tw-text-lg tw-text-secondary-color tw-font-normal;
+    @apply tw-text-base tw-text-secondary-color tw-font-normal;
+  }
+
+  .tw-main-title-other-page {
+    @apply tw-text-34px tw-font-semibold tw-tracking-1 tw-leading-11;
+  }
+
+  .tw-subtitle-other-page {
+    @apply tw-text-2xl tw-font-medium tw-tracking-1;
+  }
+
+  .tw-filter-title {
+    @apply tw-text-base;
   }
 
   .tw-price {
@@ -92,7 +100,7 @@
   }
 
   .link-title {
-    @apply tw-text-base tw-text-secondary-color focus:tw-underline tw-cursor-pointer;
+    @apply tw-text-xs tw-text-secondary-color focus:tw-underline tw-cursor-pointer;
   }
 
   /* modal style */

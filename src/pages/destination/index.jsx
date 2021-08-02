@@ -44,11 +44,12 @@ const DestinationPage = () => {
       coverTitle={destinationName}
       coverDescription="Go on a trekking trip to the man-made heaven"
       ratting={5}
+      path="#destination"
       review="1970 reviews"
       startingPrice={16949}
       destinationName={destinationName}
     >
-      <div className="tw--mt-5">
+      <div id="destination" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">

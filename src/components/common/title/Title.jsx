@@ -8,7 +8,7 @@ const Title = ({ title, path, description }) => {
         <h3 className="tw-section-title">{title}</h3>
         <Link
           to={path}
-          className="tw-text-blue-500 tw-underline tw-text-lg tw-font-bold"
+          className="tw-section-description tw-text-blue-500 tw-underline"
         >
           View All
         </Link>

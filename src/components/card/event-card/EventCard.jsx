@@ -10,7 +10,7 @@ const EventCard = ({ name, datetime, type, price, imgUrl }) => {
         </div>
         <div className="tw-mt-5 tw-text-secondary-color">
           <div>
-            <h3 className="tw-font-medium tw-text-base tw-text-primary-color">
+            <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color">
               {name}
             </h3>
             <p className="tw-font-medium tw-mt-2">{datetime}</p>

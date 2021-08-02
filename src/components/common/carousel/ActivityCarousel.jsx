@@ -39,7 +39,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
     <div>
       <div>
         <Title title={title} description={description} path={path || "#"} />
-        <div className="tw-mt-5 tw-flex tw-flex-wrap">
+        <div className="tw-mt-3 tw-flex tw-flex-wrap">
           <div className="tw-mr-12">
             <CheckBox
               label="Multi Day Activity"
@@ -66,7 +66,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
           </div>
         </div>
       </div>
-      <div className="tw-mt-5">
+      <div className="tw-mt-3">
         <Carousel autoplay {...settings}>
           {activityData?.map((d, i) => (
             <TourCard {...d} key={i} />

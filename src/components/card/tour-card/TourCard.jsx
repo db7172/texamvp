@@ -31,7 +31,7 @@ const TourCard = (props) => {
         </div>
         <div className="tw-flex tw-flex-col tw-justify-between tw-mt-5 tw-text-secondary-color">
           <div>
-            <h3 className="tw-font-medium tw-text-base tw-text-primary-color">
+            <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color">
               {activityName}
             </h3>
 
