@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { startCase } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import Container from "../../components/common/container/Container";

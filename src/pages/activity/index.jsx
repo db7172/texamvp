@@ -13,6 +13,7 @@ import Pagination from "../../components/pagination";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
+import { Col, Row } from "antd";
 
 const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
 const MIN = 10000,
@@ -154,12 +155,12 @@ const Activity = () => {
       <div id="activity" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
-      <div className="tw-mt-9">
+      <div className="tw-mt-10">
         <PageHeader title={coverTitle} />
       </div>
-      <div className="tw-mt-9 tw-grid tw-grid-cols-4 tw-gap-3">
+      <Row className="tw-mt-10" gutter={40}>
         {/* filter part */}
-        <div>
+        <Col span={7}>
           <div className="tw-px-5 tw-shadow-md">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
               <p className="tw-filter-title tw-font-medium">Filters</p>
@@ -201,11 +202,11 @@ const Activity = () => {
               />
             </div>
           </div>
-        </div>
+        </Col>
         {/* Card part */}
-        <div className="tw-col-span-3">
+        <Col span={17}>
           <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
+            <h1 className="tw-section-title tw-ml-3">
               {startCase(
                 `${activityType} ${
                   destinationName ? `in ${destinationName}` : ""
@@ -248,8 +249,8 @@ const Activity = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };

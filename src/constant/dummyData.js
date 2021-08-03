@@ -592,9 +592,9 @@ export const VIEW_ALL_DESTINATION = [
   { description: "Netherlands", name: "Amsterdam", imgUrl: netherlands },
   { description: "Australia", name: "Hobart", imgUrl: australia },
   { description: "Canada", name: "Toronto", imgUrl: canada },
-  { description: "Azerbaijan", name: "Baku", imgUrl: netherlands },
+  { description: "Azerbaijan", name: "Baku", imgUrl: azerbaijan },
   { description: "Netherlands", name: "Amsterdam", imgUrl: netherlands },
   { description: "Australia", name: "Hobart", imgUrl: australia },
   { description: "Canada", name: "Toronto", imgUrl: canada },
-  { description: "Azerbaijan", name: "Baku", imgUrl: netherlands },
+  { description: "Azerbaijan", name: "Baku", imgUrl: azerbaijan },
 ];

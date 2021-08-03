@@ -13,6 +13,7 @@ import EventPageCard from "../../components/event-page/EventPageCard";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
+import { Col, Row } from "antd";
 
 // dummy data
 
@@ -145,12 +146,12 @@ const EventPage = () => {
       <div id="event" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
-      <div className="tw-mt-9">
+      <div className="tw-mt-10">
         <PageHeader title={coverTitle} />
       </div>
-      <div className="tw-mt-9 tw-grid tw-grid-cols-4 tw-gap-3">
+      <Row gutter={40} className="tw-mt-10">
         {/* filter part */}
-        <div>
+        <Col span={7}>
           <div className="tw-px-5 tw-shadow-md">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
               <p className="tw-text-lg tw-font-medium">Filters</p>
@@ -192,11 +193,11 @@ const EventPage = () => {
               />
             </div>
           </div>
-        </div>
+        </Col>
         {/* Card part */}
-        <div className="tw-col-span-3">
+        <Col span={17}>
           <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
+            <h1 className="tw-section-title tw-ml-3">
               {startCase(
                 `${eventType} ${destinationName ? `in ${destinationName}` : ""}`
               )}
@@ -237,8 +238,8 @@ const EventPage = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };

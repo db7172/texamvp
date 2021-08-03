@@ -170,7 +170,7 @@ function NavBar() {
       </div>
       <div className="tw-relative">
         <div className="tw-z-50 tw-absolute tw-w-full">
-          <div className="tw-w-10/12 tw-mx-auto tw-flex tw-justify-center tw-items-center tw-bg-white tw-border tw-border-t-0">
+          <div className="tw-w-10/12 tw-mx-auto tw-flex tw-justify-center tw-items-center tw-bg-white tw-shadow-2xl">
             {showReterat ? (
               <div className="tw-flex tw-justify-evenly tw-items-center">
                 <div className="">

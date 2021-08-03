@@ -15,6 +15,7 @@ import WorkationPageCard from "../../components/workation-page/WorkationPageCard
 import RadioButton from "../../components/form-component/filters/RadioButton";
 import HotelStarFilter from "../../components/form-component/filters/HotelStar";
 import RattingFilter from "../../components/form-component/filters/RattingFilter";
+import { Col, Row } from "antd";
 
 // dummy data
 const MIN = 10000,
@@ -150,12 +151,12 @@ const WorkationPage = () => {
       <div className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
-      <div id="workation" className="tw-mt-9">
+      <div id="workation" className="tw-mt-10">
         <PageHeader title={coverTitle} />
       </div>
-      <div className="tw-mt-9 tw-grid tw-grid-cols-4 tw-gap-3">
+      <Row gutter={40} className="tw-mt-10">
         {/* filter part */}
-        <div>
+        <Col span={7}>
           <div className="tw-px-5 tw-shadow-md">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
               <p className="tw-text-lg tw-font-medium">Filters</p>
@@ -204,11 +205,11 @@ const WorkationPage = () => {
               />
             </div>
           </div>
-        </div>
+        </Col>
         {/* Card part */}
-        <div className="tw-col-span-3">
+        <Col span={17}>
           <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-text-2xl tw-font-medium tw-ml-3">
+            <h1 className="tw-section-title tw-ml-3 tw-w-1/3">
               {startCase(
                 `${workationType} ${
                   destinationName ? `in ${destinationName}` : ""
@@ -251,8 +252,8 @@ const WorkationPage = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };
