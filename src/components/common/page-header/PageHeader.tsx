@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import Paragraph from "antd/lib/typography/Paragraph";
+import classNames from "classnames";
 import { startCase } from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
@@ -7,14 +8,20 @@ import React from "react";
 const DUMMY_DESCRIPTION =
   "The human instinct to explore new places and things is always there. People travel for all sorts of reasons, be it to spend time with their loved ones or today North Andaman and Baratang Island are also popular with travelers. From pristine beaches to bewildering Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team.";
 
-const PageHeader = ({ title }) => {
+type Props = {
+  title: string;
+  className?: string;
+};
+
+const PageHeader = ({ title, className }: Props) => {
   const [ellipsis, setEllipsis] = React.useState(true);
   return (
     <>
-      <h1 className="tw-section-title">{startCase(title)}</h1>
-      {/* <p className="tw-section-description tw-mt-3">
-        {description || DUMMY_DESCRIPTION}
-      </p> */}
+      <h1
+        className={classNames("tw-section-title", className ? className : "")}
+      >
+        {startCase(title)}
+      </h1>
       <Paragraph
         className="tw-section-description tw-mt-3 tw-mb-0"
         ellipsis={ellipsis ? { rows: 2, expandable: true, symbol: " " } : false}

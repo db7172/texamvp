@@ -11,7 +11,7 @@ import EventPage from "../eventPage";
 import Events from "../events";
 import Home from "../Home";
 import RetreatPage from "../retreat";
-import ViewMoreDetailsForActivity from "../view-all/ViewMoreDetailsForActivity";
+import ViewMoreDetailsForActivity from "../view-more/ViewMoreDetailsForActivity";
 import WorkationPage from "../workation";
 
 const AppRouter = () => {
