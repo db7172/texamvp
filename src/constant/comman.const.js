@@ -1,5 +1,7 @@
 export const SECONDARY_COLOR = "#FFE606";
 export const PAGE_SPACING = [0, 80];
+export const RIGHT_SPACING_VALUE = 80;
+export const LEFT_SPACING_VALUE = 0;
 
 // email id validation regex
 export const emailRegex =

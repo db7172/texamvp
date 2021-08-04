@@ -196,6 +196,7 @@ function Home() {
             <Title
               title="Browse Activities"
               description="Lorem ipsum is the dummy text for placing any thing"
+              path="/activites"
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
               {activityIcon.map(({ icon, name }, i) => (

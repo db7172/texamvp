@@ -103,6 +103,10 @@
     @apply tw-text-xs tw-text-secondary-color focus:tw-underline tw-cursor-pointer;
   }
 
+  .effect {
+    @apply tw-transform tw-transition-all tw-duration-150 tw-ease-out;
+  }
+
   /* modal style */
 
   .tw-modal {

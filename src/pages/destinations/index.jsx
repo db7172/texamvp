@@ -1,10 +1,12 @@
 import { Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import Container from "../../components/common/container/Container";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
+import Title from "../../components/common/title/Title";
 import Pagination from "../../components/pagination";
 import ViewAll from "../../components/view-all/ViewAll";
 import {
@@ -48,42 +50,7 @@ const Destinations = () => {
         <Col span={24}>
           <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>
-        {/* <Col span={24}>
-          <EventCarousel
-            title="Popular Retreat"
-            data={RETREAT}
-            setting={{ slidesToShow: 3 }}
-            description="Lorem ipsum is the dummy text for placing any thing"
-            path={getRetreatPagePath("Popular Retreat")}
-          />
-        </Col> */}
-        <Col span={24}>
-          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
-        </Col>
-        {/* <Col span={24}>
-          <EventCarousel
-            title="Popular Retreat"
-            data={RETREAT}
-            setting={{ slidesToShow: 3 }}
-            description="Lorem ipsum is the dummy text for placing any thing"
-            path={getRetreatPagePath("Popular Retreat")}
-          />
-        </Col> */}
-        <Col span={24}>
-          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
-        </Col>
-        {/* <Col span={24}>
-          <EventCarousel
-            title="Popular Retreat"
-            data={RETREAT}
-            setting={{ slidesToShow: 3 }}
-            description="Lorem ipsum is the dummy text for placing any thing"
-            path={getRetreatPagePath("Popular Retreat")}
-          />
-        </Col> */}
-        <Col span={24}>
-          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
-        </Col>
+
         <Col span={24} className="tw-flex tw-justify-center">
           <Pagination
             currentPage={activePage}
@@ -93,7 +60,38 @@ const Destinations = () => {
           />
         </Col>
         <Col span={24}>
-          <BlogCarousel title="Binge worthy blogs by members" />
+          <EventCarousel
+            title="Retreat of the Month"
+            data={RETREAT}
+            setting={{ slidesToShow: 3 }}
+            description="Lorem ipsum is the dummy text for placing any thing"
+            path={getRetreatPagePath("Retreat of the Month")}
+          />
+        </Col>
+        <Col span={24}>
+          <EventCarousel
+            title="Popular Retreat"
+            data={RETREAT}
+            setting={{ slidesToShow: 3 }}
+            description="Lorem ipsum is the dummy text for placing any thing"
+            path={getRetreatPagePath("Popular Retreat")}
+          />
+        </Col>
+        <Col span={24}>
+          <Title
+            title="Retreat By Destionation"
+            description="Lorem ipsum is the dummy text for placing any thing"
+            path="#"
+          />
+          <div className="tw-mt-3">
+            <DestinationCarousel setting={{ slidesToShow: 4 }} />
+          </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel title="Things to do in While Retreat" />
+        </Col>
+        <Col span={24}>
+          <BlogCarousel title="Places to visit For Retreat" />
         </Col>
       </Row>
     </Container>
