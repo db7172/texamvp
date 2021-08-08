@@ -67,6 +67,29 @@ const informationData = [
   },
 ];
 
+const cancellationRule = {
+  header: "Cancellation Rules",
+  content: [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur",
+  ],
+};
+const termsAndCondition = {
+  header: "Terms & Condition",
+  content: [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur",
+  ],
+};
+
 const ViewMoreTravellingInfo = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -159,6 +182,20 @@ const ViewMoreTravellingInfo = () => {
               {informationData.map((d, i) => (
                 <InformationSection header={d.header} content={d.content} />
               ))}
+            </div>
+            <div className="tw-py-3 tw-border-t tw-border-b">
+              <InformationSection
+                header={cancellationRule.header}
+                content={cancellationRule.content}
+                className="tw-section-title"
+              />
+            </div>
+            <div className="tw-mt-5">
+              <InformationSection
+                header={termsAndCondition.header}
+                content={termsAndCondition.content}
+                className="tw-section-title"
+              />
             </div>
           </div>
         </Modal>

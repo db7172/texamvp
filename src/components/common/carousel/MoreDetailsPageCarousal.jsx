@@ -9,7 +9,7 @@ const MoreDetailsPageCarousal = ({ images }) => {
 
   return (
     <Carousel
-      className="details_page_carousal menual-carousal"
+      className="menual-carousal details_page_carousal"
       autoplay
       {...settings}
     >

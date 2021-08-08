@@ -58,6 +58,13 @@
     @apply tw-transition-transform tw-transform hover:tw-scale-105;
   }
 
+  .tw-flex-center {
+    @apply tw-flex tw-justify-center tw-items-center;
+  }
+  .tw-texa-button {
+    @apply tw-bg-secondary-color hover:tw-bg-secondary-color focus:tw-bg-secondary-color;
+  }
+
   /* card */
   .tw-card-wrapper {
     @apply tw-mx-2 tw-my-4 tw-border tw-rounded-lg tw-border-light-white;

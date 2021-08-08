@@ -11,7 +11,11 @@ const InformationSection = ({ header, content, className }: Props) => {
   return (
     <Row gutter={[0, 15]} className="tw-px-6 tw-pb-6">
       <Col span={24}>
-        <h4 className={classNames("tw-text-base tw-font-medium", className)}>
+        <h4
+          className={classNames(
+            className ? className : "tw-text-base tw-font-medium"
+          )}
+        >
           {header}
         </h4>
       </Col>
