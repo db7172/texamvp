@@ -50,7 +50,7 @@ const DestinationCarousel = ({ setting }) => {
   ];
 
   return (
-    <Carousel autoplay {...settings}>
+    <Carousel className="menual-carousal" autoplay {...settings}>
       {destinationPlace.map(({ href, title }, i) => (
         <div className="tw-mr-3 tw-zoom-effect" key={i}>
           <Link to={getDestinationPagePath(title)}>

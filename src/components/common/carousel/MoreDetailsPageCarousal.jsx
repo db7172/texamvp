@@ -8,7 +8,11 @@ const MoreDetailsPageCarousal = ({ images }) => {
   };
 
   return (
-    <Carousel className="details_page_carousal" autoplay {...settings}>
+    <Carousel
+      className="details_page_carousal menual-carousal"
+      autoplay
+      {...settings}
+    >
       {images.map((d, i) => (
         <div>
           <img className="tw-w-full tw-h-auto" src={d} alt="" />

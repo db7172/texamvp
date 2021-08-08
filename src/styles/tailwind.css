@@ -42,6 +42,10 @@
     @apply tw-text-2xl tw-font-medium tw-tracking-1;
   }
 
+  .tw-base-title {
+    @apply tw-text-lg tw-tracking-1 tw-font-bold;
+  }
+
   .tw-filter-title {
     @apply tw-text-base;
   }

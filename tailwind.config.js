@@ -34,6 +34,7 @@ module.exports = {
         "secondary-color": yellow,
         "green-background": green,
         "gray-background": gray,
+        "lightGray-background": secondaryText,
         "lightGreen-background": lightGreen,
         "darkYellow-background": darkYellow,
       },

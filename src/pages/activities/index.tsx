@@ -1,7 +1,9 @@
 import { RightOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
+import { lowerCase } from "lodash";
 import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import IconCard from "../../components/card/icon-card/IconCard";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
@@ -81,7 +83,14 @@ const Activites = () => {
             <Row gutter={[20, 20]}>
               {activityIcon.map(({ icon, name }: Icon, i) => (
                 <Col span={4} className="effect">
-                  <IconCard path={icon} name={name} number={124} key={i} />
+                  <Link to={getActivityPagePath(lowerCase(name))}>
+                    <IconCard
+                      path={icon}
+                      name={name}
+                      description={`124 Acticites`}
+                      key={i}
+                    />
+                  </Link>
                 </Col>
               ))}
               <Col span={4}>

@@ -55,7 +55,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
           </div>
         )}
       </div>
-      <div className="tw-mt-3">
+      <div className="tw-mt-3 menual-carousal">
         <Carousel autoplay {...settings}>
           {eventData?.map((d, i) =>
             event ? (

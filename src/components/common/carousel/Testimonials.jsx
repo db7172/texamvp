@@ -11,7 +11,7 @@ const Testimonials = () => {
     responsive: [],
   };
   return (
-    <Carousel autoplay {...settings}>
+    <Carousel className="menual-carousal" autoplay {...settings}>
       {TESTIMONIALS.map((d, i) => (
         <TestimonialCard {...d} image={person} key={i} />
       ))}

@@ -23,6 +23,8 @@ import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import { Link } from "react-router-dom";
+import { lowerCase } from "lodash";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -200,7 +202,14 @@ function Home() {
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
               {activityIcon.map(({ icon, name }, i) => (
-                <IconCard path={icon} name={name} number={124} key={i} />
+                <Link to={getActivityPagePath(lowerCase(name))}>
+                  <IconCard
+                    path={icon}
+                    name={name}
+                    description={`124 Activites`}
+                    key={i}
+                  />
+                </Link>
               ))}
             </div>
           </div>

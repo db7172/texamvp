@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const TitleBreadcrumb = ({ titleLinks, className = "" }) => {
@@ -25,7 +24,7 @@ const TitleBreadcrumb = ({ titleLinks, className = "" }) => {
                 {link.name}
               </Link>
             ) : (
-              <span className="link-title tw-font-medium tw-cursor-text">
+              <span className="link-title tw-pt-0.5 tw-font-medium tw-cursor-text">
                 {link.name}
               </span>
             )}

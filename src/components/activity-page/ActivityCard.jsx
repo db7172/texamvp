@@ -22,7 +22,7 @@ const ActivityCard = (props) => {
   } = props;
   const routingDetails = {
     pathname: getViewMoreDetailsForActivityPath(activityType, title),
-    state: { ...props },
+    state: { ...props, activityName: title, duration: "3 Days", rating: 5, review: "89 Reviews" },
   };
 
   return (

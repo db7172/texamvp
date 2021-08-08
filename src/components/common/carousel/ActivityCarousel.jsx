@@ -66,7 +66,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
           </div>
         </div>
       </div>
-      <div className="tw-mt-3">
+      <div className="tw-mt-3 menual-carousal">
         <Carousel autoplay {...settings}>
           {activityData?.map((d, i) => (
             <TourCard {...d} key={i} />

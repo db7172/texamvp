@@ -13,7 +13,7 @@ const BlogCarousel = ({ title, description }) => {
   return (
     <div>
       <Title title={title} description={description} />
-      <div className="tw-mt-3">
+      <div className="tw-mt-3 menual-carousal">
         <Carousel autoplay {...settings}>
           {BLOGS.map((d, i) => (
             <BlogCard {...d} key={i} />
