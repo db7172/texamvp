@@ -1,8 +1,12 @@
-import { Button, Select } from "antd";
+import { Button, Col, Divider, Row, Select } from "antd";
+import Modal from "antd/lib/modal/Modal";
 import classNames from "classnames";
 import { lowerCase } from "lodash";
 import { useState } from "react";
 import { CITY_ARR } from "../../constant/city-array";
+import banner from "../../assets/png/carousal1.png";
+import { indCurrency } from "../../utils/utils";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 const MOCK_DATE = [
   {
@@ -15,16 +19,49 @@ const MOCK_DATE = [
   },
 ];
 
+const MOCK_PACKAGE = [
+  {
+    type: "Bronze",
+    price: 6499,
+    description:
+      "Ac eget sollicitudin ut proin. Quisque sapien quam ac mattis donec faucibus.",
+  },
+  {
+    type: "Silver",
+    price: 7499,
+    description:
+      "Ac eget sollicitudin ut proin. Quisque sapien quam ac mattis donec faucibus.",
+  },
+  {
+    type: "Gold",
+    price: 8499,
+    description:
+      "Ac eget sollicitudin ut proin. Quisque sapien quam ac mattis donec faucibus.",
+  },
+];
+
 const ViewMoreActivityBookingCard = () => {
   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
+  const [active, setActive] = useState("");
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const handleClick = (e: any) => {
     setSelectedDate(e.target.dataset.valueid);
   };
 
   const handleSubmit = () => {
+    setIsModalVisible(true);
     console.log({ departureCity, selectedDate });
+  };
+
+  const handlePlanClick = (value: string) => {
+    setActive(value);
   };
 
   return (
@@ -96,6 +133,59 @@ const ViewMoreActivityBookingCard = () => {
         >
           Book Now
         </Button>
+        <Modal
+          title="Booking Details"
+          visible={isModalVisible}
+          footer={null}
+          onCancel={handleCancel}
+          width={800}
+        >
+          <div className="tw-flex tw-items-center tw-gap-3 tw-pb-5 tw-border-b">
+            <div className="tw-h-16 tw-w-24">
+              <img
+                className="tw-w-auto tw-h-full tw-object-fill"
+                src={banner}
+                alt=""
+              />
+            </div>
+            <div>
+              <h4 className="tw-font-medium tw-text-base">
+                Exciting Hampta Pass Trek trip
+              </h4>
+              <p className="tw-text-secondary-color">Mumbai . Trekking</p>
+            </div>
+          </div>
+          <Row gutter={20} className="tw-mt-5 tw-flex tw-justify-between">
+            <Col span={12}>
+              <h4 className="tw-text-base">Choose Your Package</h4>
+              <div>
+                {MOCK_PACKAGE.map((d, i) => (
+                  <div
+                    className="tw-p-3 tw-mt-3 tw-shadow tw-rounded-md tw-bg-gray-background tw-cursor-pointer"
+                    onClick={() => handlePlanClick(d.type)}
+                  >
+                    <div className="tw-flex tw-justify-between">
+                      <h3 className="tw-text-base tw-font-medium">{`${
+                        d.type
+                      } - ${indCurrency(d.price)}`}</h3>
+                      <CheckCircleFilled
+                        style={{
+                          color: active === d.type ? "yellow" : "white",
+                          fontSize: "25px",
+                        }}
+                      />
+                    </div>
+                    <p className="tw-mt-3 tw-text-secondary-color">
+                      {d.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Col>
+
+            <Col span={12}>test</Col>
+          </Row>
+        </Modal>
       </div>
     </section>
   );

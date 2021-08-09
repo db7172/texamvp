@@ -17,6 +17,7 @@ import ViewMoreActivityBookingCard from "../../components/view-more-details/View
 import ViewMoreActivityCard from "../../components/view-more-details/ViewMoreActivityCard";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
 import ViewMoreSummary from "../../components/view-more-details/ViewMoreSummary";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import ViewMoreTravellingInfo from "../../components/view-more-details/ViewMoreTravellingInfo";
 import { getActivityPagePath } from "../../constant/comman.const";
 import { ACTIVITY } from "../../constant/dummyData";
@@ -71,7 +72,7 @@ const ViewMoreDetailsForActivity = () => {
       {activityDetails ? (
         <Row className="tw-top-m" gutter={[20, 80]}>
           <Col span={7} order={2} className="tw-pt-14">
-            <Row gutter={[0, 80]}>
+            <Row gutter={[0, 40]}>
               <Col
                 span={24}
                 className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
@@ -80,6 +81,12 @@ const ViewMoreDetailsForActivity = () => {
                 <div className="tw-mt-5">
                   <ViewMoreActivityBookingCard />
                 </div>
+              </Col>
+              <Col
+                span={24}
+                className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
+              >
+                <ViewMoreTestimonial />
               </Col>
             </Row>
           </Col>
