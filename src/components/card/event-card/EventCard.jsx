@@ -1,7 +1,13 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import { getViewMoreDetailsForEventPath } from "../../../constant/comman.const";
 import { indCurrency } from "../../../utils/utils";
 
 const EventCard = ({ name, datetime, type, price, imgUrl }) => {
+  const routingDetails = {
+    pathname: getViewMoreDetailsForEventPath(type, name),
+    state: { name, datetime, type, price, imgUrl },
+  };
+
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
@@ -27,9 +33,11 @@ const EventCard = ({ name, datetime, type, price, imgUrl }) => {
               </span>
             </p>
           </div>
-          <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-            View Details
-          </button>
+          <Link to={routingDetails}>
+            <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

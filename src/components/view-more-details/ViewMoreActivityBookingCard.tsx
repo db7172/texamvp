@@ -1,4 +1,13 @@
-import { Button, Col, Divider, Row, Select } from "antd";
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  InputNumber,
+  Row,
+  Select,
+  TimePicker,
+} from "antd";
 import Modal from "antd/lib/modal/Modal";
 import classNames from "classnames";
 import { lowerCase } from "lodash";
@@ -19,7 +28,13 @@ const MOCK_DATE = [
   },
 ];
 
-const MOCK_PACKAGE = [
+type Package = {
+  type: string;
+  price: number;
+  description: string;
+};
+
+const MOCK_PACKAGE: Package[] = [
   {
     type: "Bronze",
     price: 6499,
@@ -43,7 +58,13 @@ const MOCK_PACKAGE = [
 const ViewMoreActivityBookingCard = () => {
   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState<Package>(MOCK_PACKAGE[0]);
+  const [formValue, setFormValue] = useState({
+    dateOfTravel: "",
+    time: "",
+    noOfPerson: 1,
+  });
+  const [form] = Form.useForm();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -57,10 +78,18 @@ const ViewMoreActivityBookingCard = () => {
 
   const handleSubmit = () => {
     setIsModalVisible(true);
-    console.log({ departureCity, selectedDate });
+    console.log({
+      departureCity,
+      totalCost: active.price * formValue.noOfPerson,
+    });
   };
 
-  const handlePlanClick = (value: string) => {
+  const handleModalSubmit = () => {
+    setIsModalVisible(false);
+    console.log({ formValue, selectedDate });
+  };
+
+  const handlePlanClick = (value: Package) => {
     setActive(value);
   };
 
@@ -155,14 +184,17 @@ const ViewMoreActivityBookingCard = () => {
               <p className="tw-text-secondary-color">Mumbai . Trekking</p>
             </div>
           </div>
-          <Row gutter={20} className="tw-mt-5 tw-flex tw-justify-between">
-            <Col span={12}>
+          <Row
+            gutter={30}
+            className="tw-mt-5 tw-border-b tw-pb-5 tw-flex tw-justify-between"
+          >
+            <Col span={12} className="tw-border-r">
               <h4 className="tw-text-base">Choose Your Package</h4>
               <div>
                 {MOCK_PACKAGE.map((d, i) => (
                   <div
                     className="tw-p-3 tw-mt-3 tw-shadow tw-rounded-md tw-bg-gray-background tw-cursor-pointer"
-                    onClick={() => handlePlanClick(d.type)}
+                    onClick={() => handlePlanClick(d)}
                   >
                     <div className="tw-flex tw-justify-between">
                       <h3 className="tw-text-base tw-font-medium">{`${
@@ -170,7 +202,7 @@ const ViewMoreActivityBookingCard = () => {
                       } - ${indCurrency(d.price)}`}</h3>
                       <CheckCircleFilled
                         style={{
-                          color: active === d.type ? "yellow" : "white",
+                          color: active.type === d.type ? "yellow" : "white",
                           fontSize: "25px",
                         }}
                       />
@@ -183,8 +215,79 @@ const ViewMoreActivityBookingCard = () => {
               </div>
             </Col>
 
-            <Col span={12}>test</Col>
+            <Col span={12}>
+              <Form
+                form={form}
+                layout="vertical"
+                size="large"
+                initialValues={formValue}
+                className="form-resets"
+                onFinish={handleModalSubmit}
+              >
+                <Row gutter={12}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="dateOfTravel"
+                      label="Date Of Travel"
+                      rules={[{ required: true }]}
+                    >
+                      <DatePicker
+                        className="tw-w-full tw-rounded-md"
+                        onChange={(_, d) =>
+                          setFormValue({ ...formValue, dateOfTravel: d })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="time"
+                      label="Time Slot"
+                      rules={[{ required: true }]}
+                    >
+                      <TimePicker
+                        className="tw-w-full tw-rounded-md"
+                        onChange={(_, t) =>
+                          setFormValue({ ...formValue, time: t })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="noOfPerson"
+                      label="Time Slot"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber
+                        placeholder="Enter No. of people"
+                        className="tw-w-full tw-rounded-md"
+                        min={1}
+                        onChange={(v) =>
+                          setFormValue({ ...formValue, noOfPerson: v })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
           </Row>
+
+          <div className="tw-mt-5 tw-flex tw-justify-between tw-items-center">
+            <h4 className="tw-text-xl tw-text-yellow-color tw-font-medium">
+              {indCurrency(active.price * formValue.noOfPerson)}
+            </h4>
+            <Form form={form}>
+              <Button
+                type="default"
+                className="tw-texa-button tw-m-0"
+                htmlType="submit"
+              >
+                Book Now
+              </Button>
+            </Form>
+          </div>
         </Modal>
       </div>
     </section>

@@ -3,7 +3,7 @@ import Tags from "../Tags/Tags";
 
 type Props = {
   title: string;
-  duration: string;
+  duration?: string;
   ratting: number;
   review: string;
 };
@@ -14,11 +14,15 @@ const MoreDetailsPageHeader = ({ title, duration, ratting, review }: Props) => {
   return (
     <>
       <div className="tw-flex tw-items-center tw-gap-4">
-        <div className="tw-flex tw-items-center tw-justify-center tw-gap-1">
-          <h1 className="tw-section-title">{title}</h1>
-          <p className="tw-text-base tw-align-bottom">({duration})</p>
-        </div>
         <div className="tw-flex tw-items-center">
+          <h1 className="tw-section-title">
+            {title}{" "}
+            {duration && (
+              <span className="tw-text-base tw-align-bottom">({duration})</span>
+            )}
+          </h1>
+        </div>
+        <div className="tw-flex tw-items-center tw-flex-shrink-0">
           {Array(ratting)
             .fill(null)
             .map((_, i) => (

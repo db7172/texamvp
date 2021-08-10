@@ -12,6 +12,7 @@ import Events from "../events";
 import Home from "../Home";
 import RetreatPage from "../retreat";
 import ViewMoreDetailsForActivity from "../view-more/ViewMoreDetailsForActivity";
+import ViewMoreDetailsForEvent from "../view-more/ViewMoreDetailsForEvent";
 import WorkationPage from "../workation";
 
 const AppRouter = () => {
@@ -54,10 +55,14 @@ const AppRouter = () => {
         />
         <Route component={WorkationPage} path={ROUTES.WORKATION} />
 
-        {/* View All */}
+        {/* View More */}
         <Route
           component={ViewMoreDetailsForActivity}
           path={ROUTES.VIEW_MORE_DETAILS_ACTIVITY}
+        />
+        <Route
+          component={ViewMoreDetailsForEvent}
+          path={ROUTES.VIEW_MORE_DETAILS_EVENT}
         />
 
         {/* Redirect to 404 */}

@@ -19,7 +19,12 @@ import ViewMoreOtherInformation from "../../components/view-more-details/ViewMor
 import ViewMoreSummary from "../../components/view-more-details/ViewMoreSummary";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import ViewMoreTravellingInfo from "../../components/view-more-details/ViewMoreTravellingInfo";
-import { getActivityPagePath } from "../../constant/comman.const";
+import {
+  getActivityPagePath,
+  LEFT_SPACING_LARGE_VALUE,
+  RIGHT_SPACING_SMAL_VALUE,
+  RIGHT_SPACING_VALUE,
+} from "../../constant/comman.const";
 import { ACTIVITY } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import {
@@ -70,7 +75,10 @@ const ViewMoreDetailsForActivity = () => {
   return (
     <Container className="tw-pb-11">
       {activityDetails ? (
-        <Row className="tw-top-m" gutter={[20, 80]}>
+        <Row
+          className="tw-top-m"
+          gutter={[LEFT_SPACING_LARGE_VALUE, RIGHT_SPACING_VALUE]}
+        >
           <Col span={7} order={2} className="tw-pt-14">
             <Row gutter={[0, 40]}>
               <Col
@@ -91,7 +99,7 @@ const ViewMoreDetailsForActivity = () => {
             </Row>
           </Col>
           <Col span={17} order={1}>
-            <Row gutter={[0, 40]}>
+            <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
               <Col span={24}>
                 <TitleBreadcrumb titleLinks={slashedTableName} />
                 <div className="tw-mt-5">

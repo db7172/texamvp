@@ -16,4 +16,12 @@ declare module "Models" {
     review: string;
     type: string;
   };
+
+  export type EventObjectTypes = {
+    datetime: string;
+    imgUrl: string;
+    name: string;
+    price: number;
+    type: string;
+  };
 }

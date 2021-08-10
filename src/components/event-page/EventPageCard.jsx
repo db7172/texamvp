@@ -1,7 +1,14 @@
+import { Link } from "react-router-dom";
+import { getViewMoreDetailsForEventPath } from "../../constant/comman.const";
 import { indCurrency } from "../../utils/utils";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
 
 const EventPageCard = ({ name, datetime, type, price, imgUrl }) => {
+  const routingDetails = {
+    pathname: getViewMoreDetailsForEventPath(type, name),
+    state: { name, datetime, type, price, imgUrl },
+  };
+
   return (
     <PageCardContainer imgUrl={imgUrl} title={name}>
       <p className="tw-font-medium tw-text-secondary-color tw-mt-2">
@@ -18,9 +25,11 @@ const EventPageCard = ({ name, datetime, type, price, imgUrl }) => {
           Onwards
         </span>
       </p>
-      <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-        View Details
-      </button>
+      <Link to={routingDetails}>
+        <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+          View Details
+        </button>
+      </Link>
     </PageCardContainer>
   );
 };

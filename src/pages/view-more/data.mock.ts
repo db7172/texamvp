@@ -2,6 +2,8 @@ import age from "../../assets/svg/age.svg";
 import duration from "../../assets/svg/duration.svg";
 import level from "../../assets/svg/level.svg";
 import mountant from "../../assets/svg/mountant.svg";
+import mic from "../../assets/svg/mic.svg";
+import lang from "../../assets/svg/Translate.svg";
 
 import checkMark from "../../assets/svg/check-mark.svg";
 import cancel from "../../assets/svg/cancel.svg";
@@ -39,6 +41,28 @@ export const VIEW_MORE_ACTIVITY_DETAILS: ActivityInfoVMD[] = [
     image: mountant,
     title: "Activity Level",
     description: "Easy",
+  },
+];
+export const VIEW_MORE_EVENT_DETAILS: ActivityInfoVMD[] = [
+  {
+    image: mic,
+    title: "Live Performance",
+    description: "Enjoy Music",
+  },
+  {
+    image: age,
+    title: "For Age",
+    description: "18+",
+  },
+  {
+    image: lang,
+    title: "Language",
+    description: "English",
+  },
+  {
+    image: duration,
+    title: "Ideal Duration",
+    description: "2 Days",
   },
 ];
 

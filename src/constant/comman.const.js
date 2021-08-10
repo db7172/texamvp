@@ -1,7 +1,9 @@
 export const SECONDARY_COLOR = "#FFE606";
 export const PAGE_SPACING = [0, 80];
 export const RIGHT_SPACING_VALUE = 80;
+export const RIGHT_SPACING_SMAL_VALUE = 40;
 export const LEFT_SPACING_VALUE = 0;
+export const LEFT_SPACING_LARGE_VALUE = 20;
 
 // email id validation regex
 export const emailRegex =
@@ -12,6 +14,7 @@ const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
 const EVENT_TYPE = ":eventType";
+const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
 
@@ -30,6 +33,7 @@ export const ROUTES = {
   RETREAT: `/retreat/${RETREAT_TYPE}`,
   RETREAT_IN_CITY: `/retreat/${RETREAT_TYPE}/${DESTINATION_NAME}`,
   VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}`,
+  VIEW_MORE_DETAILS_EVENT: `/details/event/${EVENT_TYPE}/${EVENT_NAME}`,
   NOT_FOUND: "/404",
 };
 
@@ -116,6 +120,14 @@ export const getViewMoreDetailsForActivityPath = (
   let path = ROUTES.VIEW_MORE_DETAILS_ACTIVITY;
   path = path.replace(ACTIVITY_TYPE, activityType);
   path = path.replace(ACTIVITY_NAME, activityName);
+
+  return path;
+};
+
+export const getViewMoreDetailsForEventPath = (eventType, eventName) => {
+  let path = ROUTES.VIEW_MORE_DETAILS_EVENT;
+  path = path.replace(EVENT_TYPE, eventType);
+  path = path.replace(EVENT_NAME, eventName);
 
   return path;
 };
