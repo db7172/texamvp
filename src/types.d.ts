@@ -24,4 +24,10 @@ declare module "Models" {
     price: number;
     type: string;
   };
+
+  export type Package = {
+    type: string;
+    price: number;
+    description: string;
+  };
 }

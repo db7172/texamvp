@@ -38,7 +38,7 @@ const FaqSection = () => {
   return (
     <Row gutter={40}>
       <Col span={14}>
-        <h4 className="tw-section-title">FAQ’s of trekking</h4>
+        <h4 className="tw-section-title tw-mb-5">FAQ’s of trekking</h4>
         <Collapse
           bordered={false}
           expandIconPosition="right"
@@ -55,7 +55,7 @@ const FaqSection = () => {
           ))}
         </Collapse>
       </Col>
-      <Col span={10} className="tw-pt-14">
+      <Col span={10} className="tw-pt-20">
         <img className="tw-w-full tw-h-auto" src={faqImg} alt="FAQ" />
       </Col>
     </Row>

@@ -15,7 +15,8 @@ import { useState } from "react";
 import { CITY_ARR } from "../../constant/city-array";
 import banner from "../../assets/png/carousal1.png";
 import { indCurrency } from "../../utils/utils";
-import { CheckCircleFilled } from "@ant-design/icons";
+import { Package } from "Models";
+import ViewMorePriceCard from "./ViewMorePriceCard";
 
 const MOCK_DATE = [
   {
@@ -27,12 +28,6 @@ const MOCK_DATE = [
     date: [3, 4, 5, 6, 7, 8, 9, 10, 11],
   },
 ];
-
-type Package = {
-  type: string;
-  price: number;
-  description: string;
-};
 
 const MOCK_PACKAGE: Package[] = [
   {
@@ -192,25 +187,11 @@ const ViewMoreActivityBookingCard = () => {
               <h4 className="tw-text-base">Choose Your Package</h4>
               <div>
                 {MOCK_PACKAGE.map((d, i) => (
-                  <div
-                    className="tw-p-3 tw-mt-3 tw-shadow tw-rounded-md tw-bg-gray-background tw-cursor-pointer"
-                    onClick={() => handlePlanClick(d)}
-                  >
-                    <div className="tw-flex tw-justify-between">
-                      <h3 className="tw-text-base tw-font-medium">{`${
-                        d.type
-                      } - ${indCurrency(d.price)}`}</h3>
-                      <CheckCircleFilled
-                        style={{
-                          color: active.type === d.type ? "yellow" : "white",
-                          fontSize: "25px",
-                        }}
-                      />
-                    </div>
-                    <p className="tw-mt-3 tw-text-secondary-color">
-                      {d.description}
-                    </p>
-                  </div>
+                  <ViewMorePriceCard
+                    data={d}
+                    active={active}
+                    handlePlanClick={handlePlanClick}
+                  />
                 ))}
               </div>
             </Col>
