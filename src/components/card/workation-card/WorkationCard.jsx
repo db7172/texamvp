@@ -28,22 +28,22 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
           <p className="tw-text-primary-color tw-mt-2 tw-font-medium">
             Phuentsholing
           </p>
-          <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-mt-2 tw-text-primary-color">
+          <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-mt-2 tw-text-primary-color tw-text-ellipsis">
             {name}
           </h3>
-          <p className="tw-flex tw-mt-2">
+          <p className="tw-flex tw-mt-2 tw-items-center">
             <img src={time} alt="" />{" "}
             <span className="tw-ml-2">{duration}</span>
           </p>
           <div className="tw-flex tw-mt-2">
             {facility.Breakfast && (
-              <p className="tw-flex tw-mr-3">
+              <p className="tw-flex tw-mr-3 tw-items-center">
                 <img src={cooking} alt="" />{" "}
                 <span className="tw-ml-2">Breakfast at hotel</span>
               </p>
             )}
             {facility.FreeWifi && (
-              <p className="tw-flex">
+              <p className="tw-flex tw-items-center">
                 <img src={wifi} alt="" />{" "}
                 <span className="tw-ml-2">Free Wifi</span>
               </p>
@@ -51,7 +51,7 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl }) => {
           </div>
         </div>
         <div className="tw-my-5 tw-border-y tw-py-2 tw-border-gray-200">
-          <p className="tw-price tw-text-xl">
+          <p className="tw-price tw-text-xl tw-flex tw-items-center">
             <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
               Starting from
             </span>

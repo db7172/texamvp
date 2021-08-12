@@ -48,7 +48,7 @@ const FaqSection = () => {
             <Panel
               header={d.q}
               key={i}
-              className="site-collapse-custom-panel tw-shadow-md"
+              className="site-collapse-custom-panel tw-shadow-card"
             >
               <p>{d.a}</p>
             </Panel>

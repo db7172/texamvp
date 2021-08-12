@@ -106,10 +106,7 @@ const ViewMoreTravellingInfo = () => {
       <ViewMoreSectionTitleWithImg header="Cab" image={taxi} />
       <div>
         {mockData.map((d, i) => (
-          <div className="tw-flex tw-items-center tw-gap-5 tw-pt-8">
-            <div className="tw-p-6 tw-rounded-full tw-bg-gray-background">
-              <img src={taxi} alt="Summary" />
-            </div>
+          <div key={i} className="tw-pt-8">
             <div>
               <div className="tw-flex tw-justify-between tw-w-3/4 tw-mb-3">
                 <h4 className="tw-font-bold tw-text-base">{d.header}</h4>
@@ -121,7 +118,7 @@ const ViewMoreTravellingInfo = () => {
                   <span className="tw-underline">View More</span>
                 </Button>
               </div>
-              <Row gutter={[20, 5]} className="tw-text-secondary-color">
+              <Row gutter={[20, 10]} className="tw-text-secondary-color">
                 <Col span={10} className="tw-flex tw-gap-3">
                   <div className="tw-w-4">
                     <img src={user} alt="passanger" />
@@ -163,7 +160,7 @@ const ViewMoreTravellingInfo = () => {
         >
           <div className="tw-flex tw-items-center tw-gap-4 tw-py-4 tw-border-b">
             <div className="tw-p-6 tw-rounded-full tw-bg-gray-background">
-              <img src={taxi} alt="texi" />
+              <img className="tw-w-7" src={taxi} alt="texi" />
             </div>
             <div className="tw-text-secondary-color">
               <h4 className="tw-text-primary-color tw-font-semibold">
@@ -180,7 +177,11 @@ const ViewMoreTravellingInfo = () => {
             <h4 className="tw-section-title">Important Note</h4>
             <div className="tw-mt-5">
               {informationData.map((d, i) => (
-                <InformationSection header={d.header} content={d.content} />
+                <InformationSection
+                  key={i}
+                  header={d.header}
+                  content={d.content}
+                />
               ))}
             </div>
             <div className="tw-py-3 tw-border-t tw-border-b">

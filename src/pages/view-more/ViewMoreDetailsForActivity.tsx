@@ -83,7 +83,7 @@ const ViewMoreDetailsForActivity = () => {
             <Row gutter={[0, 40]}>
               <Col
                 span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <ViewMoreActivityCard />
                 <div className="tw-mt-5">
@@ -92,7 +92,7 @@ const ViewMoreDetailsForActivity = () => {
               </Col>
               <Col
                 span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <ViewMoreTestimonial />
               </Col>
@@ -116,7 +116,7 @@ const ViewMoreDetailsForActivity = () => {
               </Col>
               <Col
                 span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <PageHeader
                   title={`About ${activityDetails.activityName}`}
@@ -139,7 +139,7 @@ const ViewMoreDetailsForActivity = () => {
               </Col>
               <Col
                 span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <Row gutter={[0, 20]}>
                   <Col span={24}>

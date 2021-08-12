@@ -26,7 +26,7 @@ module.exports = {
       boxShadow: {
         "nav-bar": "0px 2px 2px rgba(0, 0, 0, 0.04)",
         tab: "0px 4px 10px rgba(230, 230, 230, 0.3), 4px 0px 10px rgba(229, 229, 229, 0.3)",
-        card: "4px 4px 15px rgba(196, 196, 196, 0.3)",
+        card: "0 2px 6px 0px rgba(0, 0, 0, 0.1), 0 -1px 6px 0px rgba(0, 0, 0, 0.06)",
         "icon-card": "4px 4px 25px rgba(196, 196, 196, 0.25)",
       },
       backgroundColor: {

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { isEmpty, startCase } from "lodash";
+import { capitalize, isEmpty, startCase } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
@@ -157,7 +157,7 @@ const WorkationPage = () => {
       <Row gutter={40} className="tw-mt-10">
         {/* filter part */}
         <Col span={7}>
-          <div className="tw-px-5 tw-shadow-md">
+          <div className="tw-px-5 tw-shadow-card">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
               <p className="tw-text-lg tw-font-medium">Filters</p>
               <button
@@ -210,20 +210,20 @@ const WorkationPage = () => {
         <Col span={17}>
           <div className="tw-flex tw-justify-between tw-items-center">
             <h1 className="tw-section-title tw-ml-3 tw-w-1/3">
-              {startCase(
-                `${workationType} ${
+              {capitalize(
+                `${workationType} packages ${
                   destinationName ? `in ${destinationName}` : ""
                 }`
               )}
             </h1>
             <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-md tw-items-center">
+              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
                 <p className="">Request Call back</p>
               </div>
-              <div className="tw-mr-4 tw-rounded-md tw-pl-3 tw-shadow-md tw-flex tw-items-center">
+              <div className="tw-mr-4 tw-rounded-md tw-pl-3 tw-shadow-card tw-flex tw-items-center">
                 <span className="tw-mr-3">Sort By :</span>
                 <select
                   className="focus:tw-outline-none tw-bg-white tw-mr-2 tw-py-3 tw-pr-5"
@@ -237,7 +237,7 @@ const WorkationPage = () => {
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-5">
+          <div className="tw-mt-14">
             <div>
               {WORKATION.map((d, i) => (
                 <WorkationPageCard {...d} key={i} />

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { isEmpty, startCase, uniq } from "lodash";
+import { capitalize, isEmpty, startCase, uniq } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ActivityCard from "../../components/activity-page/ActivityCard";
@@ -13,7 +13,7 @@ import Pagination from "../../components/pagination";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
-import { Col, Row } from "antd";
+import { Affix, Col, Row } from "antd";
 
 const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
 const MIN = 10000,
@@ -161,7 +161,7 @@ const Activity = () => {
       <Row className="tw-mt-10" gutter={40}>
         {/* filter part */}
         <Col span={7}>
-          <div className="tw-px-5 tw-shadow-md">
+          <div className="tw-px-5 tw-shadow-card">
             <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
               <p className="tw-filter-title tw-font-medium">Filters</p>
               <button
@@ -206,21 +206,21 @@ const Activity = () => {
         {/* Card part */}
         <Col span={17}>
           <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-section-title tw-ml-3">
-              {startCase(
-                `${activityType} ${
+            <h1 className="tw-section-title">
+              {capitalize(
+                `${activityType} packages ${
                   destinationName ? `in ${destinationName}` : ""
                 }`
               )}
             </h1>
             <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-md tw-items-center">
+              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
                 <p className="">Request Call back</p>
               </div>
-              <div className="tw-mr-4 tw-rounded-md tw-pl-3 tw-shadow-md tw-flex tw-items-center">
+              <div className="tw-mr-4 tw-rounded-md tw-pl-3 tw-shadow-card tw-flex tw-items-center">
                 <span className="tw-mr-3">Sort By :</span>
                 <select
                   className="focus:tw-outline-none tw-bg-white tw-mr-2 tw-py-3 tw-pr-5"
@@ -234,7 +234,7 @@ const Activity = () => {
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-5">
+          <div className="tw-mt-14">
             <div>
               {POPULAR_ACTIVITY.map((d, i) => (
                 <ActivityCard {...d} key={i} />

@@ -64,7 +64,7 @@ const Activites = () => {
           title="Explore Activities"
           description="Go on a trekking trip to the man-made heaven"
           ratting={5}
-          review={1970}
+          review="1970 Reviews"
           path={"#activites-page"}
           startingPrice={16948}
         />
@@ -95,7 +95,7 @@ const Activites = () => {
               ))}
               <Col span={4}>
                 <div
-                  className="tw-shadow-md tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white tw-cursor-pointer"
+                  className="tw-shadow-card tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white tw-cursor-pointer"
                   onClick={handleCradClick}
                 >
                   <div className="tw-rounded-full tw-p-5 tw-shadow-lg">

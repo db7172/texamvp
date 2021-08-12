@@ -9,7 +9,7 @@ type Props = {
 
 const PageCardContainer = ({ children, imgUrl, title }: Props) => {
   return (
-    <Row className="tw-bg-white tw-shadow-md tw-border tw-border-light-white tw-rounded-lg tw-p-7 tw-my-5">
+    <Row className="tw-bg-white tw-shadow-card tw-border tw-border-light-white tw-rounded-lg tw-p-7 tw-mb-10">
       <Col span={12} className="tw-flex tw-justify-center tw-items-center">
         <img
           src={imgUrl}

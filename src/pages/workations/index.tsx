@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import { TitleBreadCrumb } from "Models";
+import { useEffect, useState } from "react";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
@@ -9,11 +10,17 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import Title from "../../components/common/title/Title";
 import Pagination from "../../components/pagination";
 import ViewAll from "../../components/view-all/ViewAll";
-import { getEventPagePath, PAGE_SPACING } from "../../constant/comman.const";
+import {
+  getDestinationPagePath,
+  getEventPagePath,
+  RIGHT_SPACING_VALUE,
+} from "../../constant/comman.const";
 import { EVENT, VIEW_ALL_EVENTS } from "../../constant/dummyData";
 
-const Events = () => {
-  const [slashedTableName, setSlashedTableName] = useState([]);
+const Workcations = () => {
+  const [slashedTableName, setSlashedTableName] = useState<TitleBreadCrumb[]>(
+    []
+  );
   const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
@@ -23,28 +30,28 @@ const Events = () => {
         url: "/",
       },
       {
-        name: "Events",
+        name: "Workcations",
         url: "",
       },
     ]);
   }, []);
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber: number) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
   return (
     <Container>
-      <Row className="tw-top-m" gutter={PAGE_SPACING}>
+      <Row className="tw-top-m" gutter={[0, RIGHT_SPACING_VALUE]}>
         <Col span={24}>
           <TitleBreadcrumb titleLinks={slashedTableName} />
           <div className="tw-mt-5">
-            <PageHeader title={"Events"} />
+            <PageHeader title={"Workcations"} />
           </div>
         </Col>
         <Col span={24}>
-          <ViewAll cards={VIEW_ALL_EVENTS} path={getEventPagePath} />
+          <ViewAll cards={VIEW_ALL_EVENTS} path={getDestinationPagePath} />
         </Col>
         <Col span={24} className="tw-flex tw-justify-center">
           <Pagination
@@ -85,14 +92,20 @@ const Events = () => {
           </div>
         </Col>
         <Col span={24}>
-          <BlogCarousel title="Things to do in While Events" />
+          <BlogCarousel
+            title="Things to do in While Events"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
         </Col>
         <Col span={24}>
-          <BlogCarousel title="Places to visit For Events" />
+          <BlogCarousel
+            title="Places to visit For Events"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default Events;
+export default Workcations;

@@ -1,6 +1,6 @@
 export const SECONDARY_COLOR = "#FFE606";
-export const PAGE_SPACING = [0, 80];
-export const RIGHT_SPACING_VALUE = 80;
+export const PAGE_SPACING = [0, 40];
+export const RIGHT_SPACING_VALUE = 40;
 export const RIGHT_SPACING_SMAL_VALUE = 40;
 export const LEFT_SPACING_VALUE = 0;
 export const LEFT_SPACING_LARGE_VALUE = 20;
@@ -21,7 +21,8 @@ const RETREAT_TYPE = ":retreatType";
 export const ROUTES = {
   HOME: "/",
   DESTINATION: `/destination/${DESTINATION_NAME}`,
-  DESTINATIONS: `/destinations`,
+  RETREATS: `/reterats`,
+  WORKCATIONS: `/workcations`,
   ACTIVITES: `/activites`,
   ACTIVITY: `/activity/${ACTIVITY_TYPE}`,
   ACTIVITY_IN_CITY: `/activity/${ACTIVITY_TYPE}/${DESTINATION_NAME}`,

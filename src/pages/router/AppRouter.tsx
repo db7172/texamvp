@@ -1,4 +1,3 @@
-import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import ScrollToTop from "../../components/common/scroll-to-top/ScrollToTop";
 import { ROUTES } from "../../constant/comman.const";
@@ -6,7 +5,7 @@ import NotFound from "../404/NotFound";
 import Activites from "../activities/index";
 import Activity from "../activity";
 import DestinationPage from "../destination";
-import Destinations from "../destinations";
+import Retreats from "../retreats";
 import EventPage from "../eventPage";
 import Events from "../events";
 import Home from "../Home";
@@ -14,6 +13,7 @@ import RetreatPage from "../retreat";
 import ViewMoreDetailsForActivity from "../view-more/ViewMoreDetailsForActivity";
 import ViewMoreDetailsForEvent from "../view-more/ViewMoreDetailsForEvent";
 import WorkationPage from "../workation";
+import Workcations from "../workations";
 
 const AppRouter = () => {
   return (
@@ -26,8 +26,11 @@ const AppRouter = () => {
         {/* Destination page */}
         <Route component={DestinationPage} path={ROUTES.DESTINATION} />
 
-        {/* Destinations page */}
-        <Route component={Destinations} path={ROUTES.DESTINATIONS} />
+        {/* workation */}
+        <Route component={Workcations} path={ROUTES.WORKCATIONS} />
+
+        {/* Retreat page */}
+        <Route component={Retreats} path={ROUTES.RETREATS} />
 
         {/* Activity page */}
         <Route exact component={Activity} path={ROUTES.ACTIVITY_IN_CITY} />

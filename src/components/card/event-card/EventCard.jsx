@@ -16,14 +16,14 @@ const EventCard = ({ name, datetime, type, price, imgUrl }) => {
         </div>
         <div className="tw-mt-5 tw-text-secondary-color">
           <div>
-            <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color">
+            <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color tw-text-ellipsis">
               {name}
             </h3>
             <p className="tw-font-medium tw-mt-2">{datetime}</p>
-            <p className="tw-mt-2 tw-mb-3 tw-font-medium">{type}</p>
+            <p className="tw-mt-2 tw-font-medium">{type}</p>
           </div>
-          <div className="tw-my-5 tw-border-y tw-py-2 tw-border-gray-200">
-            <p className="tw-price tw-text-xl">
+          <div className="tw-mb-5 tw-mt-3 tw-border-y tw-py-2 tw-border-gray-200">
+            <p className="tw-price tw-text-xl tw-flex tw-items-center">
               <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
                 Starting from
               </span>

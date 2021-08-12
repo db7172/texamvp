@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
@@ -16,7 +16,7 @@ import {
 } from "../../constant/comman.const";
 import { RETREAT, VIEW_ALL_DESTINATION } from "../../constant/dummyData";
 
-const Destinations = () => {
+const Retreats = () => {
   const [slashedTableName, setSlashedTableName] = useState([]);
   const [activePage, setActivePage] = useState(1);
 
@@ -27,7 +27,7 @@ const Destinations = () => {
         url: "/",
       },
       {
-        name: "Destinations",
+        name: "Retreats",
         url: "",
       },
     ]);
@@ -44,7 +44,7 @@ const Destinations = () => {
         <Col span={24}>
           <TitleBreadcrumb titleLinks={slashedTableName} />
           <div className="tw-mt-5">
-            <PageHeader title={"Retreat Destination"} />
+            <PageHeader title={"Retreat"} />
           </div>
         </Col>
         <Col span={24}>
@@ -98,4 +98,4 @@ const Destinations = () => {
   );
 };
 
-export default Destinations;
+export default Retreats;

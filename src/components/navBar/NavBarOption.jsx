@@ -1,3 +1,4 @@
+import { lowerCase } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
@@ -11,7 +12,7 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
   useEffect(() => {
     switch (path) {
       case "destination":
-        setViewAllPath("destinations");
+        setViewAllPath(lowerCase(title + "s"));
         break;
 
       case "event":
@@ -25,7 +26,7 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
       default:
         break;
     }
-  }, [path]);
+  }, [path, title]);
 
   const handleLinkClick = (label = "") => {
     console.log(`${url}${path}/${label}`);

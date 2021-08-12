@@ -13,8 +13,8 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
 
         <div className="tw-mt-5 tw-text-secondary-color">
           <div>
-            <div className="tw-flex">
-              <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color">
+            <div className="tw-flex tw-items-center">
+              <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color tw-text-ellipsis">
                 {name}
               </h3>
               <div className="tw-min-w-max tw-ml-3 tw-mt-1">
@@ -30,7 +30,7 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
             </p>
           </div>
           <div className="tw-my-5 tw-border-y tw-py-2 tw-border-gray-200">
-            <p className="tw-price tw-text-xl">
+            <p className="tw-price tw-text-xl tw-flex tw-items-center">
               <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
                 Starting from
               </span>

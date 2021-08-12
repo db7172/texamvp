@@ -79,13 +79,13 @@ const ViewMoreDetailsForEvent = () => {
             <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
               <Col
                 span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <ViewMoreEventCard />
               </Col>
               <Col
                 span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <ViewMoreTestimonial />
               </Col>
@@ -108,7 +108,7 @@ const ViewMoreDetailsForEvent = () => {
               </Col>
               <Col
                 span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <PageHeader
                   title={`About ${eventDetails.name}`}
@@ -131,7 +131,7 @@ const ViewMoreDetailsForEvent = () => {
               </Col>
               <Col
                 span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-md tw-bg-white"
+                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
               >
                 <Row gutter={[0, 20]}>
                   <Col span={24}>

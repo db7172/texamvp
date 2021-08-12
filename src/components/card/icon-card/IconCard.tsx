@@ -7,7 +7,7 @@ type Props = {
 
 const IconCard = ({ path, name, description, imgClassName }: Props) => {
   return (
-    <div className="tw-shadow-md tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white">
+    <div className="tw-shadow-card tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white">
       <div className={imgClassName}>
         <img className="tw-w-full tw-h-auto" src={path} alt={name} />
       </div>

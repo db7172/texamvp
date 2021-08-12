@@ -6,8 +6,8 @@ type Props = {
 const ViewMoreSectionTitleWithImg = ({ image, header }: Props) => {
   return (
     <div className="tw-flex tw-items-center tw-gap-4 tw-py-8 tw-border-t tw-border-b">
-      <div className="tw-p-6 tw-rounded-full tw-bg-gray-background">
-        <img src={image} alt="Summary" />
+      <div className="tw-p-4 tw-rounded-full tw-bg-gray-background">
+        <img className="tw-w-7" src={image} alt="Summary" />
       </div>
       <h4 className="tw-section-title">{header}</h4>
     </div>
