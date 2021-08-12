@@ -12,7 +12,7 @@ type Props = {
 const ViewMorePriceCard = ({ handlePlanClick, active, data }: Props) => {
   return (
     <div
-      className="tw-p-3 tw-mt-3 tw-shadow tw-rounded-md tw-bg-gray-background tw-cursor-pointer"
+      className="tw-p-3 tw-mt-5 tw-shadow tw-rounded-md tw-bg-gray-background tw-cursor-pointer"
       onClick={() => handlePlanClick(data)}
     >
       <div className="tw-flex tw-justify-between">

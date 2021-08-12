@@ -61,7 +61,7 @@ const ViewMoreEventCard = () => {
           <span className="tw-text-secondary-color tw-mr-2">Start Time :</span>{" "}
           <span className="tw-font-medium">8:00 PM</span>
         </p>
-        <p className="tw-mt-1">
+        <p className="tw-mt-3">
           <span className="tw-text-secondary-color tw-mr-2">Activity By :</span>{" "}
           <span className="tw-font-medium tw-text-blue-500 tw-underline">
             Vishal joshi

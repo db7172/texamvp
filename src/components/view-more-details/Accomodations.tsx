@@ -178,27 +178,29 @@ const Accomodations = () => {
               <Col span={12}>
                 <div>
                   <p className="tw-font-medium">{d.details.subTitle}</p>
-                  <h4 className="tw-text-lg tw-font-medium tw-mt-1">
+                  <h4 className="tw-text-lg tw-font-medium tw-mt-2">
                     {d.details.title}
                   </h4>
-                  <p className="tw-text-secondary-color tw-mt-1">
+                  <p className="tw-text-secondary-color tw-mt-2">
                     {d.details.description}
                   </p>
                 </div>
-                <Row gutter={[0, 2]} className="tw-mt-1 tw-items-center">
-                  {d.details.accomodationDetails.map((d, i) => (
+                <Row gutter={[0, 8]} className="tw-mt-2 tw-items-center">
+                  {d.details.accomodationDetails.map((data, i) => (
                     <Col
-                      span={24}
+                      span={
+                        i === d.details.accomodationDetails.length - 1 ? 18 : 24
+                      }
                       className="tw-flex tw-gap-3 tw-items-center tw-text-secondary-color"
                       key={i}
                     >
                       <div className="tw-w-4">
-                        <img src={d.image} alt="room" />
+                        <img src={data.image} alt="room" />
                       </div>
-                      <p>{d.detail}</p>
+                      <p>{data.detail}</p>
                     </Col>
                   ))}
-                  <Col span={24}>
+                  <Col span={6}>
                     <Button
                       type="link"
                       className="tw-m-0 tw-p-0 tw-text-blue-500 hover:tw-text-blue-500 focus:tw-text-blue-500"

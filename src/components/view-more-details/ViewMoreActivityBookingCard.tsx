@@ -90,8 +90,8 @@ const ViewMoreActivityBookingCard = () => {
 
   return (
     <section>
-      <div className="tw-py-4 tw-border-b tw-border-t">
-        <div className="tw-flex tw-justify-between tw-items-center">
+      <div className="tw-pt-4 tw-pb-8 tw-border-b tw-border-t">
+        <div className="tw-flex tw-justify-between tw-items-center tw-mt-7">
           <span className="tw-text-secondary-color">Departure City</span>
           <Select
             showSearch
@@ -109,13 +109,13 @@ const ViewMoreActivityBookingCard = () => {
             ))}
           </Select>
         </div>
-        <div className="tw-mt-3">
-          <div className="tw-pb-2 tw-border-b">
+        <div className="tw-mt-7">
+          <div className="tw-pb-3 tw-border-b">
             <h4 className="tw-font-bold">Total Departues</h4>
           </div>
-          <div>
+          <div className="tw-py-2">
             {MOCK_DATE.map((d, i) => (
-              <div className="tw-flex-center tw-gap-5 tw-mt-3">
+              <div className="tw-flex-center tw-gap-5 tw-mt-9">
                 <p className="tw-text-secondary-color">{d.month}</p>
                 <div className="tw-flex tw-gap-2 tw-flex-wrap">
                   {d.date.map((date, index) => (

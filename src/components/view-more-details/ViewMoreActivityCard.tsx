@@ -4,7 +4,7 @@ import { indCurrency } from "../../utils/utils";
 // do not remove this, below is the classnames for rounded img of inclusion card
 const classNamesInclustionImg = {
   div: "tw-p-2 tw-rounded-full tw-bg-gray-background",
-  img: "tw-h-3 tw-w-3",
+  img: "tw-h-4 tw-w-4",
 };
 
 const ViewMoreActivityCard = () => {
@@ -21,29 +21,29 @@ const ViewMoreActivityCard = () => {
         <span className="tw-text-secondary-color tw-mr-2">Start From :</span>{" "}
         <span className="tw-font-medium">Lisbon</span>
       </p>
-      <p className="tw-mt-1">
+      <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Duration :</span>{" "}
         <span className="tw-font-medium">Multi-day - ( 3 days )</span>
       </p>
-      <p className="tw-mt-1">
+      <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Activity Type :</span>{" "}
         <span className="tw-font-medium">Trekking</span>
       </p>
-      <p className="tw-mt-1">
+      <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">
           Activity Level :
         </span>{" "}
         <span className="tw-font-medium">Easy</span>
       </p>
-      <p className="tw-mt-1">
+      <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Activity By :</span>{" "}
         <span className="tw-font-medium tw-text-blue-500 tw-underline">
           Vishal joshi
         </span>
       </p>
-      <div className="tw-mt-2 tw-flex tw-items-center">
+      <div className="tw-mt-3 tw-flex tw-items-center">
         <p className="tw-text-secondary-color tw-mr-2">Includes :</p>
-        <div className="tw-flex tw-flex-wrap tw-gap-2">
+        <div className="tw-flex tw-flex-wrap tw-gap-3">
           <div className={classNamesInclustionImg.div}>
             <img
               className={classNamesInclustionImg.img}
