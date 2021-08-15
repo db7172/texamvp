@@ -1,3 +1,4 @@
+import { Col, Row } from "antd";
 import React from "react";
 import time from "../../../assets/svg/time.svg";
 import { indCurrency } from "../../../utils/utils";
@@ -13,14 +14,16 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
 
         <div className="tw-mt-5 tw-text-secondary-color">
           <div>
-            <div className="tw-flex tw-items-center">
-              <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color tw-text-ellipsis">
-                {name}
-              </h3>
-              <div className="tw-min-w-max tw-ml-3 tw-mt-1">
-                <GreenBadge ratting={4.4} />
-              </div>
-            </div>
+            <Row className="tw-items-center">
+              <Col span={19}>
+                <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-text-primary-color tw-text-ellipsis">
+                  {name}
+                </h3>
+              </Col>
+              <Col span={5}>
+                <GreenBadge ratting={4.4} className="tw-w-16" />
+              </Col>
+            </Row>
             <p className="tw-mt-2">
               Instructed in {language} | {type}
             </p>
