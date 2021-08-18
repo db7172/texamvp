@@ -14,6 +14,7 @@ import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
 import { Col, Row } from "antd";
+import Sticky from "react-stickynode";
 
 // dummy data
 
@@ -149,50 +150,52 @@ const EventPage = () => {
       <div className="tw-mt-10">
         <PageHeader title={coverTitle} />
       </div>
-      <Row gutter={40} className="tw-mt-10">
+      <Row id="row-header" gutter={40} className="tw-mt-10">
         {/* filter part */}
         <Col span={7}>
-          <div className="tw-px-5 tw-shadow-card">
-            <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
-              <p className="tw-text-lg tw-font-medium">Filters</p>
-              <button
-                className="tw-text-secondary-color tw-text-base"
-                onClick={handleReset}
-              >
-                Reset all
-              </button>
+          <Sticky top={0} className="tw-relative" bottomBoundary="#row-bottom">
+            <div className="tw-px-5 tw-shadow-card">
+              <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
+                <p className="tw-text-lg tw-font-medium">Filters</p>
+                <button
+                  className="tw-text-secondary-color tw-text-base"
+                  onClick={handleReset}
+                >
+                  Reset all
+                </button>
+              </div>
+              <div className="tw-py-7 tw-border-b">
+                <ButtonGroup
+                  title="Duration ( in Days )"
+                  option={eventDuration}
+                  handleClick={handleDurationClick}
+                />
+              </div>
+              <div className="tw-py-7 tw-border-b">
+                <RangeSelector
+                  title="Budget Per Person ( in Rs. )"
+                  min={MIN}
+                  max={MAX}
+                  value={priceRange}
+                  handleClick={handleRangeChange}
+                />
+              </div>
+              <div className="tw-py-7 tw-border-b">
+                <ButtonGroup
+                  title="Categories"
+                  option={eventCategories}
+                  handleClick={handleCategoriesClick}
+                />
+              </div>
+              <div className="tw-py-7">
+                <ButtonGroup
+                  title="Activity Level"
+                  option={eventTypes}
+                  handleClick={handleTypesClick}
+                />
+              </div>
             </div>
-            <div className="tw-py-7 tw-border-b">
-              <ButtonGroup
-                title="Duration ( in Days )"
-                option={eventDuration}
-                handleClick={handleDurationClick}
-              />
-            </div>
-            <div className="tw-py-7 tw-border-b">
-              <RangeSelector
-                title="Budget Per Person ( in Rs. )"
-                min={MIN}
-                max={MAX}
-                value={priceRange}
-                handleClick={handleRangeChange}
-              />
-            </div>
-            <div className="tw-py-7 tw-border-b">
-              <ButtonGroup
-                title="Categories"
-                option={eventCategories}
-                handleClick={handleCategoriesClick}
-              />
-            </div>
-            <div className="tw-py-7">
-              <ButtonGroup
-                title="Activity Level"
-                option={eventTypes}
-                handleClick={handleTypesClick}
-              />
-            </div>
-          </div>
+          </Sticky>
         </Col>
         {/* Card part */}
         <Col span={17}>
@@ -242,6 +245,7 @@ const EventPage = () => {
           </div>
         </Col>
       </Row>
+      <div id="row-bottom" />
     </ExploreMoreWrapper>
   );
 };
