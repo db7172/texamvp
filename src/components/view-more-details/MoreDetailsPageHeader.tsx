@@ -1,4 +1,3 @@
-import { StarFilled } from "@ant-design/icons";
 import { Rate } from "antd";
 import { capitalize } from "lodash";
 import Tags from "../Tags/Tags";

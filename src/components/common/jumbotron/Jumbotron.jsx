@@ -1,7 +1,5 @@
-import React from "react";
 import classNames from "classnames";
 import { indCurrency } from "../../../utils/utils";
-import star from "../../../assets/svg/star.svg";
 import { startCase } from "lodash";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
