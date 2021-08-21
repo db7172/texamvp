@@ -75,130 +75,131 @@ const ViewMoreDetailsForActivity = () => {
   return (
     <Container className="tw-pb-11">
       {activityDetails ? (
-        <Row
-          className="tw-top-m"
-          gutter={[LEFT_SPACING_LARGE_VALUE, RIGHT_SPACING_VALUE]}
-        >
-          <Col span={7} order={2} className="tw-pt-14">
-            <Row gutter={[0, 40]}>
-              <Col
-                span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
-              >
-                <ViewMoreActivityCard />
-                <div className="tw-mt-5">
-                  <ViewMoreActivityBookingCard />
-                </div>
-              </Col>
-              <Col
-                span={24}
-                className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
-              >
-                <ViewMoreTestimonial />
-              </Col>
-            </Row>
-          </Col>
-          <Col span={17} order={1}>
-            <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
-              <Col span={24}>
-                <TitleBreadcrumb titleLinks={slashedTableName} />
-                <div className="tw-mt-5">
-                  <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
-                </div>
-                <div className="tw-mt-5">
-                  <MoreDetailsPageHeader
-                    title={activityDetails.activityName}
-                    duration={activityDetails.duration}
-                    ratting={activityDetails.rating}
-                    review={activityDetails.review}
+        <>
+          <div className="tw-mt-10">
+            <TitleBreadcrumb titleLinks={slashedTableName} />
+          </div>
+          <Row gutter={[LEFT_SPACING_LARGE_VALUE, RIGHT_SPACING_VALUE]}>
+            <Col span={7} order={2} className="tw-pt-5">
+              <Row gutter={[0, 40]}>
+                <Col
+                  span={24}
+                  className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
+                >
+                  <ViewMoreActivityCard />
+                  <div className="tw-mt-5">
+                    <ViewMoreActivityBookingCard />
+                  </div>
+                </Col>
+                <Col
+                  span={24}
+                  className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
+                >
+                  <ViewMoreTestimonial />
+                </Col>
+              </Row>
+            </Col>
+            <Col span={17} order={1}>
+              <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
+                <Col span={24}>
+                  <div className="tw-mt-5">
+                    <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
+                  </div>
+                  <div className="tw-mt-5">
+                    <MoreDetailsPageHeader
+                      title={activityDetails.activityName}
+                      duration={activityDetails.duration}
+                      ratting={activityDetails.rating}
+                      review={activityDetails.review}
+                    />
+                  </div>
+                </Col>
+                <Col
+                  span={24}
+                  className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
+                >
+                  <PageHeader
+                    title={`About ${activityDetails.activityName}`}
+                    className="tw-text-lg"
                   />
-                </div>
-              </Col>
-              <Col
-                span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
-              >
-                <PageHeader
-                  title={`About ${activityDetails.activityName}`}
-                  className="tw-text-lg"
-                />
-              </Col>
-              <Col span={24}>
-                <Row gutter={20} justify="space-between">
-                  {VIEW_MORE_ACTIVITY_DETAILS.map((d, i) => (
-                    <Col span={6} className="">
-                      <IconCard
-                        name={d.title}
-                        description={d.description}
-                        path={d.image}
-                        imgClassName="tw-p-5 tw-rounded-full tw-bg-gray-background"
+                </Col>
+                <Col span={24}>
+                  <Row gutter={20} justify="space-between">
+                    {VIEW_MORE_ACTIVITY_DETAILS.map((d, i) => (
+                      <Col span={6} className="">
+                        <IconCard
+                          name={d.title}
+                          description={d.description}
+                          path={d.image}
+                          imgClassName="tw-p-5 tw-rounded-full tw-bg-gray-background"
+                        />
+                      </Col>
+                    ))}
+                  </Row>
+                </Col>
+                <Col
+                  span={24}
+                  className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
+                >
+                  <Row gutter={[0, 20]}>
+                    <Col span={24}>
+                      <BookingTimeLineX />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreSummary />
+                    </Col>
+                    <Col span={24}>
+                      <Accomodations />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreTravellingInfo />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={INCLUSION_DETAILS.header}
+                        image={INCLUSION_DETAILS.image}
+                        data={INCLUSION_DETAILS.content}
                       />
                     </Col>
-                  ))}
-                </Row>
-              </Col>
-              <Col
-                span={24}
-                className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
-              >
-                <Row gutter={[0, 20]}>
-                  <Col span={24}>
-                    <BookingTimeLineX />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreSummary />
-                  </Col>
-                  <Col span={24}>
-                    <Accomodations />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreTravellingInfo />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreOtherInformation
-                      header={INCLUSION_DETAILS.header}
-                      image={INCLUSION_DETAILS.image}
-                      data={INCLUSION_DETAILS.content}
-                    />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreOtherInformation
-                      header={EXCLUSION_DETAILS.header}
-                      image={EXCLUSION_DETAILS.image}
-                      data={EXCLUSION_DETAILS.content}
-                    />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreOtherInformation
-                      header={TRIP_ESSENTIALS.header}
-                      image={TRIP_ESSENTIALS.image}
-                      data={TRIP_ESSENTIALS.content}
-                    />
-                  </Col>
-                  <Col span={24}>
-                    <ViewMoreOtherInformation
-                      header={TERMS_AND_CONDITIONS.header}
-                      image={TERMS_AND_CONDITIONS.image}
-                      data={TERMS_AND_CONDITIONS.content}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={24} order={3}>
-            <ActivityCarousel
-              setting={{ slidesToShow: 3 }}
-              title="Similar Activities"
-              data={ACTIVITY}
-              path={getActivityPagePath("Similar Activities")}
-              description="Lorem ipsum is the dummy text for placing any thing"
-            />
-          </Col>
-          <Col span={24} order={4}>
-            <FaqSection />
-          </Col>
-        </Row>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={EXCLUSION_DETAILS.header}
+                        image={EXCLUSION_DETAILS.image}
+                        data={EXCLUSION_DETAILS.content}
+                      />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={TRIP_ESSENTIALS.header}
+                        image={TRIP_ESSENTIALS.image}
+                        data={TRIP_ESSENTIALS.content}
+                      />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={TERMS_AND_CONDITIONS.header}
+                        image={TERMS_AND_CONDITIONS.image}
+                        data={TERMS_AND_CONDITIONS.content}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={24} order={3}>
+              <ActivityCarousel
+                setting={{ slidesToShow: 3 }}
+                title="Similar Activities"
+                data={ACTIVITY}
+                path={getActivityPagePath("Similar Activities")}
+                description="Lorem ipsum is the dummy text for placing any thing"
+              />
+            </Col>
+            <Col span={24} order={4}>
+              <FaqSection />
+            </Col>
+          </Row>
+        </>
       ) : (
         <h1>Loading...</h1>
       )}
