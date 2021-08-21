@@ -33,11 +33,19 @@ a:hover {
     background: @yellow-color !important;
   }
 
-  // .ant-steps-dot .ant-steps-item-tail,
-  // .ant-steps-dot.ant-steps-small .ant-steps-item-tail {
-  //   width: 150%;
-  //   margin: 0px;
-  // }
+  .ant-steps-dot .ant-steps-item-tail,
+  .ant-steps-dot.ant-steps-small .ant-steps-item-tail {
+    margin: 0 0 0 2px;
+  }
+
+  .ant-steps-dot .ant-steps-item-icon,
+  .ant-steps-dot.ant-steps-small .ant-steps-item-icon {
+    margin: 0;
+  }
+
+  .ant-steps-label-vertical .ant-steps-item-content {
+    text-align: left;
+  }
 
   .ant-steps-item-finish
     > .ant-steps-item-container
