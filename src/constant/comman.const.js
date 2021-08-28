@@ -20,6 +20,7 @@ const RETREAT_TYPE = ":retreatType";
 
 export const ROUTES = {
   HOME: "/",
+  INFLUENCER: "/influencer",
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/reterats`,
   WORKCATIONS: `/workcations`,

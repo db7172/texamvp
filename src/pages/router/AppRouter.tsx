@@ -14,6 +14,7 @@ import ViewMoreDetailsForActivity from "../view-more/ViewMoreDetailsForActivity"
 import ViewMoreDetailsForEvent from "../view-more/ViewMoreDetailsForEvent";
 import WorkationPage from "../workation";
 import Workcations from "../workations";
+import Influencer from "../influencer/home";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,10 @@ const AppRouter = () => {
           component={ViewMoreDetailsForEvent}
           path={ROUTES.VIEW_MORE_DETAILS_EVENT}
         />
+
+        {/* influencer */}
+
+        <Route component={Influencer} path={ROUTES.INFLUENCER} />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />

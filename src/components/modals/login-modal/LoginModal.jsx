@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { emailRegex } from "../../../constant/comman.const";
 import { upperCase } from "../../../utils/utils";
 import MobileNumber from "../../form-component/MobileNumber";
@@ -364,9 +365,14 @@ export const LoginModal = ({ header, onCancel }) => {
                   <div className="tw-mt-10">
                     <p className="tw-text-base tw-text-center tw-font-medium tw-text-secondary-color">
                       Or Signin As a{" "}
-                      <button className="tw-text-blue-700 tw-underline">
-                        Travel Influancer
-                      </button>
+                      <Link to="/influencer">
+                        <button
+                          className="tw-text-blue-500 tw-underline"
+                          onClick={onCancel}
+                        >
+                          Travel Influancer
+                        </button>
+                      </Link>
                     </p>
                   </div>
                 </>

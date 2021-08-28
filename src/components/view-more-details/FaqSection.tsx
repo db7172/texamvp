@@ -32,12 +32,17 @@ const FAQ = [
   },
 ];
 
+type Props = {
+  imgPosition?: "right" | "left";
+  imgUrl?: string;
+};
+
 const { Panel } = Collapse;
 
-const FaqSection = () => {
+const FaqSection = ({ imgPosition = "right", imgUrl }: Props) => {
   return (
     <Row gutter={40}>
-      <Col span={14}>
+      <Col order={imgPosition === "right" ? 1 : 2} span={14}>
         <h4 className="tw-section-title tw-mb-5">FAQ’s of trekking</h4>
         <Collapse
           bordered={false}
@@ -55,8 +60,12 @@ const FaqSection = () => {
           ))}
         </Collapse>
       </Col>
-      <Col span={10} className="tw-pt-20">
-        <img className="tw-w-full tw-h-auto" src={faqImg} alt="FAQ" />
+      <Col
+        span={10}
+        order={imgPosition === "right" ? 2 : 1}
+        className="tw-pt-20"
+      >
+        <img className="tw-w-full tw-h-auto" src={imgUrl || faqImg} alt="FAQ" />
       </Col>
     </Row>
   );

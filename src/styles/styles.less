@@ -4,6 +4,7 @@
 @yellow-color: #ffee58;
 @lightgray-color: #ededed;
 @text-secondary: #939393;
+@body-color: #fcfcfc;
 
 // tags
 
@@ -140,6 +141,18 @@ a:hover {
   > li.ant-picker-time-panel-cell-selected
   .ant-picker-time-panel-cell-inner {
   background-color: @yellow-color;
+}
+
+.btn-outline {
+  border: 3px solid @yellow-color;
+  background-color: @body-color;
+
+  &:hover {
+    border: 3px solid @yellow-color;
+  }
+  &:focus {
+    border: 3px solid @yellow-color;
+  }
 }
 
 // utils

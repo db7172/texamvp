@@ -1,5 +1,4 @@
 import { Carousel } from "antd";
-import React from "react";
 import { BLOGS } from "../../../constant/dummyData";
 import { defaultSettings } from "../../../utils/utils";
 import BlogCard from "../../card/blog-card/BlogCard";

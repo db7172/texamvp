@@ -139,8 +139,8 @@ const Footer = () => {
               </h4>
               <div className="tw-flex tw-flex-col tw-gap-4 tw-text-base tw-font-medium tw-text-secondary-color">
                 {d.options.map((o, j) => (
-                  <div>
-                    <Link key={j} to={o.path}>
+                  <div key={j}>
+                    <Link to={o.path}>
                       <span>{o.option}</span>
                       {o.extraInfo && (
                         <span
