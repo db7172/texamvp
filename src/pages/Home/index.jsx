@@ -110,7 +110,7 @@ function Home() {
       </div>
       <Container>
         <div>
-          <div className="tw-mt-2">
+          <div className="tw-mt-5 tw-relative" style={{zIndex: 2}}>
             <div
               className={`${!(activeTab === 3) && "tw-max-w-4xl"} tw-mx-auto`}
             >
