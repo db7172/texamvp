@@ -16,6 +16,8 @@ import WorkationPage from "../workation";
 import Workcations from "../workations";
 import Influencer from "../influencer/home";
 import Dashboard from "../influencer/dashboard";
+import InfluencerSignup from "../influencer/signup/InfluencerSignup";
+import Application from "../influencer/application/Application";
 
 const AppRouter = () => {
   return (
@@ -72,11 +74,18 @@ const AppRouter = () => {
 
         {/* influencer */}
 
-        <Route exact component={Influencer} path={ROUTES.INFLUENCER} />
-
-        {/* influencer dashboard */}
-
         <Route exact component={Dashboard} path={ROUTES.INFLUENCER_DASHBOARD} />
+        <Route
+          exact
+          component={InfluencerSignup}
+          path={ROUTES.INFLUENCER_SIGNUP}
+        />
+        <Route exact component={Influencer} path={ROUTES.INFLUENCER} />
+        <Route
+          exact
+          component={Application}
+          path={ROUTES.INFLUENCER_APPLICATION}
+        />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />
