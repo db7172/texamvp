@@ -1,5 +1,3 @@
-import React from "react";
-
 const MobileNumber = ({ name, value, onChange, disabled }) => {
   const handleChange = (e) => {
     let value = e.target.value;

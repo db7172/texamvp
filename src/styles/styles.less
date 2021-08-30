@@ -3,6 +3,7 @@
 @primary-color: #0e0e0e;
 @yellow-color: #ffee58;
 @lightgray-color: #ededed;
+@darkgray-color: #c4c4c4;
 @text-secondary: #939393;
 @body-color: #fcfcfc;
 
@@ -24,6 +25,60 @@ a:hover {
 
 .ant-select-selector {
   border-radius: 0.375rem !important;
+}
+
+.activity-profile {
+  .ant-progress-success-bg,
+  .ant-progress-bg {
+    background-color: @yellow-color;
+  }
+}
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
+  padding: 0;
+}
+
+.stepper-x {
+  .ant-steps-dot .ant-steps-item-tail::after,
+  .ant-steps-dot.ant-steps-small .ant-steps-item-tail::after {
+    width: calc(100% - 40px);
+  }
+
+  .ant-steps-item-icon .ant-steps-icon {
+    top: -13px;
+    left: -20px;
+    width: 30px;
+    height: auto;
+    display: inline-block;
+  }
+
+  .ant-steps-item-title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .ant-steps-item-process
+    > .ant-steps-item-container
+    > .ant-steps-item-tail::after,
+  .ant-steps-item-wait
+    > .ant-steps-item-container
+    > .ant-steps-item-tail::after {
+    background-color: @darkgray-color;
+  }
+
+  .ant-steps-label-vertical .ant-steps-item-content {
+    margin-top: 12px;
+    padding-right: 14px;
+    width: 150px;
+  }
+
+  .ant-steps-item-finish
+    > .ant-steps-item-container
+    > .ant-steps-item-tail::after {
+    background-color: @yellow-color;
+  }
 }
 
 .time-line-x {

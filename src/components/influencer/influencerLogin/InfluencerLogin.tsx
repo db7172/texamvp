@@ -1,5 +1,6 @@
 import { Form, Input, Button, Divider } from "antd";
 import { upperCase } from "lodash";
+import { Link } from "react-router-dom";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -13,7 +14,7 @@ const InfluencerLogin = () => {
   //TODO:- add login logic once api comes
 
   return (
-    <div className="tw-p-8 tw-shadow-card">
+    <div className="tw-p-8 tw-shadow-card tw-rounded-lg">
       <div>
         <h4 className="tw-font-medium tw-text-2xl tw-mb-4">
           Login to your account
@@ -37,7 +38,10 @@ const InfluencerLogin = () => {
             { required: true, message: "Please input your email / mobile no!" },
           ]}
         >
-          <Input placeholder="Enter Your Email / Mobile No" />
+          <Input
+            placeholder="Enter Your Email / Mobile No"
+            className="tw-rounded-lg"
+          />
         </Form.Item>
 
         <Form.Item
@@ -45,7 +49,10 @@ const InfluencerLogin = () => {
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password placeholder="Enter Your Password" />
+          <Input.Password
+            placeholder="Enter Your Password"
+            className="tw-rounded-lg"
+          />
         </Form.Item>
         <Form.Item>
           <Button
@@ -71,12 +78,14 @@ const InfluencerLogin = () => {
           OR
         </span>
       </Divider>
-      <Button
-        type="default"
-        className="tw-w-full tw-bg-gray-background hover:tw-bg-gray-background focus:tw-bg-gray-background tw-mt-1"
-      >
-        {upperCase("Sign Up and Get Started")}
-      </Button>
+      <Link to="/influencer/signup">
+        <Button
+          type="default"
+          className="tw-w-full tw-bg-gray-background hover:tw-bg-gray-background focus:tw-bg-gray-background tw-mt-1"
+        >
+          {upperCase("Sign Up and Get Started")}
+        </Button>
+      </Link>
     </div>
   );
 };
