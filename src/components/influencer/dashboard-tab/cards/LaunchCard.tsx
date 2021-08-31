@@ -1,13 +1,18 @@
 import { Button } from "antd";
+import { CardType } from "../LaunchTab";
 
-type Props = {
-  title: string;
-  description: string;
-  icon: string;
-  buttonText: string;
+type Props = CardType & {
+  getId: (id: "activity" | "event" | "retreat") => void;
 };
 
-const LaunchCard = ({ title, description, icon, buttonText }: Props) => {
+const LaunchCard = ({
+  title,
+  description,
+  icon,
+  buttonText,
+  id,
+  getId,
+}: Props) => {
   return (
     <div className="tw-bg-white tw-shadow-card tw-py-7 tw-px-5 tw-rounded-lg">
       <div className="tw-w-20 tw-h-20 tw-m-auto tw-bg-gray-background tw-rounded-full tw-flex-center tw-mb-7">
@@ -20,6 +25,7 @@ const LaunchCard = ({ title, description, icon, buttonText }: Props) => {
       <Button
         type="default"
         className="tw-texa-button tw-w-full tw-text-base tw-font-medium"
+        onClick={() => getId(id)}
       >
         {buttonText}
       </Button>
