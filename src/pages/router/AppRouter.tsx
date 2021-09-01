@@ -18,6 +18,7 @@ import Influencer from "../influencer/home";
 import Dashboard from "../influencer/dashboard";
 import InfluencerSignup from "../influencer/signup/InfluencerSignup";
 import Application from "../influencer/application/Application";
+import ActivityForm from "../influencer/form/activity/ActivityForm";
 
 const AppRouter = () => {
   return (
@@ -85,6 +86,13 @@ const AppRouter = () => {
           exact
           component={Application}
           path={ROUTES.INFLUENCER_APPLICATION}
+        />
+
+        {/* influencer form */}
+        <Route
+          exact
+          component={ActivityForm}
+          path={ROUTES.INFLUENCER_ACTIVITY_FORM}
         />
 
         {/* Redirect to 404 */}

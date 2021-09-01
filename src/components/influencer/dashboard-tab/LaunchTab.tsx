@@ -6,6 +6,7 @@ import Modal from "antd/lib/modal/Modal";
 import { useState } from "react";
 import { MODAL_ICON } from "./data";
 import { Link } from "react-router-dom";
+import { ACTIVITY, getActivityFormPath } from "../../../constant/comman.const";
 
 export type CardType = {
   title: string;
@@ -86,8 +87,8 @@ const LaunchTab = () => {
         onCancel={handleCancel}
       >
         {activeId === "activity" && <ActivityModalCard />}
-        {activeId === "event" && <h1>Event</h1>}
-        {activeId === "retreat" && <h1>Retreat</h1>}
+        {activeId === "event" && <EventModalCard />}
+        {activeId === "retreat" && <RetreatModalCard />}
       </Modal>
     </div>
   );
@@ -136,16 +137,60 @@ const ActivityModalCard = () => {
         <CardWithIcon
           icon={MODAL_ICON.HOURLY_ACTIVITY}
           text="Hourly"
-          link="#"
+          link={getActivityFormPath(ACTIVITY.HOURLY)}
         />
         <CardWithIcon
           icon={MODAL_ICON.SINGLE_DAY_ACTIVITY}
           text="Single Day"
-          link="#"
+          link={getActivityFormPath(ACTIVITY.SINGLE_DAY)}
         />
         <CardWithIcon
           icon={MODAL_ICON.MULTY_DAY_ACTIVITY}
           text="Multi Day"
+          link={getActivityFormPath(ACTIVITY.MULTY_DAY)}
+        />
+      </div>
+    </div>
+  );
+};
+
+const EventModalCard = () => {
+  return (
+    <div className="tw-p-3">
+      <div className="tw-flex tw-flex-col tw-items-center tw-mb-10">
+        <h1 className="tw-text-center tw-text-2xl tw-font-medium tw-mb-3">
+          What is your Event Type
+        </h1>
+        <p className="tw-text-center tw-max-w-md tw-text-secondary-color">
+          Cras viverra suspendisse tortor purus blandit nulla. Cras at malesuada
+          nunc congue risus sapien. Diam quis viverra duis dui tortor ac.
+        </p>
+      </div>
+      <div className="tw-flex tw-justify-around">
+        <CardWithIcon icon={MODAL_ICON.OFFLINE_EVENT} text="Offline" link="#" />
+        <CardWithIcon icon={MODAL_ICON.ONLINE_EVENT} text="Online" link="#" />
+      </div>
+    </div>
+  );
+};
+
+const RetreatModalCard = () => {
+  return (
+    <div className="tw-p-3">
+      <div className="tw-flex tw-flex-col tw-items-center tw-mb-10">
+        <h1 className="tw-text-center tw-text-2xl tw-font-medium tw-mb-3">
+          What is your Retreat Type
+        </h1>
+        <p className="tw-text-center tw-max-w-md tw-text-secondary-color">
+          Cras viverra suspendisse tortor purus blandit nulla. Cras at malesuada
+          nunc congue risus sapien. Diam quis viverra duis dui tortor ac.
+        </p>
+      </div>
+      <div className="tw-flex tw-justify-around">
+        <CardWithIcon icon={MODAL_ICON.WORKATION} text="Workation" link="#" />
+        <CardWithIcon
+          icon={MODAL_ICON.RETREAT}
+          text="Retreat Session"
           link="#"
         />
       </div>
