@@ -14,6 +14,26 @@
     @apply tw-bg-primary-color tw-text-primary-color tw-text-body;
   }
 
+  /* antd start */
+
+  .ant-form-item .ant-upload.ant-upload-drag {
+    @apply tw-py-5;
+  }
+
+  .ant-upload.ant-upload-drag p.ant-upload-text {
+    @apply tw-font-lato tw-text-secondary-color tw-font-medium;
+  }
+
+  .ant-upload.ant-upload-drag p.ant-upload-hint {
+    @apply tw-font-lato tw-text-secondary-color;
+  }
+
+  .ant-upload.ant-upload-drag p.ant-upload-drag-icon .anticon {
+    @apply tw-text-secondary-color;
+  }
+
+  /* antd end */
+
   .tw-top-m {
     @apply tw-mt-10;
   }
