@@ -1,10 +1,21 @@
-import { CloudUploadOutlined, LeftOutlined } from "@ant-design/icons";
-import { Col, Divider, Row, Form, Upload } from "antd";
+import {
+  CloudUploadOutlined,
+  LeftOutlined,
+  MinusCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import { Col, Divider, Row, Form, Upload, Input } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import lamp from "../../../../assets/svg/lamp.svg";
 import video from "../../../../assets/png/influencer/video.png";
+import { useState } from "react";
+
+let addPaymentField: {
+  (): void;
+  (defaultValue?: any, insertIndex?: number | undefined): void;
+};
 
 const ActivityForm = () => {
   const { activityType } = useParams<{ activityType: string }>();
@@ -104,6 +115,121 @@ const ActivityForm = () => {
                   </Form.Item>
                 </Form.Item>
                 <Divider className="tw-my-10" />
+                <Form.Item label="Activity Name" name="activityName">
+                  <Input
+                    className="tw-rounded-md"
+                    placeholder="Activity Name"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="About Activity (Description)"
+                  name="description"
+                >
+                  <Input.TextArea
+                    className="tw-rounded-md"
+                    rows={4}
+                    placeholder="Description"
+                  />
+                </Form.Item>
+                <Divider className="tw-my-10" />
+                <Form.Item className="tw-mb-0">
+                  <div className="tw-flex tw-justify-between">
+                    <h3 className="tw-text-base tw-font-medium">Payment</h3>
+                    <p
+                      className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
+                      onClick={() => addPaymentField()}
+                    >
+                      <PlusOutlined />
+                      <span>Add Category</span>
+                    </p>
+                  </div>
+                </Form.Item>
+                <Form.Item
+                  label="Rate Per Person"
+                  className="tw-flex"
+                  name="ratePerPerson"
+                >
+                  {/* <Row gutter={[20, 20]}>
+                    {numberInput.map((NumberInput, i) => (
+                      <Col
+                        span={12}
+                        className="tw-flex tw-items-center tw-gap-2"
+                        key={i}
+                      >
+                        <NumberInput
+                          name={`price-${i}`}
+                          className="tw-rounded-md"
+                        />
+
+                        {i > 0 ? (
+                          <MinusCircleOutlined
+                            className="tw-opacity-0 hover:tw-opacity-100"
+                            onClick={() => removeNumberInput(i)}
+                          />
+                        ) : (
+                          <span className="tw-w-4" />
+                        )}
+                      </Col>
+                    ))}
+                  </Row> */}
+                  {/* test */}
+                  <Form.List name="ratePerPrice">
+                    {(fields, { add, remove }) => {
+                      addPaymentField = add;
+                      return (
+                        <>
+                          <div className="tw-flex tw-flex-wrap">
+                            <div className="tw-w-1/2 tw-flex tw-items-center tw-gap-2 tw-mb-5">
+                              <Form.Item className="tw-w-10/12 tw-m-0">
+                                <Input
+                                  className="tw-rounded-md"
+                                  type="number"
+                                  prefix="₹"
+                                  placeholder="Enter Your Rate Per Person"
+                                />
+                              </Form.Item>
+                            </div>
+                            {fields.map((field, i) => (
+                              <div
+                                className="tw-w-1/2 tw-flex tw-items-center tw-gap-2 tw-mb-5"
+                                key={i}
+                              >
+                                <Form.Item
+                                  {...field}
+                                  className="tw-w-10/12 tw-m-0"
+                                >
+                                  <Input
+                                    className="tw-rounded-md"
+                                    type="number"
+                                    prefix="₹"
+                                    placeholder="Enter Your Rate Per Person"
+                                  />
+                                </Form.Item>
+
+                                <MinusCircleOutlined
+                                  className="tw-text-lg tw-text-secondary-color"
+                                  onClick={() => remove(field.name)}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      );
+                    }}
+                  </Form.List>
+                </Form.Item>
+                <Divider className="tw-my-10" />
+                <Form.Item className="tw-mb-0">
+                  <div className="tw-flex tw-justify-between">
+                    <h3 className="tw-text-base tw-font-medium">
+                      Departure Dates
+                    </h3>
+                    <p className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base">
+                      <PlusOutlined />
+                      <span>Add Dates</span>
+                    </p>
+                  </div>
+                </Form.Item>
               </Form>
             </Col>
           </Row>
@@ -114,3 +240,12 @@ const ActivityForm = () => {
 };
 
 export default ActivityForm;
+
+const NumberInput = (Props: any) => (
+  <Input
+    type="number"
+    prefix="₹"
+    placeholder="Enter Your Rate Per Person"
+    {...Props}
+  />
+);
