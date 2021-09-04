@@ -4,15 +4,22 @@ import {
   MinusCircleOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { Col, Divider, Row, Form, Upload, Input } from "antd";
+import { Col, Divider, Row, Form, Upload, Input, DatePicker } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import lamp from "../../../../assets/svg/lamp.svg";
 import video from "../../../../assets/png/influencer/video.png";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
+import { uniqueId } from "lodash";
+import Select from "rc-select";
 
 let addPaymentField: {
+  (): void;
+  (defaultValue?: any, insertIndex?: number | undefined): void;
+};
+
+let addDepartureDateField: {
   (): void;
   (defaultValue?: any, insertIndex?: number | undefined): void;
 };
@@ -149,30 +156,6 @@ const ActivityForm = () => {
                   className="tw-flex"
                   name="ratePerPerson"
                 >
-                  {/* <Row gutter={[20, 20]}>
-                    {numberInput.map((NumberInput, i) => (
-                      <Col
-                        span={12}
-                        className="tw-flex tw-items-center tw-gap-2"
-                        key={i}
-                      >
-                        <NumberInput
-                          name={`price-${i}`}
-                          className="tw-rounded-md"
-                        />
-
-                        {i > 0 ? (
-                          <MinusCircleOutlined
-                            className="tw-opacity-0 hover:tw-opacity-100"
-                            onClick={() => removeNumberInput(i)}
-                          />
-                        ) : (
-                          <span className="tw-w-4" />
-                        )}
-                      </Col>
-                    ))}
-                  </Row> */}
-                  {/* test */}
                   <Form.List name="ratePerPrice">
                     {(fields, { add, remove }) => {
                       addPaymentField = add;
@@ -189,10 +172,10 @@ const ActivityForm = () => {
                                 />
                               </Form.Item>
                             </div>
-                            {fields.map((field, i) => (
+                            {fields.map((field) => (
                               <div
                                 className="tw-w-1/2 tw-flex tw-items-center tw-gap-2 tw-mb-5"
-                                key={i}
+                                key={uniqueId("ratePerPrice")}
                               >
                                 <Form.Item
                                   {...field}
@@ -224,11 +207,107 @@ const ActivityForm = () => {
                     <h3 className="tw-text-base tw-font-medium">
                       Departure Dates
                     </h3>
-                    <p className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base">
+                    <p
+                      className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
+                      onClick={() => addDepartureDateField()}
+                    >
                       <PlusOutlined />
                       <span>Add Dates</span>
                     </p>
                   </div>
+                </Form.Item>
+                <Form.Item className="tw-flex" name="departureDates">
+                  <Form.List name="departure">
+                    {(fields, { add, remove }) => {
+                      addDepartureDateField = add;
+                      return (
+                        <>
+                          <div className="tw-flex tw-flex-wrap">
+                            <div className="tw-flex tw-items-center tw-gap-10 tw-mb-5">
+                              <Form.Item
+                                label="Depature Date Range"
+                                className="tw-w-10/12 tw-m-0"
+                              >
+                                <DatePicker.RangePicker className="tw-rounded-md" />
+                              </Form.Item>
+                              <Form.Item
+                                label="Rate Per Person"
+                                className="tw-w-10/12 tw-m-0"
+                              >
+                                <Input
+                                  className="tw-rounded-md"
+                                  type="number"
+                                  prefix="₹"
+                                  placeholder="Rate Per Person"
+                                />
+                              </Form.Item>
+                              <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
+                            </div>
+                            {fields.map((field) => (
+                              <div
+                                className="tw-flex tw-items-center tw-gap-10 tw-mb-5"
+                                key={uniqueId("departureDates")}
+                              >
+                                <Form.Item
+                                  {...field}
+                                  key={uniqueId("dateOfDeparture")}
+                                  name={[field.name, "dateOfDeparture"]}
+                                  fieldKey={[field.fieldKey, "dateOfDeparture"]}
+                                  className="tw-w-10/12 tw-m-0"
+                                >
+                                  <DatePicker.RangePicker className="tw-rounded-md" />
+                                </Form.Item>
+                                <Form.Item
+                                  {...field}
+                                  key={uniqueId("ratePerPerson")}
+                                  name={[field.name, "ratePerPerson"]}
+                                  fieldKey={[field.fieldKey, "ratePerPerson"]}
+                                  className="tw-w-10/12 tw-m-0"
+                                >
+                                  <Input
+                                    className="tw-rounded-md"
+                                    type="number"
+                                    prefix="₹"
+                                    placeholder="Rate Per Person"
+                                  />
+                                </Form.Item>
+
+                                <MinusCircleOutlined
+                                  className="tw-text-lg tw-text-secondary-color"
+                                  onClick={() => remove(field.name)}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      );
+                    }}
+                  </Form.List>
+                </Form.Item>
+
+                <Divider className="tw-my-10" />
+                <Form.Item
+                  label="Sailent Features"
+                  name="sailentFeatures"
+                  className="antd-inline-form"
+                >
+                  <Form.Item
+                    label="What is your Activity Type ?"
+                    name="activityType"
+                  >
+                    <Input className="tw-rounded-md" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="What is your the Activity Level ?"
+                    name="activityType"
+                  >
+                    <Select className="tw-rounded-md">
+                      <Select.Option value="easy">Easy</Select.Option>
+                      <Select.Option value="medium">Medium</Select.Option>
+                      <Select.Option value="hard">Hard</Select.Option>
+                    </Select>
+                  </Form.Item>
                 </Form.Item>
               </Form>
             </Col>
@@ -240,12 +319,3 @@ const ActivityForm = () => {
 };
 
 export default ActivityForm;
-
-const NumberInput = (Props: any) => (
-  <Input
-    type="number"
-    prefix="₹"
-    placeholder="Enter Your Rate Per Person"
-    {...Props}
-  />
-);
