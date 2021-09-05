@@ -49,13 +49,44 @@ a:hover {
   padding: 0;
 }
 
+.antd-custom-tabs {
+  & > .ant-tabs-nav::before {
+    border-bottom: none;
+  }
+
+  & > .ant-tabs-nav {
+    margin-bottom: 30px;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab {
+    border: 2px solid @lightgray-color;
+    border-radius: 8px !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
+    border: 2px solid @yellow-color;
+    border-radius: 8px !important;
+  }
+}
+
 .antd-inline-form {
-  .ant-form-vertical .ant-form-item {
-    flex-direction: row;
+  .ant-row {
+    flex-direction: row !important;
   }
 
   .ant-form-item-label {
     width: 50%;
+  }
+
+  .antd-sub-field {
+    .ant-form-item-control-input-content {
+      display: flex;
+      gap: 20px;
+
+      .ant-form-item {
+        width: 50%;
+      }
+    }
   }
 }
 
