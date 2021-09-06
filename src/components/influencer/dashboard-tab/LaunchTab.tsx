@@ -6,7 +6,12 @@ import Modal from "antd/lib/modal/Modal";
 import { useState } from "react";
 import { MODAL_ICON } from "./data";
 import { Link } from "react-router-dom";
-import { ACTIVITY, getActivityFormPath } from "../../../constant/comman.const";
+import {
+  ACTIVITY,
+  EVENTS,
+  getActivityFormPath,
+  getEventFormPath,
+} from "../../../constant/comman.const";
 
 export type CardType = {
   title: string;
@@ -167,8 +172,16 @@ const EventModalCard = () => {
         </p>
       </div>
       <div className="tw-flex tw-justify-around">
-        <CardWithIcon icon={MODAL_ICON.OFFLINE_EVENT} text="Offline" link="#" />
-        <CardWithIcon icon={MODAL_ICON.ONLINE_EVENT} text="Online" link="#" />
+        <CardWithIcon
+          icon={MODAL_ICON.OFFLINE_EVENT}
+          text="Offline"
+          link={getEventFormPath(EVENTS.OFFLINE)}
+        />
+        <CardWithIcon
+          icon={MODAL_ICON.ONLINE_EVENT}
+          text="Online"
+          link={getEventFormPath(EVENTS.ONLINE)}
+        />
       </div>
     </div>
   );

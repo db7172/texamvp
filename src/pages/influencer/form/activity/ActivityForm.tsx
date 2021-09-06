@@ -16,21 +16,20 @@ import {
   Modal,
   Button,
   Tabs,
-  Mentions,
   Tag,
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
-import lamp from "../../../../assets/svg/lamp.svg";
-import video from "../../../../assets/png/influencer/video.png";
 import { uniqueId } from "lodash";
-import { KeyboardEvent, KeyboardEventHandler, useState } from "react";
+import { useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import { ItineraryFormTab } from "./form-tabs/ItineraryFormTab";
+import CreateActivity from "../CreateActivity";
+import { RightSidePenal } from "../RightSidePenal";
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -157,28 +156,6 @@ const ActivityForm = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const createActivity = () => {
-    return (
-      <div className="tw-w-80 popover-right">
-        <div className="popover-right-inner">
-          <div className="lamp-icon-container">
-            <img src={lamp} alt="lamp" />
-          </div>
-          <h4 className="tw-text-lg tw-font-medium tw-mb-3">Create Activity</h4>
-          <div className="tw-mb-4">
-            <img src={video} alt="video" />
-          </div>
-          <p className="tw-text-secondary-color">
-            Nunc molestie auctor eget vulputate venenatis, etiam ac orci. Tortor
-            quam dolor amet sed urna lorem. Semper interdum odio tempus sit ac
-            ornare tortor maecenas elementum. Mauris senectus etiam facilisi
-            consequat sed mauris, enim.
-          </p>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <Container>
       <Link to="/influencer/dashboard" className="tw-my-10 tw-inline-block">
@@ -204,7 +181,7 @@ const ActivityForm = () => {
                   turpis. Mattis consequat, imperdiet ultricies dolor, lectus.
                   Vitae viverra libero, vitae fermentum in duis.
                 </p>
-                {createActivity()}
+                <CreateActivity title="Create Activity" />
               </div>
               <Divider className="tw-my-10" />
               <Form
@@ -1021,45 +998,3 @@ const ActivityForm = () => {
 };
 
 export default ActivityForm;
-
-type DataProps = {
-  title: string;
-  description: string[];
-};
-
-const RightSidePenal = ({ title, description }: DataProps) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  return (
-    <div className="tw-w-80 popover-right">
-      <div className="popover-right-inner">
-        <div className="lamp-icon-container">
-          <img src={lamp} alt="lamp" />
-        </div>
-        <h4 className="tw-text-lg tw-font-medium tw-mb-3">{title}</h4>
-
-        <ol className="tw-list-inside tw-list-decimal tw-text-secondary-color">
-          {description.slice(0, 4).map((d) => (
-            <li key={uniqueId()}>{d}</li>
-          ))}
-        </ol>
-        <Button type="link" onClick={() => setIsModalVisible(true)}>
-          <span className="tw-text-blue-500 tw-underline tw-font-normal">
-            learn more
-          </span>
-        </Button>
-      </div>
-      <Modal
-        title={title}
-        visible={isModalVisible}
-        footer={null}
-        onCancel={() => setIsModalVisible(false)}
-      >
-        <ol className="tw-list-inside tw-list-decimal tw-text-secondary-color">
-          {description.map((d) => (
-            <li key={uniqueId()}>{d}</li>
-          ))}
-        </ol>
-      </Modal>
-    </div>
-  );
-};

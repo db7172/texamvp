@@ -16,6 +16,11 @@ export const ACTIVITY = {
   MULTY_DAY: "multyday",
 };
 
+export const EVENTS = {
+  ONLINE: "online",
+  OFFLINE: "offline",
+};
+
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
@@ -31,6 +36,7 @@ export const ROUTES = {
   INFLUENCER_SIGNUP: "/influencer/signup",
   INFLUENCER_APPLICATION: "/influencer/application",
   INFLUENCER_ACTIVITY_FORM: `/influencer/activity/${ACTIVITY_TYPE}`,
+  INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/reterats`,
   WORKCATIONS: `/workcations`,
@@ -149,6 +155,13 @@ export const getViewMoreDetailsForEventPath = (eventType, eventName) => {
 export const getActivityFormPath = (activityType) => {
   let path = ROUTES.INFLUENCER_ACTIVITY_FORM;
   path = path.replace(ACTIVITY_TYPE, activityType);
+
+  return path;
+};
+
+export const getEventFormPath = (eventType) => {
+  let path = ROUTES.INFLUENCER_EVENT_FORM;
+  path = path.replace(EVENT_TYPE, eventType);
 
   return path;
 };
