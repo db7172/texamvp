@@ -27,6 +27,15 @@ a:hover {
   border-radius: 0.375rem !important;
 }
 
+.ant-upload-list {
+  margin-top: 12px;
+}
+
+.ant-upload-list-picture .ant-upload-list-item,
+.ant-upload-list-picture-card .ant-upload-list-item {
+  border-style: dashed;
+}
+
 .activity-profile {
   .ant-progress-success-bg,
   .ant-progress-bg {
@@ -38,6 +47,47 @@ a:hover {
 .ant-col-24.ant-form-item-label,
 .ant-col-xl-24.ant-form-item-label {
   padding: 0;
+}
+
+.antd-custom-tabs {
+  & > .ant-tabs-nav::before {
+    border-bottom: none;
+  }
+
+  & > .ant-tabs-nav {
+    margin-bottom: 30px;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab {
+    border: 2px solid @lightgray-color;
+    border-radius: 8px !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
+    border: 2px solid @yellow-color;
+    border-radius: 8px !important;
+  }
+}
+
+.antd-inline-form {
+  .ant-row {
+    flex-direction: row !important;
+  }
+
+  .ant-form-item-label {
+    width: 50%;
+  }
+
+  .antd-sub-field {
+    .ant-form-item-control-input-content {
+      display: flex;
+      gap: 20px;
+
+      .ant-form-item {
+        width: 50%;
+      }
+    }
+  }
 }
 
 .stepper-x {
@@ -343,4 +393,58 @@ select.arrowGray {
   position: absolute;
   bottom: 4px;
   right: -50px;
+}
+
+.popover-right {
+  position: absolute;
+  right: -68%;
+  top: -20%;
+  background-color: @body-color;
+  border: 2px solid @lightgray-color;
+  border-radius: 8px;
+
+  .popover-right-inner {
+    position: relative;
+    padding: 12px;
+    padding-top: 40px;
+    min-height: 200px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: @body-color;
+      border: 2px solid @lightgray-color;
+      left: -10px;
+      top: 60px;
+      transform: rotate(45deg);
+      z-index: -1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 24px;
+      background-color: #fcfcfc;
+      left: -3px;
+      top: 64px;
+    }
+
+    & .lamp-icon-container {
+      position: absolute;
+      height: 50px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid @lightgray-color;
+      border-radius: 50%;
+      z-index: 1;
+      background-color: @body-color;
+      top: -27px;
+      left: 135px;
+    }
+  }
 }

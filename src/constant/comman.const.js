@@ -10,6 +10,17 @@ export const emailRegex =
   // eslint-disable-next-line no-useless-escape
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
+export const ACTIVITY = {
+  HOURLY: "hourly",
+  SINGLE_DAY: "singleday",
+  MULTY_DAY: "multyday",
+};
+
+export const EVENTS = {
+  ONLINE: "online",
+  OFFLINE: "offline",
+};
+
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
@@ -21,8 +32,11 @@ const RETREAT_TYPE = ":retreatType";
 export const ROUTES = {
   HOME: "/",
   INFLUENCER: "/influencer",
+  INFLUENCER_DASHBOARD: "/influencer/dashboard",
   INFLUENCER_SIGNUP: "/influencer/signup",
   INFLUENCER_APPLICATION: "/influencer/application",
+  INFLUENCER_ACTIVITY_FORM: `/influencer/activity/${ACTIVITY_TYPE}`,
+  INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/reterats`,
   WORKCATIONS: `/workcations`,
@@ -132,6 +146,22 @@ export const getViewMoreDetailsForEventPath = (eventType, eventName) => {
   let path = ROUTES.VIEW_MORE_DETAILS_EVENT;
   path = path.replace(EVENT_TYPE, eventType);
   path = path.replace(EVENT_NAME, eventName);
+
+  return path;
+};
+
+// influencer form
+
+export const getActivityFormPath = (activityType) => {
+  let path = ROUTES.INFLUENCER_ACTIVITY_FORM;
+  path = path.replace(ACTIVITY_TYPE, activityType);
+
+  return path;
+};
+
+export const getEventFormPath = (eventType) => {
+  let path = ROUTES.INFLUENCER_EVENT_FORM;
+  path = path.replace(EVENT_TYPE, eventType);
 
   return path;
 };
