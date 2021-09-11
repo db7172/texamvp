@@ -85,6 +85,14 @@
     @apply tw-bg-secondary-color tw-text-primary-color hover:tw-bg-secondary-color focus:tw-bg-secondary-color hover:tw-text-primary-color focus:tw-text-primary-color tw-rounded-lg;
   }
 
+  .tw-border-texa-active {
+    @apply tw-border-primary-yellow hover:tw-border-primary-yellow focus:tw-border-primary-yellow;
+  }
+
+  .tw-border-texa-normal {
+    @apply tw-border-c4c4c4 hover:tw-border-c4c4c4 focus:tw-border-c4c4c4;
+  }
+
   /* utils */
 
   .tw-text-ellipsis {

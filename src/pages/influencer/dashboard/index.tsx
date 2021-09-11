@@ -2,11 +2,12 @@ import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 import Container from "../../../components/common/container/Container";
+import DetailsTab from "../../../components/influencer/dashboard-tab/DetailsTab";
 import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
+  const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[1].id);
 
   return (
     <Container>
@@ -57,7 +58,7 @@ const Dashboard = () => {
         </Col>
         <Col span={19}>
           {activeTab === 1 && <LaunchTab />}
-          {activeTab === 2 && <h1>Details</h1>}
+          {activeTab === 2 && <DetailsTab />}
           {activeTab === 3 && <h1>Completed</h1>}
           {activeTab === 4 && <h1>Earning</h1>}
           {activeTab === 5 && <h1>Statements</h1>}
