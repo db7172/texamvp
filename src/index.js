@@ -3,12 +3,15 @@ import ReactDOM from "react-dom";
 import "./styles/styles.less";
 import "./styles/tailwind.css";
 import App from "./App";
+import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Router>,
   document.getElementById("root")
 );
 

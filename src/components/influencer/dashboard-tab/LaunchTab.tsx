@@ -62,7 +62,7 @@ const LaunchTab = () => {
   };
 
   return (
-    <div className="tw-text-center tw-mt-16">
+    <div className="tw-text-center">
       <h4 className="tw-text-2xl tw-font-medium tw-mb-4">
         What type of services you want to create ?
       </h4>
