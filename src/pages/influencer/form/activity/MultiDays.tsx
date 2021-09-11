@@ -16,9 +16,8 @@ import {
   Button,
   Tabs,
   Tag,
-  TimePicker,
 } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
@@ -98,8 +97,6 @@ const itineraryPanes = [
 ];
 
 const MultiDays = () => {
-  const { activityType } =
-    useParams<{ activityType: "hourly" | "singleday" | "multyday" }>();
   const [accomodationFormData, setAccomodationFormData] = useState<any>();
   const [transpotationFormData, setTranspotationFormData] = useState<any>();
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
