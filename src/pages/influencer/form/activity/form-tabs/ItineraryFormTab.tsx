@@ -1,5 +1,5 @@
 import { DatePicker, Form, Input } from "antd";
-import { TabsVariant } from "../ActivityForm";
+import { TabsVariant } from "../HourlyAndSingleDay";
 
 export const ItineraryFormTab = ({
   keyValue,

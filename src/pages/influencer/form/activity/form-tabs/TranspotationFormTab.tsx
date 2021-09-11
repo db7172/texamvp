@@ -1,6 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Row, Form, Col, Input, DatePicker, Upload, Button } from "antd";
-import { TabsVariant } from "../ActivityForm";
+import { TabsVariant } from "../HourlyAndSingleDay";
 
 const normFile = (e: any) => {
   console.log("Upload event:", e);
@@ -13,9 +13,11 @@ const normFile = (e: any) => {
 export const TranspotationFormTab = ({
   keyValue,
   updateTabFormData,
+  singleDay = false,
 }: {
   keyValue: string;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
+  singleDay: boolean;
 }) => {
   return (
     <Form
@@ -27,30 +29,32 @@ export const TranspotationFormTab = ({
     >
       <Form.Item noStyle>
         <Row gutter={20}>
-          <Col span={12}>
-            <Form.Item
-              name="photos"
-              label="Upload Photo"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <Upload
+          {!singleDay && (
+            <Col span={12}>
+              <Form.Item
                 name="photos"
-                beforeUpload={() => false}
-                maxCount={6}
-                multiple
-                listType="text"
+                label="Upload Photo"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
               >
-                <Button
-                  type="default"
-                  className="tw-bg-gray-background tw-rounded-lg tw-m-0 hover:tw-bg-gray-background"
-                  icon={<UploadOutlined />}
+                <Upload
+                  name="photos"
+                  beforeUpload={() => false}
+                  maxCount={6}
+                  multiple
+                  listType="text"
                 >
-                  Click to upload
-                </Button>
-              </Upload>
-            </Form.Item>
-          </Col>
+                  <Button
+                    type="default"
+                    className="tw-bg-gray-background tw-rounded-lg tw-m-0 hover:tw-bg-gray-background"
+                    icon={<UploadOutlined />}
+                  >
+                    Click to upload
+                  </Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+          )}
 
           <Col span={12}>
             <Form.Item name="transportMode" label="Transportaion Mode">

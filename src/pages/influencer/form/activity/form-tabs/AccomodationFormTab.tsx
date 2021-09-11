@@ -10,7 +10,7 @@ import {
   Button,
 } from "antd";
 import { uniqueId } from "lodash";
-import { TabsVariant } from "../ActivityForm";
+import { TabsVariant } from "../HourlyAndSingleDay";
 
 const normFile = (e: any) => {
   console.log("Upload event:", e);

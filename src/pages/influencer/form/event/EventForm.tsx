@@ -2,6 +2,7 @@ import {
   CloudUploadOutlined,
   LeftOutlined,
   MinusCircleOutlined,
+  MinusOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import {
@@ -14,6 +15,10 @@ import {
   Select,
   DatePicker,
   TimePicker,
+  Tooltip,
+  Button,
+  Tabs,
+  Tag,
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
@@ -22,18 +27,70 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
+import { TabsVariant } from "../activity/HourlyAndSingleDay";
+import { ItineraryFormTab } from "../activity/form-tabs/ItineraryFormTab";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
 import { normFile } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
+import { useTabs } from "../useTabs";
+
+let addPaymentField: {
+  (): void;
+  (defaultValue?: any, insertIndex?: number | undefined): void;
+};
+
+const itineraryPanes = [
+  {
+    title: "Day 1",
+    Content: ItineraryFormTab,
+    key: "day1",
+    closable: false,
+  },
+  { title: "Day 2", Content: ItineraryFormTab, key: "day2" },
+];
 
 const EventForm = () => {
-  const { eventType } = useParams<{ eventType: string }>();
+  const { eventType } = useParams<{ eventType: "offline" | "online" }>();
   const [paymentCategory, setPaymentCategory] = useState(false);
+  const [numOfDays, setNumOfDays] = useState(0);
+  const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<Array<string>>([]);
 
-  let addPaymentField: {
-    (): void;
-    (defaultValue?: any, insertIndex?: number | undefined): void;
+  const { state: itinerayTabs, methods: itinerayMethods } = useTabs(
+    {
+      activeKey: itineraryPanes[0].key,
+      panes: itineraryPanes,
+    },
+    ItineraryFormTab
+  );
+
+  const handleRemove = () => {
+    setNumOfDays((pre) => {
+      if (pre > 0) {
+        return pre - 1;
+      }
+      return pre;
+    });
+  };
+
+  const updateTabFormData = (type: TabsVariant, value: any, key: any) => {
+    if (type === "itinerary") {
+      setItineraryPanesFormData({
+        ...itineraryPanesFormData,
+        [key]: value,
+      });
+    }
+  };
+
+  const updateTags = (e: any) => {
+    setTags([...tags, e.target.value]);
+    setTagInput("");
+  };
+
+  const onTagClose = (id: number) => {
+    setTags(tags.filter((_, i) => id !== i));
   };
 
   return (
@@ -117,7 +174,7 @@ const EventForm = () => {
 
                 {/* Payment section */}
 
-                <Form.Item className="tw-mb-5">
+                <Form.Item className="">
                   <div className="tw-flex tw-justify-between">
                     <h3 className="tw-text-base tw-font-medium">Payment</h3>
                     <p
@@ -136,7 +193,7 @@ const EventForm = () => {
                     <Form.Item
                       name="paymentRatePerPerson"
                       label="Rate Per Person"
-                      className="tw-mt-5"
+                      className="tw-mt-5 tw-mb-0"
                     >
                       <Input
                         className="tw-rounded-md"
@@ -322,6 +379,196 @@ const EventForm = () => {
                     title="Sailent Feature"
                     description={SIDE_PENAL_DATA}
                   />
+                </Form.Item>
+
+                {/* Location */}
+
+                {eventType === "offline" && (
+                  <>
+                    <Form.Item>
+                      <h3 className="tw-font-medium tw-text-base tw-mb-5">
+                        Location
+                      </h3>
+                      <Row gutter={40}>
+                        <Col span={12}>
+                          <Form.Item name="destination" label="Destination">
+                            <Input
+                              className="tw-rounded-md"
+                              placeholder="Enter Destination"
+                            />
+                          </Form.Item>
+                        </Col>
+
+                        <Col span={12}>
+                          <Form.Item label="Number of Days">
+                            <div className="tw-flex tw-w-1/2 tw-border">
+                              <Tooltip title="Remove">
+                                <Button
+                                  className="tw-m-0 tw-border"
+                                  type="default"
+                                  onClick={handleRemove}
+                                  icon={<MinusOutlined />}
+                                />
+                              </Tooltip>
+                              <Input
+                                className="tw-w-1/2 tw-border-t-0 tw-border-b-0 tw-text-center"
+                                value={numOfDays}
+                                disabled
+                              />
+                              <Tooltip title="Add">
+                                <Button
+                                  className="tw-m-0 tw-border"
+                                  type="default"
+                                  onClick={() => setNumOfDays((pre) => pre + 1)}
+                                  icon={<PlusOutlined />}
+                                />
+                              </Tooltip>
+                            </div>
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Form.Item>
+                    <Divider className="tw-my-10" />
+
+                    <Form.Item className="tw-relative tw-mb-5">
+                      <RightSidePenal
+                        title="Summary"
+                        description={SIDE_PENAL_DATA}
+                      />
+                      <div className="tw-flex tw-justify-between">
+                        <h3 className="tw-text-base tw-font-medium">Summary</h3>
+                        <p
+                          className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
+                          onClick={itinerayMethods.add}
+                        >
+                          <PlusOutlined />
+                          <span>Add Itinerary</span>
+                        </p>
+                      </div>
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Tabs
+                        hideAdd
+                        onChange={itinerayMethods.onChange}
+                        activeKey={itinerayTabs.activeKey}
+                        type="editable-card"
+                        className="antd-custom-tabs"
+                        onEdit={itinerayMethods.onEdit}
+                        tabBarGutter={10}
+                      >
+                        {itinerayTabs.panes.map(
+                          ({ title, Content, key, closable }) => (
+                            <Tabs.TabPane
+                              tab={title}
+                              key={key}
+                              closable={closable}
+                            >
+                              <Content
+                                keyValue={key}
+                                updateTabFormData={updateTabFormData}
+                              />
+                            </Tabs.TabPane>
+                          )
+                        )}
+                      </Tabs>
+                    </Form.Item>
+                    <Divider className="tw-my-10" />
+                  </>
+                )}
+                <Form.Item>
+                  <h3 className="tw-text-base tw-font-medium">
+                    Featured Keyword
+                  </h3>
+                </Form.Item>
+                <Form.Item label="Places You Want to Include">
+                  <Form.Item
+                    className="tw-mb-0"
+                    extra={<p>* You can include upto 5 places</p>}
+                  >
+                    <Input
+                      value={tagInput}
+                      placeholder="Type a Tag and hit enter."
+                      onPressEnter={updateTags}
+                      onChange={(e) => setTagInput(e.target.value)}
+                      disabled={tags.length > 4}
+                    />
+                  </Form.Item>
+
+                  <Form.Item noStyle>
+                    {tags.map((t, i) => (
+                      <Tag closable key={i} onClose={() => onTagClose(i)}>
+                        {t}
+                      </Tag>
+                    ))}
+                  </Form.Item>
+                </Form.Item>
+                <Divider className="tw-my-10" />
+                <div className="tw-relative">
+                  <Form.Item name="inclusion" label="Inclusion">
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="Trip Inclusion"
+                    />
+                  </Form.Item>
+                  <RightSidePenal
+                    title="Inclusion"
+                    description={SIDE_PENAL_DATA}
+                  />
+                </div>
+
+                <Divider className="tw-my-10" />
+                <div className="tw-relative">
+                  <Form.Item name="exclusion" label="Exclusion">
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="Trip Exclusion"
+                    />
+                  </Form.Item>
+                  <RightSidePenal
+                    title="Exclusion"
+                    description={SIDE_PENAL_DATA}
+                  />
+                </div>
+
+                <Divider className="tw-my-10" />
+
+                <div className="tw-relative">
+                  <Form.Item
+                    name="termsAndCondition"
+                    label="Terms and Conditions"
+                  >
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="Terms and Conditions"
+                    />
+                  </Form.Item>
+                  <RightSidePenal
+                    title="Terms and Conditions"
+                    description={SIDE_PENAL_DATA}
+                  />
+                </div>
+                <Form.Item
+                  name="cancellationPolicy"
+                  label="Cancellation Policy"
+                >
+                  <Input.TextArea
+                    rows={6}
+                    className="tw-rounded-md"
+                    placeholder="Cancellation Policy"
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                    type="default"
+                    htmlType="submit"
+                    className="tw-texa-button tw-w-full"
+                  >
+                    Upload Event
+                  </Button>
                 </Form.Item>
               </Form>
             </Col>

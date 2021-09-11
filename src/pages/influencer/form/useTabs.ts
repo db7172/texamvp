@@ -1,3 +1,4 @@
+import { capitalize, lowerCase } from "lodash";
 import { useState } from "react";
 
 type StateProp = {
@@ -12,7 +13,11 @@ type ValueProp = {
   panes: StateProp[];
 };
 
-export const useTabs = (values: ValueProp, TabContent: any) => {
+export const useTabs = (
+  values: ValueProp,
+  TabContent: any,
+  tabName?: string
+) => {
   const [tabs, setTabs] = useState(values);
 
   const onChange = (activeKey: string) => {
@@ -24,8 +29,12 @@ export const useTabs = (values: ValueProp, TabContent: any) => {
 
   const add = () => {
     const { panes } = tabs;
-    const title = `Day ${panes.length + 1}`;
-    const activeKey = `day${panes.length + 1}`;
+    const title = `${tabName ? capitalize(tabName) : "Day"} ${
+      panes.length + 1
+    }`;
+    const activeKey = `${tabName ? lowerCase(tabName) : "day"}${
+      panes.length + 1
+    }`;
     panes.push({ title, key: activeKey, Content: TabContent });
     setTabs({ panes, activeKey });
   };
