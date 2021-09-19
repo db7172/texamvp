@@ -1,6 +1,8 @@
 import { Button, Col, Row, Select, Form } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
+import { DETAILS } from "./data";
+import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardContainer";
 
 type ButtonType = "activity" | "event" | "retreat";
 
@@ -146,7 +148,9 @@ const DetailsTab = () => {
             </Col>
           </Row>
         </Form>
-        {activeButton === "activity" && <h1>Activity</h1>}
+        {activeButton === "activity" && (
+          <DetailsTabCardContainer data={DETAILS.ACTIVITY} />
+        )}
         {activeButton === "event" && <h1>Event</h1>}
         {activeButton === "retreat" && <h1>Retreat</h1>}
       </Col>

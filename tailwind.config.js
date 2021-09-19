@@ -10,6 +10,9 @@ const secondaryText = "#939393";
 const green = "#00B112";
 const lightGreen = "#29DF0B";
 const lightGray = "#C4C4C4";
+const liteBlue = "#BAE1FF";
+const blue = "#2979FF";
+const liteGreen = "#D2F3D1";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -31,11 +34,14 @@ module.exports = {
       },
       colors: {
         c4c4c4: lightGray,
+        "lite-blue": liteBlue,
+        "blue-dark": blue,
+        "lite-green": liteGreen,
+        "green-background": green,
       },
       backgroundColor: {
         "primary-color": primaryBackground,
         "secondary-color": yellow,
-        "green-background": green,
         "gray-background": gray,
         "lightGray-background": secondaryText,
         "lightGreen-background": lightGreen,
