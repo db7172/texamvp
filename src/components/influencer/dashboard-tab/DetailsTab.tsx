@@ -151,8 +151,12 @@ const DetailsTab = () => {
         {activeButton === "activity" && (
           <DetailsTabCardContainer data={DETAILS.ACTIVITY} />
         )}
-        {activeButton === "event" && <h1>Event</h1>}
-        {activeButton === "retreat" && <h1>Retreat</h1>}
+        {activeButton === "event" && (
+          <DetailsTabCardContainer data={DETAILS.EVENT} />
+        )}
+        {activeButton === "retreat" && (
+          <DetailsTabCardContainer data={DETAILS.RETREAT} />
+        )}
       </Col>
     </Row>
   );

@@ -9,6 +9,7 @@ import workationIcon from "../../../assets/png/influencer/workationIcon.png";
 import retreatIcon from "../../../assets/png/influencer/retreatIcon.png";
 
 import detailsActivity from "../../../assets/png/influencer/details_activity.png";
+import { indCurrency } from "../../../utils/utils";
 
 export const MODAL_ICON = {
   HOURLY_ACTIVITY: hourlyActivity,
@@ -58,6 +59,154 @@ export const DETAILS = {
       price: 26999,
       status: "Booked",
       bookedTickets: 100,
+      totlaTickets: 100,
+    },
+  ],
+
+  EVENT: [
+    {
+      image: detailsActivity,
+      date: "24 May'2021",
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Hr • Comedy",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "Under Process",
+      bookedTickets: {
+        totalBooked: 0,
+        additionalInfo: {
+          Bronze: "0/50",
+          Silver: "0/40",
+          Gold: "0/10",
+        },
+      },
+      totlaTickets: 100,
+    },
+    {
+      image: detailsActivity,
+      date: "24 May'2021",
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Hr • Comedy",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "Upload",
+      bookedTickets: {
+        totalBooked: 0,
+        additionalInfo: {
+          Bronze: "0/50",
+          Silver: "0/40",
+          Gold: "0/10",
+        },
+      },
+      totlaTickets: 100,
+    },
+    {
+      image: detailsActivity,
+      date: "24 May'2021",
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Hr • Comedy",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "On Progress",
+      bookedTickets: {
+        totalBooked: 25,
+        additionalInfo: {
+          Bronze: "10/50",
+          Silver: "10/40",
+          Gold: "5/10",
+        },
+      },
+      totlaTickets: 100,
+    },
+    {
+      image: detailsActivity,
+      date: "24 May'2021",
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Hr • Comedy",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "Booked",
+      bookedTickets: {
+        totalBooked: 100,
+        additionalInfo: {
+          Bronze: "50/50",
+          Silver: "40/40",
+          Gold: "10/10",
+        },
+      },
+      totlaTickets: 100,
+    },
+  ],
+
+  RETREAT: [
+    {
+      image: detailsActivity,
+      title: "THE SOJOURN Amzaing Workation",
+      description: "Himachal Pradesh",
+      price: {
+        label: "Room Price",
+        additionalInfo: {
+          Bronze: indCurrency(1999),
+          Silver: indCurrency(2149),
+          Gold: indCurrency(3200),
+        },
+      },
+      status: "Under Process",
+      bookedTickets: {
+        totalBooked: 0,
+        additionalInfo: {
+          Bronze: "0/50",
+          Silver: "0/40",
+          Gold: "0/10",
+        },
+      },
+      totlaTickets: 100,
+    },
+    {
+      image: detailsActivity,
+      title: "THE SOJOURN Amzaing Workation",
+      description: "Himachal Pradesh",
+      price: {
+        label: "Room Price",
+        additionalInfo: {
+          Bronze: indCurrency(1999),
+          Silver: indCurrency(2149),
+          Gold: indCurrency(3200),
+        },
+      },
+      status: "On Progress",
+      bookedTickets: {
+        totalBooked: 50,
+        additionalInfo: {
+          Bronze: "25/50",
+          Silver: "15/40",
+          Gold: "10/10",
+        },
+      },
       totlaTickets: 100,
     },
   ],
