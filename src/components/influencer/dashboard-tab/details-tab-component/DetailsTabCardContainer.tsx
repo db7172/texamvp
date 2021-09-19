@@ -1,4 +1,14 @@
-import { Button, Col, Input, Modal, Row, Tooltip, Form } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  Modal,
+  Row,
+  Tooltip,
+  Form,
+  Radio,
+  Space,
+} from "antd";
 import { uniqueId } from "lodash";
 import { indCurrency } from "../../../../utils/utils";
 
@@ -7,6 +17,27 @@ import cancel from "../../../../assets/svg/influencer/cancel.svg";
 import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
 import { useState } from "react";
+
+const mockReason = [
+  {
+    value: "reason1",
+    label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+  },
+  {
+    value: "reason2",
+    label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+  },
+  {
+    value: "reason3",
+    label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+  },
+  {
+    value: "reason4",
+    label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+  },
+
+  { value: "other", label: "Other Reason" },
+];
 
 type DataType = {
   image: string;
@@ -36,21 +67,43 @@ const getStatusClass = (status: string): string => {
 };
 
 const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
-  const [activeForShare, setActiveForShare] = useState<DataType>();
+  const [activeCard, setActiveCard] = useState<DataType>();
   const [shareMessageModal, setShareMessageModal] = useState(false);
+  const [cancelBookingModal, setCancelBookingModal] = useState(false);
+  const [shareMessageForm] = Form.useForm();
+  const [cancelBookingForm] = Form.useForm();
+
+  const handleCancelClick = (value: DataType) => {
+    setActiveCard(value);
+    setCancelBookingModal(true);
+  };
+
+  const handleCancelBookingModalCancel = () => {
+    setCancelBookingModal(false);
+    setActiveCard(undefined);
+  };
+
+  const handleClosingBookingSubmit = (value: any) => {
+    console.log(value);
+    cancelBookingForm.setFieldsValue({ radioButton: "", otherMessage: "" });
+    setCancelBookingModal(false);
+  };
 
   const handleShareClick = (value: DataType) => {
-    setActiveForShare(value);
+    setActiveCard(value);
     setShareMessageModal(true);
   };
 
   const handleShareMessageModalCancel = () => {
     setShareMessageModal(false);
-    setActiveForShare(undefined);
+    setActiveCard(undefined);
+    shareMessageForm.setFieldsValue({ message: "" });
   };
 
   const handleSendMessageSubmit = (value: any) => {
     console.log(value);
+    shareMessageForm.setFieldsValue({ message: "" });
+    setShareMessageModal(false);
   };
 
   return (
@@ -140,6 +193,7 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
                       className="tw-cursor-pointer"
                       src={cancel}
                       alt="cancel"
+                      onClick={() => handleCancelClick(d)}
                     />
                   </Tooltip>
                 </div>
@@ -158,20 +212,20 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
         onCancel={handleShareMessageModalCancel}
         width={800}
       >
-        {activeForShare && (
+        {activeCard && (
           <>
             <div className="tw-flex tw-gap-3 tw-mb-9">
               <div>
-                <img src={activeForShare.image} alt="details card" />
+                <img src={activeCard.image} alt="details card" />
               </div>
               <div>
-                <Tooltip title={activeForShare.title}>
+                <Tooltip title={activeCard.title}>
                   <h5 className="tw-text-base tw-font-medium tw-mb-3 tw-text-ellipsis">
-                    {activeForShare.title}
+                    {activeCard.title}
                   </h5>
                 </Tooltip>
                 <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                  {activeForShare.description}
+                  {activeCard.description}
                 </p>
               </div>
             </div>
@@ -181,6 +235,7 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
                 onFinish={handleSendMessageSubmit}
                 autoComplete="off"
                 layout="vertical"
+                form={shareMessageForm}
               >
                 <Form.Item
                   label="Your Message"
@@ -202,6 +257,55 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
                 </div>
               </Form>
             </div>
+          </>
+        )}
+      </Modal>
+      <Modal
+        title="Reason for Closing Booking"
+        visible={cancelBookingModal}
+        footer={null}
+        onCancel={handleCancelBookingModalCancel}
+      >
+        {activeCard && (
+          <>
+            <Form
+              name="sendMessage"
+              onFinish={handleClosingBookingSubmit}
+              autoComplete="off"
+              layout="vertical"
+              form={cancelBookingForm}
+            >
+              <Form.Item
+                name="radioButton"
+                rules={[
+                  { required: true, message: "Please select your reason!" },
+                ]}
+              >
+                <Radio.Group>
+                  <Space direction="vertical">
+                    {mockReason.map((d) => (
+                      <Radio value={d.value}>{d.label}</Radio>
+                    ))}
+                  </Space>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item name="otherMessage">
+                <Input.TextArea
+                  className="tw-rounded-md"
+                  placeholder="Type Your reason..."
+                  rows={5}
+                />
+              </Form.Item>
+              <div className="tw-flex tw-justify-end">
+                <Button
+                  type="default"
+                  className="tw-texa-button"
+                  htmlType="submit"
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
           </>
         )}
       </Modal>
