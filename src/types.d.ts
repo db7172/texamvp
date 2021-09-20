@@ -30,4 +30,31 @@ declare module "Models" {
     price: number;
     description: string;
   };
+
+  export type AdditionalInfoType = {
+    Bronze: string;
+    Silver: string;
+    Gold: string;
+  };
+
+  export type DataDetailsType = {
+    image: string;
+    title: string;
+    description: string;
+    date?: string;
+    price:
+      | number
+      | {
+          label: string;
+          additionalInfo: AdditionalInfoType;
+        };
+    status: string;
+    totlaTickets: number;
+    bookedTickets:
+      | number
+      | {
+          totalBooked: number;
+          additionalInfo: AdditionalInfoType;
+        };
+  };
 }

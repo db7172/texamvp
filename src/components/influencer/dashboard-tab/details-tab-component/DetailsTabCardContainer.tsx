@@ -18,6 +18,7 @@ import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
 import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { AdditionalInfoType, DataDetailsType } from "Models";
 
 const mockReason = [
   {
@@ -40,33 +41,6 @@ const mockReason = [
   { value: "other", label: "Other Reason" },
 ];
 
-type AdditionalInfoType = {
-  Bronze: string;
-  Silver: string;
-  Gold: string;
-};
-
-type DataType = {
-  image: string;
-  title: string;
-  description: string;
-  date?: string;
-  price:
-    | number
-    | {
-        label: string;
-        additionalInfo: AdditionalInfoType;
-      };
-  status: string;
-  totlaTickets: number;
-  bookedTickets:
-    | number
-    | {
-        totalBooked: number;
-        additionalInfo: AdditionalInfoType;
-      };
-};
-
 const getStatusClass = (status: string): string => {
   switch (status) {
     case "under process":
@@ -84,14 +58,19 @@ const getStatusClass = (status: string): string => {
   }
 };
 
-const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
-  const [activeCard, setActiveCard] = useState<DataType>();
+type Props = {
+  data: DataDetailsType[];
+  viewMore: (value: DataDetailsType) => void;
+};
+
+const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
+  const [activeCard, setActiveCard] = useState<DataDetailsType>();
   const [shareMessageModal, setShareMessageModal] = useState(false);
   const [cancelBookingModal, setCancelBookingModal] = useState(false);
   const [shareMessageForm] = Form.useForm();
   const [cancelBookingForm] = Form.useForm();
 
-  const handleCancelClick = (value: DataType) => {
+  const handleCancelClick = (value: DataDetailsType) => {
     setActiveCard(value);
     setCancelBookingModal(true);
   };
@@ -107,7 +86,7 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
     setCancelBookingModal(false);
   };
 
-  const handleShareClick = (value: DataType) => {
+  const handleShareClick = (value: DataDetailsType) => {
     setActiveCard(value);
     setShareMessageModal(true);
   };
@@ -283,7 +262,10 @@ const DetailsTabCardContainer = ({ data }: { data: DataType[] }) => {
                   </Tooltip>
                 </div>
               </div>
-              <p className="tw-text-right tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer">
+              <p
+                className="tw-text-right tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer"
+                onClick={() => viewMore(d)}
+              >
                 View details
               </p>
             </div>
