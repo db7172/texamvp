@@ -2,6 +2,7 @@ import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 import Container from "../../../components/common/container/Container";
+import CompletedTab from "../../../components/influencer/dashboard-tab/CompletedTab";
 import DetailsTab from "../../../components/influencer/dashboard-tab/DetailsTab";
 import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
@@ -59,7 +60,7 @@ const Dashboard = () => {
         <Col span={19}>
           {activeTab === 1 && <LaunchTab />}
           {activeTab === 2 && <DetailsTab />}
-          {activeTab === 3 && <h1>Completed</h1>}
+          {activeTab === 3 && <CompletedTab />}
           {activeTab === 4 && <h1>Earning</h1>}
           {activeTab === 5 && <h1>Statements</h1>}
         </Col>
