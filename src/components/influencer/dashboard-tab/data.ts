@@ -21,6 +21,48 @@ export const MODAL_ICON = {
   RETREAT: retreatIcon,
 };
 
+export const statusOptions = [
+  {
+    value: "",
+    label: "Select Option",
+  },
+  {
+    value: "underProcess",
+    label: "Under Process",
+  },
+  {
+    value: "uploaded",
+    label: "Uploaded",
+  },
+  {
+    value: "onProgress",
+    label: "On Progress",
+  },
+  {
+    value: "booked",
+    label: "Booked",
+  },
+  {
+    value: "rejected",
+    label: "Rejected",
+  },
+];
+
+export const highLowOptions = [
+  {
+    value: "",
+    label: "Select Option",
+  },
+  {
+    value: "highToLow",
+    label: "High to Low",
+  },
+  {
+    value: "lowToHigh",
+    label: "Low to High",
+  },
+];
+
 // mock data
 
 export const DETAILS = {

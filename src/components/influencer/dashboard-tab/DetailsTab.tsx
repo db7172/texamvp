@@ -4,52 +4,10 @@ import { isNumber } from "lodash";
 import { DataDetailsType } from "Models";
 import { useState } from "react";
 import { indCurrency } from "../../../utils/utils";
-import { DETAILS } from "./data";
+import { DETAILS, highLowOptions, statusOptions } from "./data";
 import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardContainer";
 
-type ButtonType = "activity" | "event" | "retreat";
-
-const statusOptions = [
-  {
-    value: "",
-    label: "Select Option",
-  },
-  {
-    value: "underProcess",
-    label: "Under Process",
-  },
-  {
-    value: "uploaded",
-    label: "Uploaded",
-  },
-  {
-    value: "onProgress",
-    label: "On Progress",
-  },
-  {
-    value: "booked",
-    label: "Booked",
-  },
-  {
-    value: "rejected",
-    label: "Rejected",
-  },
-];
-
-const highLowOptions = [
-  {
-    value: "",
-    label: "Select Option",
-  },
-  {
-    value: "highToLow",
-    label: "High to Low",
-  },
-  {
-    value: "lowToHigh",
-    label: "Low to High",
-  },
-];
+export type ButtonType = "activity" | "event" | "retreat";
 
 const columns = [
   {
