@@ -11,6 +11,8 @@ import retreatIcon from "../../../assets/png/influencer/retreatIcon.png";
 import detailsActivity from "../../../assets/png/influencer/details_activity.png";
 import { indCurrency } from "../../../utils/utils";
 
+import dp from "../../../assets/png/influencer/dp.png";
+
 export const MODAL_ICON = {
   HOURLY_ACTIVITY: hourlyActivity,
   SINGLE_DAY_ACTIVITY: singleDayActivity,
@@ -250,6 +252,319 @@ export const DETAILS = {
         },
       },
       totlaTickets: 100,
+    },
+  ],
+};
+
+export const COMPLETED = {
+  ACTIVITY: [
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: 26999,
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
+    },
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: 26999,
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
+    },
+  ],
+  EVENT: [
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
+    },
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: {
+        label: "Starting Price",
+        additionalInfo: {
+          Bronze: indCurrency(99),
+          Silver: indCurrency(149),
+          Gold: indCurrency(200),
+        },
+      },
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
+    },
+  ],
+  RETREAT: [
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: {
+        label: "Room Price",
+        additionalInfo: {
+          Bronze: indCurrency(1999),
+          Silver: indCurrency(2149),
+          Gold: indCurrency(3200),
+        },
+      },
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
+    },
+    {
+      image: detailsActivity,
+      title: "Exciting Hampta Pass Trek trip ",
+      description: "3 Days & 4 Nights • Trekking",
+      price: {
+        label: "Room Price",
+        additionalInfo: {
+          Bronze: indCurrency(1999),
+          Silver: indCurrency(2149),
+          Gold: indCurrency(3200),
+        },
+      },
+      status: "Completed",
+      ratting: 4.5,
+      review: [
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Albert Flores",
+          ratting: 4,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Arlene McCoy",
+          ratting: 3,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+        {
+          name: "Robert Fox",
+          ratting: 5,
+          profilePic: dp,
+          tags: ["Affordable", "extra tag"],
+          title: "Amazing Flight Service by Air Asia",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor, sociis eget varius erat. Metus sed mauris platea tincidunt nam tincidunt nam aliquam et. Sollicitudin tortor in elementum vulputate. Pretium in semper bibendum mattis id aliquet quis sit. Tempus turpis risus sit eget arcu, varius ultricies praesent. Quam curabitur nunc euismod netus sapien. Lorem libero enim lorem sit enim, iaculis pretium sit. Posuere ultrices eu egestas at. Ut mattis netus vehicula tempor, dolor hendrerit ac.",
+        },
+      ],
     },
   ],
 };

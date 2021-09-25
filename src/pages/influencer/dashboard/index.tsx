@@ -8,7 +8,7 @@ import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[1].id);
+  const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[2].id);
 
   return (
     <Container>

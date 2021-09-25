@@ -19,6 +19,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { AdditionalInfoType, DataDetailsType } from "Models";
+import { addtionalInfomation } from "../DashboardUtils";
 
 const mockReason = [
   {
@@ -101,19 +102,6 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
     console.log(value);
     shareMessageForm.setFieldsValue({ message: "" });
     setShareMessageModal(false);
-  };
-
-  const addtionalInfomation = (obj: AdditionalInfoType) => {
-    return (
-      <div className="tw-p-2 tw-w-36">
-        {Object.entries(obj).map(([key, value]) => (
-          <div className="tw-flex tw-justify-between">
-            <span>{key}</span>
-            <span>{value}</span>
-          </div>
-        ))}
-      </div>
-    );
   };
 
   return (

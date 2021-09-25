@@ -1,7 +1,8 @@
 import { Button, Col, Row, Form, Select } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
-import { highLowOptions } from "./data";
+import CompletedTabComponent from "./completed-tab-component/CompletedTabComponent";
+import { COMPLETED, highLowOptions } from "./data";
 import { ButtonType } from "./DetailsTab";
 
 const CompletedTab = () => {
@@ -11,12 +12,12 @@ const CompletedTab = () => {
     <Row gutter={[0, 40]}>
       <Col span={24}>
         <Row gutter={20} className="tw-items-center">
-          <Col span={4}>
+          <Col span={5}>
             <p className="tw-font-bold tw-text-3xl tw-text-secondary-color">
               Completed
             </p>
           </Col>
-          <Col span={20} className="tw-bg-white tw-shadow-card">
+          <Col span={19} className="tw-bg-white tw-shadow-card">
             <div className="tw-py-5 tw-px-5 tw-flex tw-gap-5">
               <Button
                 type="default"
@@ -95,9 +96,15 @@ const CompletedTab = () => {
             </Col>
           </Row>
         </Form>
-        {activeButton === "activity" && <h1>activity</h1>}
-        {activeButton === "event" && <h1>event</h1>}
-        {activeButton === "retreat" && <h1>retreat</h1>}
+        {activeButton === "activity" && (
+          <CompletedTabComponent data={COMPLETED.ACTIVITY} />
+        )}
+        {activeButton === "event" && (
+          <CompletedTabComponent data={COMPLETED.EVENT} />
+        )}
+        {activeButton === "retreat" && (
+          <CompletedTabComponent data={COMPLETED.RETREAT} />
+        )}
       </Col>
     </Row>
   );
