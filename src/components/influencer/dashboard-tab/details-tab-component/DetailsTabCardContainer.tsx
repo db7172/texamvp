@@ -18,7 +18,7 @@ import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
 import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { AdditionalInfoType, DataDetailsType } from "Models";
+import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
 
 const mockReason = [

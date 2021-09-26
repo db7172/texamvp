@@ -14,6 +14,8 @@ const lightGray = "#C4C4C4";
 const liteBlue = "#BAE1FF";
 const blue = "#2979FF";
 const liteGreen = "#D2F3D1";
+const liteRed = "#FFDEDC";
+const darkRed = "#FF0000";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -37,6 +39,8 @@ module.exports = {
         c4c4c4: lightGray,
         "lite-blue": liteBlue,
         "lite-yellow": liteYellow,
+        "lite-red": liteRed,
+        "dark-red": darkRed,
         "blue-dark": blue,
         "lite-green": liteGreen,
         "green-background": green,

@@ -24,6 +24,7 @@
     "react-scripts": "4.0.3",
     "react-slick": "^0.28.1",
     "react-stickynode": "^4.0.0",
+    "recharts": "^2.1.4",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.0.1"
   },

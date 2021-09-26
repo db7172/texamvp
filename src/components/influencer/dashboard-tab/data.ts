@@ -568,3 +568,59 @@ export const COMPLETED = {
     },
   ],
 };
+
+export const EARNING = [
+  {
+    date: "20 Oct’ 20",
+    package: {
+      image: detailsActivity,
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Days & 4 Nights • Trekking",
+    },
+    numberOfBooking: 2,
+    earning: 16945,
+  },
+  {
+    date: "20 Oct’ 20",
+    package: {
+      image: detailsActivity,
+      title: "Exciting Tungareshwar Trek trip",
+      description: "3H • Trekking",
+    },
+    numberOfBooking: 2,
+    earning: 16945,
+  },
+  {
+    date: "20 Oct’ 20",
+    package: {
+      image: detailsActivity,
+      title: "Open mic ft. Hyderabad Comedy Scene",
+      description: "3 Days • Music",
+    },
+    numberOfBooking: 2,
+    earning: 16945,
+  },
+];
+
+export const CHART_DATA = [
+  {
+    name: "29’March 2021",
+    value: 20000,
+  },
+  {
+    name: "30’March 2021",
+    value: 40000,
+  },
+  {
+    name: "1’April 2021",
+    value: 65000,
+  },
+  {
+    name: "2’April 2021",
+    value: 20000,
+  },
+  {
+    name: "3’April 2021",
+    value: 25000,
+  },
+];
