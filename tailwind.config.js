@@ -16,6 +16,7 @@ const blue = "#2979FF";
 const liteGreen = "#D2F3D1";
 const liteRed = "#FFDEDC";
 const darkRed = "#FF0000";
+const yellowTouch = "#FFFEF3";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -39,6 +40,7 @@ module.exports = {
         c4c4c4: lightGray,
         "lite-blue": liteBlue,
         "lite-yellow": liteYellow,
+        "lite-yellow-touch": yellowTouch,
         "lite-red": liteRed,
         "dark-red": darkRed,
         "blue-dark": blue,
