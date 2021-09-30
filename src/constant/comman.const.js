@@ -34,6 +34,7 @@ export const ROUTES = {
   INFLUENCER: "/influencer",
   INFLUENCER_DASHBOARD: "/influencer/dashboard",
   INFLUENCER_SIGNUP: "/influencer/signup",
+  INFLUENCER_PROFILE: "/influencer/profile",
   INFLUENCER_APPLICATION: "/influencer/application",
   INFLUENCER_ACTIVITY_FORM: `/influencer/activity/${ACTIVITY_TYPE}`,
   INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,

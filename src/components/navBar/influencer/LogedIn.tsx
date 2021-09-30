@@ -6,6 +6,7 @@ import lock from "../../../assets/svg/lock_open.svg";
 import exit from "../../../assets/svg/exit.svg";
 import trip from "../../../assets/png/influencer/details_activity.png";
 import { uniqueId } from "lodash";
+import { Link } from "react-router-dom";
 
 const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
@@ -40,18 +41,22 @@ const notificationData = [
 const LogedIn = () => {
   const menu = (
     <div style={{ width: "300px" }} className="tw-p-3">
-      <div className="tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
-        <div className="tw-flex tw-gap-3">
-          <Avatar src={avatarImg} className="tw-mr-2" />
-          <div>
-            <p className="tw-text-base tw-font-medium">User Name</p>
-            <p className="tw-text-xs tw-text-secondary-color">
-              79 Trip Conducted
-            </p>
+      <Link to="/influencer/profile">
+        <div className="tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
+          <div className="tw-flex tw-gap-3">
+            <Avatar src={avatarImg} className="tw-mr-2" />
+            <div>
+              <p className="tw-text-base tw-font-medium tw-text-primary-color">
+                User Name
+              </p>
+              <p className="tw-text-xs tw-text-secondary-color">
+                79 Trip Conducted
+              </p>
+            </div>
           </div>
+          <RightOutlined className="tw-text-primary-color" />
         </div>
-        <RightOutlined />
-      </div>
+      </Link>
       <Divider className="tw-my-3" />
       <div>
         <Menu icon={edit} title="Edit My Account" />
