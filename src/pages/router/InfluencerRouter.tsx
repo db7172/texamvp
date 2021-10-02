@@ -7,6 +7,7 @@ import ActivityForm from "../influencer/form/activity/ActivityForm";
 import EventForm from "../influencer/form/event/EventForm";
 import Influencer from "../influencer/home";
 import InfluencerProfile from "../influencer/profile";
+import InfluencerProfileSetting from "../influencer/profile-setting";
 import InfluencerSignup from "../influencer/signup/InfluencerSignup";
 
 const InfluencerRouter = () => {
@@ -21,6 +22,11 @@ const InfluencerRouter = () => {
           exact
           component={InfluencerProfile}
           path={ROUTES.INFLUENCER_PROFILE}
+        />
+        <Route
+          exact
+          component={InfluencerProfileSetting}
+          path={ROUTES.INFLUENCER_PROFILE_SETTING}
         />
         <Route
           exact
