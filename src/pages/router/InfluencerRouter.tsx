@@ -5,6 +5,7 @@ import Application from "../influencer/application/Application";
 import Dashboard from "../influencer/dashboard";
 import ActivityForm from "../influencer/form/activity/ActivityForm";
 import EventForm from "../influencer/form/event/EventForm";
+import RetreatForm from "../influencer/form/retreat/RetreatForm";
 import Influencer from "../influencer/home";
 import InfluencerProfile from "../influencer/profile";
 import InfluencerProfileSetting from "../influencer/profile-setting";
@@ -50,6 +51,11 @@ const InfluencerRouter = () => {
           exact
           component={EventForm}
           path={ROUTES.INFLUENCER_EVENT_FORM}
+        />
+        <Route
+          exact
+          component={RetreatForm}
+          path={ROUTES.INFLUENCER_RETREAT_FORM}
         />
       </Switch>
     </>

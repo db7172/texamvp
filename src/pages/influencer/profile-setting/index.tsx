@@ -2,6 +2,7 @@ import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 import Container from "../../../components/common/container/Container";
+import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
 import { EDIT_PROFILE_OPTION } from "./data";
 
 const InfluencerProfileSetting = () => {
@@ -48,7 +49,7 @@ const InfluencerProfileSetting = () => {
         </Col>
         <Col span={18}>
           <div className="card-container">
-            {activeTab === 1 && <h1>edit</h1>}
+            {activeTab === 1 && <InfluencerEditMyProfile />}
             {activeTab === 2 && <h1>profile</h1>}
             {activeTab === 3 && <h1>Password</h1>}
           </div>

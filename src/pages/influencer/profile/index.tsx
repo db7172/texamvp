@@ -42,14 +42,16 @@ const comments = COMPLETED.ACTIVITY[0].review.splice(0, 3);
 const InfluencerProfile = ({ history }: Props) => {
   return (
     <Container>
-      <div className="tw-my-7">
-        <span
-          className="tw-text-secondary-color tw-text-xs tw-underline tw-cursor-pointer tw-flex tw-items-center tw-gap-0.5"
+      <div className="tw-inline-block">
+        <div
+          className="tw-flex tw-items-center tw-text-secondary-color hover:tw-text-secondary-color tw-my-7 tw-cursor-pointer"
           onClick={() => history.goBack()}
         >
-          <LeftOutlined style={{ fontSize: "10px" }} /> Go Back
-        </span>
+          <LeftOutlined className="tw-mr-1" />{" "}
+          <span className="tw-underline tw-font-medium">GO BACK</span>
+        </div>
       </div>
+
       <Row gutter={40}>
         <Col span={7}>
           <InfluencerProfileCard />

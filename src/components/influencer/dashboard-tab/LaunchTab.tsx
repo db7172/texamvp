@@ -11,6 +11,8 @@ import {
   EVENTS,
   getActivityFormPath,
   getEventFormPath,
+  getRetreatFormPath,
+  RETREAT_TYPES,
 } from "../../../constant/comman.const";
 
 export type CardType = {
@@ -200,11 +202,15 @@ const RetreatModalCard = () => {
         </p>
       </div>
       <div className="tw-flex tw-justify-around">
-        <CardWithIcon icon={MODAL_ICON.WORKATION} text="Workation" link="#" />
+        <CardWithIcon
+          icon={MODAL_ICON.WORKATION}
+          text="Workation"
+          link={getRetreatFormPath(RETREAT_TYPES.WORKATION)}
+        />
         <CardWithIcon
           icon={MODAL_ICON.RETREAT}
           text="Retreat Session"
-          link="#"
+          link={getRetreatFormPath(RETREAT_TYPES.RETREAT)}
         />
       </div>
     </div>

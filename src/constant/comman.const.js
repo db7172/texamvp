@@ -21,6 +21,11 @@ export const EVENTS = {
   OFFLINE: "offline",
 };
 
+export const RETREAT_TYPES = {
+  RETREAT: "retreat",
+  WORKATION: "workation",
+};
+
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
@@ -39,6 +44,7 @@ export const ROUTES = {
   INFLUENCER_APPLICATION: "/influencer/application",
   INFLUENCER_ACTIVITY_FORM: `/influencer/activity/${ACTIVITY_TYPE}`,
   INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,
+  INFLUENCER_RETREAT_FORM: `/influencer/retreat/${RETREAT_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/reterats`,
   WORKCATIONS: `/workcations`,
@@ -164,6 +170,13 @@ export const getActivityFormPath = (activityType) => {
 export const getEventFormPath = (eventType) => {
   let path = ROUTES.INFLUENCER_EVENT_FORM;
   path = path.replace(EVENT_TYPE, eventType);
+
+  return path;
+};
+
+export const getRetreatFormPath = (retreatType) => {
+  let path = ROUTES.INFLUENCER_RETREAT_FORM;
+  path = path.replace(RETREAT_TYPE, retreatType);
 
   return path;
 };
