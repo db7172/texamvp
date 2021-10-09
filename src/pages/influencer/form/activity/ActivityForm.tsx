@@ -7,7 +7,7 @@ const ActivityForm = () => {
     useParams<{ activityType: "hourly" | "singleday" | "multyday" }>();
   return (
     <>
-      {activityType === "hourly" || activityType === "multyday" ? (
+      {activityType === "hourly" || activityType === "singleday" ? (
         <HourlyAndSingleDay />
       ) : (
         <MultiDays />
