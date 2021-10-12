@@ -1,5 +1,5 @@
 import Container from "../../../components/common/container/Container";
-import { Steps, Button, Input, Form, Divider } from "antd";
+import { Steps, Button, Input, Form } from "antd";
 import { ChangeEvent, ReactNode, useState } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
