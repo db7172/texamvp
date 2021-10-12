@@ -11,11 +11,15 @@ import {
   Upload,
   Modal,
 } from "antd";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import process_completed from "../../../assets/png/influencer/process-completed.png";
 import { Link } from "react-router-dom";
+import firebase from "../../../firebase";
+import { AuthContext } from "../../../Auth";
+
+const db = firebase.firestore();
 
 const TOTAL_STEP = 2;
 
@@ -153,8 +157,11 @@ function ActivityInformation({
     };
     console.log(updatedValue);
     updateFormData(updatedValue);
+    db.collection('venders').doc(currentUser.uid).set(updatedValue,{merge: true})
     nextStep();
   };
+
+  const {currentUser} = useContext(AuthContext);
 
   return (
     <>

@@ -1,13 +1,22 @@
 import Container from "../../../components/common/container/Container";
 import { Steps, Button, Input, Form, Divider } from "antd";
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode, useContext, useEffect, useState } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
 import Modal from "antd/lib/modal/Modal";
 import Text from "antd/lib/typography/Text";
 import ActivityProfile from "../../../components/influencer/activity-profile/ActivityProfile";
+import firebase from '../../../firebase';
+import { AuthContext } from "../../../Auth";
 
 const { Step } = Steps;
+
+declare global{
+  interface Window {
+    recaptchaVerifier: any;
+    confirmationResult: any;
+  }
+}
 
 const steps = [
   {
@@ -29,12 +38,43 @@ type PersonalDetailsProps = {
   handlePersonalData: (value: PersonalFormData) => void;
 };
 
+
+function configureRecaptcha(){
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    'size': 'invisible',
+    'callback': (response:any) => {
+      onSignInSubmit(null);
+      console.log('Recaptcha verified');
+    }
+  });
+}
+
+function onSignInSubmit(value:any){
+  configureRecaptcha();
+  const phoneNumber = '+91' + value.number;
+  const appVerifier = window.recaptchaVerifier;
+  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        console.log('OTP sent.')
+      }).catch((error) => {
+        console.log(error);
+      });
+}
+let name = '';
+let number = '';
+let email = '';
+
 const PersonalDetails = ({
   showModal,
   handlePersonalData,
 }: PersonalDetailsProps) => {
   const handleSubmit = (value: PersonalFormData) => {
     handlePersonalData(value);
+    onSignInSubmit(value);
+    name = value.fullName;
+    number = '+91' + value.number;
+    email = value.email;
     showModal();
   };
   return (
@@ -46,6 +86,7 @@ const PersonalDetails = ({
           risus non. Vel aliquet sapien, ornare nec in turpis a proin.
         </p>
       </div>
+      <div id='recaptcha-container'></div>
       <Form
         name="basicDetails"
         size="large"
@@ -128,30 +169,53 @@ const InfluencerSignup = () => {
     emailOTP: false,
   });
 
+  console.log(otp.mobileOTP);
+
   const handleOtpChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     let name = e.target.name;
-    value = value.replace(/[^0-9]/g, "").replace(/(\..*?)\..*/g, "$1");
+    // value = value.replace(/[^0-9]/g, "").replace(/(\..*?)\..*/g, "$1");
     setOtp({
       ...otp,
       [name]: value,
     });
-    if (name === "mobileOTP") {
-      setOtpError({
-        ...otpError,
-        mobileOTP: value.length === 4 && parseFloat(value) !== mobileOTP,
-      });
-    } else {
-      setOtpError({
-        ...otpError,
-        emailOTP: value.length === 4 && parseFloat(value) !== emailOTP,
-      });
-    }
+    // if (name === "mobileOTP") {
+    //   setOtpError({
+    //     ...otpError,
+    //     mobileOTP: value.length === 4 && parseFloat(value) !== mobileOTP,
+    //   });
+    // } else {
+    //   setOtpError({
+    //     ...otpError,
+    //     emailOTP: value.length === 4 && parseFloat(value) !== emailOTP,
+    //   });
+    // }
   };
 
+  const {currentUser, setCurrentUser} = useContext(AuthContext);
+
+  function verifyOTP(){
+    const code = otp.mobileOTP;
+    window.confirmationResult.confirm(code).then((result:any) => {
+      const user = result.user;
+      setCurrentUser(user);
+      setCurrent(1);
+      setIsModalVisible(false);
+      firebase.firestore().collection('venders').doc(user.uid).set({
+        name: name,
+        number: number,
+        email: email
+      });
+    }).catch((error:any) => {
+      setOtpError({
+        ...otpError,
+        mobileOTP: true,
+      })
+    });
+  }
+
   const handleProceedClick = () => {
-    setCurrent(1);
-    setIsModalVisible(false);
+    verifyOTP();
   };
 
   const handleCancel = () => {
@@ -171,6 +235,8 @@ const InfluencerSignup = () => {
       />
     );
   };
+
+  
 
   return (
     <Container>
@@ -213,13 +279,13 @@ const InfluencerSignup = () => {
             <p className="tw-text-xs tw-text-blue-500 tw-underline tw-mb-5">
               Resend OTP
             </p>
-            <p className="tw-mb-1">Enter Your 4 Digit OTP</p>
+            <p className="tw-mb-1">Enter Your 6 Digit OTP</p>
             <Input
               className="tw-w-1/4 tw-mb-2 tw-text-center"
               name="mobileOTP"
               onChange={handleOtpChange}
               value={otp.mobileOTP}
-              maxLength={4}
+              maxLength={6}
             />
 
             {otpError.mobileOTP ? (
@@ -275,7 +341,7 @@ const InfluencerSignup = () => {
             otpError.emailOTP ||
             otpError.mobileOTP ||
             otp.emailOTP.length !== 4 ||
-            otp.mobileOTP.length !== 4
+            otp.mobileOTP.length !== 6
           }
         >
           Submit
