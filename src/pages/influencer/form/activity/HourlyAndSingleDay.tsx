@@ -76,6 +76,12 @@ const HourlyAndSingleDay = () => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [paymentCategory, setPaymentCategory] = useState(false);
+  const [details,setDetails] = useState({
+    name: '',
+    activityName: '',
+    description: '',
+    
+  })
 
   const { state: transportationTabs, methods: transportationMethods } = useTabs(
     {
@@ -94,6 +100,13 @@ const HourlyAndSingleDay = () => {
       });
     }
   };
+
+  const handleChange = (e:any) => {
+    setDetails({
+      ...details,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const updateTags = (e: any) => {
     setTags([...tags, e.target.value]);
@@ -174,6 +187,7 @@ const HourlyAndSingleDay = () => {
                   <Input
                     className="tw-rounded-md"
                     placeholder="Activity Name"
+                    onChange={handleChange}
                   />
                 </Form.Item>
                 <Form.Item
