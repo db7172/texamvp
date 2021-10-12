@@ -1,6 +1,6 @@
 import Container from "../../../components/common/container/Container";
-import { Steps, Button, Input, Form, Divider } from "antd";
-import { ChangeEvent, ReactNode, useContext, useEffect, useState } from "react";
+import { Steps, Button, Input, Form } from "antd";
+import { ChangeEvent, ReactNode, useState, useContext } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
 import Modal from "antd/lib/modal/Modal";
@@ -138,6 +138,54 @@ const PersonalDetails = ({
           <Input className="tw-rounded-lg" placeholder="Enter Your E-mail id" />
         </Form.Item>
 
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[
+            {
+              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,16}$/,
+              message: "The password is not valid!",
+            },
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            className="tw-rounded-lg"
+            placeholder="Enter Your Password"
+          />
+        </Form.Item>
+        <Form.Item
+          name="confirmPassword"
+          label="Confirm Password"
+          dependencies={["password"]}
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("password") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("The two passwords that you entered do not match!")
+                );
+              },
+            }),
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            className="tw-rounded-lg"
+            placeholder="Enter Your Password"
+          />
+        </Form.Item>
+
         <Form.Item>
           <Button
             type="default"
@@ -179,17 +227,17 @@ const InfluencerSignup = () => {
       ...otp,
       [name]: value,
     });
-    // if (name === "mobileOTP") {
-    //   setOtpError({
-    //     ...otpError,
-    //     mobileOTP: value.length === 4 && parseFloat(value) !== mobileOTP,
-    //   });
-    // } else {
-    //   setOtpError({
-    //     ...otpError,
-    //     emailOTP: value.length === 4 && parseFloat(value) !== emailOTP,
-    //   });
-    // }
+    if (name === "mobileOTP") {
+      setOtpError({
+        ...otpError,
+        mobileOTP: value.length === 4 && parseFloat(value) !== mobileOTP,
+      });
+    } else {
+      setOtpError({
+        ...otpError,
+        emailOTP: value.length === 4 && parseFloat(value) !== emailOTP,
+      });
+    }
   };
 
   const {currentUser, setCurrentUser} = useContext(AuthContext);
@@ -260,11 +308,14 @@ const InfluencerSignup = () => {
       </div>
       <Modal
         visible={isModalVisible}
-        style={{ top: 20 }}
+        // style={{ top: 20 }}
         footer={null}
         onCancel={handleCancel}
       >
-        <div style={{ height: "600px" }} className="tw-overflow-y-auto tw-mt-5">
+        <div
+          // style={{ height: "600px" }}
+          className="tw-overflow-y-auto tw-mt-5"
+        >
           <div className="tw-flex tw-flex-col tw-items-center">
             <h3 className="tw-font-medium tw-text-xl tw-mb-2">
               Verify Your Mobile Number
@@ -298,8 +349,8 @@ const InfluencerSignup = () => {
               Your OTP sent successfully
             </p>
           </div>
-          <Divider className="tw-border-t-2 tw-border-c4c4c4" />
-          <div className="tw-flex tw-flex-col tw-items-center">
+          {/* <Divider className="tw-border-t-2 tw-border-c4c4c4" /> */}
+          {/* <div className="tw-flex tw-flex-col tw-items-center">
             <h3 className="tw-font-medium tw-text-xl tw-mb-2">
               Verify Your Email Id
             </h3>
@@ -331,17 +382,17 @@ const InfluencerSignup = () => {
             <p className="tw-text-blue-500 tw-font-medium tw-mt-5">
               Your OTP sent successfully
             </p>
-          </div>
+          </div> */}
         </div>
         <Button
           type="default"
           className="tw-w-full tw-texa-button"
           onClick={handleProceedClick}
           disabled={
-            otpError.emailOTP ||
+            // otpError.emailOTP ||
             otpError.mobileOTP ||
-            otp.emailOTP.length !== 4 ||
-            otp.mobileOTP.length !== 6
+            // otp.emailOTP.length !== 4 ||
+            otp.mobileOTP.length !== 4
           }
         >
           Submit

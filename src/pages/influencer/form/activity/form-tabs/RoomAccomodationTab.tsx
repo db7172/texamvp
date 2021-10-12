@@ -1,15 +1,5 @@
 import { ExclamationCircleFilled, UploadOutlined } from "@ant-design/icons";
-import {
-  Row,
-  Form,
-  Col,
-  Input,
-  Select,
-  DatePicker,
-  Upload,
-  Button,
-} from "antd";
-import { uniqueId } from "lodash";
+import { Row, Form, Col, Input, Upload, Button } from "antd";
 import { normFile } from "../../formUtils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 

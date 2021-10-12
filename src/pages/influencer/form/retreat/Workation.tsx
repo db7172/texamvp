@@ -124,11 +124,11 @@ const Workation = () => {
                   turpis. Mattis consequat, imperdiet ultricies dolor, lectus.
                   Vitae viverra libero, vitae fermentum in duis.
                 </p>
-                <CreateActivity title="Create Event" />
+                <CreateActivity title="Create Workation" />
               </div>
               <Divider className="tw-my-10" />
               <Form
-                name="retreatForm"
+                name="workationForm"
                 onFinish={(value) => console.log(value)}
                 onFinishFailed={(error) => console.log(error)}
                 onValuesChange={(value, obj) => console.log(obj)}
