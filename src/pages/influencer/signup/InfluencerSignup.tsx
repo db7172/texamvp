@@ -246,7 +246,7 @@ const InfluencerSignup = () => {
     }
   };
 
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   function verifyOTP(){
     const code = otp.mobileOTP;

@@ -1,8 +1,6 @@
 import { Form, Input, Button, Divider } from "antd";
 import { upperCase } from "lodash";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../Auth";
 import { useHistory } from "react-router-dom";
 import firebase from '../../../firebase';
 

@@ -8,7 +8,6 @@ import DetailsTab from "../../../components/influencer/dashboard-tab/DetailsTab"
 import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
 import { AuthContext } from "../../../Auth";
-import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
