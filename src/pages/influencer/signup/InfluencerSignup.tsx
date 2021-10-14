@@ -9,6 +9,8 @@ import ActivityProfile from "../../../components/influencer/activity-profile/Act
 import firebase from '../../../firebase';
 import { AuthContext } from "../../../Auth";
 
+const auth = firebase.auth();
+
 const { Step } = Steps;
 
 declare global{
@@ -31,6 +33,7 @@ type PersonalFormData = {
   fullName: string;
   email: string;
   number: number;
+  password: string;
 };
 
 type PersonalDetailsProps = {
@@ -64,6 +67,7 @@ function onSignInSubmit(value:any){
 let name = '';
 let number = '';
 let email = '';
+let password = '';
 
 const PersonalDetails = ({
   showModal,
@@ -72,9 +76,11 @@ const PersonalDetails = ({
   const handleSubmit = (value: PersonalFormData) => {
     handlePersonalData(value);
     onSignInSubmit(value);
+    console.log(value);
     name = value.fullName;
     number = '+91' + value.number;
     email = value.email;
+    password = value.password;
     showModal();
   };
   return (
@@ -249,11 +255,43 @@ const InfluencerSignup = () => {
       setCurrentUser(user);
       setCurrent(1);
       setIsModalVisible(false);
-      firebase.firestore().collection('venders').doc(user.uid).set({
-        name: name,
-        number: number,
-        email: email
+      // firebase.auth().signOut();
+      auth.currentUser?.linkWithCredential(firebase.auth.EmailAuthProvider.credential(email, password))
+      .then((usercred) => {
+        var user = usercred.user;
+        console.log("Account linking success", user);
+        user?.updateProfile({
+          displayName: name
+        })
+      }).catch((error) => {
+        console.log("Account linking error", error);
       });
+      firebase.firestore().collection('venders').doc(user.uid).set({
+            name: name,
+            number: number,
+            email: email,
+      });
+      // console.log('email, pass', email,password);
+      // firebase.auth().createUserWithEmailAndPassword(email, password)
+      // .then((userCredential) => {
+      //   let emailUser = userCredential.user;
+      //   console.log(emailUser);
+      //   firebase.firestore().collection('venders').doc(user.uid).set({
+      //     name: name,
+      //     number: number,
+      //     email: email,
+      //     emailUID: emailUser?.uid,
+      //   });
+      //   // ...
+      // })
+      // .catch((error) => {
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   console.log(errorCode);
+      //   console.log(errorMessage);
+      //   // ..
+      // });
+
     }).catch((error:any) => {
       setOtpError({
         ...otpError,
@@ -392,7 +430,7 @@ const InfluencerSignup = () => {
             // otpError.emailOTP ||
             otpError.mobileOTP ||
             // otp.emailOTP.length !== 4 ||
-            otp.mobileOTP.length !== 4
+            otp.mobileOTP.length !== 6
           }
         >
           Submit

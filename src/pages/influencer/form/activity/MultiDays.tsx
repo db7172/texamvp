@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
@@ -30,6 +30,7 @@ import { ItineraryFormTab } from "./form-tabs/ItineraryFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
+import { AuthContext } from "../../../../Auth";
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 

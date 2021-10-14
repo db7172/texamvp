@@ -321,6 +321,7 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
   const handleFormSubmit = (value: any) => {
     console.log(value);
     updateKycData(value);
+    // firebase.auth().signOut();
     showModal();
   };
 

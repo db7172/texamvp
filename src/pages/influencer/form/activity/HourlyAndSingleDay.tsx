@@ -22,13 +22,18 @@ import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
+import firebase from '../../../../firebase';
+import { AuthContext } from "../../../../Auth";
+import { useHistory } from "react-router-dom";
+
+const db = firebase.firestore();
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -76,12 +81,6 @@ const HourlyAndSingleDay = () => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [paymentCategory, setPaymentCategory] = useState(false);
-  const [details,setDetails] = useState({
-    name: '',
-    activityName: '',
-    description: '',
-    
-  })
 
   const { state: transportationTabs, methods: transportationMethods } = useTabs(
     {
@@ -101,13 +100,6 @@ const HourlyAndSingleDay = () => {
     }
   };
 
-  const handleChange = (e:any) => {
-    setDetails({
-      ...details,
-      [e.target.name]: e.target.value
-    })
-  }
-
   const updateTags = (e: any) => {
     setTags([...tags, e.target.value]);
     setTagInput("");
@@ -116,6 +108,13 @@ const HourlyAndSingleDay = () => {
   const onTagClose = (id: number) => {
     setTags(tags.filter((_, i) => id !== i));
   };
+
+  const {currentUser} = useContext(AuthContext);
+
+  const onSubmit = (value:any) => {
+    console.log(value);
+    db.collection('hr_sg_avy').doc(currentUser.uid).set(value,{merge:true});
+  }
 
   return (
     <Container>
@@ -147,7 +146,7 @@ const HourlyAndSingleDay = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
-                onFinish={(value) => console.log(value)}
+                onFinish={(value) => onSubmit(value)}
                 onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
@@ -187,7 +186,6 @@ const HourlyAndSingleDay = () => {
                   <Input
                     className="tw-rounded-md"
                     placeholder="Activity Name"
-                    onChange={handleChange}
                   />
                 </Form.Item>
                 <Form.Item

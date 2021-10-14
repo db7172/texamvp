@@ -1,16 +1,20 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Container from "../../../components/common/container/Container";
 import CompletedTab from "../../../components/influencer/dashboard-tab/CompletedTab";
 import EarningTab from "../../../components/influencer/dashboard-tab/EarningTab";
 import DetailsTab from "../../../components/influencer/dashboard-tab/DetailsTab";
 import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
+import { AuthContext } from "../../../Auth";
+import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
+  const {currentUser} = useContext(AuthContext);
 
+  if(currentUser){
   return (
     <Container>
       <Row gutter={40} className="tw-mt-10">
@@ -68,6 +72,13 @@ const Dashboard = () => {
       </Row>
     </Container>
   );
+  }
+  else{
+    return(
+      <div style={{width:'100%', height:'100vh', backgroundColor: '#fff'}}>
+      </div>
+    )
+  }
 };
 
 export default Dashboard;
