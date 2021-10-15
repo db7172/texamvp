@@ -1,17 +1,25 @@
 import { Form, Input, Button, Divider } from "antd";
 import { upperCase } from "lodash";
 import { Link } from "react-router-dom";
-
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+import { useHistory } from "react-router-dom";
+import firebase from '../../../firebase';
 
 const InfluencerLogin = () => {
-  //TODO:- add login logic once api comes
+
+  const history = useHistory();
+
+  const onFinish = (values: any) => {
+    let email = values.emailOrMobile;
+    let password = values.password;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      history.push('/influencer/dashboard');
+    })
+    .catch((error) => {
+      console.log(error.message);
+      console.log(error.code);
+    });
+  };
 
   return (
     <div className="tw-p-8 tw-shadow-card tw-rounded-lg">
@@ -29,7 +37,6 @@ const InfluencerLogin = () => {
         layout="vertical"
         size="large"
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Email / Mobile No"

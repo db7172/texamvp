@@ -7,6 +7,10 @@ import exit from "../../../assets/svg/exit.svg";
 import trip from "../../../assets/png/influencer/details_activity.png";
 import { uniqueId } from "lodash";
 import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import firebase from '../../../firebase';
+import { AuthContext } from "../../../Auth";
+import { useHistory } from "react-router-dom";
 
 const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
@@ -39,15 +43,35 @@ const notificationData = [
 ];
 
 const LogedIn = () => {
+
+  const {currentUser,setCurrentUser} = useContext(AuthContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        setCurrentUser(user);
+      }
+      else{
+        history.push('/influencer');
+      }
+    })
+  },[])
+
+  const signOut = () => {
+    firebase.auth().signOut();
+    history.push('/influencer');
+  }
+
   const menu = (
     <div style={{ width: "300px" }} className="tw-p-3">
       <Link to="/influencer/profile">
         <div className="tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
           <div className="tw-flex tw-gap-3">
-            <Avatar src={avatarImg} className="tw-mr-2" />
+            <Avatar src={currentUser.photoURL?currentUser.photoURL:avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                User Name
+                {currentUser.displayName}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted
@@ -70,7 +94,7 @@ const LogedIn = () => {
         <Menu icon={lock} title="Update Password" />
       </div>
       <Divider className="tw-my-3" />
-      <div>
+      <div onClick={signOut}>
         <Menu icon={exit} title="Log Out" />
       </div>
     </div>

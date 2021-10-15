@@ -22,7 +22,7 @@ import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
@@ -30,6 +30,10 @@ import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
 import { hourlyAndSingleDayDataHelper } from "../formUtils";
+import firebase from "../../../../firebase";
+import { AuthContext } from "../../../../Auth";
+
+const db = firebase.firestore();
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -105,6 +109,8 @@ const HourlyAndSingleDay = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  const { currentUser } = useContext(AuthContext);
+
   const onSubmit = (value: any) => {
     const formData = hourlyAndSingleDayDataHelper({
       ...value,
@@ -113,6 +119,7 @@ const HourlyAndSingleDay = () => {
     });
     // formatted data
     console.log(formData);
+    db.collection("hr_sg_avy").doc(currentUser.uid).set(value, { merge: true });
   };
 
   return (
