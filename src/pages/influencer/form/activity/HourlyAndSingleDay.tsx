@@ -29,7 +29,8 @@ import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
-import firebase from '../../../../firebase';
+import { hourlyAndSingleDayDataHelper } from "../formUtils";
+import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
 
 const db = firebase.firestore();
@@ -108,12 +109,18 @@ const HourlyAndSingleDay = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const {currentUser} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  const onSubmit = (value:any) => {
-    console.log(value);
-    db.collection('hr_sg_avy').doc(currentUser.uid).set(value,{merge:true});
-  }
+  const onSubmit = (value: any) => {
+    const formData = hourlyAndSingleDayDataHelper({
+      ...value,
+      tags,
+      transpotationFormData,
+    });
+    // formatted data
+    console.log(formData);
+    db.collection("hr_sg_avy").doc(currentUser.uid).set(value, { merge: true });
+  };
 
   return (
     <Container>
@@ -145,6 +152,11 @@ const HourlyAndSingleDay = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
                 onFinish={(value) => onSubmit(value)}
                 onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
@@ -262,6 +274,7 @@ const HourlyAndSingleDay = () => {
                                   className="tw-rounded-md"
                                   type="number"
                                   prefix="₹"
+                                  min={1}
                                   placeholder="Enter Your Rate Per Person"
                                 />
                               </Form.Item>
@@ -275,6 +288,7 @@ const HourlyAndSingleDay = () => {
                                 <Input
                                   className="tw-rounded-md"
                                   type="number"
+                                  min={1}
                                   placeholder="Enter No. of Tickets"
                                 />
                               </Form.Item>
@@ -289,9 +303,12 @@ const HourlyAndSingleDay = () => {
                               />
                             </div>
                             <Form.Item
-                              name={[field.name, "ticketCategory"]}
-                              fieldKey={[field.fieldKey, "ticketCategory"]}
-                              key={uniqueId("ticketCategory")}
+                              name={[field.name, "ticketCategoryDescription"]}
+                              fieldKey={[
+                                field.fieldKey,
+                                "ticketCategoryDescription",
+                              ]}
+                              key={uniqueId("ticketCategoryDescription")}
                               label="Ticket Category Description"
                               className="tw-m-0"
                             >
@@ -341,6 +358,7 @@ const HourlyAndSingleDay = () => {
                       className="tw-rounded-md"
                       type="number"
                       prefix="₹"
+                      min={1}
                       placeholder="Rate Per Person"
                     />
                   </Form.Item>
@@ -378,6 +396,7 @@ const HourlyAndSingleDay = () => {
                                   className="tw-rounded-md"
                                   type="number"
                                   prefix="₹"
+                                  min={1}
                                   placeholder="Rate Per Person"
                                 />
                               </Form.Item>

@@ -1,5 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Row, Form, Col, Input, DatePicker, Upload, Button } from "antd";
+import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
 const normFile = (e: any) => {
@@ -23,9 +24,16 @@ export const TranspotationFormTab = ({
     <Form
       name={"transpotation" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(_, value) =>
-        updateTabFormData("transpotation", value, keyValue)
-      }
+      onValuesChange={(value, obj) => {
+        const newObj = {
+          ...obj,
+        };
+
+        newObj["pickupDate"] = formatMomentDate(value.pickupDate);
+        newObj["droppingDate"] = formatMomentDate(value.droppingDate);
+
+        updateTabFormData("transpotation", newObj, keyValue);
+      }}
     >
       <Form.Item noStyle>
         <Row gutter={20}>
