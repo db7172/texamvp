@@ -29,6 +29,7 @@ import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
+import { hourlyAndSingleDayDataHelper } from "../formUtils";
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -104,6 +105,16 @@ const HourlyAndSingleDay = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  const onSubmit = (value: any) => {
+    const formData = hourlyAndSingleDayDataHelper({
+      ...value,
+      tags,
+      transpotationFormData,
+    });
+    // formatted data
+    console.log(formData);
+  };
+
   return (
     <Container>
       <Link to="/influencer/dashboard" className="tw-my-10 tw-inline-block">
@@ -134,7 +145,12 @@ const HourlyAndSingleDay = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
-                onFinish={(value) => console.log(value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                onFinish={(value) => onSubmit(value)}
                 onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
@@ -251,6 +267,7 @@ const HourlyAndSingleDay = () => {
                                   className="tw-rounded-md"
                                   type="number"
                                   prefix="₹"
+                                  min={1}
                                   placeholder="Enter Your Rate Per Person"
                                 />
                               </Form.Item>
@@ -264,6 +281,7 @@ const HourlyAndSingleDay = () => {
                                 <Input
                                   className="tw-rounded-md"
                                   type="number"
+                                  min={1}
                                   placeholder="Enter No. of Tickets"
                                 />
                               </Form.Item>
@@ -278,9 +296,12 @@ const HourlyAndSingleDay = () => {
                               />
                             </div>
                             <Form.Item
-                              name={[field.name, "ticketCategory"]}
-                              fieldKey={[field.fieldKey, "ticketCategory"]}
-                              key={uniqueId("ticketCategory")}
+                              name={[field.name, "ticketCategoryDescription"]}
+                              fieldKey={[
+                                field.fieldKey,
+                                "ticketCategoryDescription",
+                              ]}
+                              key={uniqueId("ticketCategoryDescription")}
                               label="Ticket Category Description"
                               className="tw-m-0"
                             >
@@ -330,6 +351,7 @@ const HourlyAndSingleDay = () => {
                       className="tw-rounded-md"
                       type="number"
                       prefix="₹"
+                      min={1}
                       placeholder="Rate Per Person"
                     />
                   </Form.Item>
@@ -367,6 +389,7 @@ const HourlyAndSingleDay = () => {
                                   className="tw-rounded-md"
                                   type="number"
                                   prefix="₹"
+                                  min={1}
                                   placeholder="Rate Per Person"
                                 />
                               </Form.Item>

@@ -1,3 +1,4 @@
+import moment from "moment";
 import rightArrow from "../assets/svg/nextArrow.svg";
 import leftArrow from "../assets/svg/prevArrow.svg";
 
@@ -83,4 +84,12 @@ export const formatActiveButton = (arr) => {
     pre[value] = false;
     return pre;
   }, {});
+};
+
+export const formatMomentDate = (value) => {
+  return moment(value).format("DD-MM-YYYY");
+};
+
+export const formatMomentTime = (value) => {
+  return moment(value).format("h:mm:ss a");
 };
