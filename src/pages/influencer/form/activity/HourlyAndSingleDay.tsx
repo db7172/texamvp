@@ -119,7 +119,7 @@ const HourlyAndSingleDay = () => {
     });
     // formatted data
     console.log(formData);
-    db.collection("hr_sg_avy").doc(currentUser.uid).set(value, { merge: true });
+    // db.collection("hr_sg_avy").doc(currentUser.uid).set(value, { merge: true });
   };
 
   return (
