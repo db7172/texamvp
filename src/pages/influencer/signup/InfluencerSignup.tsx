@@ -255,7 +255,6 @@ const InfluencerSignup = () => {
       setCurrentUser(user);
       setCurrent(1);
       setIsModalVisible(false);
-      // firebase.auth().signOut();
       auth.currentUser?.linkWithCredential(firebase.auth.EmailAuthProvider.credential(email, password))
       .then((usercred) => {
         var user = usercred.user;
@@ -271,27 +270,6 @@ const InfluencerSignup = () => {
             number: number,
             email: email,
       });
-      // console.log('email, pass', email,password);
-      // firebase.auth().createUserWithEmailAndPassword(email, password)
-      // .then((userCredential) => {
-      //   let emailUser = userCredential.user;
-      //   console.log(emailUser);
-      //   firebase.firestore().collection('venders').doc(user.uid).set({
-      //     name: name,
-      //     number: number,
-      //     email: email,
-      //     emailUID: emailUser?.uid,
-      //   });
-      //   // ...
-      // })
-      // .catch((error) => {
-      //   var errorCode = error.code;
-      //   var errorMessage = error.message;
-      //   console.log(errorCode);
-      //   console.log(errorMessage);
-      //   // ..
-      // });
-
     }).catch((error:any) => {
       setOtpError({
         ...otpError,
