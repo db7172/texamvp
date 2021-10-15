@@ -103,7 +103,7 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
       ...reportingDroppingPointList,
     ],
     itinerary: {
-      date,
+      date: formatMomentDate(date),
       itineraryDetails,
       title,
     },
