@@ -10,8 +10,20 @@ import FaqSection from "../../../components/view-more-details/FaqSection";
 import faq_img from "../../../assets/png/influencer/FAQ.png";
 import JoinTeam from "../../../components/influencer/jointeam/JoinTeam";
 import InfluencerLogin from "../../../components/influencer/influencerLogin/InfluencerLogin";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../../Auth";
+import { useHistory } from "react-router-dom";
 
 const Influencer = () => {
+
+  const {currentUser} = useContext(AuthContext);
+  const history = useHistory();
+  useEffect(() => {
+    if(currentUser){
+      history.push('/influencer/dashboard');
+    }
+  })
+
   return (
     <Container>
       <Row gutter={[20, 100]}>
