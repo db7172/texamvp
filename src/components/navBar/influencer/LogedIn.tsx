@@ -68,7 +68,7 @@ const LogedIn = () => {
       <Link to="/influencer/profile">
         <div className="tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
           <div className="tw-flex tw-gap-3">
-            <Avatar src={currentUser.photoURL?currentUser.photoURL:avatarImg} className="tw-mr-2" />
+            <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
                 {currentUser.displayName}
