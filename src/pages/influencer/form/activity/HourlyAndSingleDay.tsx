@@ -118,8 +118,8 @@ const HourlyAndSingleDay = () => {
       transpotationFormData,
     });
     // formatted data
-    console.log(stripUndefined(formData));
-    // db.collection("hr_sg_avy").doc(currentUser.uid).set(formData, { merge: true });
+    let finalData = stripUndefined(formData);
+    db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData, { merge: true });
   };
 
   return (
