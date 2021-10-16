@@ -1,4 +1,5 @@
 import { DatePicker, Form, Input } from "antd";
+import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
 export const ItineraryFormTab = ({
@@ -12,9 +13,13 @@ export const ItineraryFormTab = ({
     <Form
       name={"itinerary" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(_, value) =>
-        updateTabFormData("itinerary", value, keyValue)
-      }
+      onValuesChange={(_, value) => {
+        const newValue = {
+          ...value,
+        };
+        newValue["date"] = formatMomentDate(value["date"]);
+        updateTabFormData("itinerary", newValue, keyValue);
+      }}
     >
       <Form.Item name="date" label="Date of that day">
         <DatePicker

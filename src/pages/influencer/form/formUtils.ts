@@ -23,6 +23,22 @@ export const formateDeparture = (
   }));
 };
 
+export const formateDestination = (
+  value: {
+    destinationDateRang: moment.MomentInputObject[];
+    destination: string;
+  }[]
+) => {
+  console.log(value);
+  return value.map((d) => ({
+    destinationDateRang: {
+      start: formatMomentDate(d?.destinationDateRang[0]),
+      end: formatMomentDate(d?.destinationDateRang[1]),
+    },
+    destination: d.destination,
+  }));
+};
+
 export function stripUndefined(obj: any) {
   return JSON.parse(JSON.stringify(obj));
 }
@@ -112,6 +128,92 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
     },
     transpotation: transpotationFormData,
     featureKeyWord: tags,
+    inclusion,
+    exclusion,
+    tripEssential: {
+      howToReachPickupPoint,
+      thingsToCarry,
+      thingsProhibitted,
+      saftyNorms,
+      certificateRequired,
+      termsAndCondition,
+      cancellationPolicy,
+    },
+  };
+};
+
+export const multiDayDataHelper = (value: any) => {
+  const {
+    departureDateFirstField,
+    ratePerPersonFirstField,
+    departureData,
+    destinationDateRang,
+    destinations,
+    departureCityFirstField,
+    departureCityList,
+    reportingPointFirstField,
+    droppingPointFirstField,
+    reportingDroppingPointList,
+    inclusion,
+    exclusion,
+    howToReachPickupPoint,
+    thingsToCarry,
+    thingsProhibitted,
+    saftyNorms,
+    certificateRequired,
+    termsAndCondition,
+    cancellationPolicy,
+  } = value;
+
+  const updatedDestinations = destinations
+    ? formateDestination(destinations)
+    : [];
+
+  return {
+    activityName: value.activityName,
+    description: value.description,
+    payment: value.paymentRatePerPerson || value.paymentList,
+    departureDate: [
+      {
+        dateRange: {
+          start: formatMomentDate(departureDateFirstField[0] || ""),
+          end: formatMomentDate(departureDateFirstField[1] || ""),
+        },
+        ratePerPerson: ratePerPersonFirstField,
+      },
+      ...(departureData || []),
+    ],
+    sailentFeatures: {
+      activityType: value.activityType,
+      activityLevel: value.activityLevel,
+      ageGroup: {
+        from: value.ageGroupFrom,
+        to: value.ageGroupTo,
+      },
+      numberOfTicketInclude: value.numberOfPeople,
+      activityDuration: value.activityDuration,
+    },
+    destination: [
+      {
+        destinationDateRang: {
+          start: formatMomentDate(destinationDateRang[0] || ""),
+          end: formatMomentDate(destinationDateRang[1] || ""),
+        },
+        destination: value.destinationFistField,
+      },
+      ...(updatedDestinations || []),
+    ],
+    departureCity: [departureCityFirstField, ...(departureCityList || [])],
+    reportingAndDroppingPoint: [
+      {
+        reportingPoint: reportingPointFirstField,
+        droppingPoint: droppingPointFirstField,
+      },
+      ...(reportingDroppingPointList || []),
+    ],
+    accomodation: value.accomodationFormData,
+    itinerary: value.itineraryPanesFormData,
+    featureKeyWord: value.tags,
     inclusion,
     exclusion,
     tripEssential: {

@@ -24,15 +24,26 @@ export const TranspotationFormTab = ({
     <Form
       name={"transpotation" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(value, obj) => {
+      onValuesChange={(_, obj) => {
         const newObj = {
           ...obj,
         };
 
-        newObj["pickupDate"] = formatMomentDate(value.pickupDate);
-        newObj["droppingDate"] = formatMomentDate(value.droppingDate);
+        newObj["pickupDate"] = formatMomentDate(obj.pickupDate);
+        newObj["droppingDate"] = formatMomentDate(obj.droppingDate);
 
-        updateTabFormData("transpotation", newObj, keyValue);
+        if (!singleDay) {
+          const formData = {
+            photos: newObj["photos"],
+            data: {
+              ...newObj,
+            },
+          };
+          delete formData.data["photos"];
+          updateTabFormData("transpotation", formData, keyValue);
+        } else {
+          updateTabFormData("transpotation", newObj, keyValue);
+        }
       }}
     >
       <Form.Item noStyle>
