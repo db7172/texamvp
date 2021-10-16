@@ -32,6 +32,7 @@ import classNames from "classnames";
 import { hourlyAndSingleDayDataHelper } from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
+// import _ from "lodash";
 
 const db = firebase.firestore();
 
@@ -118,8 +119,9 @@ const HourlyAndSingleDay = () => {
       transpotationFormData,
     });
     // formatted data
+    // const finalData = _(formData).omitBy(_.isUndefined).omitBy(_.isNull).value();
     console.log(formData);
-    db.collection("hr_sg_avy").doc(currentUser.uid).set(value, { merge: true });
+    // db.collection("hr_sg_avy").doc(currentUser.uid).set(formData, { merge: true });
   };
 
   return (
