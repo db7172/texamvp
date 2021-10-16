@@ -71,7 +71,7 @@ const LogedIn = () => {
             <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                {/* {currentUser.displayName} */}
+                {currentUser?currentUser.displayName:'Profile Name'}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted
