@@ -29,12 +29,11 @@ import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
-import { hourlyAndSingleDayDataHelper } from "../formUtils";
+import { hourlyAndSingleDayDataHelper, stripUndefined } from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
-// import _ from "lodash";
 
-const db = firebase.firestore();
+const db = firebase?.firestore();
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -119,8 +118,7 @@ const HourlyAndSingleDay = () => {
       transpotationFormData,
     });
     // formatted data
-    // const finalData = _(formData).omitBy(_.isUndefined).omitBy(_.isNull).value();
-    console.log(formData);
+    console.log(stripUndefined(formData));
     // db.collection("hr_sg_avy").doc(currentUser.uid).set(formData, { merge: true });
   };
 
@@ -160,7 +158,7 @@ const HourlyAndSingleDay = () => {
                   }
                 }}
                 onFinish={(value) => onSubmit(value)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                // onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"

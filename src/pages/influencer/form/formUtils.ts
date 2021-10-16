@@ -16,12 +16,16 @@ export const formateDeparture = (
 ) => {
   return value.map((d) => ({
     dateRange: {
-      start: formatMomentDate(d.dateOfDeparture[0]),
-      end: formatMomentDate(d.dateOfDeparture[1]),
+      start: formatMomentDate(d?.dateOfDeparture[0]),
+      end: formatMomentDate(d?.dateOfDeparture[1]),
     },
     ratePerPerson: d.ratePerPerson,
   }));
 };
+
+export function stripUndefined(obj: any) {
+  return JSON.parse(JSON.stringify(obj));
+}
 
 export const hourlyAndSingleDayDataHelper = (value: any) => {
   const {
@@ -60,22 +64,21 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
     title,
   } = value;
 
+  const departureData = departure ? formateDeparture(departure) : [];
+
   return {
     activityName,
     description,
-    payment: {
-      paymentRatePerPerson: value.paymentRatePerPerson || undefined,
-      paymentList: value.paymentList || undefined,
-    },
+    payment: value.paymentRatePerPerson || value.paymentList,
     departureDate: [
       {
         dateRange: {
-          start: formatMomentDate(departureDateFirstField[0]),
-          end: formatMomentDate(departureDateFirstField[1]),
+          start: formatMomentDate(departureDateFirstField[0] || ""),
+          end: formatMomentDate(departureDateFirstField[1] || ""),
         },
         ratePerPerson: ratePerPersonFirstField,
       },
-      ...formateDeparture(departure),
+      ...(departureData || []),
     ],
     sailentFeatures: {
       activityType,
@@ -94,13 +97,13 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
       destination: destinationFistField,
       googleMap,
     },
-    departureCity: [departureCityFirstField, ...departureCityList],
+    departureCity: [departureCityFirstField, ...(departureCityList || [])],
     reportingAndDroppingPoint: [
       {
         reportingPoint: reportingPointFirstField,
         droppingPoint: droppingPointFirstField,
       },
-      ...reportingDroppingPointList,
+      ...(reportingDroppingPointList || []),
     ],
     itinerary: {
       date: formatMomentDate(date),
