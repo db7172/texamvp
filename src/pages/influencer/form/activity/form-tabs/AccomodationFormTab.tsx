@@ -9,7 +9,8 @@ import {
   Upload,
   Button,
 } from "antd";
-import { uniqueId } from "lodash";
+import { isUndefined, uniqueId } from "lodash";
+import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
 const normFile = (e: any) => {
@@ -31,9 +32,22 @@ export const AccomodationFormTab = ({
     <Form
       name={"accomodation" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(_, value) =>
-        updateTabFormData("accomodation", value, keyValue)
-      }
+      onValuesChange={(_, obj) => {
+        const newObj = {
+          photos: obj.photos,
+          data: {
+            ...obj,
+          },
+        };
+        if (!isUndefined(newObj.data["dateRange"])) {
+          newObj.data["dateRange"] = [
+            formatMomentDate(obj.dateRange[0]),
+            formatMomentDate(obj.dateRange[1]),
+          ];
+        }
+        delete newObj.data["photos"];
+        updateTabFormData("accomodation", newObj, keyValue);
+      }}
     >
       <Form.Item noStyle>
         <Row gutter={20}>

@@ -30,6 +30,7 @@ import { ItineraryFormTab } from "./form-tabs/ItineraryFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
+import { multiDayDataHelper, stripUndefined } from "../formUtils";
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -132,12 +133,14 @@ const MultiDays = () => {
     if (type === "accomodation") {
       setAccomodationFormData({
         ...accomodationFormData,
-        [key]: value,
+        // for photo you can get value from value.photos
+        [key]: value.data,
       });
     } else if (type === "transpotation") {
       setTranspotationFormData({
         ...transpotationFormData,
-        [key]: value,
+        // for photo you can get value from value.photos
+        [key]: value.data,
       });
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
@@ -154,6 +157,19 @@ const MultiDays = () => {
 
   const onTagClose = (id: number) => {
     setTags(tags.filter((_, i) => id !== i));
+  };
+
+  const onSubmit = (value: any) => {
+    const formData = multiDayDataHelper({
+      ...value,
+      tags,
+      transpotationFormData,
+      accomodationFormData,
+      itineraryPanesFormData,
+    });
+    // formatted data
+    const finalData = stripUndefined(formData);
+    console.log(finalData);
   };
 
   return (
@@ -186,8 +202,13 @@ const MultiDays = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
-                onFinish={(value) => console.log(value)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                onFinish={(value) => onSubmit(value)}
+                // onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"
@@ -509,7 +530,7 @@ const MultiDays = () => {
 
                   <Form.Item
                     label="Activity Duration (No. of Days)?"
-                    name="duration"
+                    name="activityDuration"
                   >
                     <Input
                       type="number"
