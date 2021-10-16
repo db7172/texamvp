@@ -8,7 +8,7 @@ import trip from "../../../assets/png/influencer/details_activity.png";
 import { uniqueId } from "lodash";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import firebase from '../../../firebase';
+import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
 import { useHistory } from "react-router-dom";
 
@@ -43,25 +43,24 @@ const notificationData = [
 ];
 
 const LogedIn = () => {
-
-  const {currentUser,setCurrentUser} = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const history = useHistory();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if(user){
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
         setCurrentUser(user);
+      } else {
+        history.push("/influencer");
       }
-      else{
-        history.push('/influencer');
-      }
-    })
-  },[])
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const signOut = () => {
     firebase.auth().signOut();
-    history.push('/influencer');
-  }
+    history.push("/influencer");
+  };
 
   const menu = (
     <div style={{ width: "300px" }} className="tw-p-3">
