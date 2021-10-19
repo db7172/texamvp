@@ -7,6 +7,7 @@ import ActivityForm from "../influencer/form/activity/ActivityForm";
 import EventForm from "../influencer/form/event/EventForm";
 import RetreatForm from "../influencer/form/retreat/RetreatForm";
 import Influencer from "../influencer/home";
+import PasswordReset from "../influencer/password-reset/PasswordReset";
 import InfluencerProfile from "../influencer/profile";
 import InfluencerProfileSetting from "../influencer/profile-setting";
 import InfluencerSignup from "../influencer/signup/InfluencerSignup";
@@ -33,6 +34,11 @@ const InfluencerRouter = () => {
           exact
           component={InfluencerSignup}
           path={ROUTES.INFLUENCER_SIGNUP}
+        />
+        <Route
+          exact
+          component={PasswordReset}
+          path={ROUTES.INFLUENCER_PASSWARD_RESET}
         />
         <Route exact component={Influencer} path={ROUTES.INFLUENCER} />
         <Route
