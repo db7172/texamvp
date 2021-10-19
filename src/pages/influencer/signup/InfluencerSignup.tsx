@@ -1,19 +1,19 @@
 import Container from "../../../components/common/container/Container";
-import { Steps, Button, Input, Form } from "antd";
+import { Steps, Button, Input, Form, Select } from "antd";
 import { ChangeEvent, ReactNode, useState, useContext } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
 import Modal from "antd/lib/modal/Modal";
 import Text from "antd/lib/typography/Text";
 import ActivityProfile from "../../../components/influencer/activity-profile/ActivityProfile";
-import firebase from '../../../firebase';
+import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
 
 const auth = firebase.auth();
 
 const { Step } = Steps;
 
-declare global{
+declare global {
   interface Window {
     recaptchaVerifier: any;
     confirmationResult: any;
@@ -41,33 +41,38 @@ type PersonalDetailsProps = {
   handlePersonalData: (value: PersonalFormData) => void;
 };
 
-
-function configureRecaptcha(){
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-    'size': 'invisible',
-    'callback': (response:any) => {
-      onSignInSubmit(null);
-      console.log('Recaptcha verified');
+function configureRecaptcha() {
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+    "recaptcha-container",
+    {
+      size: "invisible",
+      callback: (response: any) => {
+        onSignInSubmit(null);
+        console.log("Recaptcha verified");
+      },
     }
-  });
+  );
 }
 
-function onSignInSubmit(value:any){
+function onSignInSubmit(value: any) {
   configureRecaptcha();
-  const phoneNumber = '+91' + value.number;
+  const phoneNumber = "+91" + value.number;
   const appVerifier = window.recaptchaVerifier;
-  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        console.log('OTP sent.')
-      }).catch((error) => {
-        console.log(error);
-      });
+  firebase
+    .auth()
+    .signInWithPhoneNumber(phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      window.confirmationResult = confirmationResult;
+      console.log("OTP sent.");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
-let name = '';
-let number = '';
-let email = '';
-let password = '';
+let name = "";
+let number = "";
+let email = "";
+let password = "";
 
 const PersonalDetails = ({
   showModal,
@@ -78,11 +83,23 @@ const PersonalDetails = ({
     onSignInSubmit(value);
     console.log(value);
     name = value.fullName;
-    number = '+91' + value.number;
+    number = "+91" + value.number;
     email = value.email;
     password = value.password;
     showModal();
   };
+
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select style={{ width: 70 }}>
+        {/* add loop/map for dynamic data from back end */}
+        <Select.Option value="91">+91</Select.Option>
+        <Select.Option value="86">+86</Select.Option>
+        <Select.Option value="87">+87</Select.Option>
+      </Select>
+    </Form.Item>
+  );
+
   return (
     <>
       <div className="tw-text-center tw-mb-14">
@@ -92,9 +109,12 @@ const PersonalDetails = ({
           risus non. Vel aliquet sapien, ornare nec in turpis a proin.
         </p>
       </div>
-      <div id='recaptcha-container'></div>
+      <div id="recaptcha-container"></div>
       <Form
         name="basicDetails"
+        initialValues={{
+          prefix: "91",
+        }}
         size="large"
         layout="vertical"
         onFinish={handleSubmit}
@@ -110,6 +130,7 @@ const PersonalDetails = ({
 
         <Form.Item
           label="Phone Number"
+          className="tw-rounded-lg"
           name="number"
           rules={[
             { required: true, message: "Please input your number!" },
@@ -121,6 +142,7 @@ const PersonalDetails = ({
           ]}
         >
           <Input
+            addonBefore={prefixSelector}
             className="tw-rounded-lg"
             type="number"
             placeholder="Enter Your Phone Number"
@@ -246,36 +268,43 @@ const InfluencerSignup = () => {
     }
   };
 
-  const {setCurrentUser} = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
 
-  function verifyOTP(){
+  function verifyOTP() {
     const code = otp.mobileOTP;
-    window.confirmationResult.confirm(code).then((result:any) => {
-      const user = result.user;
-      setCurrentUser(user);
-      setCurrent(1);
-      setIsModalVisible(false);
-      auth.currentUser?.linkWithCredential(firebase.auth.EmailAuthProvider.credential(email, password))
-      .then((usercred) => {
-        var user = usercred.user;
-        console.log("Account linking success", user);
-        user?.updateProfile({
-          displayName: name
-        })
-      }).catch((error) => {
-        console.log("Account linking error", error);
-      });
-      firebase.firestore().collection('venders').doc(user.uid).set({
-            name: name,
-            number: number,
-            email: email,
-      });
-    }).catch((error:any) => {
-      setOtpError({
-        ...otpError,
-        mobileOTP: true,
+    window.confirmationResult
+      .confirm(code)
+      .then((result: any) => {
+        const user = result.user;
+        setCurrentUser(user);
+        setCurrent(1);
+        setIsModalVisible(false);
+        auth.currentUser
+          ?.linkWithCredential(
+            firebase.auth.EmailAuthProvider.credential(email, password)
+          )
+          .then((usercred) => {
+            var user = usercred.user;
+            console.log("Account linking success", user);
+            user?.updateProfile({
+              displayName: name,
+            });
+          })
+          .catch((error) => {
+            console.log("Account linking error", error);
+          });
+        firebase.firestore().collection("venders").doc(user.uid).set({
+          name: name,
+          number: number,
+          email: email,
+        });
       })
-    });
+      .catch((error: any) => {
+        setOtpError({
+          ...otpError,
+          mobileOTP: true,
+        });
+      });
   }
 
   const handleProceedClick = () => {
@@ -299,8 +328,6 @@ const InfluencerSignup = () => {
       />
     );
   };
-
-  
 
   return (
     <Container>
