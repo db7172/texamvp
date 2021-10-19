@@ -150,12 +150,14 @@ const InfluencerLogin = () => {
         )}
 
         <div className="tw-flex tw-justify-between tw-mb-3">
-          <Button
-            type="link"
-            className="tw-m-0 tw-p-0 tw-text-secondary-color hover:tw-text-secondary-color focus:tw-text-secondary-color"
-          >
-            <span className="tw-underline tw-text-xs">Forgot password</span>
-          </Button>
+          <Link to="/influencer/passwordreset">
+            <Button
+              type="link"
+              className="tw-m-0 tw-p-0 tw-text-secondary-color hover:tw-text-secondary-color focus:tw-text-secondary-color"
+            >
+              <span className="tw-underline tw-text-xs">Forgot password</span>
+            </Button>
+          </Link>
           <Button
             type="link"
             className="tw-m-0 tw-p-0 tw-text-secondary-color hover:tw-text-secondary-color focus:tw-text-secondary-color"

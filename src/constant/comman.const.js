@@ -39,6 +39,7 @@ export const ROUTES = {
   INFLUENCER: "/influencer",
   INFLUENCER_DASHBOARD: "/influencer/dashboard",
   INFLUENCER_SIGNUP: "/influencer/signup",
+  INFLUENCER_PASSWARD_RESET: "/influencer/passwordreset",
   INFLUENCER_PROFILE: "/influencer/profile",
   INFLUENCER_PROFILE_SETTING: "/influencer/settings",
   INFLUENCER_APPLICATION: "/influencer/application",
