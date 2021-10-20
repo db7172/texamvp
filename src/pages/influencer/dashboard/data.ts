@@ -3,6 +3,7 @@ import CheckSquareOffset from "../../../assets/svg/influencer/CheckSquareOffset.
 import CurrencyDollar from "../../../assets/svg/influencer/CurrencyDollar.svg";
 import FileText from "../../../assets/svg/influencer/FileText.svg";
 import Sticker from "../../../assets/svg/influencer/Sticker.svg";
+import Note from "../../../assets/svg/influencer/notesActive.png";
 
 // Active
 import LaunchIconActive from "../../../assets/svg/influencer/RocketActive.svg";
@@ -10,6 +11,7 @@ import CheckSquareOffsetActive from "../../../assets/svg/influencer/CheckSquareO
 import CurrencyDollarActive from "../../../assets/svg/influencer/CurrencyDollarActive.svg";
 import FileTextActive from "../../../assets/svg/influencer/FileTextActive.svg";
 import StickerActive from "../../../assets/svg/influencer/StickerActive.svg";
+import NoteActive from "../../../assets/svg/influencer/note.png";
 
 export const SIDEBAR_OPTION = [
   {
@@ -41,5 +43,11 @@ export const SIDEBAR_OPTION = [
     icon: FileText,
     iconActive: FileTextActive,
     id: 5,
+  },
+  {
+    name: "Notes",
+    icon: Note,
+    iconActive: NoteActive,
+    id: 6,
   },
 ];
