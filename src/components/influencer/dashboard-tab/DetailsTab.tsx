@@ -9,129 +9,6 @@ import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardConta
 
 export type ButtonType = "activity" | "event" | "retreat";
 
-const columns = [
-  {
-    title: "S.No.",
-    dataIndex: "sno",
-    key: "sno",
-  },
-  {
-    title: "Trip Id",
-    dataIndex: "tripId",
-    key: "tripId",
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Phone No.",
-    dataIndex: "phoneNo",
-    key: "phoneNo",
-  },
-  {
-    title: "City",
-    dataIndex: "city",
-    key: "city",
-  },
-  {
-    title: "Amount Recieved",
-    dataIndex: "amtRecd",
-    key: "amtRecd",
-  },
-  {
-    title: "Pending Amount",
-    dataIndex: "pendingAmt",
-    key: "pendingAmt",
-  },
-  {
-    title: "Commission",
-    dataIndex: "commission",
-    key: "commission",
-  },
-];
-
-const tableData = [
-  {
-    key: "1",
-    sno: 1,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-  {
-    key: "1",
-    sno: 2,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-  {
-    key: "1",
-    sno: 3,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-  {
-    key: "1",
-    sno: 4,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-  {
-    key: "1",
-    sno: 5,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-  {
-    key: "1",
-    sno: 6,
-    tripId: 12345,
-    name: "Courtney Henry",
-    email: "raghu232@gmail.com",
-    phoneNo: 8827145611,
-    city: "Ahmedabad",
-    amtRecd: indCurrency(16994),
-    pendingAmt: indCurrency(16994),
-    commission: indCurrency(16994),
-  },
-];
-
 const DetailsTab = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
   const [showViewMoreDetails, setShowViewMoreDetails] = useState(false);
@@ -142,6 +19,137 @@ const DetailsTab = () => {
     setActiveViewMoreData(value);
     setShowViewMoreDetails(true);
   };
+
+  const columns = [
+    {
+      title: "S.No.",
+      dataIndex: "sno",
+      key: "sno",
+    },
+    {
+      title: "Trip Id",
+      dataIndex: "tripId",
+      key: "tripId",
+      render: (text: any, column: any) => (
+        <button
+          className="tw-text-blue-500 tw-underline"
+          onClick={() => console.log(column)}
+        >
+          {text}
+        </button>
+      ),
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "No. of People",
+      dataIndex: "noOfPeople",
+      key: "noOfPeople",
+    },
+    {
+      title: "Phone No.",
+      dataIndex: "phoneNo",
+      key: "phoneNo",
+    },
+    {
+      title: "City",
+      dataIndex: "city",
+      key: "city",
+    },
+    {
+      title: "Amount Recieved",
+      dataIndex: "amtRecd",
+      key: "amtRecd",
+    },
+    {
+      title: "Pending Amount",
+      dataIndex: "pendingAmt",
+      key: "pendingAmt",
+    },
+    {
+      title: "Commission",
+      dataIndex: "commission",
+      key: "commission",
+    },
+  ];
+
+  const tableData = [
+    {
+      key: 1,
+      sno: 1,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+    {
+      key: 2,
+      sno: 2,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+    {
+      key: 3,
+      sno: 3,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+    {
+      key: 4,
+      sno: 4,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+    {
+      key: 5,
+      sno: 5,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+    {
+      key: 6,
+      sno: 6,
+      tripId: 12345,
+      name: "Courtney Henry",
+      noOfPeople: 3,
+      phoneNo: 8827145611,
+      city: "Ahmedabad",
+      amtRecd: indCurrency(16994),
+      pendingAmt: indCurrency(16994),
+      commission: indCurrency(16994),
+    },
+  ];
 
   return (
     <>
