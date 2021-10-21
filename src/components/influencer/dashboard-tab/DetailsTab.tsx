@@ -1,13 +1,66 @@
 import { Button, Col, Row, Select, Form, Tooltip, Table } from "antd";
+import { ColumnsType } from "antd/lib/table";
 import classNames from "classnames";
-import { isNumber } from "lodash";
-import { DataDetailsType } from "Models";
+import { isNumber, uniqueId } from "lodash";
+import { DataDetailsType, DetailsTabTable } from "Models";
 import { useState } from "react";
 import { indCurrency } from "../../../utils/utils";
 import { DETAILS, highLowOptions, statusOptions } from "./data";
 import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardContainer";
+import DetailsTabTableComponent from "./details-tab-component/DetailsTabTable";
 
 export type ButtonType = "activity" | "event" | "retreat";
+
+export const detailsTabTableData: DetailsTabTable[] = [
+  {
+    key: uniqueId(),
+    sno: 1,
+    tripId: 12345,
+    name: "Courtney Henry",
+    noOfPeople: 3,
+    phoneNo: 8827145611,
+    city: "Ahmedabad",
+    amtRecd: 16994,
+    pendingAmt: 16994,
+    commission: 16994,
+  },
+  {
+    key: uniqueId(),
+    sno: 2,
+    tripId: 12345,
+    name: "Courtney Henry",
+    noOfPeople: 3,
+    phoneNo: 8827145611,
+    city: "Ahmedabad",
+    amtRecd: 16994,
+    pendingAmt: 16994,
+    commission: 16994,
+  },
+  {
+    key: uniqueId(),
+    sno: 3,
+    tripId: 12345,
+    name: "Courtney Henry",
+    noOfPeople: 3,
+    phoneNo: 8827145611,
+    city: "Ahmedabad",
+    amtRecd: 16994,
+    pendingAmt: 16994,
+    commission: 16994,
+  },
+  {
+    key: uniqueId(),
+    sno: 4,
+    tripId: 12345,
+    name: "Courtney Henry",
+    noOfPeople: 3,
+    phoneNo: 8827145611,
+    city: "Ahmedabad",
+    amtRecd: 16994,
+    pendingAmt: 16994,
+    commission: 16994,
+  },
+];
 
 const DetailsTab = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
@@ -19,137 +72,6 @@ const DetailsTab = () => {
     setActiveViewMoreData(value);
     setShowViewMoreDetails(true);
   };
-
-  const columns = [
-    {
-      title: "S.No.",
-      dataIndex: "sno",
-      key: "sno",
-    },
-    {
-      title: "Trip Id",
-      dataIndex: "tripId",
-      key: "tripId",
-      render: (text: any, column: any) => (
-        <button
-          className="tw-text-blue-500 tw-underline"
-          onClick={() => console.log(column)}
-        >
-          {text}
-        </button>
-      ),
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "No. of People",
-      dataIndex: "noOfPeople",
-      key: "noOfPeople",
-    },
-    {
-      title: "Phone No.",
-      dataIndex: "phoneNo",
-      key: "phoneNo",
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      key: "city",
-    },
-    {
-      title: "Amount Recieved",
-      dataIndex: "amtRecd",
-      key: "amtRecd",
-    },
-    {
-      title: "Pending Amount",
-      dataIndex: "pendingAmt",
-      key: "pendingAmt",
-    },
-    {
-      title: "Commission",
-      dataIndex: "commission",
-      key: "commission",
-    },
-  ];
-
-  const tableData = [
-    {
-      key: 1,
-      sno: 1,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-    {
-      key: 2,
-      sno: 2,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-    {
-      key: 3,
-      sno: 3,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-    {
-      key: 4,
-      sno: 4,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-    {
-      key: 5,
-      sno: 5,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-    {
-      key: 6,
-      sno: 6,
-      tripId: 12345,
-      name: "Courtney Henry",
-      noOfPeople: 3,
-      phoneNo: 8827145611,
-      city: "Ahmedabad",
-      amtRecd: indCurrency(16994),
-      pendingAmt: indCurrency(16994),
-      commission: indCurrency(16994),
-    },
-  ];
 
   return (
     <>
@@ -227,11 +149,7 @@ const DetailsTab = () => {
                 </div>
               </div>
               <div>
-                <Table
-                  columns={columns}
-                  dataSource={tableData}
-                  scroll={{ x: 1500 }}
-                />
+                <DetailsTabTableComponent dataSource={detailsTabTableData} />
               </div>
             </>
           ) : (

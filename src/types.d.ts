@@ -57,4 +57,32 @@ declare module "Models" {
           additionalInfo: AdditionalInfoType;
         };
   };
+
+  export type DetailsTabTable = {
+    key: string | number;
+    sno: number;
+    tripId: number;
+    name: string;
+    noOfPeople: number;
+    phoneNo: number;
+    city: string;
+    amtRecd: number;
+    pendingAmt: number;
+    commission: number;
+  };
+
+  export type StatementTableData = {
+    key: string | number;
+    date: string;
+    orderId: number;
+    package: {
+      image: string;
+      title: string;
+      description: string;
+    };
+    noOfTicketSold: number;
+    totalAmount: number;
+    amountTransferred: number;
+    moreInfo: DetailsTabTable[];
+  };
 }

@@ -9,6 +9,7 @@ import LaunchTab from "../../../components/influencer/dashboard-tab/LaunchTab";
 import { SIDEBAR_OPTION } from "./data";
 import { AuthContext } from "../../../Auth";
 import NotesTab from "../../../components/influencer/dashboard-tab/NotesTab";
+import StatementTab from "../../../components/influencer/dashboard-tab/StatementTab";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
@@ -67,7 +68,7 @@ const Dashboard = () => {
             {activeTab === 2 && <DetailsTab />}
             {activeTab === 3 && <CompletedTab />}
             {activeTab === 4 && <EarningTab />}
-            {activeTab === 5 && <h1>Statements</h1>}
+            {activeTab === 5 && <StatementTab />}
             {activeTab === 6 && <NotesTab />}
           </Col>
         </Row>
