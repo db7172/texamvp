@@ -27,9 +27,12 @@ const InfluencerEditMyProfile = () => {
             name="panCardPhoto"
             beforeUpload={() => false}
             listType="picture"
+            maxCount={1}
             onChange={normFile}
           >
-            Click to upload
+            <span className="tw-underline tw-text-blue-500">
+              Click to upload
+            </span>
           </Upload>
         </div>
       </div>
