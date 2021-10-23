@@ -1,5 +1,4 @@
-import { Button, Col, Row, Select, Form, Tooltip, Table } from "antd";
-import { ColumnsType } from "antd/lib/table";
+import { Button, Col, Row, Select, Form, Tooltip } from "antd";
 import classNames from "classnames";
 import { isNumber, uniqueId } from "lodash";
 import { DataDetailsType, DetailsTabTable } from "Models";
@@ -27,8 +26,8 @@ export const detailsTabTableData: DetailsTabTable[] = [
   {
     key: uniqueId(),
     sno: 2,
-    tripId: 12345,
-    name: "Courtney Henry",
+    tripId: 68531,
+    name: "Brandi Wagner",
     noOfPeople: 3,
     phoneNo: 8827145611,
     city: "Ahmedabad",
@@ -39,8 +38,8 @@ export const detailsTabTableData: DetailsTabTable[] = [
   {
     key: uniqueId(),
     sno: 3,
-    tripId: 12345,
-    name: "Courtney Henry",
+    tripId: 60310,
+    name: "Irene Rodriguez",
     noOfPeople: 3,
     phoneNo: 8827145611,
     city: "Ahmedabad",
@@ -51,8 +50,8 @@ export const detailsTabTableData: DetailsTabTable[] = [
   {
     key: uniqueId(),
     sno: 4,
-    tripId: 12345,
-    name: "Courtney Henry",
+    tripId: 59329,
+    name: "Vera Rivera",
     noOfPeople: 3,
     phoneNo: 8827145611,
     city: "Ahmedabad",

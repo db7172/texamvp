@@ -1,13 +1,28 @@
-import { Table } from "antd";
+import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { DetailsTabTable } from "Models";
+import { useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
+import PaymentDetails from "../../payment-details/PaymentDetails";
 
 type Props = {
   dataSource: any[];
 };
 
 const DetailsTabTableComponent = ({ dataSource }: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeId, setActiveId] = useState<DetailsTabTable>();
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setActiveId(undefined);
+  };
+
+  const handleModalOpen = (value: DetailsTabTable) => {
+    setActiveId(value);
+    setIsModalOpen(true);
+  };
+
   const detailsTabTablecolumns: ColumnsType<DetailsTabTable> = [
     {
       title: "S.No.",
@@ -20,10 +35,10 @@ const DetailsTabTableComponent = ({ dataSource }: Props) => {
       dataIndex: "tripId",
       key: "tripId",
       width: 150,
-      render: (text: any, column: any) => (
+      render: (text: any, column: DetailsTabTable) => (
         <button
           className="tw-text-blue-500 tw-underline"
-          onClick={() => console.log(column)}
+          onClick={() => handleModalOpen(column)}
         >
           {text}
         </button>
@@ -83,6 +98,25 @@ const DetailsTabTableComponent = ({ dataSource }: Props) => {
         dataSource={dataSource}
         scroll={{ x: 1200 }}
       />
+      <Modal
+        visible={isModalOpen}
+        style={{ top: 10 }}
+        width={1600}
+        footer={null}
+        className="tw-rounded-lg"
+        onCancel={handleCancel}
+      >
+        {activeId && (
+          <PaymentDetails
+            customerDetails={{
+              name: activeId.name,
+              number: activeId.phoneNo,
+              city: activeId.city,
+            }}
+            tripId={activeId.tripId}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

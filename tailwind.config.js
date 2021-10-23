@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 const primaryBackground = "#FCFCFC";
 const gray = "#F5F5F5";
+const litegray = "#EDEDED";
 const primaryText = "#0E0E0E";
 const yellow = "#FFEE58";
 const liteYellow = "#FFFDE9";
@@ -45,6 +46,7 @@ module.exports = {
         "dark-red": darkRed,
         "blue-dark": blue,
         "lite-green": liteGreen,
+        "lite-gray": litegray,
         "green-background": green,
       },
       backgroundColor: {
