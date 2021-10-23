@@ -1,8 +1,9 @@
 import { Form, Input, Button, Divider, Select, Modal, Typography } from "antd";
 import { upperCase } from "lodash";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../Auth";
 import firebase from "../../../firebase";
 
 const mobileOTP = 123456;
@@ -41,8 +42,9 @@ const InfluencerLogin = () => {
 
   const onFinish = (values: any) => {
     if (loginWithEmail) {
-      let email = values.emailOrMobile;
+      let email = values.email;
       let password = values.password;
+      console.log(loginWithEmail, email, password);
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
@@ -68,6 +70,14 @@ const InfluencerLogin = () => {
       console.log("loggedIn");
     }
   };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        history.push("/influencer/dashboard");
+      }
+    });
+  }, []);
 
   return (
     <div className="tw-p-8 tw-shadow-card tw-rounded-lg">

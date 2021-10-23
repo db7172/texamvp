@@ -51,15 +51,13 @@ const LogedIn = () => {
       if (user) {
         setCurrentUser(user);
       } else {
-        history.push("/influencer");
+        window.location.href = "/influencer";
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signOut = () => {
     firebase.auth().signOut();
-    history.push("/influencer");
   };
 
   const menu = (
@@ -70,7 +68,7 @@ const LogedIn = () => {
             <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                {currentUser?currentUser.displayName:'Profile Name'}
+                {currentUser ? currentUser.displayName : "Profile Name"}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted
