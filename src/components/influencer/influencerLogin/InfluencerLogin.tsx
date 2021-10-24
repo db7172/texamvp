@@ -12,6 +12,7 @@ const InfluencerLogin = () => {
   const history = useHistory();
   const [loginWithEmail, setLoginWithEmail] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isValidIdPwd, setIsValidIdPwd] = useState(false);
   const [otp, setOtp] = useState({
     mobileOtp: "",
     error: false,
@@ -133,6 +134,11 @@ const InfluencerLogin = () => {
                 className="tw-rounded-lg"
               />
             </Form.Item>
+            {isValidIdPwd ? (
+              <Typography.Text type="danger" className="">
+                E-mail or Password is not valid.
+              </Typography.Text>
+            ) : null}
           </div>
         ) : (
           <Form.Item

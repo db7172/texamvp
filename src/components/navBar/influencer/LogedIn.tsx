@@ -80,15 +80,21 @@ const LogedIn = () => {
       </Link>
       <Divider className="tw-my-3" />
       <div>
-        <Menu icon={edit} title="Edit My Account" />
+        <Link to="/influencer/settings">
+          <Menu icon={edit} title="Edit My Account" />
+        </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Menu icon={setting} title="Profile Settings" />
+        <Link to="/influencer/settings">
+          <Menu icon={setting} title="Profile Settings" />
+        </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Menu icon={lock} title="Update Password" />
+        <Link to="/influencer/settings">
+          <Menu icon={lock} title="Update Password" />
+        </Link>
       </div>
       <Divider className="tw-my-3" />
       <div onClick={signOut}>
@@ -153,7 +159,7 @@ const Menu = ({ icon, title }: MenuProps) => {
         <img src={icon} alt="icon" />
       </div>
       <div>
-        <p className="tw-text-base">{title}</p>
+        <p className="tw-text-base tw-text-primary-color">{title}</p>
       </div>
     </div>
   );

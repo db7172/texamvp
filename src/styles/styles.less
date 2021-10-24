@@ -17,13 +17,35 @@ a:hover {
   color: rgb(59, 130, 246);
 }
 
+// scroll
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffee58;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffee58;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 0px;
+  box-shadow: inset 0px 0px 0px 0px #f0f0f0;
+}
+
+// scroll
+
 // antd
 
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: @yellow-color;
 }
 
-.ant-select-selector {
+.ant-select-selector,
+.ant-modal-content {
   border-radius: 0.375rem !important;
 }
 
