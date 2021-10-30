@@ -85,4 +85,32 @@ declare module "Models" {
     amountTransferred: number;
     moreInfo: DetailsTabTable[];
   };
+
+  export type ReviewData = {
+    key: string;
+    name: string;
+    ratting: number;
+    profilePic: string;
+    tags: string[];
+    title: string;
+    comment: {
+      initialComment: string;
+      reply?: Array<{
+        name: string;
+        profile: string;
+        comment: string;
+      }>;
+    };
+  };
+
+  export type TripData = {
+    key: string;
+    image: string;
+    title: string;
+    description: string;
+    price: DataDetailsType["price"];
+    status: string;
+    ratting: number;
+    review: Array<ReviewData>;
+  };
 }

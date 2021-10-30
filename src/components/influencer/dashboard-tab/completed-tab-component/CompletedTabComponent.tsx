@@ -1,29 +1,11 @@
 import { InfoCircleOutlined, StarFilled } from "@ant-design/icons";
-import { Button, Col, Divider, Modal, Rate, Row, Tooltip } from "antd";
+import { Button, Col, Divider, Modal, Row, Tooltip } from "antd";
 import { isNumber, uniqueId } from "lodash";
-import { DataDetailsType } from "Models";
+import { ReviewData, TripData } from "Models";
 import { useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
+import UserReview from "../../../common/UserReview/UserReview";
 import { addtionalInfomation } from "../DashboardUtils";
-
-export type ReviewData = {
-  name: string;
-  ratting: number;
-  profilePic: string;
-  tags: string[];
-  title: string;
-  description: string;
-};
-
-type TripData = {
-  image: string;
-  title: string;
-  description: string;
-  price: DataDetailsType["price"];
-  status: string;
-  ratting: number;
-  review: Array<ReviewData>;
-};
 
 type Props = {
   data: Array<TripData>;
@@ -133,43 +115,11 @@ const CompletedTabComponent = ({ data }: Props) => {
             </div>
             <Divider />
             <div className="tw-mt-10">
-              <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-                <div className="tw-rounded-full tw-w-5 tw-h-5">
-                  <img
-                    className="tw-w-full"
-                    src={d.review[0].profilePic}
-                    alt="profilePic"
-                  />
-                </div>
-                <p className="tw-font-medium tw-text-base">
-                  {d.review[0].name}
-                </p>
-                <p
-                  className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer"
-                  onClick={() => handleViewAllClick(d.review)}
-                >
-                  View All
-                </p>
-              </div>
-              <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-                <Rate disabled defaultValue={d.review[0].ratting} />
-                <div className="tw-flex tw-gap-3">
-                  {d.review[0].tags.map((t) => (
-                    <p className="tw-bg-gray-background tw-text-xs tw-rounded-md tw-font-medium tw-py-2 tw-px-3">
-                      {t}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="tw-text-base tw-font-medium tw-mb-2">
-                  {d.review[0].title}
-                </h3>
-                <p className="tw-text-secondary-color tw-font-lato">
-                  {d.review[0].description}
-                </p>
-              </div>
+              <UserReview
+                ViewAll
+                d={d.review[0]}
+                handleViewAllClick={() => handleViewAllClick(d.review)}
+              />
             </div>
           </Col>
         ))}
@@ -178,48 +128,18 @@ const CompletedTabComponent = ({ data }: Props) => {
         title={`Booked Person (${activeReview.length})`}
         visible={showReviewModal}
         footer={null}
+        style={{ top: 60 }}
         onCancel={handleCancel}
         width={700}
         className="no-padding-modal"
       >
         <div
           style={{ maxHeight: "600px" }}
-          className="tw-overflow-y-scroll tw-px-8 tw-py-5"
+          className="tw-overflow-y-auto tw-px-8 tw-py-5"
         >
           {activeReview.map((d, i) => (
-            <div className="tw-mb-10">
-              <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-                <div className="tw-rounded-full tw-w-5 tw-h-5">
-                  <img
-                    className="tw-w-full"
-                    src={d.profilePic}
-                    alt="profilePic"
-                  />
-                </div>
-                <p className="tw-font-medium tw-text-base">{d.name}</p>
-                <p className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer">
-                  view details
-                </p>
-              </div>
-              <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-                <Rate disabled defaultValue={d.ratting} />
-                <div className="tw-flex tw-gap-3">
-                  {d.tags.map((t) => (
-                    <p className="tw-bg-gray-background tw-text-xs tw-rounded-md tw-font-medium tw-py-2 tw-px-3">
-                      {t}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="tw-text-base tw-font-medium tw-mb-2">
-                  {d.title}
-                </h3>
-                <p className="tw-text-secondary-color tw-font-lato">
-                  {d.description}
-                </p>
-              </div>
+            <div className="tw-mb-10" key={uniqueId()}>
+              <UserReview ViewAll d={d} textForViewAll="view details" />
               {Boolean(i !== activeReview.length - 1) && <Divider />}
             </div>
           ))}
