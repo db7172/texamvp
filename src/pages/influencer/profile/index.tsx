@@ -8,7 +8,7 @@ import { uniqueId } from "lodash";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 import TourCard from "../../../components/card/tour-card/TourCard";
-import UserReview from "../../../components/common/comment/Comment";
+import UserReview from "../../../components/common/UserReview/UserReview";
 import Container from "../../../components/common/container/Container";
 import { COMPLETED } from "../../../components/influencer/dashboard-tab/data";
 import InfluencerProfileCard from "../../../components/influencer/profile/InfluencerProfileCard";

@@ -1,44 +1,17 @@
 import { InfoCircleOutlined, StarFilled } from "@ant-design/icons";
-import { Button, Col, Divider, Modal, Rate, Row, Tooltip } from "antd";
+import { Button, Col, Divider, Modal, Row, Tooltip } from "antd";
 import { isNumber, uniqueId } from "lodash";
-import { DataDetailsType } from "Models";
+import { ReviewData, TripData } from "Models";
 import { useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
-import UserReview from "../../../common/comment/Comment";
+import UserReview from "../../../common/UserReview/UserReview";
 import { addtionalInfomation } from "../DashboardUtils";
-
-export type ReviewData = {
-  name: string;
-  ratting: number;
-  profilePic: string;
-  tags: string[];
-  title: string;
-  comment: {
-    initialComment: string;
-    reply?: Array<{
-      name: string;
-      profile: string;
-      comment: string;
-    }>;
-  };
-};
-
-type TripData = {
-  image: string;
-  title: string;
-  description: string;
-  price: DataDetailsType["price"];
-  status: string;
-  ratting: number;
-  review: Array<ReviewData>;
-};
 
 type Props = {
   data: Array<TripData>;
 };
 
 const CompletedTabComponent = ({ data }: Props) => {
-  console.log(data);
   const [activeReview, setActiveReview] = useState<Array<ReviewData>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
 

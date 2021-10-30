@@ -7,6 +7,7 @@ import { ButtonType } from "./DetailsTab";
 
 const CompletedTab = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
+  console.log(COMPLETED);
 
   return (
     <Row gutter={[0, 40]}>
