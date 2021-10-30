@@ -16,10 +16,13 @@ import share from "../../../../assets/svg/influencer/share.svg";
 import cancel from "../../../../assets/svg/influencer/cancel.svg";
 import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
+import firebase from "../../../../firebase";
+
+const db = firebase.firestore();
 
 const mockReason = [
   {
@@ -104,9 +107,30 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
     setShareMessageModal(false);
   };
 
+  const [singleDetails, setSingleDetails] = useState([] as any);
+  const [multiDetails, setMultiDetails] = useState([] as any);
+
+  useEffect(() => {
+    db.collection("hr_sg_avy")
+      .get()
+      .then((querySnap) => {
+        setSingleDetails(querySnap.docs.map((doc) => doc.data()));
+      });
+    db.collection("multi-activity")
+      .get()
+      .then((querySnap) => {
+        setMultiDetails(querySnap.docs.map((doc) => doc.data()));
+      });
+  }, []);
+
+  const details = singleDetails.concat(multiDetails);
+  console.log(details);
   return (
     <div>
       <Row gutter={[0, 20]}>
+        {details.map((doc: any) => {
+          return <h1>No</h1>;
+        })}
         {data.map((d) => (
           <Col
             span={24}

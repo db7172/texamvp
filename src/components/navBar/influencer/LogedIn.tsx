@@ -51,15 +51,13 @@ const LogedIn = () => {
       if (user) {
         setCurrentUser(user);
       } else {
-        history.push("/influencer");
+        window.location.href = "/influencer";
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signOut = () => {
     firebase.auth().signOut();
-    history.push("/influencer");
   };
 
   const menu = (
