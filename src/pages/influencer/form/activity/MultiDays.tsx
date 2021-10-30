@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
@@ -31,6 +31,10 @@ import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
 import { multiDayDataHelper, stripUndefined } from "../formUtils";
+import { AuthContext } from "../../../../Auth";
+import firebase from '../../../../firebase';
+
+const db = firebase.firestore();
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -159,6 +163,8 @@ const MultiDays = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  const {currentUser} = useContext(AuthContext);
+
   const onSubmit = (value: any) => {
     const formData = multiDayDataHelper({
       ...value,
@@ -169,7 +175,9 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    console.log(finalData);
+    const data = {formData: finalData, userId: currentUser.uid}
+    console.log(data);
+    db.collection('multi-activity').add(data);
   };
 
   return (

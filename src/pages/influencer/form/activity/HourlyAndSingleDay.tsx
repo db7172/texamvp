@@ -33,7 +33,7 @@ import { hourlyAndSingleDayDataHelper, stripUndefined } from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
 
-const db = firebase?.firestore();
+const db = firebase.firestore();
 
 export type TabsVariant = "accomodation" | "transpotation" | "itinerary";
 
@@ -119,7 +119,19 @@ const HourlyAndSingleDay = () => {
     });
     // formatted data
     let finalData = stripUndefined(formData);
-    db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData, { merge: true });
+    // db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData,{ merge: true });
+    const data = {
+      formData: finalData,
+      userID: currentUser.uid,
+      status: "processing",
+      booked: 0,
+    };
+    db.collection("hr_sg_avy")
+      .add(data)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (
