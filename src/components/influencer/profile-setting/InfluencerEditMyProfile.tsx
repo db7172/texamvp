@@ -14,7 +14,7 @@ import {
   Row,
   Upload,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import profile from "../../../assets/png/influencer/user/user1.png";
 import certificate from "../../../assets/png/influencer/certificate.png";
 import { uniqueId } from "lodash";
@@ -22,6 +22,7 @@ import { normFile } from "../../../pages/influencer/form/formUtils";
 import moment from "moment";
 
 type CertificateType = {
+  id: number;
   image: string;
   name: string;
   issuer: string;
@@ -42,6 +43,7 @@ const mockUserDetails = {
 
 const mockCertificates: CertificateType[] = [
   {
+    id: 1,
     image: certificate,
     name: "Hicking Certificate",
     issuer: "ITB Berlin",
@@ -51,6 +53,7 @@ const mockCertificates: CertificateType[] = [
     credentialId: "3KPP40EBB30",
   },
   {
+    id: 2,
     image: certificate,
     name: "Test Certificate",
     issuer: "Test Berlin",
@@ -94,6 +97,15 @@ const InfluencerEditMyProfile = () => {
 
   const handleEditCertificate = (value?: CertificateType) => {
     if (value) {
+      certificateForm.setFieldsValue({
+        name: value.name,
+        issuer: value.issuer,
+        credentialId: value.credentialId,
+        issueDate: moment(`${value.issueYear}/${value.issueMonth}`, "MMM-YYYY"),
+        expDate: value.isExpires
+          ? moment(`${value.expYear}/${value.expMonth}`, "MMM-YYYY")
+          : null,
+      });
       setActiveCertificate(value);
       setIsExpire(value.isExpires);
     }
@@ -103,8 +115,9 @@ const InfluencerEditMyProfile = () => {
   };
 
   const handleCertificateModalCancel = () => {
-    setActiveCertificate(undefined);
     setIsCertificateModalVisible(false);
+    setActiveCertificate(undefined);
+    certificateForm.resetFields();
   };
 
   const handleUserProfileUpload = (e: any) => {
@@ -117,6 +130,7 @@ const InfluencerEditMyProfile = () => {
     }, 1000);
     return e && e.fileList;
   };
+
   return (
     <>
       <div>
@@ -358,19 +372,6 @@ const InfluencerEditMyProfile = () => {
               <Form
                 form={certificateForm}
                 name="certificateForm"
-                initialValues={
-                  activeCertificate
-                    ? {
-                        name: activeCertificate?.name,
-                        issuer: activeCertificate?.issuer,
-                        credentialId: activeCertificate?.credentialId,
-                        issueDate: moment(
-                          `${activeCertificate?.issueYear}/${activeCertificate?.issueMonth}`,
-                          "MMM-YYYY"
-                        ),
-                      }
-                    : undefined
-                }
                 size="large"
                 layout="vertical"
                 // onFinish={handleUserDetailsFormSubmit}
@@ -435,8 +436,8 @@ const InfluencerEditMyProfile = () => {
 
                 <Form.Item name="isExpires" noStyle>
                   <Checkbox
-                    checked={isExpire}
-                    onChange={(value) => setIsExpire(value.target.checked)}
+                    checked={!isExpire}
+                    onChange={(value) => setIsExpire(!value.target.checked)}
                   >
                     This Cerrificate does not expire
                   </Checkbox>
@@ -469,7 +470,7 @@ const InfluencerEditMyProfile = () => {
                       rules={[
                         {
                           type: "object",
-                          required: !isExpire,
+                          required: isExpire,
                           message: "Please select Expire time!",
                         },
                       ]}
@@ -478,7 +479,7 @@ const InfluencerEditMyProfile = () => {
                         picker="month"
                         className="tw-w-full tw-rounded-lg"
                         placeholder="Select Expire time!"
-                        disabled={isExpire}
+                        disabled={!isExpire}
                       />
                     </Form.Item>
                   </Col>
