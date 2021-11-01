@@ -14,7 +14,7 @@ import {
   Row,
   Upload,
 } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import profile from "../../../assets/png/influencer/user/user1.png";
 import certificate from "../../../assets/png/influencer/certificate.png";
 import { uniqueId } from "lodash";
@@ -118,6 +118,43 @@ const InfluencerEditMyProfile = () => {
     setIsCertificateModalVisible(false);
     setActiveCertificate(undefined);
     certificateForm.resetFields();
+  };
+
+  const handleCertificateFormSubmit = (value: any) => {
+    const newCertificate: CertificateType = {
+      id: userCertificate.length + 1,
+      image: activeCertificate
+        ? activeCertificate.image
+        : value.photo[0].thumbUrl,
+      name: value.name,
+      issuer: value.issuer,
+      isExpires: isExpire,
+      issueMonth: moment(value.issueDate).format("MMM"),
+      issueYear: moment(value.issueDate).format("YYYY"),
+      credentialId: value.credentialId,
+    };
+
+    console.log({ value, newCertificate });
+
+    if (isExpire) {
+      newCertificate["expMonth"] = moment(value.expDate).format("MMM");
+      newCertificate["expYear"] = moment(value.expDate).format("YYYY");
+    }
+    if (activeCertificate) {
+      setUserCertificate(
+        userCertificate.map((d) => {
+          if (d.id === activeCertificate.id) {
+            return newCertificate;
+          } else {
+            return d;
+          }
+        })
+      );
+    } else {
+      setUserCertificate([...userCertificate, newCertificate]);
+    }
+
+    handleCertificateModalCancel();
   };
 
   const handleUserProfileUpload = (e: any) => {
@@ -374,7 +411,7 @@ const InfluencerEditMyProfile = () => {
                 name="certificateForm"
                 size="large"
                 layout="vertical"
-                // onFinish={handleUserDetailsFormSubmit}
+                onFinish={handleCertificateFormSubmit}
               >
                 {!activeCertificate && (
                   <Form.Item
@@ -383,6 +420,12 @@ const InfluencerEditMyProfile = () => {
                     label="Upload Certificate"
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please upload certificate!",
+                      },
+                    ]}
                   >
                     <Upload
                       name="photo"
