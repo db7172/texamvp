@@ -8,6 +8,12 @@ export const normFile = (e: any) => {
   return e && e.fileList;
 };
 
+export const onKeyDownEvent = (e: React.KeyboardEvent<HTMLFormElement>) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+};
+
 export const formateDeparture = (
   value: {
     dateOfDeparture: moment.MomentInputObject[];
@@ -85,7 +91,7 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
   return {
     activityName,
     description,
-    payment: value.paymentRatePerPerson || value.paymentList,
+    payment: value.paymentList ? value.paymentList : value.paymentRatePerPerson,
     departureDate: [
       {
         dateRange: {
@@ -172,7 +178,7 @@ export const multiDayDataHelper = (value: any) => {
   return {
     activityName: value.activityName,
     description: value.description,
-    payment: value.paymentRatePerPerson || value.paymentList,
+    payment: value.paymentList ? value.paymentList : value.paymentRatePerPerson,
     departureDate: [
       {
         dateRange: {

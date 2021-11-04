@@ -29,7 +29,11 @@ import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
-import { hourlyAndSingleDayDataHelper, stripUndefined } from "../formUtils";
+import {
+  hourlyAndSingleDayDataHelper,
+  onKeyDownEvent,
+  stripUndefined,
+} from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
 
@@ -164,12 +168,8 @@ const HourlyAndSingleDay = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                  }
-                }}
-                onFinish={(value) => onSubmit(value)}
+                onKeyDown={onKeyDownEvent}
+                onFinish={onSubmit}
                 // onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"

@@ -31,9 +31,10 @@ import { TabsVariant } from "../activity/HourlyAndSingleDay";
 import { ItineraryFormTab } from "../activity/form-tabs/ItineraryFormTab";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
-import { normFile } from "../formUtils";
+import { normFile, onKeyDownEvent } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
+import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
 
 let addPaymentField: {
   (): void;
@@ -93,6 +94,45 @@ const EventForm = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  const onFinish = (value: any) => {
+    const formValue: any = {
+      eventType: eventType,
+      eventName: value.eventName,
+      eventDescription: value.description,
+      payment: value.paymentList
+        ? value.paymentList
+        : value.paymentRatePerPerson,
+      sailentFeatures: {
+        format: value.eventFormat,
+        ageGroup: {
+          from: value.ageGroupFrom,
+          to: value.ageGroupTo,
+        },
+        language: value.eventLanguage,
+        startDate: formatMomentDate(value.startDate),
+        startTime: formatMomentTime(value.startTime),
+        availableTicket: value.numberOfTicket,
+      },
+
+      featuredKeyword: tags,
+      inclusion: value.inclusion,
+      exclusion: value.exclusion,
+      termsAndCondition: value.termsAndCondition,
+      cancellationPolicy: value.cancellationPolicy,
+    };
+
+    if (eventType === "offline") {
+      formValue["location"] = {
+        destination: value.destination,
+        noOfDays: numOfDays,
+      };
+
+      formValue["summary"] = itineraryPanesFormData;
+    }
+
+    console.log(formValue);
+  };
+
   return (
     <Container>
       <Link to="/influencer/dashboard" className="tw-my-10 tw-inline-block">
@@ -123,9 +163,10 @@ const EventForm = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="eventForm"
-                onFinish={(value) => console.log(value)}
+                onKeyDown={onKeyDownEvent}
+                onFinish={onFinish}
                 onFinishFailed={(error) => console.log(error)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                // onValuesChange={(value, obj) => console.log(obj)}
                 layout="vertical"
                 size="large"
                 autoComplete="off"
@@ -265,9 +306,9 @@ const EventForm = () => {
                               />
                             </div>
                             <Form.Item
-                              name={[field.name, "ticketCategory"]}
-                              fieldKey={[field.fieldKey, "ticketCategory"]}
-                              key={uniqueId("ticketCategory")}
+                              name={[field.name, "ticketDescription"]}
+                              fieldKey={[field.fieldKey, "ticketDescription"]}
+                              key={uniqueId("ticketDescription")}
                               label="Ticket Category Description"
                               className="tw-m-0"
                             >

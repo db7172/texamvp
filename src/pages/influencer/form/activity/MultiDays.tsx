@@ -30,9 +30,13 @@ import { ItineraryFormTab } from "./form-tabs/ItineraryFormTab";
 import CreateActivity from "../CreateActivity";
 import { RightSidePenal } from "../RightSidePenal";
 import classNames from "classnames";
-import { multiDayDataHelper, stripUndefined } from "../formUtils";
+import {
+  multiDayDataHelper,
+  onKeyDownEvent,
+  stripUndefined,
+} from "../formUtils";
 import { AuthContext } from "../../../../Auth";
-import firebase from '../../../../firebase';
+import firebase from "../../../../firebase";
 
 const db = firebase.firestore();
 
@@ -163,7 +167,7 @@ const MultiDays = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const {currentUser} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   const onSubmit = (value: any) => {
     const formData = multiDayDataHelper({
@@ -175,9 +179,9 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    const data = {formData: finalData, userId: currentUser.uid}
+    const data = { formData: finalData, userId: currentUser.uid };
     console.log(data);
-    db.collection('multi-activity').add(data);
+    db.collection("multi-activity").add(data);
   };
 
   return (
@@ -210,11 +214,7 @@ const MultiDays = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="activityForm"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                  }
-                }}
+                onKeyDown={onKeyDownEvent}
                 onFinish={(value) => onSubmit(value)}
                 // onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
