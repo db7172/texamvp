@@ -29,6 +29,19 @@ export const formateDeparture = (
   }));
 };
 
+export const formateInstructor = (
+  value: {
+    fullName: string;
+    instructorDescription: string;
+    instructuroPhoto: any[];
+  }[]
+) => {
+  return value.map((d) => ({
+    fullName: d.fullName,
+    description: d.instructorDescription,
+  }));
+};
+
 export const formateDestination = (
   value: {
     destinationDateRang: moment.MomentInputObject[];

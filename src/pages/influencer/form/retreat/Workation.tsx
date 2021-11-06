@@ -20,12 +20,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
+import { formatMomentDate } from "../../../../utils/utils";
 import { ItineraryFormTab } from "../activity/form-tabs/ItineraryFormTab";
 import { RoomAccomodationTab } from "../activity/form-tabs/RoomAccomodationTab";
 import { TabsVariant } from "../activity/HourlyAndSingleDay";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
-import { normFile } from "../formUtils";
+import { normFile, onKeyDownEvent } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 
@@ -99,6 +100,33 @@ const Workation = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  const onFinishForm = (value: any) => {
+    const formValue: any = {
+      workationName: value.eventName,
+      description: value.description,
+      destinations: {
+        destination: value.destinationFistField,
+        googleMap: value.googleMap,
+      },
+      checkinAndCheckOutTime: {
+        chcekIn: formatMomentDate(value.checkIn),
+        chcekOut: formatMomentDate(value.checkOut),
+      },
+      accomodation: {
+        accomodationName: value.accomodationName,
+        data: accomodationFormData,
+      },
+      itinerary: itineraryPanesFormData,
+      featuredKeyword: tags,
+      inclusion: value.inclusion,
+      exclusion: value.exclusion,
+      termsAndCondition: value.termsAndCondition,
+      cancellationPolicy: value.cancellationPolicy,
+    };
+
+    console.log(formValue);
+  };
+
   return (
     <Container>
       <Link to="/influencer/dashboard" className="tw-my-10 tw-inline-block">
@@ -129,9 +157,10 @@ const Workation = () => {
               <Divider className="tw-my-10" />
               <Form
                 name="workationForm"
-                onFinish={(value) => console.log(value)}
+                onKeyDown={onKeyDownEvent}
+                onFinish={onFinishForm}
                 onFinishFailed={(error) => console.log(error)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                // onValuesChange={(value, obj) => console.log(obj)}
                 layout="vertical"
                 size="large"
                 autoComplete="off"

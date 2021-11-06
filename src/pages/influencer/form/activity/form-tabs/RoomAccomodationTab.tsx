@@ -14,9 +14,16 @@ export const RoomAccomodationTab = ({
     <Form
       name={"accomodation" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(_, value) =>
-        updateTabFormData("accomodation", value, keyValue)
-      }
+      onValuesChange={(_, obj) => {
+        const newObj = {
+          photos: obj.photos,
+          data: {
+            ...obj,
+          },
+        };
+        delete newObj.data["photos"];
+        updateTabFormData("accomodation", newObj, keyValue);
+      }}
     >
       <Form.Item noStyle>
         <Row gutter={20}>

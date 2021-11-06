@@ -25,12 +25,18 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
+import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
 import { ItineraryFormTab } from "../activity/form-tabs/ItineraryFormTab";
 import { RoomAccomodationTab } from "../activity/form-tabs/RoomAccomodationTab";
 import { TabsVariant } from "../activity/HourlyAndSingleDay";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
-import { normFile } from "../formUtils";
+import {
+  formateDeparture,
+  formateInstructor,
+  normFile,
+  onKeyDownEvent,
+} from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 
@@ -110,7 +116,7 @@ const Retreat = () => {
     if (type === "accomodation") {
       setAccomodationFormData({
         ...accomodationFormData,
-        [key]: value,
+        [key]: value.data,
       });
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
@@ -118,6 +124,66 @@ const Retreat = () => {
         [key]: value,
       });
     }
+  };
+
+  const onFinishForm = (value: any) => {
+    const departureDetails = value.departure
+      ? formateDeparture(value.departure)
+      : [];
+    const instructor = value.instructor
+      ? formateInstructor(value.instructor)
+      : [];
+    const formValue: any = {
+      retreatName: value.retreatName,
+      description: value.description,
+      payment: value.paymentList
+        ? value.paymentList
+        : value.paymentRatePerPerson,
+      departureDates: [
+        {
+          dateRange: {
+            start: formatMomentDate(value.departureDateFirstField[0]),
+            end: formatMomentDate(value.departureDateFirstField[1]),
+          },
+          ratePerPerson: value.ratePerPersonFirstField,
+        },
+        ...departureDetails,
+      ],
+      sailentFeatures: {
+        format: value.retreatFormat,
+        ageGroup: {
+          from: value.ageGroupFrom,
+          to: value.ageGroupTo,
+        },
+        language: value.retreatLanguage,
+        startTime: formatMomentTime(value.startTime),
+        availableTicket: value.numberOfTicket,
+        skillLevel: value.skillLevel,
+      },
+      instructor: [
+        {
+          fullName: value.fullName,
+          description: value.instructorDescription,
+        },
+        ...instructor,
+      ],
+      destination: {
+        destination: value.destinationFistField,
+        googleMap: value.googleMap,
+      },
+      accomodation: {
+        accomodationName: value.accomodationName,
+        data: accomodationFormData,
+      },
+      itinerary: itineraryPanesFormData,
+      featuredKeyword: tags,
+      inclusion: value.inclusion,
+      exclusion: value.exclusion,
+      termsAndCondition: value.termsAndCondition,
+      cancellationPolicy: value.cancellationPolicy,
+    };
+
+    console.log(formValue);
   };
 
   return (
@@ -149,10 +215,11 @@ const Retreat = () => {
               </div>
               <Divider className="tw-my-10" />
               <Form
-                name="workationForm"
-                onFinish={(value) => console.log(value)}
+                name="retreatForm"
+                onKeyDown={onKeyDownEvent}
+                onFinish={onFinishForm}
                 onFinishFailed={(error) => console.log(error)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                // onValuesChange={(value, obj) => console.log(obj)}
                 layout="vertical"
                 size="large"
                 autoComplete="off"
@@ -291,9 +358,9 @@ const Retreat = () => {
                               />
                             </div>
                             <Form.Item
-                              name={[field.name, "ticketCategory"]}
-                              fieldKey={[field.fieldKey, "ticketCategory"]}
-                              key={uniqueId("ticketCategory")}
+                              name={[field.name, "ticketDescription"]}
+                              fieldKey={[field.fieldKey, "ticketDescription"]}
+                              key={uniqueId("ticketDescription")}
                               label="Ticket Category Description"
                               className="tw-m-0"
                             >
@@ -882,7 +949,7 @@ const Retreat = () => {
                     htmlType="submit"
                     className="tw-texa-button tw-w-full"
                   >
-                    Upload Workation
+                    Upload Retreat
                   </Button>
                 </Form.Item>
               </Form>
