@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import Container from "../../../components/common/container/Container";
 import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
+import ProfileSetting from "../../../components/influencer/profile-setting/ProfileSetting";
 import { EDIT_PROFILE_OPTION } from "./data";
 
 const InfluencerProfileSetting = () => {
@@ -50,7 +51,7 @@ const InfluencerProfileSetting = () => {
         <Col span={18}>
           <div className="card-container">
             {activeTab === 1 && <InfluencerEditMyProfile />}
-            {activeTab === 2 && <h1>profile</h1>}
+            {activeTab === 2 && <ProfileSetting />}
             {activeTab === 3 && <h1>Password</h1>}
           </div>
         </Col>
