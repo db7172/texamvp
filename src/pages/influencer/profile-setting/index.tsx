@@ -1,6 +1,7 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
+import { useLocation } from "react-router";
 import Container from "../../../components/common/container/Container";
 import InfluencerChangePasswoard from "../../../components/influencer/profile-setting/InfluencerChangePasswoard";
 import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
@@ -8,7 +9,10 @@ import ProfileSetting from "../../../components/influencer/profile-setting/Profi
 import { EDIT_PROFILE_OPTION } from "./data";
 
 const InfluencerProfileSetting = () => {
-  const [activeTab, setActiveTab] = useState(EDIT_PROFILE_OPTION[0].id);
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(
+    location.state || EDIT_PROFILE_OPTION[0].id
+  );
   return (
     <Container>
       <Row gutter={40} className="tw-mt-10">
