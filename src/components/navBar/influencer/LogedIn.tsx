@@ -80,19 +80,19 @@ const LogedIn = () => {
       </Link>
       <Divider className="tw-my-3" />
       <div>
-        <Link to="/influencer/settings">
+        <Link to={{ pathname: "/influencer/settings", state: 1 }}>
           <Menu icon={edit} title="Edit My Account" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Link to="/influencer/settings">
+        <Link to={{ pathname: "/influencer/settings", state: 2 }}>
           <Menu icon={setting} title="Profile Settings" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Link to="/influencer/settings">
+        <Link to={{ pathname: "/influencer/settings", state: 3 }}>
           <Menu icon={lock} title="Update Password" />
         </Link>
       </div>
