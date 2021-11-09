@@ -1,6 +1,12 @@
 import { Button, Form, Input } from "antd";
 
 const InfluencerChangePasswoard = () => {
+  const [form] = Form.useForm();
+  const handleSubmit = (value: any) => {
+    console.log(value);
+    form.resetFields();
+  };
+
   return (
     <div className="tw-flex tw-justify-center tw-py-5">
       <Form
@@ -8,7 +14,8 @@ const InfluencerChangePasswoard = () => {
         style={{ width: "400px" }}
         layout="vertical"
         size="large"
-        onFinish={(value) => console.log(value)}
+        onFinish={handleSubmit}
+        form={form}
       >
         <Form.Item
           name="password"
