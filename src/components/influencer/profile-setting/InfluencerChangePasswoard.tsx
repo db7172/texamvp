@@ -1,5 +1,7 @@
 import { Button, Form, Input } from "antd";
 
+const mockOldPassword = "Test@123";
+
 const InfluencerChangePasswoard = () => {
   const [form] = Form.useForm();
   const handleSubmit = (value: any) => {
@@ -18,37 +20,66 @@ const InfluencerChangePasswoard = () => {
         form={form}
       >
         <Form.Item
-          name="password"
-          label="Password"
+          name="oldPassword"
+          label="Old Password"
           rules={[
             {
-              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,16}$/,
-              message: "The password is not valid!",
+              required: true,
+              message: "Please input your old password!",
             },
             {
-              required: true,
-              message: "Please input your password!",
+              validator(_, value) {
+                // kindly replace mockOldPassword with users original password
+                // mockOldPassword is 'Test@123'
+                if (!value || mockOldPassword === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("The old passwords that you entered do not match!")
+                );
+              },
             },
           ]}
           hasFeedback
         >
           <Input.Password
             className="tw-rounded-lg"
-            placeholder="Enter Your Password"
+            placeholder="Enter Your Old Password"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="newPassword"
+          label="New Password"
+          rules={[
+            {
+              pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,16}$/,
+              message: "The new password is not valid!",
+            },
+            {
+              required: true,
+              message: "Please input your new password!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            className="tw-rounded-lg"
+            placeholder="Enter Your New Password"
           />
         </Form.Item>
         <Form.Item
-          name="confirmPassword"
-          label="Confirm Password"
-          dependencies={["password"]}
+          name="confirmNewPassword"
+          label="Confirm New Password"
+          dependencies={["newPassword"]}
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "Please input your new password!",
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
+                if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
@@ -61,7 +92,7 @@ const InfluencerChangePasswoard = () => {
         >
           <Input.Password
             className="tw-rounded-lg"
-            placeholder="Re-Enter Your Password"
+            placeholder="Re-Enter Your New Password"
           />
         </Form.Item>
         <Form.Item>
