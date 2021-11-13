@@ -157,17 +157,11 @@ function NavBar() {
                 >
                   {upperCase("LOGIN")}
                 </button>
-                <Modal
-                  visible={showModal}
-                  footer={null}
-                  style={{ top: 50 }}
-                  width={500}
-                  onCancel={() => setShowModal(false)}
-                >
-                  <div className="tw-py-7">
-                    <UserLogin isModalOpen={showModal} />
-                  </div>
-                </Modal>
+
+                <UserLogin
+                  isModalOpen={showModal}
+                  handleModalCancel={() => setShowModal(false)}
+                />
               </li>
             </ul>
           </div>

@@ -1,15 +1,18 @@
-import { Button, Divider, Form, Input, Select } from "antd";
+import { Button, Divider, Form, Input, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
   isModalOpen: boolean;
+  handleModalCancel: () => void;
 };
 
 const mockOtp = "123456";
 
-const UserLogin = ({ isModalOpen }: Props) => {
+const UserLogin = ({ isModalOpen, handleModalCancel }: Props) => {
   const [signInForm] = Form.useForm();
+  const [userDetailsForm] = Form.useForm();
+  const [isNewUser, setIsNewUser] = useState(false);
   const [isNumDisable, setIsNumDisable] = useState(isModalOpen);
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
@@ -32,131 +35,224 @@ const UserLogin = ({ isModalOpen }: Props) => {
   };
 
   const handleVerify = (value: any) => {
-    console.log("from verify method");
+    // verify if its 1st time user or not here
+    // if 1st time userer set isNewUser true else handleModalCancel after doing necessary task
+    const newUser = true;
+    console.log(value);
+    if (newUser) {
+      setIsNewUser(true);
+    } else {
+      handleModalCancel();
+    }
+  };
+
+  const handleUserDetailsSubmit = (value: any) => {
+    console.log(value);
+    handleModalCancel();
   };
 
   useEffect(() => {
     setIsNumDisable(false);
     signInForm.resetFields();
-    console.log("mount");
   }, [isModalOpen, signInForm]);
 
   return (
-    <div className="px-10">
-      <div className="tw-flex tw-flex-col tw-items-center">
-        <h1 className="tw-font-bold tw-text-2xl">Welcome to Texatrove</h1>
-        <p className="tw-w-9/12 tw-text-center tw-text-secondary-color tw-mt-3">
-          {description}
-        </p>
-      </div>
-      <Form
-        form={signInForm}
-        name="loginForm"
-        initialValues={{
-          prefix: "91",
-        }}
-        className="tw-w-10/12 tw-mx-auto"
-        size="large"
-        layout="vertical"
-        onFinish={isNumDisable ? handleVerify : handleNumberSubmit}
-        // onFinishFailed={onFinishFailed}
-      >
-        <Form.Item
-          label="Mobile Number"
-          className="tw-rounded-lg tw-mt-7 tw-mb-1"
-          name="number"
-          rules={[
-            { required: true, message: "Please input your mobile number!" },
-            {
-              max: 10,
-              min: 10,
-              message: "The input is not valid mobile number!",
-            },
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            type="number"
-            placeholder="Enter Your Mobile Number"
-            disabled={isNumDisable}
-          />
-        </Form.Item>
-
-        {isNumDisable ? (
-          <>
-            <p
-              className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
-              onClick={() => setIsNumDisable(false)}
-            >
-              Edit Number
+    <Modal
+      visible={isModalOpen}
+      footer={null}
+      style={{ top: 50 }}
+      width={500}
+      onCancel={handleModalCancel}
+    >
+      <div className="tw-py-7">
+        <div className="px-10">
+          <div className="tw-flex tw-flex-col tw-items-center tw-mb-7">
+            <h1 className="tw-font-bold tw-text-2xl">Welcome to Texatrove</h1>
+            <p className="tw-w-9/12 tw-text-center tw-text-secondary-color tw-mt-3">
+              {description}
             </p>
-
-            <Form.Item
-              label="OTP"
-              className="tw-rounded-lg tw-mb-1"
-              name="otp"
-              rules={[
-                { required: true, message: "Please input your OTP number!" },
-                {
-                  validator(_, value) {
-                    // replace mockOtp value with original otp value
-                    if (!value || mockOtp === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("The OTP that you entered do not match!")
-                    );
-                  },
-                },
-              ]}
-              hasFeedback
-            >
-              <Input type="number" placeholder="Enter Your OTP Number" />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="default"
-                className="tw-w-full tw-texa-button tw-mt-5"
-                htmlType="submit"
+          </div>
+          {!isNewUser && (
+            <>
+              <Form
+                form={signInForm}
+                name="loginForm"
+                initialValues={{
+                  prefix: "91",
+                }}
+                className="tw-w-10/12 tw-mx-auto"
+                size="large"
+                layout="vertical"
+                onFinish={isNumDisable ? handleVerify : handleNumberSubmit}
+                // onFinishFailed={onFinishFailed}
               >
-                Verify
-              </Button>
-            </Form.Item>
-          </>
-        ) : (
-          <Form.Item>
-            <Button
-              type="default"
-              className="tw-w-full tw-texa-button tw-mt-5"
-              htmlType="submit"
+                <Form.Item
+                  label="Mobile Number"
+                  className="tw-rounded-lg tw-mb-1"
+                  name="number"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your mobile number!",
+                    },
+                    {
+                      max: 10,
+                      min: 10,
+                      message: "The input is not valid mobile number!",
+                    },
+                  ]}
+                >
+                  <Input
+                    addonBefore={prefixSelector}
+                    type="number"
+                    placeholder="Enter Your Mobile Number"
+                    disabled={isNumDisable}
+                  />
+                </Form.Item>
+
+                {isNumDisable ? (
+                  <>
+                    <p
+                      className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
+                      onClick={() => setIsNumDisable(false)}
+                    >
+                      Edit Number
+                    </p>
+
+                    <Form.Item
+                      label="OTP"
+                      className="tw-rounded-lg tw-mb-1"
+                      name="otp"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your OTP number!",
+                        },
+                        {
+                          validator(_, value) {
+                            // replace mockOtp value with original otp value
+                            if (!value || mockOtp === value) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(
+                              new Error(
+                                "The OTP that you entered do not match!"
+                              )
+                            );
+                          },
+                        },
+                      ]}
+                      hasFeedback
+                    >
+                      <Input
+                        type="number"
+                        placeholder="Enter Your OTP Number"
+                      />
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Button
+                        type="default"
+                        className="tw-w-full tw-texa-button tw-mt-5"
+                        htmlType="submit"
+                      >
+                        Verify
+                      </Button>
+                    </Form.Item>
+                  </>
+                ) : (
+                  <Form.Item>
+                    <Button
+                      type="default"
+                      className="tw-w-full tw-texa-button tw-mt-5"
+                      htmlType="submit"
+                    >
+                      Continue
+                    </Button>
+                  </Form.Item>
+                )}
+              </Form>
+
+              <div className="tw-w-10/12 tw-mx-auto">
+                <Divider className="tw-py-2">
+                  <span className="tw-text-secondary-color">OR</span>
+                </Divider>
+              </div>
+
+              <p className="tw-text-base tw-text-center tw-font-medium tw-text-secondary-color">
+                Signin As a{" "}
+                <Link to="/influencer">
+                  <button className="tw-text-blue-500 tw-underline">
+                    Travel Influancer
+                  </button>
+                </Link>
+              </p>
+            </>
+          )}
+
+          {isNewUser && (
+            <Form
+              form={userDetailsForm}
+              name="userDetailsForm"
+              className="tw-w-10/12 tw-mx-auto"
+              size="large"
+              layout="vertical"
+              onFinish={handleUserDetailsSubmit}
+              // onFinishFailed={onFinishFailed}
             >
-              Continue
-            </Button>
-          </Form.Item>
-        )}
-      </Form>
+              <Form.Item
+                name="email"
+                label="Email Id"
+                rules={[
+                  {
+                    type: "email",
+                    message: "The input is not valid e-mail!",
+                  },
+                  {
+                    required: true,
+                    message: "Please input your e-mail!",
+                  },
+                ]}
+              >
+                <Input
+                  className="tw-rounded-lg"
+                  placeholder="Enter Your E-mail id"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Name"
+                name="name"
+                rules={[
+                  { required: true, message: "Please input your full name!" },
+                ]}
+              >
+                <Input
+                  placeholder="Enter Your Full Name"
+                  className="tw-rounded-lg"
+                />
+              </Form.Item>
 
-      <div className="tw-w-10/12 tw-mx-auto">
-        <Divider className="tw-py-2">
-          <span className="tw-text-secondary-color">OR</span>
-        </Divider>
-      </div>
+              <Form.Item>
+                <Button
+                  type="default"
+                  className="tw-w-full tw-texa-button tw-mt-5"
+                  htmlType="submit"
+                >
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
+          )}
 
-      <p className="tw-text-base tw-text-center tw-font-medium tw-text-secondary-color">
-        Signin As a{" "}
-        <Link to="/influencer">
-          <button className="tw-text-blue-500 tw-underline">
-            Travel Influancer
-          </button>
-        </Link>
-      </p>
-      <div className="tw-w-10/12 tw-mx-auto tw-mt-14">
-        <p className="tw-text-secondary-color tw-font-light">
-          Having trouble? Please contact help@texatrove.com for further support.
-        </p>
+          <div className="tw-w-10/12 tw-mx-auto tw-mt-14">
+            <p className="tw-text-secondary-color tw-font-light">
+              Having trouble? Please contact help@texatrove.com for further
+              support.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
