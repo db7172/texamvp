@@ -1,5 +1,5 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Divider, Form, Input, Modal, Select } from "antd";
 import { useState } from "react";
 
 const userDetails = {
@@ -7,20 +7,49 @@ const userDetails = {
   landlineNo: "7752768858",
   address:
     "Ganga Nagar, Maharaja Coloby, JP Road, Agra, Uttar Pradesh 282001, India",
+};
+
+const bankData = {
+  bankName: "ICICI Bank LTD",
   bankAccountNO: 123456789010,
+  ifscCode: "icic15345689",
 };
 
 const ProfileSetting = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(userDetails);
+  const [userForm] = Form.useForm();
+  const [bankForm] = Form.useForm();
+  const [gstForm] = Form.useForm();
+
+  const [userData, setUserData] = useState(userDetails);
+  const [bankDetails, setBankDetails] = useState(bankData);
+  const [gstDetail, setGstDetail] = useState(2745638964522);
+
   const [showUserModal, setShowUserModal] = useState(false);
+  const [showBankModal, setShowBankModal] = useState(false);
+  const [showGstModal, setShowGstModal] = useState(false);
 
   const handleUserModalCancel = () => {
     setShowUserModal(false);
   };
 
-  const handleShowModal = () => {
+  const handleShowUserModal = () => {
     setShowUserModal(true);
+  };
+
+  const handleShowBankModal = () => {
+    setShowBankModal(true);
+  };
+
+  const handleBankModalCancel = () => {
+    setShowBankModal(false);
+  };
+
+  const handleShowGstDetailModal = () => {
+    setShowGstModal(true);
+  };
+
+  const handleGstDetailModalCancel = () => {
+    setShowGstModal(false);
   };
 
   const handleUserDetailsFormSubmit = (value: any) => {
@@ -31,9 +60,21 @@ const ProfileSetting = () => {
       address: value.address,
       bankAccountNO: value.bankAccountNO,
     };
-    setData(changedData);
-    setShowUserModal(false);
-    form.resetFields();
+    setUserData(changedData);
+    handleUserModalCancel();
+    userForm.resetFields();
+  };
+
+  const handleBankDetailsFormSubmit = (value: any) => {
+    console.log(value);
+    setBankDetails(value);
+    handleBankModalCancel();
+  };
+
+  const handleGstDetailFormSubmit = (value: any) => {
+    console.log(value);
+    setGstDetail(value.gstNo);
+    handleGstDetailModalCancel();
   };
 
   const prefixSelector = (
@@ -49,19 +90,20 @@ const ProfileSetting = () => {
 
   return (
     <div>
-      <p className="tw-text-2xl tw-font-medium tw-mb-10">Profile Settings</p>
+      <p className="tw-text-2xl tw-font-medium">Profile Settings</p>
+      <Divider className="tw-mb-10" />
       <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Mobile Number</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {data.mobileNo}
+            {userData.mobileNo}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
-            onClick={handleShowModal}
+            onClick={handleShowUserModal}
           />
         </div>
       </div>
@@ -69,14 +111,14 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Landline Number</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {data.landlineNo}
+            {userData.landlineNo}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
-            onClick={handleShowModal}
+            onClick={handleShowUserModal}
           />
         </div>
       </div>
@@ -84,46 +126,102 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Address</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {data.address}
+            {userData.address}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
-            onClick={handleShowModal}
+            onClick={handleShowUserModal}
           />
         </div>
       </div>
+
+      <p className="tw-text-2xl tw-font-medium tw-mt-10">Bank Infomation</p>
+      <Divider className="tw-mb-10" />
+
+      <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
+        <p className="tw-w-4/12 tw-text-base tw-font-medium">Bank Name</p>
+        <div className="tw-w-8/12 tw-flex tw-justify-between">
+          <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
+            {bankDetails.bankName}
+          </p>
+          <Button
+            className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
+            type="text"
+            icon={<EditOutlined />}
+            size="small"
+            onClick={handleShowBankModal}
+          />
+        </div>
+      </div>
+
       <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
         <p className="tw-w-4/12 tw-text-base tw-font-medium">
           Bank Account Number
         </p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {data.bankAccountNO}
+            {bankDetails.bankAccountNO}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
-            onClick={handleShowModal}
+            onClick={handleShowBankModal}
           />
         </div>
       </div>
+
+      <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
+        <p className="tw-w-4/12 tw-text-base tw-font-medium">IFSC code</p>
+        <div className="tw-w-8/12 tw-flex tw-justify-between">
+          <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
+            {bankDetails.ifscCode}
+          </p>
+          <Button
+            className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
+            type="text"
+            icon={<EditOutlined />}
+            size="small"
+            onClick={handleShowBankModal}
+          />
+        </div>
+      </div>
+
+      <p className="tw-text-2xl tw-font-medium tw-mt-10">GST Infomation</p>
+      <Divider className="tw-mb-10" />
+
+      <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
+        <p className="tw-w-4/12 tw-text-base tw-font-medium">GST Number</p>
+        <div className="tw-w-8/12 tw-flex tw-justify-between">
+          <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
+            {gstDetail}
+          </p>
+          <Button
+            className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
+            type="text"
+            icon={<EditOutlined />}
+            size="small"
+            onClick={handleShowGstDetailModal}
+          />
+        </div>
+      </div>
+
       <Modal
         visible={showUserModal}
         footer={null}
         onCancel={handleUserModalCancel}
       >
         <Form
-          form={form}
+          form={userForm}
           name="userDetails"
           initialValues={{
-            ...data,
-            mobileNo: data.mobileNo.split("-")[1],
-            prefix: data.mobileNo.slice(1, 3),
+            ...userData,
+            mobileNo: userData.mobileNo.split("-")[1],
+            prefix: userData.mobileNo.slice(1, 3),
           }}
           size="large"
           layout="vertical"
@@ -181,16 +279,107 @@ const ProfileSetting = () => {
             />
           </Form.Item>
 
+          <Form.Item>
+            <Button
+              type="default"
+              className="tw-w-full tw-texa-button"
+              htmlType="submit"
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        visible={showBankModal}
+        footer={null}
+        onCancel={handleBankModalCancel}
+      >
+        <Form
+          form={bankForm}
+          name="bankDetails"
+          initialValues={bankDetails}
+          size="large"
+          layout="vertical"
+          onFinish={handleBankDetailsFormSubmit}
+        >
+          <Form.Item
+            label="Bank Name"
+            className="tw-rounded-lg"
+            name="bankName"
+            rules={[{ required: true, message: "Please Enter Bank Name!" }]}
+          >
+            <Input
+              className="tw-rounded-lg"
+              placeholder="Enter Your Bank Name."
+            />
+          </Form.Item>
+
           <Form.Item
             label="Bank Account Number"
             className="tw-rounded-lg"
             name="bankAccountNO"
-            rules={[{ required: true, message: "Please Account Number!" }]}
+            rules={[
+              { required: true, message: "Please Eenter Account Number!" },
+            ]}
           >
             <Input
               className="tw-rounded-lg"
               type="number"
               placeholder="Enter Your Bank Account Number"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="IFSC code"
+            className="tw-rounded-lg"
+            name="ifscCode"
+            rules={[{ required: true, message: "Please Enter IFSC Code!" }]}
+          >
+            <Input
+              className="tw-rounded-lg"
+              placeholder="Enter Your Bank IFSC Code"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="default"
+              className="tw-w-full tw-texa-button"
+              htmlType="submit"
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        visible={showGstModal}
+        footer={null}
+        onCancel={handleGstDetailModalCancel}
+      >
+        <Form
+          form={gstForm}
+          name="gstDetails"
+          initialValues={{
+            gstNo: gstDetail,
+          }}
+          size="large"
+          layout="vertical"
+          onFinish={handleGstDetailFormSubmit}
+        >
+          <Form.Item
+            label="GST Number"
+            className="tw-rounded-lg"
+            name="gstNo"
+            rules={[{ required: true, message: "Please Enter GST Number!" }]}
+          >
+            <Input
+              className="tw-rounded-lg"
+              type="number"
+              placeholder="Enter Your GST Account Number"
             />
           </Form.Item>
 
