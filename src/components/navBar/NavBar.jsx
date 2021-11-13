@@ -12,9 +12,10 @@ import {
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { LoginModal } from "../modals/login-modal/LoginModal";
-import { Select } from "antd";
+import { Modal, Select } from "antd";
 import { CITY_ARR } from "../../constant/city-array";
 import { lowerCase } from "lodash";
+import UserLogin from "./UserLogin";
 
 const default_Options = {
   data: { title: "", options: [] },
@@ -156,16 +157,21 @@ function NavBar() {
                 >
                   {upperCase("LOGIN")}
                 </button>
+
+                <UserLogin
+                  isModalOpen={showModal}
+                  handleModalCancel={() => setShowModal(false)}
+                />
               </li>
             </ul>
           </div>
 
-          {showModal && (
+          {/* {showModal && (
             <LoginModal
               onCancel={() => setShowModal(!showModal)}
               onSave={() => console.log("Saved!")}
             />
-          )}
+          )} */}
         </div>
       </div>
       <div className="tw-relative">
