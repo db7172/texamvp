@@ -97,6 +97,12 @@ const LogedIn = () => {
         </Link>
       </div>
       <Divider className="tw-my-3" />
+      <div>
+        <Link to={{ pathname: "/influencer/settings", state: 4 }}>
+          <Menu icon={setting} title="Documents" />
+        </Link>
+      </div>
+      <Divider className="tw-my-3" />
       <div onClick={signOut}>
         <Menu icon={exit} title="Log Out" />
       </div>
