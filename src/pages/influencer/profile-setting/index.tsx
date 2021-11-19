@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import Container from "../../../components/common/container/Container";
 import InfluencerChangePasswoard from "../../../components/influencer/profile-setting/InfluencerChangePasswoard";
+import InfluencerDocuments from "../../../components/influencer/profile-setting/InfluencerDocuments";
 import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
 import ProfileSetting from "../../../components/influencer/profile-setting/ProfileSetting";
 import { EDIT_PROFILE_OPTION } from "./data";
@@ -58,6 +59,7 @@ const InfluencerProfileSetting = () => {
             {activeTab === 1 && <InfluencerEditMyProfile />}
             {activeTab === 2 && <ProfileSetting />}
             {activeTab === 3 && <InfluencerChangePasswoard />}
+            {activeTab === 4 && <InfluencerDocuments />}
           </div>
         </Col>
       </Row>

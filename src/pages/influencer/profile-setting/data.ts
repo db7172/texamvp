@@ -26,4 +26,10 @@ export const EDIT_PROFILE_OPTION = [
     iconActive: lockActive,
     id: 3,
   },
+  {
+    name: "Documents",
+    icon: setting,
+    iconActive: settingActive,
+    id: 4,
+  },
 ];
