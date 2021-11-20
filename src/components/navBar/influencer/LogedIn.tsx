@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
-import { useHistory } from "react-router-dom";
+import MenuItem from "../../common/MenuItem/MenuItem";
 
 const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
@@ -44,7 +44,6 @@ const notificationData = [
 
 const LogedIn = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const history = useHistory();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -54,6 +53,7 @@ const LogedIn = () => {
         window.location.href = "/influencer";
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signOut = () => {
@@ -81,30 +81,30 @@ const LogedIn = () => {
       <Divider className="tw-my-3" />
       <div>
         <Link to={{ pathname: "/influencer/settings", state: 1 }}>
-          <Menu icon={edit} title="Edit My Account" />
+          <MenuItem icon={edit} title="Edit My Account" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
         <Link to={{ pathname: "/influencer/settings", state: 2 }}>
-          <Menu icon={setting} title="Profile Settings" />
+          <MenuItem icon={setting} title="Profile Settings" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
         <Link to={{ pathname: "/influencer/settings", state: 3 }}>
-          <Menu icon={lock} title="Update Password" />
+          <MenuItem icon={lock} title="Update Password" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
         <Link to={{ pathname: "/influencer/settings", state: 4 }}>
-          <Menu icon={setting} title="Documents" />
+          <MenuItem icon={setting} title="Documents" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div onClick={signOut}>
-        <Menu icon={exit} title="Log Out" />
+        <MenuItem icon={exit} title="Log Out" />
       </div>
     </div>
   );
@@ -153,23 +153,6 @@ const LogedIn = () => {
 };
 
 export default LogedIn;
-
-type MenuProps = {
-  icon: string;
-  title: string;
-};
-const Menu = ({ icon, title }: MenuProps) => {
-  return (
-    <div className="tw-flex tw-items-center tw-gap-5 tw-cursor-pointer">
-      <div className="tw-bg-gray-background tw-p-1.5 tw-rounded-md">
-        <img src={icon} alt="icon" />
-      </div>
-      <div>
-        <p className="tw-text-base tw-text-primary-color">{title}</p>
-      </div>
-    </div>
-  );
-};
 
 type NotificationProps = {
   profile: string;
