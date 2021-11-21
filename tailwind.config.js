@@ -18,6 +18,7 @@ const liteGreen = "#D2F3D1";
 const liteRed = "#FFDEDC";
 const darkRed = "#FF0000";
 const yellowTouch = "#FFFEF3";
+const yellowActiveTab = "#FFF59D";
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -41,6 +42,7 @@ module.exports = {
         c4c4c4: lightGray,
         "lite-blue": liteBlue,
         "lite-yellow": liteYellow,
+        "active-yellow": yellowActiveTab,
         "lite-yellow-touch": yellowTouch,
         "lite-red": liteRed,
         "dark-red": darkRed,
