@@ -6,9 +6,9 @@
 @darkgray-color: #c4c4c4;
 @text-secondary: #939393;
 @body-color: #fcfcfc;
+@green-color: #00b112;
 
 // tags
-
 html {
   scroll-behavior: smooth;
 }
@@ -492,4 +492,26 @@ select.arrowGray {
 
 .border-visible {
   border: 2px solid;
+}
+
+.activity-label {
+  position: absolute;
+  color: @body-color;
+  background: @green-color;
+  top: -22px;
+  margin: 0;
+  padding: 2px 13px 1px 7px;
+  font-size: 10px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 12;
+    height: 100%;
+    width: 8px;
+    background-color: @body-color;
+    right: -1px;
+    top: 0;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  }
 }
