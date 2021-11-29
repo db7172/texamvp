@@ -2,6 +2,7 @@ import { Button, Col, Row } from "antd";
 import { indCurrency } from "../../../utils/utils";
 
 type TripDetails = {
+  id: number;
   title: string;
   icon: string;
   description: string;
@@ -9,9 +10,11 @@ type TripDetails = {
   bookingDate: string;
   type: string;
   paidAmt: number;
+  handleButtonClick: (id: number) => void;
 };
 
 const TripDetailCard = ({
+  id,
   title,
   icon,
   description,
@@ -19,6 +22,7 @@ const TripDetailCard = ({
   bookingDate,
   paidAmt,
   type,
+  handleButtonClick,
 }: TripDetails) => {
   return (
     <div className="tw-relative tw-mb-10">
@@ -52,7 +56,11 @@ const TripDetailCard = ({
           <p className="tw-text-secondary-color tw-text-xs">Paid Amount</p>
         </Col>
         <Col span={5}>
-          <Button type="default" className="tw-w-full tw-texa-button">
+          <Button
+            type="default"
+            className="tw-w-full tw-texa-button"
+            onClick={() => handleButtonClick(id)}
+          >
             View Booking
           </Button>
         </Col>

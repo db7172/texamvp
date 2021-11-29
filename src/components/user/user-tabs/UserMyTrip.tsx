@@ -29,8 +29,13 @@ const getTitle = (value: string, count: number) => {
 
 const UserMyTrip = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   const [activeTitle, setActiveTitle] = useState("");
   const [activeTab, setActiveTab] = useState<string | undefined>();
+
+  const toggleHeader = (value: boolean) => {
+    setShowHeader(value);
+  };
 
   const handleActiveTab = (tab: string) => {
     setActiveTab(tab);
@@ -45,17 +50,19 @@ const UserMyTrip = () => {
 
   return (
     <div>
-      <div className="tw-flex tw-justify-between tw-items-center">
-        <p className="tw-font-bold tw-text-3xl tw-mb-5">
-          {isEdit ? activeTitle : "Tour Overview"}
-        </p>
-        {isEdit && (
-          <ArrowLeftOutlined
-            onClick={handleActiveTabCancel}
-            className="tw-text-secondary-color tw-text-xl tw-cursor-pointer"
-          />
-        )}
-      </div>
+      {showHeader && (
+        <div className="tw-flex tw-justify-between tw-items-center">
+          <p className="tw-font-bold tw-text-3xl tw-mb-5">
+            {isEdit ? activeTitle : "Tour Overview"}
+          </p>
+          {isEdit && (
+            <ArrowLeftOutlined
+              onClick={handleActiveTabCancel}
+              className="tw-text-secondary-color tw-text-xl tw-cursor-pointer"
+            />
+          )}
+        </div>
+      )}
       <Row gutter={25}>
         {!isEdit ? (
           <Col span={24}>
@@ -94,7 +101,12 @@ const UserMyTrip = () => {
           </Col>
         ) : (
           <Col span={24}>
-            {activeTab === "upcoming-tour" && <UpcomingTour />}
+            {activeTab === "upcoming-tour" && (
+              <UpcomingTour
+                handleParentHeader={toggleHeader}
+                isParentHeaderVisible={showHeader}
+              />
+            )}
             {activeTab === "cancelled-tour" && <h1>cancelled-tour</h1>}
             {activeTab === "completed-tour" && <h1>completed-tour</h1>}
           </Col>

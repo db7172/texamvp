@@ -1,14 +1,26 @@
+import classNames from "classnames";
+
 type Props = {
-  handleCardClick: () => void;
+  handleCardClick?: () => void;
   icon: string;
   title: string;
   description: string;
+  shadow?: boolean;
 };
 
-const UserCard = ({ handleCardClick, icon, title, description }: Props) => {
+const UserCard = ({
+  handleCardClick,
+  icon,
+  title,
+  description,
+  shadow = true,
+}: Props) => {
   return (
     <div
-      className="tw-w-96 tw-p-5 tw-cursor-pointer tw-shadow-card tw-rounded-lg"
+      className={classNames(
+        "tw-w-72 tw-p-5 tw-cursor-pointer tw-rounded-lg",
+        shadow ? "tw-shadow-card" : null
+      )}
       onClick={handleCardClick}
     >
       <div>
