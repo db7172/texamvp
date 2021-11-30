@@ -149,3 +149,77 @@ export const UPCOMING_TRIP_DATA = [
     ]
   },
 ];
+
+export const hotelColumnSchema = [
+  {
+    title: 'STAY',
+    dataIndex: 'stay',
+    key: 'stay',
+  },
+  {
+    title: 'HOTEL NAME',
+    dataIndex: 'hotelName',
+    key: 'hotelName',
+  },
+  {
+    title: 'CITY',
+    dataIndex: 'city',
+    key: 'city',
+  },
+  {
+    title: 'ROOM TYPE',
+    dataIndex: 'roomType',
+    key: 'roomType',
+  },
+  {
+    title: 'MEAL PLAN',
+    dataIndex: 'mealPlan',
+    key: 'mealPlan',
+  },
+  {
+    title: 'CHECK-IN',
+    dataIndex: 'checkIn',
+    key: 'checkIn',
+  },
+  {
+    title: 'CHECK-OUT',
+    dataIndex: 'checkOut',
+    key: 'checkOut',
+  },
+];
+
+export const HOTEL_DETAILS = [
+  {
+    stay: "1 Night",
+    hotelName: "Tashi namgay resort",
+    hotelContact: "022-28442844",
+    city: "Paro",
+    roomType: "Standard",
+    lunch: true,
+    dinner: true,
+    checkInDate: "14 Feb’2020",
+    checkInTime: "12:00 PM",
+    checkOutDate: "15 Feb’2020",
+    checkOutTime: "1:00 PM"
+  },
+  {
+    stay: "1 Night",
+    hotelName: "Tashi namgay resort",
+    city: "Paro",
+    roomType: "Standard",
+    lunch: true,
+    dinner: false,
+    checkInDate: "14 Feb’2020",
+    checkOutDate: "15 Feb’2020",
+  },
+  {
+    stay: "1 Night",
+    hotelName: "Tashi namgay resort",
+    city: "Paro",
+    roomType: "Standard",
+    lunch: true,
+    dinner: false,
+    checkInDate: "14 Feb’2020",
+    checkOutDate: "15 Feb’2020",
+  },
+]

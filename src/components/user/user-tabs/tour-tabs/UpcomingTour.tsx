@@ -7,6 +7,8 @@ import UserCard from "../../card/UserCard";
 import { uniqueId } from "lodash";
 import download from "../../../../assets/svg/down-arrow.svg";
 import email from "../../../../assets/svg/email.svg";
+import hotel from "../../../../assets/svg/hotel.svg";
+import taxi from "../../../../assets/svg/taxi.svg";
 
 const { Panel } = Collapse;
 
@@ -36,6 +38,7 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
   const [showList, setShowList] = useState(true);
   const [activeCard, setActiveCard] = useState<TripType | undefined>();
   const [showEmailModal, setShowEmailModal] = useState(false);
+  const [showHotalModal, setShowHotalModal] = useState(false);
 
   const handleViewBookingClick = (id: number) => {
     setActiveCard(UPCOMING_TRIP_DATA[id]);
@@ -308,7 +311,28 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
                   </div>
                 </Panel>
                 <Panel header="Tour Details" key="2">
-                  <p>{text}</p>
+                  <div className="tw-flex tw-gap-2">
+                    <UserCard
+                      title="Hotel Details"
+                      description="Basic info, for a faster
+                      booking"
+                      icon={hotel}
+                      shadow={false}
+                      handleCardClick={() => setShowHotalModal(true)}
+                    />
+                    <UserCard
+                      title="Cab Details"
+                      description="Basic info, for a faster booking"
+                      icon={taxi}
+                      shadow={false}
+                    />
+                  </div>
+                  <Modal
+                    visible={showHotalModal}
+                    width={800}
+                    onCancel={() => setShowHotalModal(false)}
+                    footer={null}
+                  ></Modal>
                 </Panel>
 
                 <Panel header="Travel itinerary" key="3">
