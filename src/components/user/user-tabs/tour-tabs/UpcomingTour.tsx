@@ -1,14 +1,34 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import TripDetailCard from "../../card/TripDetailCard";
-import { PAYMENT_CARD, UPCOMING_TRIP_DATA } from "../userTabsConstants";
-import { Button, Col, Collapse, Form, Input, Modal, Row, Select } from "antd";
+import {
+  CAB_DETAILS,
+  HOTEL_DETAILS,
+  INCLUDE_EXCLUDE,
+  PAYMENT_CARD,
+  TRAVEL_ITINERARY,
+  UPCOMING_TRIP_DATA,
+} from "../userTabsConstants";
+import {
+  Button,
+  Col,
+  Collapse,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Table,
+  TableColumnsType,
+} from "antd";
 import UserCard from "../../card/UserCard";
 import { uniqueId } from "lodash";
 import download from "../../../../assets/svg/down-arrow.svg";
 import email from "../../../../assets/svg/email.svg";
 import hotel from "../../../../assets/svg/hotel.svg";
 import taxi from "../../../../assets/svg/taxi.svg";
+import { CabDetailsType, HotelDetailsType } from "Models";
+import InformationSection from "../../../view-more-details/InformationSection";
 
 const { Panel } = Collapse;
 
@@ -39,6 +59,7 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
   const [activeCard, setActiveCard] = useState<TripType | undefined>();
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [showHotalModal, setShowHotalModal] = useState(false);
+  const [showCabModal, setShowCabModal] = useState(false);
 
   const handleViewBookingClick = (id: number) => {
     setActiveCard(UPCOMING_TRIP_DATA[id]);
@@ -67,11 +88,100 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
     </Form.Item>
   );
 
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-  `;
+  const hotelColumnSchema: TableColumnsType<HotelDetailsType> = [
+    {
+      title: "STAY",
+      dataIndex: "stay",
+      key: "stay",
+    },
+    {
+      title: "HOTEL NAME",
+      dataIndex: "hotelName",
+      key: "hotelName",
+      render: (value, record) => (
+        <div>
+          <p>{value}</p>
+          {record.hotelContact && <p>({record.hotelContact})</p>}
+        </div>
+      ),
+    },
+    {
+      title: "CITY",
+      dataIndex: "city",
+      key: "city",
+    },
+    {
+      title: "ROOM TYPE",
+      dataIndex: "roomType",
+      key: "roomType",
+    },
+    {
+      title: "MEAL PLAN",
+      dataIndex: "mealPlan",
+      key: "mealPlan",
+      render: (_, record) => (
+        <div>
+          {record.lunch && <p>Lunch</p>}
+          {record.dinner && <p>Dinner</p>}
+        </div>
+      ),
+    },
+    {
+      title: "CHECK-IN",
+      dataIndex: "checkIn",
+      key: "checkIn",
+      render: (_, record) => (
+        <div>
+          <p>{record.checkInDate}</p>
+          {record.checkInTime && <p>{record.checkInTime}</p>}
+        </div>
+      ),
+    },
+    {
+      title: "CHECK-OUT",
+      dataIndex: "checkOut",
+      key: "checkOut",
+      render: (_, record) => (
+        <div>
+          <p>{record.checkOutDate}</p>
+          {record.checkOutTime && <p>{record.checkOutTime}</p>}
+        </div>
+      ),
+    },
+  ];
+
+  const cabColumnSchema: TableColumnsType<CabDetailsType> = [
+    {
+      title: "DATE",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "CAB TYPE",
+      dataIndex: "cabType",
+      key: "cabType",
+    },
+    {
+      title: "PICK-UP",
+      dataIndex: "pickUp",
+      key: "pickUp",
+    },
+    {
+      title: "DROP",
+      dataIndex: "drop",
+      key: "drop",
+    },
+    {
+      title: "PASSENGERS",
+      dataIndex: "passengers",
+      key: "passengers",
+    },
+    {
+      title: "LUGGAGE",
+      dataIndex: "luggage",
+      key: "luggage",
+    },
+  ];
 
   return (
     <div>
@@ -325,30 +435,108 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
                       description="Basic info, for a faster booking"
                       icon={taxi}
                       shadow={false}
+                      handleCardClick={() => setShowCabModal(true)}
                     />
                   </div>
                   <Modal
+                    title="Hotel Details"
                     visible={showHotalModal}
-                    width={800}
+                    width={1000}
                     onCancel={() => setShowHotalModal(false)}
                     footer={null}
-                  ></Modal>
+                  >
+                    <Table
+                      pagination={false}
+                      dataSource={HOTEL_DETAILS}
+                      columns={hotelColumnSchema}
+                    />
+
+                    <p className="tw-text-secondary-color tw-mt-10">
+                      • Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor
+                    </p>
+                  </Modal>
+                  <Modal
+                    title="Cab Details"
+                    visible={showCabModal}
+                    width={1000}
+                    onCancel={() => setShowCabModal(false)}
+                    footer={null}
+                  >
+                    <Table
+                      pagination={false}
+                      dataSource={CAB_DETAILS}
+                      columns={cabColumnSchema}
+                    />
+
+                    <p className="tw-text-secondary-color tw-mt-10">
+                      • Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor
+                    </p>
+                  </Modal>
                 </Panel>
 
                 <Panel header="Travel itinerary" key="3">
-                  <p>{text}</p>
+                  {TRAVEL_ITINERARY.map((d, i) => (
+                    <div key={i} className="tw-mt-5">
+                      <p className="tw-text-base tw-font-medium tw-mb-2">
+                        {d.title}
+                      </p>
+                      <p className="tw-text-secondary-color">{d.description}</p>
+                    </div>
+                  ))}
                 </Panel>
 
                 <Panel header="Inclusion & Exclusion" key="4">
-                  <p>{text}</p>
+                  {INCLUDE_EXCLUDE.map((d, i) => (
+                    <InformationSection
+                      header={d.header}
+                      content={d.details}
+                      key={i}
+                    />
+                  ))}
                 </Panel>
 
                 <Panel header="Important Information" key="5">
-                  <p>{text}</p>
+                  <div className="tw-px-7">
+                    <ul className="tw-list-disc tw-list-outside">
+                      {INCLUDE_EXCLUDE[0].details.map((s, i) => (
+                        <li
+                          key={i}
+                          className="tw-text-secondary-color tw-text-xs"
+                        >
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </Panel>
 
                 <Panel header="Cancellation" key="6">
-                  <p>{text}</p>
+                  <div className="tw-px-7">
+                    <p className="tw-text-dark-red tw-mb-3">
+                      Cancellation charges apply as per policy.
+                    </p>
+                    <ul className="tw-list-disc tw-list-outside">
+                      {INCLUDE_EXCLUDE[0].details.map((s, i) => (
+                        <li
+                          key={i}
+                          className="tw-text-secondary-color tw-text-xs"
+                        >
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="tw-flex tw-justify-end">
+                      <Button
+                        type="default"
+                        className="tw-texa-button"
+                        // onClick={handleProceedClick}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
                 </Panel>
               </Collapse>
             )}

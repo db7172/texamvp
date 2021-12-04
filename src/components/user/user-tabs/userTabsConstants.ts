@@ -7,6 +7,7 @@ import event from "../../../assets/svg/event.svg";
 import retreat from "../../../assets/svg/retreat.svg";
 import payment from "../../../assets/svg/credit-card.svg";
 
+
 export const MY_TRIP_CARD = {
   upcomingTour: {
     icon: portfolio,
@@ -150,44 +151,6 @@ export const UPCOMING_TRIP_DATA = [
   },
 ];
 
-export const hotelColumnSchema = [
-  {
-    title: 'STAY',
-    dataIndex: 'stay',
-    key: 'stay',
-  },
-  {
-    title: 'HOTEL NAME',
-    dataIndex: 'hotelName',
-    key: 'hotelName',
-  },
-  {
-    title: 'CITY',
-    dataIndex: 'city',
-    key: 'city',
-  },
-  {
-    title: 'ROOM TYPE',
-    dataIndex: 'roomType',
-    key: 'roomType',
-  },
-  {
-    title: 'MEAL PLAN',
-    dataIndex: 'mealPlan',
-    key: 'mealPlan',
-  },
-  {
-    title: 'CHECK-IN',
-    dataIndex: 'checkIn',
-    key: 'checkIn',
-  },
-  {
-    title: 'CHECK-OUT',
-    dataIndex: 'checkOut',
-    key: 'checkOut',
-  },
-];
-
 export const HOTEL_DETAILS = [
   {
     stay: "1 Night",
@@ -221,5 +184,81 @@ export const HOTEL_DETAILS = [
     dinner: false,
     checkInDate: "14 Feb’2020",
     checkOutDate: "15 Feb’2020",
+  },
+  {
+    stay: "1 Night",
+    hotelName: "Tashi namgay resort",
+    hotelContact: "022-28442844",
+    city: "Paro",
+    roomType: "Standard",
+    lunch: true,
+    dinner: true,
+    checkInDate: "14 Feb’2020",
+    checkInTime: "12:00 PM",
+    checkOutDate: "15 Feb’2020",
+    checkOutTime: "1:00 PM"
+  },
+]
+
+export const CAB_DETAILS = [
+  {
+    date: "14 Feb’2020",
+    cabType: "Sedan",
+    pickUp: "Mumbai-BOM",
+    drop: "Goa-GOA",
+    passengers: "Upto 4",
+    luggage: "Small Bag x 2 OR Medium Bag x 1"
+  },
+  {
+    date: "14 Feb’2020",
+    cabType: "Sedan",
+    pickUp: "Mumbai-BOM",
+    drop: "Goa-GOA",
+    passengers: "Upto 4",
+    luggage: "Small Bag x 2 OR Medium Bag x 1"
+  },
+]
+
+export const TRAVEL_ITINERARY = [
+  {
+    title: "Day 01: Paro Airport – Thimphu Sightseeing",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+  },
+  {
+    title: "Day 02: Thimphu Sightseeing",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+  },
+  {
+    title: "Day 03: Thimphu – Punakha/Wangdue Sightseeing",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+  },
+  {
+    title: "Day 04: Punakha - Phobjikha Sightseeing - Punakha",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+  },
+  {
+    title: "Day 05: Punakha – Paro Sightseeing",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+  },
+]
+
+export const INCLUDE_EXCLUDE = [
+  {
+    header: "Inclusion",
+    details: [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+    ]
+  },
+  {
+    header: "Exclusion",
+    details: [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+    ]
   },
 ]
