@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { emailRegex } from "../../../constant/comman.const";
 import { upperCase } from "../../../utils/utils";
 import MobileNumber from "../../form-component/MobileNumber";
+import firebase from "../../../firebase";
 
 const VERIFICATION_CODE = 1234;
 
@@ -64,15 +65,33 @@ export const LoginModal = ({ header, onCancel }) => {
   };
 
   const compareCode = () => {
-    if (VERIFICATION_CODE === +verificationCode) {
-      window.alert("Logged in successful.");
-      onCancel();
-    } else {
-      setIsVerificationCodeError({
-        ...isVerificationCodeError,
-        error: true,
+    // if (VERIFICATION_CODE === +verificationCode) {
+    //   window.alert("Logged in successful.");
+    //   onCancel();
+    // } else {
+    //   setIsVerificationCodeError({
+    //     ...isVerificationCodeError,
+    //     error: true,
+    //   });
+    // }
+    const code = verificationCode;
+    window.confirmationResult
+      .confirm(code)
+      .then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log(JSON.stringify(user));
+
+        // ...
+      })
+      .catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        setIsVerificationCodeError({
+          ...isVerificationCodeError,
+          error: true,
+        });
       });
-    }
   };
 
   const handleVerify = () => {
@@ -120,8 +139,37 @@ export const LoginModal = ({ header, onCancel }) => {
     }
   };
 
+  function configureRecaptcha() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-container",
+      {
+        size: "invisible",
+        callback: (response) => {
+          onSignInSubmit();
+          console.log("Recaptcha verified");
+        },
+      }
+    );
+  }
+  function onSignInSubmit() {
+    configureRecaptcha();
+    const number = "+91" + phoneNumber;
+    const appVerifier = window.recaptchaVerifier;
+    firebase
+      .auth()
+      .signInWithPhoneNumber(number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        console.log("OTP sent.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   const handleSubmit = () => {
     if (!handleValidation()) {
+      onSignInSubmit();
       activeVerificationMode();
     }
   };
@@ -208,6 +256,7 @@ export const LoginModal = ({ header, onCancel }) => {
           </svg>
         </div>
         <div className="tw-modal-body tw-px-12">
+          <div id="sign-in-container"></div>
           <div>
             <div className="tw-flex tw-flex-col tw-items-center">
               <h1 className="tw-font-bold tw-text-2xl">
@@ -221,12 +270,14 @@ export const LoginModal = ({ header, onCancel }) => {
               {showLoginInput && (
                 <>
                   {isLoginByMobile ? (
-                    <MobileNumber
-                      name="phoneNumber"
-                      value={phoneNumber}
-                      onChange={handleNumberChange}
-                      disabled={isVerifing}
-                    />
+                    <>
+                      <MobileNumber
+                        name="phoneNumber"
+                        value={phoneNumber}
+                        onChange={handleNumberChange}
+                        disabled={isVerifing}
+                      />
+                    </>
                   ) : (
                     <div className="tw-p-0.5">
                       <input
@@ -256,7 +307,10 @@ export const LoginModal = ({ header, onCancel }) => {
                         ) : (
                           <button
                             className=" tw-underline"
-                            onClick={handleLoginMethod}
+                            onClick={() => {
+                              handleLoginMethod();
+                              console.log("clicked");
+                            }}
                           >
                             {isLoginByMobile
                               ? "Login With Email"
@@ -327,12 +381,14 @@ export const LoginModal = ({ header, onCancel }) => {
                   {upperCase("VERIFY")}
                 </button>
               ) : (
-                <button
-                  className="tw-bg-secondary-color tw-w-full tw-mt-7 tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
-                  onClick={handleSubmit}
-                >
-                  {isSigningIn ? upperCase("LOGIN") : upperCase("CONTINUE")}
-                </button>
+                <>
+                  <button
+                    className="tw-bg-secondary-color tw-w-full tw-mt-7 tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
+                    onClick={handleSubmit}
+                  >
+                    {isSigningIn ? upperCase("LOGIN") : upperCase("CONTINUE")}
+                  </button>
+                </>
               )}
             </div>
             <div className="tw-mt-5">
