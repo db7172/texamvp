@@ -11,10 +11,11 @@ import {
 } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
-import { LoginModal } from "../modals/login-modal/LoginModal";
 import { Select } from "antd";
 import { CITY_ARR } from "../../constant/city-array";
 import { lowerCase } from "lodash";
+import UserLoginModal from "./UserLoginModal";
+import UserLogin from "./UserLogin";
 
 const default_Options = {
   data: { title: "", options: [] },
@@ -26,6 +27,7 @@ function NavBar() {
   const [showReterat, setShowReterat] = useState(false);
   const [navData, setNavData] = useState(default_Options);
   const [showModal, setShowModal] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(true);
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
@@ -149,23 +151,28 @@ function NavBar() {
                 <span>1800-1200-1400</span>
               </li>
               <li className="tw-navbar-link">Blog</li>
-              <li className="tw-navbar-link">
-                <button
-                  className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
-                  onClick={() => setShowModal(true)}
-                >
-                  {upperCase("LOGIN")}
-                </button>
-              </li>
+              {isLogedIn ? (
+                <li className="tw-navbar-link">
+                  <UserLogin />
+                </li>
+              ) : (
+                <li className="tw-navbar-link">
+                  <button
+                    className="tw-bg-secondary-color tw-font-medium tw-px-6 tw-py-3 tw-rounded-md"
+                    onClick={() => setShowModal(true)}
+                  >
+                    {upperCase("LOGIN")}
+                  </button>
+
+                  <UserLoginModal
+                    isModalOpen={showModal}
+                    handleModalCancel={() => setShowModal(false)}
+                    handleLogin={(value) => setIsLogedIn(value)}
+                  />
+                </li>
+              )}
             </ul>
           </div>
-
-          {showModal && (
-            <LoginModal
-              onCancel={() => setShowModal(!showModal)}
-              onSave={() => console.log("Saved!")}
-            />
-          )}
         </div>
       </div>
       <div className="tw-relative">

@@ -1,12 +1,19 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
+import { useLocation } from "react-router";
 import Container from "../../../components/common/container/Container";
+import InfluencerChangePasswoard from "../../../components/influencer/profile-setting/InfluencerChangePasswoard";
+import InfluencerDocuments from "../../../components/influencer/profile-setting/InfluencerDocuments";
 import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
+import ProfileSetting from "../../../components/influencer/profile-setting/ProfileSetting";
 import { EDIT_PROFILE_OPTION } from "./data";
 
 const InfluencerProfileSetting = () => {
-  const [activeTab, setActiveTab] = useState(EDIT_PROFILE_OPTION[0].id);
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(
+    location.state || EDIT_PROFILE_OPTION[0].id
+  );
   return (
     <Container>
       <Row gutter={40} className="tw-mt-10">
@@ -50,8 +57,9 @@ const InfluencerProfileSetting = () => {
         <Col span={18}>
           <div className="card-container">
             {activeTab === 1 && <InfluencerEditMyProfile />}
-            {activeTab === 2 && <h1>profile</h1>}
-            {activeTab === 3 && <h1>Password</h1>}
+            {activeTab === 2 && <ProfileSetting />}
+            {activeTab === 3 && <InfluencerChangePasswoard />}
+            {activeTab === 4 && <InfluencerDocuments />}
           </div>
         </Col>
       </Row>

@@ -5,8 +5,12 @@ import Footer from "./components/footer/Footer";
 import InfluencerRouter from "./pages/router/InfluencerRouter";
 import InfluencerNavBar from "./components/navBar/influencer/InfluencerNavBar";
 import { AuthProvider } from "./Auth";
+import { useState } from "react";
+import UserRouter from "./pages/router/UserRouter";
+import UserNavBar from "./components/navBar/user/UserNavBar";
 
 function App() {
+  const [isUserLogedIn] = useState(true);
   let location = useLocation();
 
   return (
@@ -16,6 +20,11 @@ function App() {
           <>
             <InfluencerNavBar />
             <InfluencerRouter />
+          </>
+        ) : location.pathname.includes("user") && isUserLogedIn ? (
+          <>
+            <UserNavBar />
+            <UserRouter />
           </>
         ) : (
           <>

@@ -251,7 +251,7 @@ const PasswordReset = () => {
                         className="tw-w-full tw-texa-button tw-m-0"
                         htmlType="submit"
                       >
-                        SUBMIT
+                        Submit
                       </Button>
                     </Form.Item>
                   </Form>
