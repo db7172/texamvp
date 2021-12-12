@@ -27,7 +27,7 @@ function NavBar() {
   const [showReterat, setShowReterat] = useState(false);
   const [navData, setNavData] = useState(default_Options);
   const [showModal, setShowModal] = useState(false);
-  const [isLogedIn, setIsLogedIn] = useState(true);
+  const [isLogedIn, setIsLogedIn] = useState(false);
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
