@@ -2,6 +2,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import { useState } from "react";
 import UserCard from "../card/UserCard";
+import CancelledTour from "./tour-tabs/CancelledTour";
 import UpcomingTour from "./tour-tabs/UpcomingTour";
 import { MY_TRIP_CARD } from "./userTabsConstants";
 
@@ -107,7 +108,12 @@ const UserMyTrip = () => {
                 isParentHeaderVisible={showHeader}
               />
             )}
-            {activeTab === "cancelled-tour" && <h1>cancelled-tour</h1>}
+            {activeTab === "cancelled-tour" && (
+              <CancelledTour
+                handleParentHeader={toggleHeader}
+                isParentHeaderVisible={showHeader}
+              />
+            )}
             {activeTab === "completed-tour" && <h1>completed-tour</h1>}
           </Col>
         )}

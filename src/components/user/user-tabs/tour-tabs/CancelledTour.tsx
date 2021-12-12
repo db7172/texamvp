@@ -6,31 +6,26 @@ import {
   HOTEL_DETAILS,
   INCLUDE_EXCLUDE,
   PAYMENT_CARD,
+  REFUND_CARD,
   TRAVEL_ITINERARY,
   UPCOMING_TRIP_DATA,
 } from "../userTabsConstants";
 import {
-  Button,
   Col,
   Collapse,
   Divider,
-  Form,
-  Input,
   Modal,
   Row,
-  Select,
+  Steps,
   Table,
   TableColumnsType,
 } from "antd";
 import UserCard from "../../card/UserCard";
 import { uniqueId } from "lodash";
-import download from "../../../../assets/svg/down-arrow.svg";
-import email from "../../../../assets/svg/email.svg";
 import hotel from "../../../../assets/svg/hotel.svg";
 import taxi from "../../../../assets/svg/taxi.svg";
 import { CabDetailsType, HotelDetailsType } from "Models";
 import InformationSection from "../../../view-more-details/InformationSection";
-import CancelTripModal from "../../modal/CancelTripModal";
 import { indCurrency } from "../../../../utils/utils";
 
 const { Panel } = Collapse;
@@ -57,23 +52,24 @@ type TripType = {
   }[];
 };
 
-const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
+const { Step } = Steps;
+
+const CancelledTour = ({
+  isParentHeaderVisible,
+  handleParentHeader,
+}: Props) => {
   const [showList, setShowList] = useState(true);
   const [activeCard, setActiveCard] = useState<TripType | undefined>();
-  const [showEmailModal, setShowEmailModal] = useState(false);
   const [showHotalModal, setShowHotalModal] = useState(false);
   const [showCabModal, setShowCabModal] = useState(false);
-  const [showCancelModal, setShowCancelModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [currentCancellationStep] = useState(2);
 
   const handleViewBookingClick = (id: number) => {
     setActiveCard(UPCOMING_TRIP_DATA[id]);
     handleParentHeader(false);
     setShowList(false);
-  };
-
-  const handleCancelModal = (value: boolean) => {
-    setShowCancelModal(value);
   };
 
   const handleShowList = () => {
@@ -85,17 +81,6 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
   function callback(key: any) {
     console.log(key);
   }
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        {/* add loop/map for dynamic data from back end */}
-        <Select.Option value="91">+91</Select.Option>
-        <Select.Option value="86">+86</Select.Option>
-        <Select.Option value="87">+87</Select.Option>
-      </Select>
-    </Form.Item>
-  );
 
   const hotelColumnSchema: TableColumnsType<HotelDetailsType> = [
     {
@@ -320,130 +305,6 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
                       </React.Fragment>
                     ))}
                   </Row>
-                  {activeCard.mode === "online" && (
-                    <p className="tw-mt-5">
-                      You will recieve zoom link on your email or sms before 24
-                      hours
-                    </p>
-                  )}
-                  <div className="tw-flex tw-justify-center">
-                    <div>
-                      <Button type="default" className="tw-mr-2">
-                        <span className="tw-mr-2">
-                          <img src={download} alt="download" />
-                        </span>{" "}
-                        <span style={{ color: "#2979FF" }}>
-                          Download Voucher
-                        </span>
-                      </Button>
-                      <Button
-                        type="default"
-                        onClick={() => setShowEmailModal(true)}
-                      >
-                        <span className="tw-mr-2">
-                          <img src={email} alt="email" />
-                        </span>{" "}
-                        <span style={{ color: "#2979FF" }}>Email Voucher</span>
-                      </Button>
-                    </div>
-                    <Modal
-                      visible={showEmailModal}
-                      onCancel={() => setShowEmailModal(false)}
-                      footer={null}
-                    >
-                      <p className="tw-text-center tw-text-lg tw-font-medium tw-mb-3">
-                        Send E-ticket on email and phone
-                      </p>
-                      <div className="tw-flex tw-justify-center">
-                        <p className="tw-text-secondary-color tw-w-5/6 tw-text-center">
-                          You can send E-ticket to the registered email/phone as
-                          well as to a different email phone
-                        </p>
-                      </div>
-                      <div className="tw-flex tw-justify-center tw-mt-5">
-                        <Form
-                          name="basicDetails"
-                          initialValues={{
-                            prefix: "91",
-                          }}
-                          className="tw-w-5/6"
-                          size="large"
-                          layout="vertical"
-                          onFinish={(value) => console.log(value)}
-                          // onFinishFailed={onFinishFailed}
-                        >
-                          <Form.Item
-                            label="Mobile Number"
-                            className="tw-rounded-lg"
-                            name="number"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please input your number!",
-                              },
-                              {
-                                max: 10,
-                                min: 10,
-                                message:
-                                  "The input is not valid mobile number!",
-                              },
-                            ]}
-                          >
-                            <Input
-                              addonBefore={prefixSelector}
-                              className="tw-rounded-lg"
-                              type="number"
-                              placeholder="Enter Your Phone Number"
-                            />
-                          </Form.Item>
-
-                          <Form.Item
-                            name="email"
-                            label="E-mail ID"
-                            rules={[
-                              {
-                                type: "email",
-                                message: "The input is not valid e-mail!",
-                              },
-                              {
-                                required: true,
-                                message: "Please input your e-mail!",
-                              },
-                            ]}
-                          >
-                            <Input
-                              className="tw-rounded-lg"
-                              placeholder="Enter Your E-mail id"
-                            />
-                          </Form.Item>
-                          <Row gutter={25}>
-                            <Col span={12}>
-                              <Form.Item>
-                                <Button
-                                  type="default"
-                                  className="tw-w-full tw-texa-button"
-                                  htmlType="submit"
-                                >
-                                  Submit
-                                </Button>
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item>
-                                <Button
-                                  type="default"
-                                  className="tw-w-full border-btn tw-rounded-lg"
-                                  onClick={() => setShowEmailModal(false)}
-                                >
-                                  Cancel
-                                </Button>
-                              </Form.Item>
-                            </Col>
-                          </Row>
-                        </Form>
-                      </div>
-                    </Modal>
-                  </div>
                 </Panel>
 
                 {activeCard.mode === "offline" && (
@@ -544,6 +405,39 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
                   ))}
                 </Panel>
 
+                <Panel header="Refund Status" key="8">
+                  <Steps
+                    current={currentCancellationStep}
+                    className="tw-my-10"
+                    progressDot
+                  >
+                    <Step title="Booking Cancelled" description="14 Feb’2016" />
+                    <Step
+                      title={`Refund Proceed ${indCurrency(3300)}`}
+                      description="14 Feb’2016"
+                    />
+                    <Step
+                      title="CRefund Reflect in your account"
+                      description="14 Feb’2016"
+                    />
+                  </Steps>
+
+                  <div className="tw-pl-7">
+                    <ul className="tw-list-disc tw-list-outside">
+                      <li className="tw-text-secondary-color">
+                        INR.3300 has been proceed in HDFC bank ******3137 It
+                        takes 3 working days for refund to reflect in HDFC Bank
+                        account.
+                      </li>
+                      {INCLUDE_EXCLUDE[0].details.map((s, i) => (
+                        <li key={i} className="tw-text-secondary-color">
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Panel>
+
                 <Panel header="Important Information" key="5">
                   <div className="tw-px-7">
                     <ul className="tw-list-disc tw-list-outside">
@@ -561,99 +455,145 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
 
                 <Panel header="Cancellation" key="6">
                   <div className="tw-px-7">
-                    <p className="tw-text-dark-red tw-mb-3">
-                      Cancellation charges apply as per policy.
-                    </p>
                     <ul className="tw-list-disc tw-list-outside">
-                      {INCLUDE_EXCLUDE[0].details.map((s, i) => (
-                        <li
-                          key={i}
-                          className="tw-text-secondary-color tw-text-xs"
-                        >
-                          {s}
-                        </li>
-                      ))}
+                      <li className="tw-text-secondary-color tw-text-xs">
+                        Your tour is already cancelled, you can re-book your
+                        tour again
+                      </li>
                     </ul>
-                    <div className="tw-flex tw-justify-end">
-                      <Button
-                        type="default"
-                        className="tw-texa-button"
-                        onClick={() => handleCancelModal(true)}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
                   </div>
-                  <CancelTripModal
-                    showModal={showCancelModal}
-                    handleShowModal={handleCancelModal}
-                    tripName={activeCard.title}
-                    numberOfPeople={activeCard.travellers.length}
-                    travelingDate={activeCard.activityDate}
-                    image={activeCard.icon}
-                  />
                 </Panel>
               </Collapse>
             )}
           </Col>
           <Col span={6}>
-            <UserCard
-              title={PAYMENT_CARD.title}
-              description={PAYMENT_CARD.description}
-              icon={PAYMENT_CARD.icon}
-              handleCardClick={() => setShowPaymentModal(true)}
-            />
-            <Modal
-              visible={showPaymentModal}
-              width={600}
-              onCancel={() => setShowPaymentModal(false)}
-              footer={null}
-            >
-              <p className="tw-text-center tw-mt-2 tw-text-xl tw-font-medium">
-                Payment Details
-              </p>
-              <div className="tw-flex tw-flex-col tw-items-center tw-mb-5">
-                <p className="tw-text-center tw-mt-2 tw-w-2/4">
-                  Basic info, for a faster booking experience and travel
-                </p>
-                <div className="tw-mt-2 tw-w-3/4 tw-shadow-card tw-p-5 tw-rounded-lg">
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>Tour Package</span>
-                    <span>{indCurrency(40000)}</span>
+            <Row gutter={[0, 40]}>
+              <Col span={24}>
+                <UserCard
+                  title={REFUND_CARD.title}
+                  description={REFUND_CARD.description}
+                  icon={REFUND_CARD.icon}
+                  handleCardClick={() => setShowRefundModal(true)}
+                />
+                <Modal
+                  visible={showRefundModal}
+                  width={600}
+                  onCancel={() => setShowRefundModal(false)}
+                  footer={null}
+                >
+                  <p className="tw-text-center tw-mt-2 tw-text-xl tw-font-medium">
+                    Refund Details
                   </p>
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>Flights</span>
-                    <span>---</span>
+                  <div className="tw-flex tw-flex-col tw-items-center tw-mb-5">
+                    <p className="tw-text-center tw-mt-2 tw-w-2/4">
+                      Basic info, for a faster booking experience and travel
+                    </p>
+                    <div className="tw-mt-2 tw-w-3/4 tw-shadow-card tw-p-5 tw-rounded-lg">
+                      <p className="tw-text-lg tw-font-medium tw-mb-1">
+                        Refund Amount
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Refund to Bank</span>
+                        <span>{indCurrency(9000)}</span>
+                      </p>
+
+                      <Divider />
+
+                      <p className="tw-text-lg tw-font-medium tw-mb-1">Other</p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Refund Request Date</span>
+                        <span>12 Feb’2020</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Refund Processed On</span>
+                        <span>12 Feb’2020</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Refund Pay Mode</span>
+                        <span>Bank Transfer</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>ARN(Aaaquired ref no)</span>
+                        <span>000987654321</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>BRN(Bank ref no)</span>
+                        <span>000987654321</span>
+                      </p>
+                    </div>
+                  </div>
+                </Modal>
+              </Col>
+              <Col span={24}>
+                <UserCard
+                  title={PAYMENT_CARD.title}
+                  description={PAYMENT_CARD.description}
+                  icon={PAYMENT_CARD.icon}
+                  handleCardClick={() => setShowPaymentModal(true)}
+                />
+                <Modal
+                  visible={showPaymentModal}
+                  width={600}
+                  onCancel={() => setShowPaymentModal(false)}
+                  footer={null}
+                >
+                  <p className="tw-text-center tw-mt-2 tw-text-xl tw-font-medium">
+                    Payment Details
                   </p>
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>Hotel</span>
-                    <span>---</span>
-                  </p>
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>C(GST)</span>
-                    <span>---</span>
-                  </p>
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>S(GST)</span>
-                    <span>---</span>
-                  </p>
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
-                    <span>Discount Coupon</span>
-                    <span>{indCurrency(500)}</span>
-                  </p>
-                  <Divider className="tw-my-5" />
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
-                    <span>Total Amount</span>
-                    <span>{indCurrency(39500)}</span>
-                  </p>
-                  <Divider className="tw-my-5" />
-                  <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
-                    <span>Amount Paid</span>
-                    <span>{indCurrency(10000)}</span>
-                  </p>
-                </div>
-              </div>
-            </Modal>
+                  <div className="tw-flex tw-flex-col tw-items-center tw-mb-5">
+                    <p className="tw-text-center tw-mt-2 tw-w-2/4">
+                      Basic info, for a faster booking experience and travel
+                    </p>
+                    <div className="tw-mt-2 tw-w-3/4 tw-shadow-card tw-p-5 tw-rounded-lg">
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Tour Package</span>
+                        <span>{indCurrency(40000)}</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Flights</span>
+                        <span>---</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Hotel</span>
+                        <span>---</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>C(GST)</span>
+                        <span>---</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>S(GST)</span>
+                        <span>---</span>
+                      </p>
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-mb-1">
+                        <span>Discount Coupon</span>
+                        <span>{indCurrency(500)}</span>
+                      </p>
+                      <Divider className="tw-my-2" />
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
+                        <span>Total Amount</span>
+                        <span>{indCurrency(39500)}</span>
+                      </p>
+                      <Divider className="tw-my-2" />
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
+                        <span>Amount Paid</span>
+                        <span>{indCurrency(10000)}</span>
+                      </p>
+                      <Divider className="tw-my-2" />
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
+                        <span>Cancellation Charge</span>
+                        <span>{indCurrency(10000)}</span>
+                      </p>
+                      <Divider className="tw-my-2" />
+                      <p className="tw-flex tw-justify-between tw-text-secondary-color tw-font-medium tw-text-base">
+                        <span>Refund Amount</span>
+                        <span>{indCurrency(29500)}</span>
+                      </p>
+                    </div>
+                  </div>
+                </Modal>
+              </Col>
+            </Row>
           </Col>
         </Row>
       )}
@@ -661,4 +601,4 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
   );
 };
 
-export default UpcomingTour;
+export default CancelledTour;

@@ -36,6 +36,13 @@ export const PAYMENT_CARD = {
   key: "payment-details",
 }
 
+export const REFUND_CARD = {
+  icon: payment,
+  title: "Refund Details",
+  description: "Basic info, for a faster booking experience and travel",
+  key: "payment-details",
+}
+
 export const UPCOMING_TRIP_DATA = [
   {
     icon: activity,
