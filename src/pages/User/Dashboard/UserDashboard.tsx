@@ -2,6 +2,7 @@ import { Avatar, Button, Col, Divider, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 import Container from "../../../components/common/container/Container";
+import UserMyEnquiry from "../../../components/user/user-tabs/UserMyEnquiry";
 import UserMyProfile from "../../../components/user/user-tabs/UserMyProfile";
 import UserMyTrip from "../../../components/user/user-tabs/UserMyTrip";
 import { USER_DASHBOAR_TABS } from "./userData";
@@ -60,7 +61,7 @@ const UserDashboard = () => {
         <Col span={18}>
           {activeTab === 1 && <UserMyProfile />}
           {activeTab === 2 && <UserMyTrip />}
-          {activeTab === 3 && <h1>activeTab 3</h1>}
+          {activeTab === 3 && <UserMyEnquiry />}
           {activeTab === 4 && <h1>activeTab 4</h1>}
           {activeTab === 5 && <h1>activeTab 5</h1>}
         </Col>
