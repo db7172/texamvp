@@ -113,4 +113,27 @@ declare module "Models" {
     ratting: number;
     review: Array<ReviewData>;
   };
+
+  export type HotelDetailsType = {
+    stay: string;
+    hotelName: string;
+    hotelContact?: string;
+    city: string;
+    roomType: string;
+    lunch: boolean;
+    dinner: boolean;
+    checkInDate: string;
+    checkInTime?: string;
+    checkOutDate: string;
+    checkOutTime?: string;
+  }
+
+  export type CabDetailsType = {
+    date: string;
+    cabType: string;
+    pickUp: string;
+    drop: string;
+    passengers: string;
+    luggage: string;
+  }
 }

@@ -14,6 +14,7 @@ import { useState } from "react";
 import userIcon from "../../../assets/png/userIcon.png";
 import profile from "../../../assets/png/influencer/user/user1.png";
 import { formatMomentDate } from "../../../utils/utils";
+import UserCard from "../card/UserCard";
 
 const OPTIONS = ["Option 1", "Option 2", "Option 3"];
 
@@ -297,20 +298,12 @@ const UserMyProfile = () => {
           </Form>
         </div>
       ) : (
-        <div
-          className="tw-w-96 tw-p-5 tw-cursor-pointer tw-shadow-card tw-rounded-lg"
-          onClick={() => setIsEdit(true)}
-        >
-          <div>
-            <div className="tw-h-16 tw-w-16 tw-mx-auto tw-rounded-full tw-flex-center tw-bg-gray-background">
-              <img src={userIcon} alt="user icon" />
-            </div>
-          </div>
-          <p className="tw-text-xl tw-text-center tw-mt-3">User Profile</p>
-          <p className="tw-text-secondary-color tw-mt-2 tw-w-52 tw-mx-auto tw-text-center">
-            Basic info, for a faster booking experience and travel
-          </p>
-        </div>
+        <UserCard
+          handleCardClick={() => setIsEdit(true)}
+          icon={userIcon}
+          title="User Profile"
+          description="Basic info, for a faster booking experience and travel"
+        />
       )}
     </div>
   );
