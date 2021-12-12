@@ -3,6 +3,7 @@ import { Col, Row } from "antd";
 import { useState } from "react";
 import UserCard from "../card/UserCard";
 import CancelledTour from "./tour-tabs/CancelledTour";
+import CompletedTour from "./tour-tabs/CompletedTour";
 import UpcomingTour from "./tour-tabs/UpcomingTour";
 import { MY_TRIP_CARD } from "./userTabsConstants";
 
@@ -114,7 +115,12 @@ const UserMyTrip = () => {
                 isParentHeaderVisible={showHeader}
               />
             )}
-            {activeTab === "completed-tour" && <h1>completed-tour</h1>}
+            {activeTab === "completed-tour" && (
+              <CompletedTour
+                handleParentHeader={toggleHeader}
+                isParentHeaderVisible={showHeader}
+              />
+            )}
           </Col>
         )}
       </Row>
