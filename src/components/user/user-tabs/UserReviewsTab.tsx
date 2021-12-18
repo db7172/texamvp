@@ -83,7 +83,10 @@ const UserReviewsTab = () => {
             />
           </div>
         </div>
-        <div className="tw-mt-10">
+        <div
+          style={{ height: "80vh" }}
+          className="tw-mt-5 tw-overflow-y-scroll"
+        >
           {UPCOMING_TRIP_DATA.map((value, id) => (
             <TripReviewCard
               key={id}
