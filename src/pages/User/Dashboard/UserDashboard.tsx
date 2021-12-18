@@ -1,10 +1,13 @@
 import { Avatar, Button, Col, Divider, Row } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
 import UserMyEnquiry from "../../../components/user/user-tabs/UserMyEnquiry";
 import UserMyProfile from "../../../components/user/user-tabs/UserMyProfile";
 import UserMyTrip from "../../../components/user/user-tabs/UserMyTrip";
+import UserReviewsTab from "../../../components/user/user-tabs/UserReviewsTab";
+import UserSupport from "../../../components/user/user-tabs/UserSupport";
 import { USER_DASHBOAR_TABS } from "./userData";
 
 const avatarImg =
@@ -12,6 +15,12 @@ const avatarImg =
 
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    history.push("/");
+  };
 
   return (
     <Container>
@@ -56,14 +65,20 @@ const UserDashboard = () => {
                 />
               </Col>
             ))}
+            <Divider className="tw-m-0" />
+            <UserTab
+              activeId={activeTab}
+              handleActiveId={handleLogout}
+              {...USER_DASHBOAR_TABS.logOut}
+            />
           </Row>
         </Col>
         <Col span={18}>
           {activeTab === 1 && <UserMyProfile />}
           {activeTab === 2 && <UserMyTrip />}
           {activeTab === 3 && <UserMyEnquiry />}
-          {activeTab === 4 && <h1>activeTab 4</h1>}
-          {activeTab === 5 && <h1>activeTab 5</h1>}
+          {activeTab === 4 && <UserReviewsTab />}
+          {activeTab === 5 && <UserSupport />}
         </Col>
       </Row>
     </Container>

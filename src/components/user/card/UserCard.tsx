@@ -18,7 +18,7 @@ const UserCard = ({
   return (
     <div
       className={classNames(
-        "tw-w-72 tw-p-5 tw-cursor-pointer tw-rounded-lg",
+        "tw-w-72 tw-p-5 tw-cursor-pointer tw-rounded-lg tw-bg-white",
         shadow ? "tw-shadow-card" : null
       )}
       onClick={handleCardClick}

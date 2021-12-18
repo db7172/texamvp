@@ -10,11 +10,13 @@ type Props = {
   ViewAll?: boolean;
   textForViewAll?: string;
   handleViewAllClick?: () => void;
+  showUserName?: boolean;
 };
 
 const UserReview = ({
   d,
   ViewAll = false,
+  showUserName = true,
   handleViewAllClick,
   textForViewAll = "View All",
 }: Props) => {
@@ -50,20 +52,22 @@ const UserReview = ({
 
   return (
     <div>
-      <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-        <div className="tw-rounded-full tw-w-5 tw-h-5">
-          <img className="tw-w-full" src={data.profilePic} alt="profilePic" />
+      {showUserName && (
+        <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
+          <div className="tw-rounded-full tw-w-5 tw-h-5">
+            <img className="tw-w-full" src={data.profilePic} alt="profilePic" />
+          </div>
+          <p className="tw-font-medium tw-text-base">{data.name}</p>
+          {ViewAll && (
+            <p
+              className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer"
+              onClick={handleViewAllClick}
+            >
+              {textForViewAll}
+            </p>
+          )}
         </div>
-        <p className="tw-font-medium tw-text-base">{data.name}</p>
-        {ViewAll && (
-          <p
-            className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer"
-            onClick={handleViewAllClick}
-          >
-            {textForViewAll}
-          </p>
-        )}
-      </div>
+      )}
       <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
         <Rate disabled defaultValue={d.ratting} />
         <div className="tw-flex tw-gap-3">

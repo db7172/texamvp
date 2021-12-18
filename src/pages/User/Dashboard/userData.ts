@@ -10,6 +10,8 @@ import enquiryActive from "../../../assets/svg/user/enquiryActive.svg";
 import reviewActive from "../../../assets/svg/user/reviewActive.svg";
 import supportActive from "../../../assets/svg/user/supportActive.svg";
 
+import logout from "../../../assets/svg/user/logout.svg";
+
 export const USER_DASHBOAR_TABS = {
   mainTab: [
     {
@@ -46,4 +48,11 @@ export const USER_DASHBOAR_TABS = {
       id: 5,
     },
   ],
+
+  logOut : {
+    name: "Log out",
+    icon: logout,
+    iconActive: logout,
+    id: 6,
+  }
 };

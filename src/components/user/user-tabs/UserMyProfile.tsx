@@ -73,7 +73,7 @@ const UserMyProfile = () => {
         )}
       </div>
       {isEdit ? (
-        <div className="tw-shadow-card tw-p-5 tw-rounded-lg">
+        <div className="tw-shadow-card tw-bg-white tw-p-5 tw-rounded-lg">
           <div className="tw-flex tw-gap-5 tw-justify-center tw-items-center tw-w-full tw-mb-5">
             <div className="tw-w-20 tw-h-20 tw-rounded-full">
               <img src={`${profilePic}`} alt="profile" />
