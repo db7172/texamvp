@@ -1,9 +1,32 @@
-import { Button, Col, Form, Input, Modal, Rate, Row } from "antd";
+import { Button, Col, Form, Input, Modal, Rate, Row, Select } from "antd";
 import classNames from "classnames";
 import { isUndefined } from "lodash";
 import { useState } from "react";
+import { COMPLETED } from "../../influencer/dashboard-tab/data";
 import TripDetailCard from "../card/TripDetailCard";
+import TripReviewCard from "../card/TripReviewCard";
 import { UPCOMING_TRIP_DATA } from "./userTabsConstants";
+
+const SORTBY = [
+  {
+    label: "Oldest",
+    value: "oldest",
+  },
+  {
+    label: "Newest",
+    value: "newest",
+  },
+  {
+    label: "High to Low Rating",
+    value: "highToLow",
+  },
+  {
+    label: "Low to High Rating",
+    value: "lowToHigh",
+  },
+];
+
+const mockReview = COMPLETED.ACTIVITY[0].review[0];
 
 const UserReviewsTab = () => {
   const [activeButton, setActiveButton] = useState(1);
@@ -44,6 +67,42 @@ const UserReviewsTab = () => {
     );
   };
 
+  const getYourReview = () => {
+    return (
+      <div>
+        <div className="tw-flex tw-justify-between tw-items-center">
+          <p>Reviews</p>
+          <div className="tw-bg-white tw-rounded-md tw-shadow-card tw-pl-3 tw-py-1">
+            <span>Sorted By :</span>
+            <Select
+              options={SORTBY}
+              defaultValue="newest"
+              style={{ width: 160 }}
+              bordered={false}
+              placeholder="Location"
+            />
+          </div>
+        </div>
+        <div className="tw-mt-10">
+          {UPCOMING_TRIP_DATA.map((value, id) => (
+            <TripReviewCard
+              key={id}
+              id={id}
+              title={value.title}
+              description={value.duration}
+              icon={value.icon}
+              bookingDate={value.bookingDate}
+              bookingId={value.bookingId}
+              paidAmt={value.bookingAmt}
+              type={value.type}
+              comments={mockReview}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       <Row gutter={20} className="tw-items-center">
@@ -79,7 +138,7 @@ const UserReviewsTab = () => {
 
       <div className="tw-mt-5">
         {activeButton === 1 && getReviewYourProduct()}
-        {activeButton === 2 && "Your Review"}
+        {activeButton === 2 && getYourReview()}
       </div>
       <Modal
         visible={!isUndefined(activeModalId)}
