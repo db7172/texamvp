@@ -47,6 +47,7 @@ export const ROUTES = {
   INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,
   INFLUENCER_RETREAT_FORM: `/influencer/retreat/${RETREAT_TYPE}`,
   USER_DASHBOARD: "/user/dashboard",
+  PAYMENT: "/payment",
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/reterats`,
   WORKCATIONS: `/workcations`,

@@ -14,6 +14,7 @@ import ViewMoreDetailsForActivity from "../view-more/ViewMoreDetailsForActivity"
 import ViewMoreDetailsForEvent from "../view-more/ViewMoreDetailsForEvent";
 import WorkationPage from "../workation";
 import Workcations from "../workations";
+import PaymentPage from "../paymentPage/PaymentPage";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,9 @@ const AppRouter = () => {
           component={ViewMoreDetailsForEvent}
           path={ROUTES.VIEW_MORE_DETAILS_EVENT}
         />
+
+        {/* Payment page */}
+        <Route component={PaymentPage} path={ROUTES.PAYMENT} />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />
