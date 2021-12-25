@@ -9,7 +9,7 @@ import {
   Steps,
   Typography,
 } from "antd";
-import { Key, useState } from "react";
+import { useState } from "react";
 import Container from "../../components/common/container/Container";
 import { indCurrency } from "../../utils/utils";
 import icon from "../../assets/svg/bag.svg";
