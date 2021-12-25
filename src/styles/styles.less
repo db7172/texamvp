@@ -40,13 +40,32 @@ a:hover {
 
 // antd
 
+.payment-steps {
+  .ant-steps-item-finish
+    > .ant-steps-item-container
+    > .ant-steps-item-tail::after {
+    background-color: @yellow-color;
+  }
+
+  .ant-steps-item-finish
+    .ant-steps-item-icon
+    > .ant-steps-icon
+    .ant-steps-icon-dot,
+  .ant-steps-item-process
+    .ant-steps-item-icon
+    > .ant-steps-icon
+    .ant-steps-icon-dot {
+    background: @yellow-color;
+  }
+}
+
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: @yellow-color;
 }
 
 .ant-select-selector,
 .ant-modal-content {
-  border-radius: 12px !important;
+  border-radius: 8px !important;
 }
 
 .ant-modal-header {
@@ -281,6 +300,15 @@ a:hover {
   background: #fff !important;
   border: 0px;
   border-radius: 8px;
+}
+
+.single-collapse.ant-collapse {
+  border: none;
+  border-radius: 8px !important;
+}
+
+.single-collapse.ant-collapse > .ant-collapse-item:last-child {
+  border-radius: 8px !important;
 }
 
 .ant-picker-time-panel-column
