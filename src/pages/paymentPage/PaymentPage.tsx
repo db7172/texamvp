@@ -1,9 +1,20 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Collapse, Divider, Row, Steps } from "antd";
-import { useState } from "react";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Collapse,
+  Divider,
+  Row,
+  Steps,
+  Typography,
+} from "antd";
+import { Key, useState } from "react";
 import Container from "../../components/common/container/Container";
 import { indCurrency } from "../../utils/utils";
 import icon from "../../assets/svg/bag.svg";
+import gstIcon from "../../assets/svg/gst.svg";
+import timeOut from "../../assets/svg/timeOut.svg";
 import rightArrow from "../../assets/svg/right-arrow.svg";
 import passangerIcon from "../../assets/svg/passanger.svg";
 import contact from "../../assets/svg/contactBook.svg";
@@ -12,8 +23,10 @@ import { INCLUSTION_IMG } from "../view-more/data.mock";
 import {
   PassangerForm,
   PassangerContactDetails,
+  GstDetails,
 } from "../../components/payment-page/PassangerForm";
-import { uniqueId } from "lodash";
+import { lowerCase } from "lodash";
+import classNames from "classnames";
 
 // do not remove this, below is the classnames for rounded img of inclusion card
 const classNamesInclustionImg = {
@@ -82,13 +95,16 @@ const PANEL_HEADER = (
   </div>
 );
 
-const tabHeader = (title: string, icon: string) => (
+const tabHeader = (title: string, icon: string, optional?: string) => (
   <div className="tw-flex tw-gap-4 tw-items-center">
     <div className="tw-h-14 tw-w-14 tw-rounded-full tw-flex-center tw-bg-gray-background">
-      <img className="tw-w-6" src={icon} alt="icon" />
+      <img className="tw-w-7" src={icon} alt="icon" />
     </div>
 
-    <p className="tw-text-lg tw-font-medium">{title}</p>
+    <p>
+      <span className="tw-text-lg tw-font-medium">{title}</span>{" "}
+      <span className="tw-ml-2 tw-text-secondary-color">{optional}</span>
+    </p>
   </div>
 );
 
@@ -102,6 +118,20 @@ const PaymentPage = () => {
   const handlePassangerFormSubmit = (details: any, id: number) => {
     const key = `passanger${id}`;
     setPassangerFormDetails({ ...passangerFormDetails, [key]: details });
+  };
+
+  const handleContactSubmit = (details: any) => {
+    setPassangerFormDetails({
+      ...passangerFormDetails,
+      contactDetails: details,
+    });
+  };
+
+  const handleGstSubmit = (details: any) => {
+    setPassangerFormDetails({
+      ...passangerFormDetails,
+      gstDetails: details,
+    });
   };
 
   const reviewSummery = () => {
@@ -278,33 +308,147 @@ const PaymentPage = () => {
               ))}
             <Panel
               header={tabHeader("Contact details", contact)}
-              key={uniqueId("contactForm")}
+              key="contact"
               className="site-collapse-custom-panel tw-shadow-card"
             >
-              <PassangerContactDetails
-                handleFormSubmit={(details) =>
-                  setPassangerFormDetails({
-                    ...passangerFormDetails,
-                    contactDetails: details,
-                  })
-                }
-              />
+              <PassangerContactDetails handleFormSubmit={handleContactSubmit} />
+            </Panel>
+
+            <Panel
+              header={tabHeader("Add GST details", gstIcon, "( Optional )")}
+              key="gst"
+              className="site-collapse-custom-panel tw-shadow-card"
+            >
+              <GstDetails handleFormSubmit={handleGstSubmit} />
             </Panel>
           </Collapse>
         </div>
+        <Button
+          type="default"
+          className="tw-texa-button tw-mt-0"
+          onClick={() => setCurrentState(2)}
+        >
+          Continue to pay
+        </Button>
       </div>
     );
   };
+
+  const paymentSummury = () => {
+    return (
+      <div className="tw-shadow-card tw-p-5 tw-rounded-lg tw-mb-9 tw-bg-white">
+        <p className="tw-text-2xl tw-font-medium">Fare summary</p>
+        <Divider className="tw-my-5" />
+        <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
+          <p>Total amount :</p>
+          <p>{indCurrency(28000)}</p>
+        </div>
+        <div className="tw-flex tw-justify-between tw-items-center tw-text-xs tw-text-secondary-color">
+          <p>( inclusive of all taxes )</p>
+          <p>14000 x 2 Person </p>
+        </div>
+        <Divider className="tw-my-5" />
+        <p className="tw-text-base tw-font-medium">Amount breakup</p>
+        {mockAmtbrackup.map((d, i) => (
+          <div
+            key={i}
+            className="tw-flex tw-justify-between tw-items-center tw-text-xs tw-text-secondary-color"
+          >
+            <p>{d.type} :</p>
+            <p>{indCurrency(d.amt)}</p>
+          </div>
+        ))}
+        <Divider className="tw-my-5" />
+        <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
+          <p>You Pay :</p>
+          <p>{indCurrency(28000)}</p>
+        </div>
+
+        <p
+          style={{ fontSize: "10px" }}
+          className="tw-text-secondary-color tw-mt-10"
+        >
+          Yes, secure my trip. I agree to the{" "}
+          <span className="tw-text-blue-500 tw-cursor-pointer">
+            terms and condition
+          </span>{" "}
+          and{" "}
+          <span className="tw-text-blue-500 tw-cursor-pointer">
+            Good Health
+          </span>{" "}
+          terms and confirm all passengers arebetween 2 to 40 years of age
+        </p>
+      </div>
+    );
+  };
+
+  const passangerSummary = () => {
+    const details = Object.entries(passangerFormDetails).reduce(
+      (summary, current) => {
+        if (lowerCase(current[0]).includes("passanger")) {
+          return {
+            ...summary,
+            passanger: summary.passanger
+              ? [...summary.passanger, current[1]]
+              : [current[1]],
+          };
+        } else if (lowerCase(current[0]).includes("contact")) {
+          return {
+            ...summary,
+            contact: current[1],
+          };
+        }
+        return summary;
+      },
+      {} as {
+        passanger: Array<any>;
+        contact: any;
+      }
+    );
+
+    console.log(details);
+
+    return (
+      <div>
+        {details.passanger.length > 0 &&
+          details.passanger.map((d: any, i: number) => (
+            <p key={i}>
+              <span className="tw-text-secondary-color tw-pr-2">
+                {i + 1}. Name :
+              </span>
+              <span>{`${d.firstName} ${d.lastName}`}</span>
+            </p>
+          ))}
+
+        <Divider />
+
+        {details.contact && (
+          <>
+            <p>
+              <span className="tw-text-secondary-color tw-pr-2">Email :</span>
+              <span>{details.contact.email}</span>
+            </p>
+
+            <p>
+              <span className="tw-text-secondary-color tw-pr-2">Phone :</span>
+              <span>{details.contact.number}</span>
+            </p>
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <Container>
-      <Row gutter={25} className="tw-mt-10">
+      <div>
+        <span className="tw-text-blue-500 tw-flex tw-items-center tw-cursor-pointer tw-max-w-max tw-mt-10">
+          <ArrowLeftOutlined />{" "}
+          <span className="tw-ml-1 tw-underline">Back To Package</span>
+        </span>
+      </div>
+      <Row gutter={25}>
         <Col span={17}>
-          <div>
-            <span className="tw-text-blue-500 tw-flex tw-items-center tw-cursor-pointer tw-max-w-max">
-              <ArrowLeftOutlined />{" "}
-              <span className="tw-ml-1 tw-underline">Back To Package</span>
-            </span>
-          </div>
           <div className="tw-mt-8">
             <div className="payment-steps">
               <Steps current={currentState} progressDot>
@@ -322,49 +466,70 @@ const PaymentPage = () => {
 
         {/* right panel */}
         <Col span={7}>
-          <div className="tw-shadow-card tw-p-5 tw-rounded-lg tw-bg-white">
-            <p className="tw-text-2xl tw-font-medium">Fare summary</p>
-            <Divider className="tw-my-5" />
-            <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
-              <p>Total amount :</p>
-              <p>{indCurrency(28000)}</p>
-            </div>
-            <div className="tw-flex tw-justify-between tw-items-center tw-text-xs tw-text-secondary-color">
-              <p>( inclusive of all taxes )</p>
-              <p>14000 x 2 Person </p>
-            </div>
-            <Divider className="tw-my-5" />
-            <p className="tw-text-base tw-font-medium">Amount breakup</p>
-            {mockAmtbrackup.map((d, i) => (
-              <div
-                key={i}
-                className="tw-flex tw-justify-between tw-items-center tw-text-xs tw-text-secondary-color"
-              >
-                <p>{d.type} :</p>
-                <p>{indCurrency(d.amt)}</p>
+          {currentState > 1 && (
+            <div className="tw-bg-gray-background tw-rounded-lg tw-py-2 tw-px-3 tw-mt-5 tw-mb-9 tw-flex tw-items-center tw-gap-2">
+              <div>
+                <img className="tw-w-5" src={timeOut} alt="time out" />
               </div>
-            ))}
-            <Divider className="tw-my-5" />
-            <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
-              <p>You Pay :</p>
-              <p>{indCurrency(28000)}</p>
+              <p>Your session will expire in 8 mins 32 sec </p>
             </div>
+          )}
 
-            <p
-              style={{ fontSize: "10px" }}
-              className="tw-text-secondary-color tw-mt-10"
-            >
-              Yes, secure my trip. I agree to the{" "}
-              <span className="tw-text-blue-500 tw-cursor-pointer">
-                terms and condition
-              </span>{" "}
-              and{" "}
-              <span className="tw-text-blue-500 tw-cursor-pointer">
-                Good Health
-              </span>{" "}
-              terms and confirm all passengers arebetween 2 to 40 years of age
-            </p>
+          <div className={classNames({ "tw-mt-20": currentState <= 1 })}>
+            {paymentSummury()}
           </div>
+
+          {currentState > 1 && (
+            <>
+              <div className="tw-bg-white tw-shadow-card tw-rounded-lg tw-p-5 tw-mb-9">
+                <p className="tw-text-lg tw-font-medium">Package details</p>
+                <Divider />
+                <Row gutter={10}>
+                  <Col span={6}>
+                    <img
+                      className="tw-rounded-full"
+                      src={mockTripData.img}
+                      alt="poster"
+                    />
+                  </Col>
+                  <Col span={18}>
+                    <Typography.Text
+                      ellipsis
+                      className="tw-pb-1 tw-font-medium tw-text-base"
+                    >
+                      {mockTripData.title}
+                    </Typography.Text>
+                    <p className="tw-font-medium">
+                      <span className="tw-text-secondary-color tw-mr-2">
+                        Duration :
+                      </span>
+                      <span>{mockTripData.duration}</span>
+                    </p>
+                    <p className="tw-font-medium">
+                      <span className="tw-text-secondary-color tw-mr-2">
+                        From :
+                      </span>
+                      <span>{mockTripData.tripDate}</span>
+                    </p>
+                  </Col>
+                </Row>
+              </div>
+              <div className="tw-bg-white tw-shadow-card tw-rounded-lg tw-p-5">
+                <div className=" tw-flex tw-justify-between tw-items-center">
+                  <p className="tw-text-lg tw-font-medium">Contact details</p>
+                  <p
+                    className="tw-text-blue-500 tw-underline tw-cursor-pointer"
+                    onClick={() => setCurrentState(1)}
+                  >
+                    Edit
+                  </p>
+                </div>
+                <Divider />
+
+                {passangerSummary()}
+              </div>
+            </>
+          )}
         </Col>
       </Row>
     </Container>

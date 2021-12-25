@@ -1,9 +1,19 @@
-import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import {
+  Button,
+  Checkbox,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Row,
+  Select,
+} from "antd";
 import veg from "../../assets/svg/veg.svg";
 import nonveg from "../../assets/svg/non-veg.svg";
 import { formatMomentDate } from "../../utils/utils";
 import { isNil, omitBy } from "lodash";
 import { useState } from "react";
+import { WhatsAppOutlined } from "@ant-design/icons";
 
 type PassangerFormProps = {
   id: number;
@@ -61,7 +71,7 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
         ...value,
         dateOfBirth: formatMomentDate(value.dateOfBirth),
       };
-      console.log(omitBy(updatedValue, isNil));
+
       handleFormSubmit(omitBy(updatedValue, isNil), id);
       setIsDisable(true);
     }
@@ -214,14 +224,10 @@ export const PassangerContactDetails = ({
   handleFormSubmit,
 }: PassangerContactDetailsProps) => {
   const [isDisable, setIsDisable] = useState(false);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const onFinish = (value: any) => {
     if (!isDisable) {
-      const updatedValue = {
-        ...value,
-        dateOfBirth: formatMomentDate(value.dateOfBirth),
-      };
-      console.log(updatedValue);
-      handleFormSubmit(omitBy(updatedValue, isNil));
+      handleFormSubmit(omitBy(value, isNil));
       setIsDisable(true);
     }
   };
@@ -260,12 +266,29 @@ export const PassangerContactDetails = ({
           <Input
             className="tw-rounded-lg tw-w-3/4"
             placeholder="Enter Your E-mail id"
+            disabled={isDisable}
           />
         </Form.Item>
         <Form.Item
           label="Phone Number"
           className="tw-rounded-lg"
           name="number"
+          extra={
+            <p className="tw-mt-2">
+              <Checkbox
+                checked={isTermsAccepted}
+                onClick={() => setIsTermsAccepted(!isTermsAccepted)}
+                disabled={isDisable}
+              >
+                <div className="tw-flex tw-items-center tw-gap-1">
+                  <WhatsAppOutlined />
+                  <span className="tw-italic tw-text-xs">
+                    Also send trip booking details on Whatsapp
+                  </span>
+                </div>
+              </Checkbox>
+            </p>
+          }
           rules={[
             { required: true, message: "Please input your number!" },
             {
@@ -280,9 +303,11 @@ export const PassangerContactDetails = ({
             className="tw-rounded-lg tw-w-3/4"
             type="number"
             placeholder="Enter Your Phone Number"
+            disabled={isDisable}
           />
         </Form.Item>
-        <div className="tw-flex tw-justify-end">
+
+        <div className="tw-flex tw-justify-end tw-mr-7">
           {isDisable && (
             <Button
               type="default"
@@ -300,6 +325,78 @@ export const PassangerContactDetails = ({
             Submit
           </Button>
         </div>
+      </Form>
+    </div>
+  );
+};
+
+type GstDetailsProps = {
+  handleFormSubmit: (value: any) => void;
+};
+
+export const GstDetails = ({ handleFormSubmit }: GstDetailsProps) => {
+  const [isDisable, setIsDisable] = useState(false);
+
+  const onFinish = (value: any) => {
+    if (!isDisable) {
+      handleFormSubmit(omitBy(value, isNil));
+      setIsDisable(true);
+    }
+  };
+  return (
+    <div>
+      <p className="tw-text-base tw-font-medium tw-mt-3">
+        Claim credit of GST charges. Your taxes may get updated post submitting
+        your GST detils.
+      </p>
+      <Form
+        name="gstDetailsForm"
+        className="tw-mt-5"
+        onFinish={onFinish}
+        layout="vertical"
+        size="large"
+        autoComplete="off"
+      >
+        <Row gutter={25}>
+          <Col span={12}>
+            <Form.Item name="gst" label="GSTIN">
+              <Input
+                className="tw-rounded-lg"
+                placeholder="Enter Your GSTIN"
+                disabled={isDisable}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={11}>
+            <Form.Item name="gstName" label="GST Holder name">
+              <Input
+                className="tw-rounded-lg"
+                placeholder="Enter your GST holder name"
+                disabled={isDisable}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={23}>
+            <div className="tw-flex tw-justify-end">
+              {isDisable && (
+                <Button
+                  type="default"
+                  className="border-btn tw-w-28 tw-rounded-lg tw-mr-5"
+                  onClick={() => setIsDisable(false)}
+                >
+                  Edit
+                </Button>
+              )}
+              <Button
+                type="default"
+                className="tw-texa-button tw-w-28"
+                htmlType="submit"
+              >
+                Add
+              </Button>
+            </div>
+          </Col>
+        </Row>
       </Form>
     </div>
   );
