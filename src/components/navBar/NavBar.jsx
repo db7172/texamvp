@@ -7,7 +7,8 @@ import NavBarOption from "./NavBarOption";
 import {
   ACTIVITY_DATA,
   EVENT_DATA,
-  RETREAT_DESTINATION,
+  RETREAT_DATA,
+  WORKCATION_DATA,
 } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
@@ -24,7 +25,7 @@ const default_Options = {
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
-  const [showReterat, setShowReterat] = useState(false);
+  // const [showReterat, setShowReterat] = useState(false);
   const [navData, setNavData] = useState(default_Options);
   const [showModal, setShowModal] = useState(false);
   const [isLogedIn, setIsLogedIn] = useState(false);
@@ -37,7 +38,7 @@ function NavBar() {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           setIsShow(false);
-          setShowReterat(false);
+          // setShowReterat(false);
         }
       }
       // Bind the event listener
@@ -50,7 +51,7 @@ function NavBar() {
   }
 
   const handleShow = (data) => {
-    setShowReterat(false);
+    // setShowReterat(false);
     if (data.data.title === navData.data.title) {
       setIsShow(false);
       setNavData(default_Options);
@@ -60,15 +61,15 @@ function NavBar() {
     }
   };
 
-  const handleShowReterat = () => {
-    setIsShow(false);
-    setNavData(default_Options);
-    setShowReterat(!showReterat);
-  };
+  // const handleShowReterat = () => {
+  //   setIsShow(false);
+  //   setNavData(default_Options);
+  //   setShowReterat(!showReterat);
+  // };
 
   const handleLinkClick = () => {
     setIsShow(false);
-    setShowReterat(false);
+    // setShowReterat(false);
   };
   return (
     // <div ref={wrapperRef} className="tw-fixed tw-top-0 tw-right-0 tw-left-0 tw-z-9999">
@@ -92,7 +93,7 @@ function NavBar() {
                     handleShow({ data: ACTIVITY_DATA, path: "activity" })
                   }
                 >
-                  <span className="tw-mr-2">Activity Type</span>
+                  <span className="tw-mr-2">Activities</span>
                   <span className="">
                     <DownArrow />
                   </span>
@@ -105,7 +106,20 @@ function NavBar() {
                     handleShow({ data: EVENT_DATA, path: "event" })
                   }
                 >
-                  <span className="tw-mr-2">Event Type</span>
+                  <span className="tw-mr-2">Events</span>
+                  <span className="">
+                    <DownArrow />
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  className="tw-navbar-link"
+                  onClick={() =>
+                    handleShow({ data: RETREAT_DATA, path: "destination" })
+                  }
+                >
+                  <span className="tw-mr-2">Retreats</span>
                   <span className="">
                     <DownArrow />
                   </span>
@@ -114,9 +128,11 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link tw-mr-0"
-                  onClick={handleShowReterat}
+                  onClick={() =>
+                    handleShow({ data: WORKCATION_DATA, path: "destination" })
+                  }
                 >
-                  <span className="tw-mr-2">Retreat Destination</span>
+                  <span className="tw-mr-2">Workcations</span>
                   <span className="">
                     <DownArrow />
                   </span>
@@ -178,7 +194,7 @@ function NavBar() {
       <div className="tw-relative">
         <div className="tw-z-50 tw-absolute tw-w-full">
           <div className="tw-w-10/12 tw-mx-auto tw-flex tw-justify-center tw-items-center tw-bg-white tw-shadow-2xl">
-            {showReterat ? (
+            {/* {showReterat ? (
               <div className="tw-flex tw-justify-evenly tw-items-center">
                 <div className="">
                   <NavBarOption
@@ -203,12 +219,12 @@ function NavBar() {
                 </div>
               </div>
             ) : (
-              <NavBarOption
-                toggleNavBar={handleLinkClick}
-                isShow={isShow}
-                data={navData}
-              />
-            )}
+              )} */}
+            <NavBarOption
+              toggleNavBar={handleLinkClick}
+              isShow={isShow}
+              data={navData}
+            />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { Col, Row } from "antd";
+import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
@@ -9,15 +10,19 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import Title from "../../components/common/title/Title";
 import Pagination from "../../components/pagination";
 import ViewAll from "../../components/view-all/ViewAll";
+import FaqSection from "../../components/view-more-details/FaqSection";
 import {
   getDestinationPagePath,
   getRetreatPagePath,
   PAGE_SPACING,
+  RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
-import { RETREAT, VIEW_ALL_DESTINATION } from "../../constant/dummyData";
+import { RETREAT, VIEW_ALL_EVENTS } from "../../constant/dummyData";
 
 const Retreats = () => {
-  const [slashedTableName, setSlashedTableName] = useState([]);
+  const [slashedTableName, setSlashedTableName] = useState<TitleBreadCrumb[]>(
+    []
+  );
   const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
@@ -33,14 +38,14 @@ const Retreats = () => {
     ]);
   }, []);
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber: number) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
   return (
     <Container>
-      <Row className="tw-top-m" gutter={PAGE_SPACING}>
+      <Row className="tw-top-m" gutter={[0, RIGHT_SPACING_VALUE]}>
         <Col span={24}>
           <TitleBreadcrumb titleLinks={slashedTableName} />
           <div className="tw-mt-5">
@@ -48,7 +53,7 @@ const Retreats = () => {
           </div>
         </Col>
         <Col span={24}>
-          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
+          <ViewAll cards={VIEW_ALL_EVENTS} path={getDestinationPagePath} />
         </Col>
 
         <Col span={24} className="tw-flex tw-justify-center">
@@ -66,6 +71,7 @@ const Retreats = () => {
             setting={{ slidesToShow: 3 }}
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Retreat of the Month")}
+            event={undefined}
           />
         </Col>
         <Col span={24}>
@@ -75,6 +81,7 @@ const Retreats = () => {
             setting={{ slidesToShow: 3 }}
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getRetreatPagePath("Popular Retreat")}
+            event={undefined}
           />
         </Col>
         <Col span={24}>
@@ -88,10 +95,13 @@ const Retreats = () => {
           </div>
         </Col>
         <Col span={24}>
-          <BlogCarousel title="Things to do in While Retreat" />
+          <FaqSection title="retreat" />
         </Col>
         <Col span={24}>
-          <BlogCarousel title="Places to visit For Retreat" />
+          <BlogCarousel
+            title="Blogs About Retreat"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
         </Col>
       </Row>
     </Container>

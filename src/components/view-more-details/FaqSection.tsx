@@ -35,15 +35,18 @@ const FAQ = [
 type Props = {
   imgPosition?: "right" | "left";
   imgUrl?: string;
+  title?: string;
 };
 
 const { Panel } = Collapse;
 
-const FaqSection = ({ imgPosition = "right", imgUrl }: Props) => {
+const FaqSection = ({ imgPosition = "right", imgUrl, title }: Props) => {
   return (
     <Row gutter={40}>
       <Col order={imgPosition === "right" ? 1 : 2} span={14}>
-        <h4 className="tw-section-title tw-mb-5">FAQ’s of trekking</h4>
+        <h4 className="tw-section-title tw-mb-5">
+          FAQ’s of {title ? title : "trekking"}
+        </h4>
         <Collapse
           bordered={false}
           expandIconPosition="right"

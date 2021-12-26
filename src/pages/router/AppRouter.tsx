@@ -5,7 +5,7 @@ import NotFound from "../404/NotFound";
 import Activites from "../activities/index";
 import Activity from "../activity";
 import DestinationPage from "../destination";
-import Retreats from "../retreats";
+import Retreats from "../retreats/index";
 import EventPage from "../eventPage";
 import Events from "../events";
 import Home from "../Home";

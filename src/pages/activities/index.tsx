@@ -13,6 +13,7 @@ import Jumbotron from "../../components/common/jumbotron/Jumbotron";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
 import Title from "../../components/common/title/Title";
+import FaqSection from "../../components/view-more-details/FaqSection";
 import { getActivityIcon } from "../../constant/activity-icon";
 import {
   RIGHT_SPACING_VALUE,
@@ -142,15 +143,12 @@ const Activites = () => {
             </div>
           </Col>
           <Col span={24}>
-            <BlogCarousel
-              description="Lorem ipsum is the dummy text for placing any thing"
-              title="Things to do in While Activies"
-            />
+            <FaqSection title="activities" />
           </Col>
           <Col span={24}>
             <BlogCarousel
+              title="Blogs About Activities"
               description="Lorem ipsum is the dummy text for placing any thing"
-              title="Places to visit For Activities"
             />
           </Col>
         </Row>

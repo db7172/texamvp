@@ -10,6 +10,7 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import Title from "../../components/common/title/Title";
 import Pagination from "../../components/pagination";
 import ViewAll from "../../components/view-all/ViewAll";
+import FaqSection from "../../components/view-more-details/FaqSection";
 import {
   getEventPagePath,
   RIGHT_SPACING_VALUE,
@@ -91,14 +92,11 @@ const Events = () => {
           </div>
         </Col>
         <Col span={24}>
-          <BlogCarousel
-            title="Things to do in While Events"
-            description="Lorem ipsum is the dummy text for placing any thing"
-          />
+          <FaqSection title="event" />
         </Col>
         <Col span={24}>
           <BlogCarousel
-            title="Places to visit For Events"
+            title="Blogs About Events"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
         </Col>

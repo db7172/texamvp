@@ -2,20 +2,19 @@ import { Col, Row } from "antd";
 import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
-import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
-import EventCarousel from "../../components/common/carousel/EventCarousel";
+import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Container from "../../components/common/container/Container";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import Title from "../../components/common/title/Title";
 import Pagination from "../../components/pagination";
 import ViewAll from "../../components/view-all/ViewAll";
+import FaqSection from "../../components/view-more-details/FaqSection";
 import {
   getDestinationPagePath,
-  getEventPagePath,
+  getWorkationPagePath,
   RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
-import { EVENT, VIEW_ALL_EVENTS } from "../../constant/dummyData";
+import { VIEW_ALL_DESTINATION, WORKATION } from "../../constant/dummyData";
 
 const Workcations = () => {
   const [slashedTableName, setSlashedTableName] = useState<TitleBreadCrumb[]>(
@@ -51,7 +50,7 @@ const Workcations = () => {
           </div>
         </Col>
         <Col span={24}>
-          <ViewAll cards={VIEW_ALL_EVENTS} path={getDestinationPagePath} />
+          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
         </Col>
         <Col span={24} className="tw-flex tw-justify-center">
           <Pagination
@@ -62,44 +61,29 @@ const Workcations = () => {
           />
         </Col>
         <Col span={24}>
-          <EventCarousel
-            title="Events of the Month"
-            data={EVENT}
+          <WorkationCarousel
+            title="Workcation of the month"
+            data={WORKATION}
             setting={{ slidesToShow: 3 }}
-            path={getEventPagePath("Events of the Month")}
             description="Lorem ipsum is the dummy text for placing any thing"
-            event
+            path={getWorkationPagePath("Workcation of the month")}
           />
         </Col>
         <Col span={24}>
-          <EventCarousel
-            title="Popular Events"
-            data={EVENT}
+          <WorkationCarousel
+            title="Popular Workation"
+            data={WORKATION}
             setting={{ slidesToShow: 3 }}
-            path={getEventPagePath("Popular Events")}
             description="Lorem ipsum is the dummy text for placing any thing"
-            event
+            path={getWorkationPagePath("Popular Workation")}
           />
         </Col>
         <Col span={24}>
-          <Title
-            title="Events By Destionation"
-            description="Lorem ipsum is the dummy text for placing any thing"
-            path="#"
-          />
-          <div className="tw-mt-3">
-            <DestinationCarousel setting={{ slidesToShow: 4 }} />
-          </div>
+          <FaqSection title="workation" />
         </Col>
         <Col span={24}>
           <BlogCarousel
-            title="Things to do in While Events"
-            description="Lorem ipsum is the dummy text for placing any thing"
-          />
-        </Col>
-        <Col span={24}>
-          <BlogCarousel
-            title="Places to visit For Events"
+            title="Blogs About Workcation"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
         </Col>
