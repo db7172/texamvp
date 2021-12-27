@@ -110,7 +110,7 @@ function Home() {
       </div>
       <Container>
         <div>
-          <div className="tw-mt-5 tw-relative" style={{zIndex: 2}}>
+          <div className="tw-mt-5 tw-relative" style={{ zIndex: 2 }}>
             <div
               className={`${!(activeTab === 3) && "tw-max-w-4xl"} tw-mx-auto`}
             >
@@ -250,7 +250,7 @@ function Home() {
               event
             />
           </div>
-          <div className="tw-mt-20">
+          {/* <div className="tw-mt-20">
             <EventCarousel
               title="Worshop"
               data={EVENT}
@@ -259,7 +259,7 @@ function Home() {
               description="Lorem ipsum is the dummy text for placing any thing"
               event
             />
-          </div>
+          </div> */}
           <div className="tw-mt-20">
             <EventCarousel
               title="Music"
@@ -281,7 +281,7 @@ function Home() {
           </div>
           <div className="tw-mt-20">
             <WorkationCarousel
-              title="Popular Workation"
+              title="Popular Workcation"
               data={WORKATION}
               setting={{ slidesToShow: 3 }}
               description="Lorem ipsum is the dummy text for placing any thing"
