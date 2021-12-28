@@ -14,7 +14,6 @@ import FaqSection from "../../components/view-more-details/FaqSection";
 import {
   getDestinationPagePath,
   getRetreatPagePath,
-  PAGE_SPACING,
   RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
 import { RETREAT, VIEW_ALL_EVENTS } from "../../constant/dummyData";

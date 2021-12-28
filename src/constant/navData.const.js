@@ -56,7 +56,7 @@ export const workcationOptions = [
   "Kerala",
 ];
 
-export const reteratOptions = [
+export const destinationOptions = [
   "Kashmir",
   "Himachal",
   "Uttarakhand",
@@ -73,6 +73,23 @@ export const reteratOptions = [
   "Kerala",
 ];
 
+export const retreatOptions = [
+  "Yoga",
+  "Meditaion",
+  "Spiritual Balnce",
+  "Yoga",
+  "Meditaion",
+  "Spiritual Balnce",
+  "Yoga",
+  "Meditaion",
+  "Spiritual Balnce",
+  "Yoga",
+  "Meditaion",
+  "Spiritual Balnce",
+  "Yoga",
+  "Meditaion",
+];
+
 export const ACTIVITY_DATA = {
   title: "Activity Type",
   options: chunkArray(activityOptions, 5),
@@ -84,8 +101,8 @@ export const EVENT_DATA = {
 };
 
 export const RETREAT_DATA = {
-  title: "Reterat",
-  options: chunkArray(reteratOptions, 5),
+  title: "Retreat",
+  options: chunkArray(retreatOptions, 5),
 };
 
 export const WORKCATION_DATA = {
@@ -98,6 +115,6 @@ export const RETREAT_DESTINATION = {
     title: "Workcation",
     options: chunkArray(workcationOptions, 5),
   },
-  reterat: { title: "Reterat", options: chunkArray(reteratOptions, 5) },
+  reterat: { title: "Reterat", options: chunkArray(destinationOptions, 5) },
   multidata: true,
 };

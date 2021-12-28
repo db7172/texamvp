@@ -17,6 +17,11 @@ import HotelStarFilter from "../../components/form-component/filters/HotelStar";
 import RattingFilter from "../../components/form-component/filters/RattingFilter";
 import { Col, Row } from "antd";
 import Sticky from "react-stickynode";
+import Title from "../../components/common/title/Title";
+import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
+import FaqSection from "../../components/view-more-details/FaqSection";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 
 // dummy data
 const MIN = 10000,
@@ -258,6 +263,35 @@ const WorkationPage = () => {
         </Col>
       </Row>
       <div id="row-bottom" />
+      <Row className="tw-mt-20" gutter={[40, 80]}>
+        <Col span={24}>
+          <Title
+            title="Popular Destination"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-3">
+            <DestinationCarousel setting={{ slidesToShow: 4 }} />
+          </div>
+        </Col>
+        <Col span={24}>
+          <FaqSection title="workation" />
+        </Col>
+        <Col span={24}>
+          <Title
+            title="Visitors Reviews"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-10">
+            <ViewMoreTestimonial slidesToShow={3} arrows />
+          </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title="Binge worthy blogs by members"
+          />
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };

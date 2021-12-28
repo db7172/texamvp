@@ -15,6 +15,12 @@ import RangeSelector from "../../components/form-component/filters/RangeSelector
 import { formatActiveButton } from "../../utils/utils";
 import { Col, Row } from "antd";
 import Sticky from "react-stickynode";
+import Title from "../../components/common/title/Title";
+import FaqSection from "../../components/view-more-details/FaqSection";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import EventCarousel from "../../components/common/carousel/EventCarousel";
+import { getEventPagePath } from "../../constant/comman.const";
 
 // dummy data
 
@@ -246,6 +252,36 @@ const EventPage = () => {
         </Col>
       </Row>
       <div id="row-bottom" />
+      <Row className="tw-mt-20" gutter={[40, 80]}>
+        <Col span={24}>
+          <EventCarousel
+            title="Popular Events"
+            data={EVENT}
+            setting={{ slidesToShow: 3 }}
+            path={getEventPagePath("Popular Events")}
+            description="Lorem ipsum is the dummy text for placing any thing"
+            event
+          />
+        </Col>
+        <Col span={24}>
+          <FaqSection title="events" />
+        </Col>
+        <Col span={24}>
+          <Title
+            title="Visitors Reviews"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-10">
+            <ViewMoreTestimonial slidesToShow={3} arrows />
+          </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title="Binge worthy blogs by members"
+          />
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };

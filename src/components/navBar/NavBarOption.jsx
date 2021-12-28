@@ -1,5 +1,4 @@
-import { lowerCase } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 function NavBarOption({ isShow = false, data, toggleNavBar }) {
@@ -11,8 +10,12 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
 
   useEffect(() => {
     switch (path) {
-      case "destination":
-        setViewAllPath(lowerCase(title + "s"));
+      case "retreat":
+        setViewAllPath("retreats");
+        break;
+
+      case "workcation":
+        setViewAllPath("workcations");
         break;
 
       case "event":

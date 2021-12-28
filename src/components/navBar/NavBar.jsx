@@ -116,7 +116,7 @@ function NavBar() {
                 <button
                   className="tw-navbar-link"
                   onClick={() =>
-                    handleShow({ data: RETREAT_DATA, path: "destination" })
+                    handleShow({ data: RETREAT_DATA, path: "retreat" })
                   }
                 >
                   <span className="tw-mr-2">Retreats</span>
@@ -129,7 +129,7 @@ function NavBar() {
                 <button
                   className="tw-navbar-link tw-mr-0"
                   onClick={() =>
-                    handleShow({ data: WORKCATION_DATA, path: "destination" })
+                    handleShow({ data: WORKCATION_DATA, path: "workcation" })
                   }
                 >
                   <span className="tw-mr-2">Workcations</span>

@@ -260,10 +260,10 @@ const Activity = () => {
         </Col>
       </Row>
       <div id="row-bottom" />
-      <Row className="tw-mt-20" gutter={[40, 80]}>
+      <Row className="tw-mt-20" gutter={[40, 60]}>
         <Col span={24}>
           <Title
-            title="Activity by destination"
+            title="Popular Destination"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
           <div className="tw-mt-3">
@@ -271,16 +271,32 @@ const Activity = () => {
           </div>
         </Col>
         <Col span={24}>
-          <FaqSection title="activities" />
+          <FaqSection title={activityType ? activityType : "activities"} />
         </Col>
         <Col span={24}>
           <Title
-            title="Visitors Reviews"
+            title="Traveller Reviews"
             description="Lorem ipsum is the dummy text for placing any thing"
           />
           <div className="tw-mt-10">
             <ViewMoreTestimonial slidesToShow={3} arrows />
           </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title={`Things to do while ${
+              activityType ? activityType : "activities"
+            }`}
+          />
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title={`Places to visit while ${
+              activityType ? activityType : "activities"
+            }`}
+          />
         </Col>
         <Col span={24}>
           <BlogCarousel
