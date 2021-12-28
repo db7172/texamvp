@@ -179,7 +179,7 @@ const RetreatPage = () => {
               </div>
               <div className="tw-py-7">
                 <ButtonGroup
-                  title="Activity Level"
+                  title="Retreat Type"
                   option={types}
                   handleClick={handleTypesClick}
                 />

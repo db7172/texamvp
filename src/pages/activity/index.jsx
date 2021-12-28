@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { capitalize, isEmpty, startCase, uniq } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ActivityCard from "../../components/activity-page/ActivityCard";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
@@ -33,6 +33,23 @@ const ACTIVITY_LEVEL = [
   "Difficult",
   "Pro",
 ];
+const DESTINATION_LEVEL = [
+  "Baku",
+  "Bhutan",
+  "Paris",
+  "Toronto",
+  "Rome",
+  "Tokyo",
+  "Cape Town",
+];
+const FROM_CITY = [
+  "From Lucknow",
+  "From Thane",
+  "From Pune",
+  "From Banglore",
+  "From Kolkata",
+  "From Amritsar",
+];
 const CATEGORIES = [
   "Adventure",
   "Trekking",
@@ -54,7 +71,9 @@ const Activity = () => {
   const [activePage, setActivePage] = useState(1);
   const [activeDuration, setActiveDuration] = useState({});
   const [activeLevel, setActiveLevel] = useState({});
+  const [destinationfilter, setDestinationfilter] = useState({});
   const [activeCategories, setActiveCategorie] = useState({});
+  const [fromCityFilter, setFromCityFilter] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
@@ -101,15 +120,21 @@ const Activity = () => {
 
     const unq = uniq(option);
     const unqLevel = uniq(ACTIVITY_LEVEL);
+    const unqDestination = uniq(DESTINATION_LEVEL);
     const unqCategories = uniq(CATEGORIES);
+    const unqFromCity = uniq(FROM_CITY);
 
     setActiveDuration(formatActiveButton(unq));
     setActiveLevel(formatActiveButton(unqLevel));
+    setDestinationfilter(formatActiveButton(unqDestination));
+    setFromCityFilter(formatActiveButton(unqFromCity));
     setActiveCategorie(formatActiveButton(unqCategories));
 
     setResetValue({
       ...resetValue,
+      fromCity: formatActiveButton(unqFromCity),
       duration: formatActiveButton(unq),
+      destination: formatActiveButton(unqDestination),
       priceRange: INITIAL_RANGE,
       level: formatActiveButton(unqLevel),
       categories: formatActiveButton(unqCategories),
@@ -131,6 +156,16 @@ const Activity = () => {
     setActiveLevel((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
+  const handleDestinationClick = (e) => {
+    const name = e.target.name;
+    setDestinationfilter((pre) => ({ ...pre, [name]: !pre[name] }));
+  };
+
+  const handleFromCityClick = (e) => {
+    const name = e.target.name;
+    setFromCityFilter((pre) => ({ ...pre, [name]: !pre[name] }));
+  };
+
   const handleCategoriesClick = (e) => {
     const name = e.target.name;
     setActiveCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
@@ -143,6 +178,8 @@ const Activity = () => {
   const handleReset = () => {
     setActiveDuration(resetValue.duration);
     setActiveLevel(resetValue.level);
+    setDestinationfilter(resetValue.destination);
+    setFromCityFilter(resetValue.fromCity);
     setActiveCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
   };
@@ -168,7 +205,7 @@ const Activity = () => {
         {/* filter part */}
         <Col span={7}>
           <Sticky top={0} className="tw-relative" bottomBoundary="#row-bottom">
-            <div className="tw-px-5 tw-shadow-card">
+            <div className="tw-px-5 tw-shadow-card tw-rounded-lg">
               <div className="tw-flex tw-justify-between tw-py-7 tw-border-b">
                 <p className="tw-filter-title tw-font-medium">Filters</p>
                 <button
@@ -196,16 +233,30 @@ const Activity = () => {
               </div>
               <div className="tw-py-7 tw-border-b">
                 <ButtonGroup
+                  title="Destination"
+                  option={destinationfilter}
+                  handleClick={handleDestinationClick}
+                />
+              </div>
+              <div className="tw-py-7 tw-border-b">
+                <ButtonGroup
                   title="Activity Level"
                   option={activeLevel}
                   handleClick={handleLevelClick}
                 />
               </div>
-              <div className="tw-py-7">
+              <div className="tw-py-7 tw-border-b">
                 <ButtonGroup
                   title="Categories"
                   option={activeCategories}
                   handleClick={handleCategoriesClick}
+                />
+              </div>
+              <div className="tw-py-7">
+                <ButtonGroup
+                  title="From City"
+                  option={fromCityFilter}
+                  handleClick={handleFromCityClick}
                 />
               </div>
             </div>

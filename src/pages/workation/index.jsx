@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { capitalize, isEmpty, startCase } from "lodash";
-import React, { useEffect, useState } from "react";
+import { capitalize, isEmpty, startCase, uniq } from "lodash";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
@@ -22,6 +22,7 @@ import DestinationCarousel from "../../components/common/carousel/DestinationCar
 import FaqSection from "../../components/view-more-details/FaqSection";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 
 // dummy data
 const MIN = 10000,
@@ -36,6 +37,15 @@ const ACCOMODATION = [
   "Test 1",
   "Test 2",
   "Test 3",
+];
+const DESTINATION_FILTER_TYPES = [
+  "Baku",
+  "Bhutan",
+  "Paris",
+  "Toronto",
+  "Rome",
+  "Tokyo",
+  "Cape Town",
 ];
 
 const hotel = ["1", "2", "3", "4", "5"];
@@ -61,6 +71,7 @@ const WorkationPage = () => {
   const [amenities, setAmenities] = useState("");
   const [hotelRatting, setHotelRatting] = useState({});
   const [reviewRatting, setReviewRatting] = useState("");
+  const [destinationFilter, setDestinationFilter] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
 
@@ -97,10 +108,14 @@ const WorkationPage = () => {
       ]);
     }
 
+    const unqDestination = uniq(DESTINATION_FILTER_TYPES);
+
     setHotelRatting(formatActiveButton(hotel));
+    setDestinationFilter(formatActiveButton(unqDestination));
 
     setResetValue({
       ...resetValue,
+      destination: formatActiveButton(unqDestination),
       priceRange: INITIAL_RANGE,
       accomodation: "",
       amenities: "",
@@ -116,6 +131,7 @@ const WorkationPage = () => {
 
   const handleReset = () => {
     setPriceRange(resetValue.priceRange);
+    setDestinationFilter(resetValue.destination);
     setAccomodation(resetValue.accomodation);
     setAmenities(resetValue.amenities);
     setHotelRatting(resetValue.ratting);
@@ -124,6 +140,11 @@ const WorkationPage = () => {
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
+  };
+
+  const handleDestinationClick = (e) => {
+    const name = e.target.name;
+    setDestinationFilter((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleAccomodationChange = (e) => {
@@ -209,6 +230,13 @@ const WorkationPage = () => {
                   value={AMENITIES}
                   selected={amenities}
                   onChange={handleAmenitiesChange}
+                />
+              </div>
+              <div className="tw-py-7">
+                <ButtonGroup
+                  title="Destination"
+                  option={destinationFilter}
+                  handleClick={handleDestinationClick}
                 />
               </div>
             </div>

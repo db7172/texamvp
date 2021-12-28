@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { capitalize, isEmpty, startCase, uniq } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
@@ -28,14 +28,14 @@ const option = ["All", "Toaday", "Tommorrow", "Weekend"];
 const MIN = 10000,
   MAX = 80000;
 const INITIAL_RANGE = [MIN, MAX];
-const EVENT_TYPES = [
-  "Music",
-  "Food",
-  "Comedy",
-  "Dance",
-  "Workshop",
-  "Courses",
-  "Games",
+const DESTINATION_FILTER_TYPES = [
+  "Baku",
+  "Bhutan",
+  "Paris",
+  "Toronto",
+  "Rome",
+  "Tokyo",
+  "Cape Town",
 ];
 const CATEGORIES = ["Online", "Offline"];
 
@@ -46,7 +46,7 @@ const EventPage = () => {
   const [slashedTableName, setSlashedTableName] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [eventDuration, setEventDuration] = useState({});
-  const [eventTypes, setEventTypes] = useState({});
+  const [destinationFilter, setDestinationFilter] = useState({});
   const [eventCategories, setEventCategorie] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
@@ -93,17 +93,17 @@ const EventPage = () => {
     }
 
     const unq = uniq(option);
-    const unqTypes = uniq(EVENT_TYPES);
+    const unqDestination = uniq(DESTINATION_FILTER_TYPES);
     const unqCategories = uniq(CATEGORIES);
 
     setEventDuration(formatActiveButton(unq));
-    setEventTypes(formatActiveButton(unqTypes));
+    setDestinationFilter(formatActiveButton(unqDestination));
     setEventCategorie(formatActiveButton(unqCategories));
     setResetValue({
       ...resetValue,
       duration: formatActiveButton(unq),
       priceRange: INITIAL_RANGE,
-      types: formatActiveButton(unqTypes),
+      destination: formatActiveButton(unqDestination),
       categories: formatActiveButton(unqCategories),
     });
   }, [DESTINATION_NAME, EVENT_TYPE]);
@@ -115,7 +115,7 @@ const EventPage = () => {
 
   const handleReset = () => {
     setEventDuration(resetValue.duration);
-    setEventTypes(resetValue.types);
+    setDestinationFilter(resetValue.destination);
     setEventCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
   };
@@ -125,9 +125,9 @@ const EventPage = () => {
     setEventDuration((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
-  const handleTypesClick = (e) => {
+  const handleDestinationClick = (e) => {
     const name = e.target.name;
-    setEventTypes((pre) => ({ ...pre, [name]: !pre[name] }));
+    setDestinationFilter((pre) => ({ ...pre, [name]: !pre[name] }));
   };
 
   const handleCategoriesClick = (e) => {
@@ -188,16 +188,16 @@ const EventPage = () => {
               </div>
               <div className="tw-py-7 tw-border-b">
                 <ButtonGroup
-                  title="Categories"
-                  option={eventCategories}
-                  handleClick={handleCategoriesClick}
+                  title="Destination"
+                  option={destinationFilter}
+                  handleClick={handleDestinationClick}
                 />
               </div>
               <div className="tw-py-7">
                 <ButtonGroup
-                  title="Activity Level"
-                  option={eventTypes}
-                  handleClick={handleTypesClick}
+                  title="Categories"
+                  option={eventCategories}
+                  handleClick={handleCategoriesClick}
                 />
               </div>
             </div>
