@@ -264,7 +264,7 @@ const EventPage = () => {
           />
         </Col>
         <Col span={24}>
-          <FaqSection title="events" />
+          <FaqSection title={eventType ? eventType : "events"} />
         </Col>
         <Col span={24}>
           <Title

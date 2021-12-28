@@ -274,7 +274,9 @@ const WorkationPage = () => {
           </div>
         </Col>
         <Col span={24}>
-          <FaqSection title="workation" />
+          <FaqSection
+            title={`${WORKATION_TYPE ? WORKATION_TYPE : ""}  workations`}
+          />
         </Col>
         <Col span={24}>
           <Title
@@ -284,6 +286,22 @@ const WorkationPage = () => {
           <div className="tw-mt-10">
             <ViewMoreTestimonial slidesToShow={3} arrows />
           </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title={`Things to do in ${
+              WORKATION_TYPE ? WORKATION_TYPE : "workcation"
+            }`}
+          />
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title={`Place to Visit in ${
+              WORKATION_TYPE ? WORKATION_TYPE : "workcation"
+            }`}
+          />
         </Col>
         <Col span={24}>
           <BlogCarousel

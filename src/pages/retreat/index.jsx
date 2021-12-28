@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { capitalize, isEmpty, startCase, uniq } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
@@ -15,6 +15,12 @@ import { formatActiveButton } from "../../utils/utils";
 import RetreatPageCard from "../../components/retreat-page/RetreatPageCard";
 import { Col, Row } from "antd";
 import Sticky from "react-stickynode";
+import EventCarousel from "../../components/common/carousel/EventCarousel";
+import { getRetreatPagePath } from "../../constant/comman.const";
+import FaqSection from "../../components/view-more-details/FaqSection";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import Title from "../../components/common/title/Title";
 
 // dummy data
 
@@ -230,6 +236,35 @@ const RetreatPage = () => {
         </Col>
       </Row>
       <div id="row-bottom" />
+      <Row className="tw-mt-20" gutter={[40, 80]}>
+        <Col span={24}>
+          <EventCarousel
+            title="Popular Retreat"
+            data={RETREAT}
+            setting={{ slidesToShow: 3 }}
+            path={getRetreatPagePath("Popular Retreat")}
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+        </Col>
+        <Col span={24}>
+          <FaqSection title={retreatType ? retreatType : "retreat"} />
+        </Col>
+        <Col span={24}>
+          <Title
+            title="Visitors Reviews"
+            description="Lorem ipsum is the dummy text for placing any thing"
+          />
+          <div className="tw-mt-10">
+            <ViewMoreTestimonial slidesToShow={3} arrows />
+          </div>
+        </Col>
+        <Col span={24}>
+          <BlogCarousel
+            description="Lorem ipsum is the dummy text for placing any thing"
+            title="Binge worthy blogs by members"
+          />
+        </Col>
+      </Row>
     </ExploreMoreWrapper>
   );
 };
