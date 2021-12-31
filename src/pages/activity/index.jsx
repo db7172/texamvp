@@ -13,13 +13,14 @@ import Pagination from "../../components/pagination";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
-import { Col, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import Sticky from "react-stickynode";
 import Title from "../../components/common/title/Title";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import FaqSection from "../../components/view-more-details/FaqSection";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
+import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 
 const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
 const MIN = 10000,
@@ -76,6 +77,8 @@ const Activity = () => {
   const [fromCityFilter, setFromCityFilter] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
+  const [showRequestCallbackModal, setShowRequestCallbackModal] =
+    useState(false);
 
   const coverTitle = `${activityType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -141,6 +144,14 @@ const Activity = () => {
     });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
 
+  const handleShowCallbackModalCancel = () => {
+    setShowRequestCallbackModal(false);
+  };
+
+  const handleShowCallbackModalOpen = () => {
+    setShowRequestCallbackModal(true);
+  };
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
@@ -173,6 +184,11 @@ const Activity = () => {
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
+  };
+
+  const handleRequestCallbackSubmit = (value) => {
+    console.log(value);
+    handleShowCallbackModalCancel();
   };
 
   const handleReset = () => {
@@ -264,7 +280,7 @@ const Activity = () => {
         </Col>
         {/* Card part */}
         <Col span={17}>
-          <div className="tw-flex tw-justify-between tw-items-center">
+          <div>
             <h1 className="tw-section-title">
               {capitalize(
                 `${activityType} packages ${
@@ -272,8 +288,11 @@ const Activity = () => {
                 }`
               )}
             </h1>
-            <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
+            <div className="tw-flex tw-justify-end tw-mt-2">
+              <div
+                className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center tw-cursor-pointer"
+                onClick={handleShowCallbackModalOpen}
+              >
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
@@ -290,10 +309,19 @@ const Activity = () => {
                   <option value="highToLow">Duration - High to Low </option>
                 </select>
               </div>
+              <Modal
+                visible={showRequestCallbackModal}
+                footer={null}
+                onCancel={handleShowCallbackModalCancel}
+              >
+                <RequestCallbackModal
+                  handleSubmit={handleRequestCallbackSubmit}
+                />
+              </Modal>
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-14">
+          <div className="tw-mt-5">
             <div>
               {POPULAR_ACTIVITY.map((d, i) => (
                 <ActivityCard {...d} key={i} />

@@ -15,7 +15,7 @@ import WorkationPageCard from "../../components/workation-page/WorkationPageCard
 import RadioButton from "../../components/form-component/filters/RadioButton";
 import HotelStarFilter from "../../components/form-component/filters/HotelStar";
 import RattingFilter from "../../components/form-component/filters/RattingFilter";
-import { Col, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import Sticky from "react-stickynode";
 import Title from "../../components/common/title/Title";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
@@ -23,6 +23,7 @@ import FaqSection from "../../components/view-more-details/FaqSection";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
+import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 
 // dummy data
 const MIN = 10000,
@@ -74,6 +75,8 @@ const WorkationPage = () => {
   const [destinationFilter, setDestinationFilter] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
+  const [showRequestCallbackModal, setShowRequestCallbackModal] =
+    useState(false);
 
   const coverTitle = `${workationType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -123,6 +126,19 @@ const WorkationPage = () => {
       ratting: formatActiveButton(hotel),
     });
   }, [DESTINATION_NAME, WORKATION_TYPE]);
+
+  const handleShowCallbackModalCancel = () => {
+    setShowRequestCallbackModal(false);
+  };
+
+  const handleShowCallbackModalOpen = () => {
+    setShowRequestCallbackModal(true);
+  };
+
+  const handleRequestCallbackSubmit = (value) => {
+    console.log(value);
+    handleShowCallbackModalCancel();
+  };
 
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
@@ -244,16 +260,19 @@ const WorkationPage = () => {
         </Col>
         {/* Card part */}
         <Col span={17}>
-          <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-section-title tw-ml-3 tw-w-1/3">
+          <div className="">
+            <h1 className="tw-section-title">
               {capitalize(
                 `${workationType} packages ${
                   destinationName ? `in ${destinationName}` : ""
                 }`
               )}
             </h1>
-            <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
+            <div className="tw-flex tw-justify-end tw-mt-2">
+              <div
+                className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center tw-cursor-pointer"
+                onClick={handleShowCallbackModalOpen}
+              >
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
@@ -270,10 +289,19 @@ const WorkationPage = () => {
                   <option value="highToLow">Duration - High to Low </option>
                 </select>
               </div>
+              <Modal
+                visible={showRequestCallbackModal}
+                footer={null}
+                onCancel={handleShowCallbackModalCancel}
+              >
+                <RequestCallbackModal
+                  handleSubmit={handleRequestCallbackSubmit}
+                />
+              </Modal>
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-14">
+          <div className="tw-mt-5">
             <div>
               {WORKATION.map((d, i) => (
                 <WorkationPageCard {...d} key={i} />

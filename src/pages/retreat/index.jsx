@@ -13,7 +13,7 @@ import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
 import RetreatPageCard from "../../components/retreat-page/RetreatPageCard";
-import { Col, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import Sticky from "react-stickynode";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import { getRetreatPagePath } from "../../constant/comman.const";
@@ -21,6 +21,7 @@ import FaqSection from "../../components/view-more-details/FaqSection";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import Title from "../../components/common/title/Title";
+import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 
 // dummy data
 
@@ -42,6 +43,8 @@ const RetreatPage = () => {
   const [categories, setCategorie] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
+  const [showRequestCallbackModal, setShowRequestCallbackModal] =
+    useState(false);
 
   const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -97,6 +100,14 @@ const RetreatPage = () => {
     setActivePage(pageNumber);
   };
 
+  const handleShowCallbackModalCancel = () => {
+    setShowRequestCallbackModal(false);
+  };
+
+  const handleShowCallbackModalOpen = () => {
+    setShowRequestCallbackModal(true);
+  };
+
   const handleReset = () => {
     setDuration(resetValue.duration);
     setTypes(resetValue.types);
@@ -121,6 +132,11 @@ const RetreatPage = () => {
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
+  };
+
+  const handleRequestCallbackSubmit = (value) => {
+    console.log(value);
+    handleShowCallbackModalCancel();
   };
 
   return (
@@ -189,16 +205,19 @@ const RetreatPage = () => {
         </Col>
         {/* Card part */}
         <Col span={17}>
-          <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-section-title tw-ml-3 tw-w-1/3">
+          <div className="">
+            <h1 className="tw-section-title">
               {capitalize(
                 `${retreatType} packages ${
                   destinationName ? `in ${destinationName}` : ""
                 }`
               )}
             </h1>
-            <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
+            <div className="tw-flex tw-justify-end tw-mt-2">
+              <div
+                className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center tw-cursor-pointer"
+                onClick={handleShowCallbackModalOpen}
+              >
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
@@ -215,10 +234,19 @@ const RetreatPage = () => {
                   <option value="highToLow">Duration - High to Low </option>
                 </select>
               </div>
+              <Modal
+                visible={showRequestCallbackModal}
+                footer={null}
+                onCancel={handleShowCallbackModalCancel}
+              >
+                <RequestCallbackModal
+                  handleSubmit={handleRequestCallbackSubmit}
+                />
+              </Modal>
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-14">
+          <div className="tw-mt-5">
             <div>
               {RETREAT.map((d, i) => (
                 <RetreatPageCard {...d} key={i} />

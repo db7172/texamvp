@@ -13,7 +13,7 @@ import EventPageCard from "../../components/event-page/EventPageCard";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
-import { Col, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import Sticky from "react-stickynode";
 import Title from "../../components/common/title/Title";
 import FaqSection from "../../components/view-more-details/FaqSection";
@@ -21,6 +21,7 @@ import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTest
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import { getEventPagePath } from "../../constant/comman.const";
+import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 
 // dummy data
 
@@ -50,6 +51,8 @@ const EventPage = () => {
   const [eventCategories, setEventCategorie] = useState({});
   const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
   const [resetValue, setResetValue] = useState({});
+  const [showRequestCallbackModal, setShowRequestCallbackModal] =
+    useState(false);
 
   const coverTitle = `${eventType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -108,6 +111,14 @@ const EventPage = () => {
     });
   }, [DESTINATION_NAME, EVENT_TYPE]);
 
+  const handleShowCallbackModalCancel = () => {
+    setShowRequestCallbackModal(false);
+  };
+
+  const handleShowCallbackModalOpen = () => {
+    setShowRequestCallbackModal(true);
+  };
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
@@ -137,6 +148,11 @@ const EventPage = () => {
 
   const handleRangeChange = (e) => {
     setPriceRange(e);
+  };
+
+  const handleRequestCallbackSubmit = (value) => {
+    console.log(value);
+    handleShowCallbackModalCancel();
   };
 
   return (
@@ -205,16 +221,19 @@ const EventPage = () => {
         </Col>
         {/* Card part */}
         <Col span={17}>
-          <div className="tw-flex tw-justify-between tw-items-center">
-            <h1 className="tw-section-title tw-ml-3">
+          <div className="">
+            <h1 className="tw-section-title">
               {capitalize(
                 `${eventType} packages ${
                   destinationName ? `in ${destinationName}` : ""
                 }`
               )}
             </h1>
-            <div className="tw-flex">
-              <div className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center">
+            <div className="tw-flex tw-justify-end tw-mt-2">
+              <div
+                className="tw-flex tw-rounded-md tw-mr-6 tw-p-3 tw-shadow-card tw-items-center tw-cursor-pointer"
+                onClick={handleShowCallbackModalOpen}
+              >
                 <span className="tw-mr-2">
                   <Telephone />
                 </span>
@@ -231,10 +250,19 @@ const EventPage = () => {
                   <option value="highToLow">Duration - High to Low </option>
                 </select>
               </div>
+              <Modal
+                visible={showRequestCallbackModal}
+                footer={null}
+                onCancel={handleShowCallbackModalCancel}
+              >
+                <RequestCallbackModal
+                  handleSubmit={handleRequestCallbackSubmit}
+                />
+              </Modal>
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-14">
+          <div className="tw-mt-5">
             <div>
               {EVENT.map((d, i) => (
                 <EventPageCard {...d} key={i} />
