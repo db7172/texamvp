@@ -25,6 +25,15 @@ declare module "Models" {
     type: string;
   };
 
+  export type RetreatObjectTypes = {
+    name: string;
+    duration: string;
+    type: string;
+    price: number;
+    imgUrl: string;
+    language: string;
+  };
+
   export type Package = {
     type: string;
     price: number;
@@ -126,7 +135,7 @@ declare module "Models" {
     checkInTime?: string;
     checkOutDate: string;
     checkOutTime?: string;
-  }
+  };
 
   export type CabDetailsType = {
     date: string;
@@ -135,5 +144,5 @@ declare module "Models" {
     drop: string;
     passengers: string;
     luggage: string;
-  }
+  };
 }

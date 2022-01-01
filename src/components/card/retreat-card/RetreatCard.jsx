@@ -1,10 +1,16 @@
 import { Col, Row } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 import time from "../../../assets/svg/time.svg";
+import { getViewMoreDetailsForRetreatPath } from "../../../constant/comman.const";
 import { indCurrency } from "../../../utils/utils";
 import GreenBadge from "../../green-badge/GreenBadge";
 
 const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
+  const routingDetails = {
+    pathname: getViewMoreDetailsForRetreatPath(type, name),
+    state: { name, duration, type, price, imgUrl, language },
+  };
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
@@ -43,9 +49,11 @@ const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
               </span>
             </p>
           </div>
-          <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-            View Details
-          </button>
+          <Link to={routingDetails}>
+            <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

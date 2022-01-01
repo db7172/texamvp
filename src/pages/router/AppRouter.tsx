@@ -15,6 +15,7 @@ import ViewMoreDetailsForEvent from "../view-more/ViewMoreDetailsForEvent";
 import WorkationPage from "../workation";
 import Workcations from "../workations";
 import PaymentPage from "../paymentPage/PaymentPage";
+import ViewMoreDetailsForRetreat from "../view-more/ViewMoreDetailsForRetreat";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,11 @@ const AppRouter = () => {
         <Route
           component={ViewMoreDetailsForEvent}
           path={ROUTES.VIEW_MORE_DETAILS_EVENT}
+        />
+
+        <Route
+          component={ViewMoreDetailsForRetreat}
+          path={ROUTES.VIEW_MORE_DETAILS_RETREAT}
         />
 
         {/* Payment page */}

@@ -191,7 +191,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Online",
+    type: "Yoga",
     price: 16999,
     imgUrl: retreat,
     language: "english",
@@ -199,7 +199,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Online",
+    type: "Meditaion",
     price: 16999,
     imgUrl: retreat,
     language: "english",
@@ -207,7 +207,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Online",
+    type: "Yoga",
     price: 16999,
     imgUrl: retreat,
     language: "english",
@@ -215,7 +215,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Offline",
+    type: "Meditaion",
     price: 16999,
     imgUrl: retreat,
     language: "english",
@@ -223,7 +223,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Offline",
+    type: "Yoga",
     price: 16999,
     imgUrl: retreat,
     language: "english",
@@ -231,7 +231,7 @@ export const RETREAT = [
   {
     name: "200 Hour 6 Month Online Yin Yoga Therapy Teacher Training",
     duration: "7 Days",
-    type: "Offline",
+    type: "Meditaion",
     price: 16999,
     imgUrl: retreat,
     language: "english",

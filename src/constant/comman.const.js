@@ -33,6 +33,7 @@ const EVENT_TYPE = ":eventType";
 const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
+const RETREAT_NAME = ":retreatName";
 
 export const ROUTES = {
   HOME: "/",
@@ -63,6 +64,7 @@ export const ROUTES = {
   RETREAT_IN_CITY: `/retreat/${RETREAT_TYPE}/${DESTINATION_NAME}`,
   VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}`,
   VIEW_MORE_DETAILS_EVENT: `/details/event/${EVENT_TYPE}/${EVENT_NAME}`,
+  VIEW_MORE_DETAILS_RETREAT: `/details/retreat/${RETREAT_TYPE}/${RETREAT_NAME}`,
   NOT_FOUND: "/404",
 };
 
@@ -157,6 +159,14 @@ export const getViewMoreDetailsForEventPath = (eventType, eventName) => {
   let path = ROUTES.VIEW_MORE_DETAILS_EVENT;
   path = path.replace(EVENT_TYPE, eventType);
   path = path.replace(EVENT_NAME, eventName);
+
+  return path;
+};
+
+export const getViewMoreDetailsForRetreatPath = (retreatType, retreatName) => {
+  let path = ROUTES.VIEW_MORE_DETAILS_RETREAT;
+  path = path.replace(RETREAT_TYPE, retreatType);
+  path = path.replace(RETREAT_NAME, retreatName);
 
   return path;
 };

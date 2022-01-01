@@ -66,6 +66,29 @@ export const VIEW_MORE_EVENT_DETAILS: ActivityInfoVMD[] = [
   },
 ];
 
+export const VIEW_MORE_RETREAT_DETAILS: ActivityInfoVMD[] = [
+  {
+    image: mic,
+    title: "Yoga",
+    description: "ELearning Session",
+  },
+  {
+    image: age,
+    title: "For Age",
+    description: "18+",
+  },
+  {
+    image: lang,
+    title: "Language",
+    description: "English",
+  },
+  {
+    image: duration,
+    title: "Ideal Duration",
+    description: "2 Days",
+  },
+];
+
 export const INCLUSTION_IMG = {
   photo: photo,
   plane: plane,
