@@ -476,10 +476,14 @@ const MultiDays = () => {
                     label="What is your Activity Type ?"
                     name="activityType"
                   >
-                    <Input
+                    <Select
                       className="tw-rounded-md"
-                      placeholder="Enter Your Activity Type"
-                    />
+                      placeholder="Select Your Activity Type"
+                    >
+                      <Select.Option value="option1">Option1</Select.Option>
+                      <Select.Option value="option2">Option2</Select.Option>
+                      <Select.Option value="option3">Option3</Select.Option>
+                    </Select>
                   </Form.Item>
 
                   <Form.Item
