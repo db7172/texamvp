@@ -4,20 +4,30 @@ import { RetreatObjectTypes, TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import IconCard from "../../components/card/icon-card/IconCard";
+import EventCarousel from "../../components/common/carousel/EventCarousel";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import Container from "../../components/common/container/Container";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
+import FaqSection from "../../components/view-more-details/FaqSection";
 import MoreDetailsPageHeader from "../../components/view-more-details/MoreDetailsPageHeader";
 import ViewMoreEventCard from "../../components/view-more-details/ViewMoreEventCard";
+import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
 import ViewMoreRetreatInstructor from "../../components/view-more-details/ViewMoreRetreatInstructor";
 import {
+  getRetreatPagePath,
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
+import { RETREAT } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
-import { VIEW_MORE_RETREAT_DETAILS } from "./data.mock";
+import {
+  EXCLUSION_DETAILS,
+  INCLUSION_DETAILS,
+  TERMS_AND_CONDITIONS,
+  VIEW_MORE_RETREAT_DETAILS,
+} from "./data.mock";
 
 type ParamTypes = {
   retreatName: string;
@@ -120,9 +130,43 @@ const ViewMoreDetailsForRetreat = () => {
                     <Col span={24}>
                       <ViewMoreRetreatInstructor />
                     </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={INCLUSION_DETAILS.header}
+                        image={INCLUSION_DETAILS.image}
+                        data={INCLUSION_DETAILS.content}
+                      />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={EXCLUSION_DETAILS.header}
+                        image={EXCLUSION_DETAILS.image}
+                        data={EXCLUSION_DETAILS.content}
+                      />
+                    </Col>
+                    <Col span={24}>
+                      <ViewMoreOtherInformation
+                        header={TERMS_AND_CONDITIONS.header}
+                        image={TERMS_AND_CONDITIONS.image}
+                        data={TERMS_AND_CONDITIONS.content}
+                      />
+                    </Col>
                   </Row>
                 </Col>
               </Row>
+            </Col>
+            <Col span={24} order={3}>
+              <EventCarousel
+                title="Similar Retreat"
+                data={RETREAT}
+                setting={{ slidesToShow: 3 }}
+                description="Lorem ipsum is the dummy text for placing any thing"
+                path={getRetreatPagePath("Similar Retreat")}
+                event={false}
+              />
+            </Col>
+            <Col span={24} order={4}>
+              <FaqSection title={retreatType ? retreatType : "retreat"} />
             </Col>
           </Row>
         </>
