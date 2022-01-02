@@ -4,16 +4,19 @@ import { RetreatObjectTypes, TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import IconCard from "../../components/card/icon-card/IconCard";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import Container from "../../components/common/container/Container";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
+import Title from "../../components/common/title/Title";
 import FaqSection from "../../components/view-more-details/FaqSection";
 import MoreDetailsPageHeader from "../../components/view-more-details/MoreDetailsPageHeader";
 import ViewMoreEventCard from "../../components/view-more-details/ViewMoreEventCard";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
 import ViewMoreRetreatInstructor from "../../components/view-more-details/ViewMoreRetreatInstructor";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import {
   getRetreatPagePath,
   LEFT_SPACING_LARGE_VALUE,
@@ -167,6 +170,22 @@ const ViewMoreDetailsForRetreat = () => {
             </Col>
             <Col span={24} order={4}>
               <FaqSection title={retreatType ? retreatType : "retreat"} />
+            </Col>
+            <Col span={24} order={5}>
+              <Title
+                title="Visitors Reviews"
+                description="Lorem ipsum is the dummy text for placing any thing"
+                path="#"
+              />
+              <div className="tw-mt-10">
+                <ViewMoreTestimonial slidesToShow={3} arrows />
+              </div>
+            </Col>
+            <Col span={24} order={6}>
+              <BlogCarousel
+                description="Lorem ipsum is the dummy text for placing any thing"
+                title="Binge worthy blogs by members"
+              />
             </Col>
           </Row>
         </>

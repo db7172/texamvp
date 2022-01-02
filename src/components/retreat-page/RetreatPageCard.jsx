@@ -1,10 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import time from "../../assets/svg/time.svg";
+import { getViewMoreDetailsForRetreatPath } from "../../constant/comman.const";
 import { indCurrency } from "../../utils/utils";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
 import GreenBadge from "../green-badge/GreenBadge";
 
 const RetreatPageCard = ({ name, duration, type, price, imgUrl, language }) => {
+  const routingDetails = {
+    pathname: getViewMoreDetailsForRetreatPath(type, name),
+    state: { name, duration, type, price, imgUrl, language },
+  };
   return (
     <PageCardContainer imgUrl={imgUrl}>
       <div className="tw-flex">
@@ -32,9 +38,11 @@ const RetreatPageCard = ({ name, duration, type, price, imgUrl, language }) => {
           Per Person
         </span>
       </p>
-      <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-        View Details
-      </button>
+      <Link to={routingDetails}>
+        <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+          View Details
+        </button>
+      </Link>
     </PageCardContainer>
   );
 };
