@@ -27,6 +27,7 @@ import {
 } from "../../components/payment-page/PassangerForm";
 import { lowerCase } from "lodash";
 import classNames from "classnames";
+import { useLocation } from "react-router-dom";
 
 // do not remove this, below is the classnames for rounded img of inclusion card
 const classNamesInclustionImg = {
@@ -114,6 +115,10 @@ const PaymentPage = () => {
   const [currentState, setCurrentState] = useState(0);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [passangerFormDetails, setPassangerFormDetails] = useState<any>({});
+  const { state } = useLocation<{
+    numberOfPpl: number;
+    price: number;
+  }>();
 
   const handlePassangerFormSubmit = (details: any, id: number) => {
     const key = `passanger${id}`;
@@ -292,7 +297,7 @@ const PaymentPage = () => {
             expandIconPosition="right"
             className="site-collapse-custom-collapse single-collapse"
           >
-            {Array(MOCK_PASSANGER)
+            {Array(state?.numberOfPpl || MOCK_PASSANGER)
               .fill(null)
               .map((_, i) => (
                 <Panel
@@ -341,11 +346,14 @@ const PaymentPage = () => {
         <Divider className="tw-my-5" />
         <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
           <p>Total amount :</p>
-          <p>{indCurrency(28000)}</p>
+          <p>{indCurrency(state.price * state.numberOfPpl || 28000)}</p>
         </div>
         <div className="tw-flex tw-justify-between tw-items-center tw-text-xs tw-text-secondary-color">
           <p>( inclusive of all taxes )</p>
-          <p>14000 x 2 Person </p>
+          <p>
+            {state.price || "14000"} x {state.numberOfPpl || MOCK_PASSANGER}{" "}
+            Person{" "}
+          </p>
         </div>
         <Divider className="tw-my-5" />
         <p className="tw-text-base tw-font-medium">Amount breakup</p>

@@ -84,12 +84,12 @@ const ViewMoreDetailsForEvent = () => {
                 >
                   <ViewMoreEventCard />
                 </Col>
-                <Col
+                {/* <Col
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
                   <ViewMoreTestimonial />
-                </Col>
+                </Col> */}
               </Row>
             </Col>
             <Col span={17} order={1} className="">

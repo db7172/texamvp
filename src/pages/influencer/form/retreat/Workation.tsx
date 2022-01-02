@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import {
   Button,
+  Checkbox,
   Col,
   DatePicker,
   Divider,
@@ -26,7 +27,7 @@ import { RoomAccomodationTab } from "../activity/form-tabs/RoomAccomodationTab";
 import { TabsVariant } from "../activity/HourlyAndSingleDay";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
-import { normFile, onKeyDownEvent } from "../formUtils";
+import { normFile, onKeyDownEvent, stripUndefined } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 
@@ -122,9 +123,10 @@ const Workation = () => {
       exclusion: value.exclusion,
       termsAndCondition: value.termsAndCondition,
       cancellationPolicy: value.cancellationPolicy,
+      includes: value.includes,
     };
-
-    console.log(formValue);
+    const finalData = stripUndefined(formValue);
+    console.log(finalData);
   };
 
   return (
@@ -284,6 +286,49 @@ const Workation = () => {
                     <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
                   </div>
                 </Form.Item>
+                <Divider className="tw-my-10" />
+
+                <Form.Item className="tw-mb-5 tw-relative">
+                  <div className="tw-flex tw-justify-between">
+                    <h3 className="tw-text-base tw-font-medium">Inclusion</h3>
+                  </div>
+                </Form.Item>
+
+                <Form.Item
+                  className="tw-mb-0"
+                  label="What package includes?"
+                  name="includes"
+                >
+                  <Checkbox.Group className="tw-w-full">
+                    <Row>
+                      <Col span={6}>
+                        <Checkbox
+                          value="picAnddrop"
+                          style={{ lineHeight: "32px" }}
+                        >
+                          Picup & Drop
+                        </Checkbox>
+                      </Col>
+                      <Col span={6}>
+                        <Checkbox
+                          value="hotalStay"
+                          style={{ lineHeight: "32px" }}
+                        >
+                          Hotal Stay
+                        </Checkbox>
+                      </Col>
+                      <Col span={6}>
+                        <Checkbox
+                          value="photography"
+                          style={{ lineHeight: "32px" }}
+                        >
+                          Photography
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
+                </Form.Item>
+
                 <Divider className="tw-my-10" />
 
                 <Form.Item className="tw-relative">

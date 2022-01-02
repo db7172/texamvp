@@ -237,7 +237,7 @@ const ViewMoreActivityBookingCard = () => {
                   <Col span={12}>
                     <Form.Item
                       name="noOfPerson"
-                      label="Time Slot"
+                      label="Number of people"
                       rules={[{ required: true }]}
                     >
                       <InputNumber
