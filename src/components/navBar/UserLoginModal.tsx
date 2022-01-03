@@ -259,8 +259,11 @@ const UserLoginModal = ({
 
           <div className="tw-w-10/12 tw-mx-auto tw-mt-14">
             <p className="tw-text-secondary-color tw-font-light">
-              Having trouble? Please contact help@texatrove.com for further
-              support.
+              Having trouble? Please contact{" "}
+              <a className="tw-text-blue-500" href="mailto:help@texatrove.com">
+                help@texatrove.com
+              </a>{" "}
+              for further support.
             </p>
           </div>
         </div>
