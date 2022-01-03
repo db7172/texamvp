@@ -17,6 +17,7 @@ import {
   Tabs,
   Tag,
   TimePicker,
+  Checkbox,
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
@@ -534,6 +535,41 @@ const HourlyAndSingleDay = () => {
                       </Form.Item>
                     </Form.Item>
                   )}
+
+                  <Form.Item
+                    className="checkboxinput"
+                    label="What package includes?"
+                    name="includes"
+                  >
+                    <Checkbox.Group>
+                      <Row>
+                        <Col span={12}>
+                          <Checkbox
+                            value="picAnddrop"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Picup & Drop
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="hotalStay"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Hotal Stay
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="photography"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Photography
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                    </Checkbox.Group>
+                  </Form.Item>
 
                   <RightSidePenal
                     title="Sailent Feature"
