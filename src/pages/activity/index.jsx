@@ -21,6 +21,7 @@ import FaqSection from "../../components/view-more-details/FaqSection";
 import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
+import firebase from "../../firebase";
 
 const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
 const MIN = 10000,
@@ -84,6 +85,9 @@ const Activity = () => {
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
   }`;
 
+  const [singleActivity, setSingleActivity] = useState([]);
+  const [multiDay, setmultiDay] = useState([]);
+
   useEffect(() => {
     if (isEmpty(DESTINATION_NAME)) {
       setSlashedTableName([
@@ -142,6 +146,26 @@ const Activity = () => {
       level: formatActiveButton(unqLevel),
       categories: formatActiveButton(unqCategories),
     });
+
+    firebase
+      .firestore()
+      .collection("hr_sg_avy")
+      .get()
+      .then((querySnap) => {
+        setSingleActivity(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+
+    firebase
+      .firestore()
+      .collection("multi-activity")
+      .get()
+      .then((querySnap) => {
+        setmultiDay(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
 
   const handleShowCallbackModalCancel = () => {
@@ -199,7 +223,7 @@ const Activity = () => {
     setActiveCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
   };
-
+  let totalActivities = singleActivity.concat(multiDay);
   return (
     <ExploreMoreWrapper
       coverImage={DESTINATION_IMAGE}
@@ -323,8 +347,8 @@ const Activity = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {POPULAR_ACTIVITY.map((d, i) => (
-                <ActivityCard {...d} key={i} />
+              {totalActivities.map((d, i) => (
+                <ActivityCard {...d} key={i} data={totalActivities} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">

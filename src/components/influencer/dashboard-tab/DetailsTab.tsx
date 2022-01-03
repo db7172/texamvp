@@ -2,11 +2,14 @@ import { Button, Col, Row, Select, Form, Tooltip } from "antd";
 import classNames from "classnames";
 import { isNumber, uniqueId } from "lodash";
 import { DataDetailsType, DetailsTabTable } from "Models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { indCurrency } from "../../../utils/utils";
 import { DETAILS, highLowOptions, statusOptions } from "./data";
 import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardContainer";
 import DetailsTabTableComponent from "./details-tab-component/DetailsTabTable";
+import firebase from "../../../firebase";
+
+const db = firebase.firestore();
 
 export type ButtonType = "activity" | "event" | "retreat";
 
@@ -71,6 +74,39 @@ const DetailsTab = () => {
     setActiveViewMoreData(value);
     setShowViewMoreDetails(true);
   };
+  const [singleDetails, setSingleDetails] = useState([] as any);
+  const [multiDetails, setMultiDetails] = useState([] as any);
+  const [events, setEvents] = useState([] as any);
+  const [retreat, setRetreat] = useState([] as any);
+
+  let activity = [];
+
+  useEffect(() => {
+    db.collection("hr_sg_avy")
+      .get()
+      .then((querySnap) => {
+        setSingleDetails(querySnap.docs.map((doc) => doc.data()));
+      });
+    db.collection("multi-activity")
+      .get()
+      .then((querySnap) => {
+        setMultiDetails(querySnap.docs.map((doc) => doc.data()));
+      });
+    db.collection("events")
+      .get()
+      .then((querySnap) => {
+        setEvents(querySnap.docs.map((doc) => doc.data()));
+        // console.log(events);
+      });
+    // db.collection("retreat")
+    //   .get()
+    //   .then((querySnap) => {
+    //     setMultiDetails(querySnap.docs.map((doc) => doc.data()));
+    //   });
+  }, []);
+
+  activity = singleDetails.concat(multiDetails);
+  // console.log(activity);
 
   return (
     <>
@@ -252,18 +288,22 @@ const DetailsTab = () => {
                 </Col>
               </Row>
             </Form>
-            {activeButton === "activity" && (
-              <DetailsTabCardContainer
-                data={DETAILS.ACTIVITY}
-                viewMore={handleViewMore}
-              />
-            )}
-            {activeButton === "event" && (
-              <DetailsTabCardContainer
-                data={DETAILS.EVENT}
-                viewMore={handleViewMore}
-              />
-            )}
+            {activity
+              ? activeButton === "activity" && (
+                  <DetailsTabCardContainer
+                    data={activity}
+                    viewMore={handleViewMore}
+                  />
+                )
+              : null}
+            {events
+              ? activeButton === "event" && (
+                  <DetailsTabCardContainer
+                    data={events}
+                    viewMore={handleViewMore}
+                  />
+                )
+              : null}
             {activeButton === "retreat" && (
               <DetailsTabCardContainer
                 data={DETAILS.RETREAT}

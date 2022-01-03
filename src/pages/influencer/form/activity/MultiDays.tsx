@@ -169,7 +169,7 @@ const MultiDays = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const onSubmit = (value: any) => {
+  const onSubmit = async (value: any) => {
     const formData = multiDayDataHelper({
       ...value,
       tags,
@@ -179,9 +179,34 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    const data = { formData: finalData, userId: currentUser.uid };
+    // const data = { formData: finalData, userId: currentUser.uid };
+    // console.log(data);
+    // db.collection("multi-activity").add(data);
+    const data = {
+      formData: finalData,
+      userID: currentUser.id,
+      status: "processing",
+      booked: 0,
+    };
     console.log(data);
-    db.collection("multi-activity").add(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`multiDay/${currentUser.id}/${i}`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await db
+      .collection("multi-activity")
+      .add({ data, imgLink })
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (
@@ -216,7 +241,7 @@ const MultiDays = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={(value) => onSubmit(value)}
-                // onValuesChange={(value, obj) => console.log(obj)}
+                onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"

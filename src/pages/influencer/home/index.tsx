@@ -15,14 +15,14 @@ import { AuthContext } from "../../../Auth";
 import { useHistory } from "react-router-dom";
 
 const Influencer = () => {
-
-  const {currentUser} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const history = useHistory();
+
   useEffect(() => {
-    if(currentUser){
-      history.push('/influencer/dashboard');
+    if (currentUser) {
+      history.push("/influencer/dashboard");
     }
-  })
+  });
 
   return (
     <Container>

@@ -22,7 +22,7 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
@@ -35,6 +35,8 @@ import { normFile, onKeyDownEvent } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
+import { AuthContext } from "../../../../Auth";
+import firebase from "../../../../firebase";
 
 let addPaymentField: {
   (): void;
@@ -58,6 +60,7 @@ const EventForm = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
+  const { currentUser } = useContext(AuthContext);
 
   const { state: itinerayTabs, methods: itinerayMethods } = useTabs(
     {
@@ -94,7 +97,7 @@ const EventForm = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const onFinish = (value: any) => {
+  const onFinish = async (value: any) => {
     const formValue: any = {
       eventType: eventType,
       eventName: value.eventName,
@@ -131,6 +134,33 @@ const EventForm = () => {
     }
 
     console.log(formValue);
+
+    const data = {
+      formData: formValue,
+      userID: currentUser.id,
+      status: "processing",
+      booked: 0,
+    };
+    console.log(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`events/${currentUser.id}/${i}/`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await firebase
+      .firestore()
+      .collection("events")
+      .add({ data, imgLink })
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (
@@ -166,7 +196,7 @@ const EventForm = () => {
                 onKeyDown={onKeyDownEvent}
                 onFinish={onFinish}
                 onFinishFailed={(error) => console.log(error)}
-                // onValuesChange={(value, obj) => console.log(obj)}
+                onValuesChange={(value, obj) => console.log(obj)}
                 layout="vertical"
                 size="large"
                 autoComplete="off"

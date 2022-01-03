@@ -63,7 +63,7 @@ const getStatusClass = (status: string): string => {
 };
 
 type Props = {
-  data: DataDetailsType[];
+  data: any;
   viewMore: (value: DataDetailsType) => void;
 };
 
@@ -107,31 +107,18 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
     setShareMessageModal(false);
   };
 
-  const [singleDetails, setSingleDetails] = useState([] as any);
-  const [multiDetails, setMultiDetails] = useState([] as any);
+  // console.log(data[0].imgLink[0]);
 
-  useEffect(() => {
-    db.collection("hr_sg_avy")
-      .get()
-      .then((querySnap) => {
-        setSingleDetails(querySnap.docs.map((doc) => doc.data()));
-      });
-    db.collection("multi-activity")
-      .get()
-      .then((querySnap) => {
-        setMultiDetails(querySnap.docs.map((doc) => doc.data()));
-      });
-  }, []);
-
-  const details = singleDetails.concat(multiDetails);
-  console.log(details);
   return (
     <div>
       <Row gutter={[0, 20]}>
-        {details.map((doc: any) => {
+        {/* {details.map((doc: any) => {
           return <h1>No</h1>;
-        })}
-        {data.map((d) => (
+        })} */}
+        {/* {data.map((d: any) => {
+          console.log(d.imgLink);
+        })} */}
+        {data.map((d: any) => (
           <Col
             span={24}
             key={uniqueId()}
@@ -139,58 +126,62 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
           >
             <div
               className="tw-flex tw-gap-3"
-              style={{ maxWidth: d.date ? "250px" : "330px" }}
+              style={{ maxWidth: d.data.formData.date ? "250px" : "330px" }}
             >
               <div>
-                <img src={d.image} alt="details card" />
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/hourlyAndSingle%2FB31BYMbgfGU4oKE78cEmyJyZGHZ2%2F0?alt=media&token=19f189e6-dc54-4da2-84d5-82dbc9bb4fa8"
+                  alt="details card"
+                />
               </div>
-              <div style={{ width: d.date ? "180px" : "220px" }}>
-                <Tooltip title={d.title}>
+              <div style={{ width: d.data.formData.date ? "180px" : "220px" }}>
+                <Tooltip title={d.data.formData.activityName}>
                   <h5 className="tw-text-base tw-font-medium tw-mb-3 tw-text-ellipsis">
-                    {d.title}
+                    {d.data.formData.activityName}
                   </h5>
                 </Tooltip>
                 <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                  {d.description}
+                  {d.data.formData.description}
                 </p>
               </div>
             </div>
-            {isNumber(d.price) ? (
+            {isNumber(d.data.formData.payment) ? (
               <div>
                 <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                   Price
                 </p>
                 <p className="tw-text-base tw-font-medium">
-                  {indCurrency(d.price)}
+                  {indCurrency(d.data.formData.payment)}
                 </p>
               </div>
-            ) : (
-              <div>
-                <p className="tw-text-secondary-color tw-text-base tw-mb-3">
-                  {d.price.label}
-                </p>
-                <p className="tw-text-base tw-font-medium tw-flex tw-items-center">
-                  {d.price.additionalInfo.Bronze}
-                  <Tooltip
-                    className="tw-ml-2"
-                    title={addtionalInfomation(d.price.additionalInfo)}
-                  >
-                    <InfoCircleOutlined className="tw-text-secondary-color" />
-                  </Tooltip>
-                </p>
-              </div>
-            )}
+            ) : // ) : (
+            //   <div>
+            //     <p className="tw-text-secondary-color tw-text-base tw-mb-3">
+            //       {d.price.label}
+            //     </p>
+            //     <p className="tw-text-base tw-font-medium tw-flex tw-items-center">
+            //       {d.price.additionalInfo.Bronze}
+            //       <Tooltip
+            //         className="tw-ml-2"
+            //         title={addtionalInfomation(d.price.additionalInfo)}
+            //       >
+            //         <InfoCircleOutlined className="tw-text-secondary-color" />
+            //       </Tooltip>
+            //     </p>
+            //   </div>
+            // )}
+            null}
             <div className="tw-w-24">
               <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                 Status
               </p>
               <p
                 className={classNames(
-                  getStatusClass(d.status.toLowerCase()),
+                  getStatusClass(d.data.status.toLowerCase()),
                   "tw-rounded-md tw-p-2 tw-text-xs tw-font-medium tw-max-w-max"
                 )}
               >
-                {d.status}
+                {d.data.status}
               </p>
             </div>
 
@@ -217,19 +208,17 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
                 <p className="tw-flex tw-items-center">
                   <span
                     className={classNames(
-                      d.bookedTickets.totalBooked > 0
+                      d.booked > 0
                         ? "tw-text-primary-color"
                         : "tw-text-secondary-color"
                     )}
                   >
-                    {d.bookedTickets.totalBooked}
+                    {d.booked}
                   </span>
-                  <span className="tw-text-secondary-color">
-                    /{d.totlaTickets}
-                  </span>
+                  <span className="tw-text-secondary-color">/{10}</span>
                   <Tooltip
                     className="tw-ml-2"
-                    title={addtionalInfomation(d.bookedTickets.additionalInfo)}
+                    title={addtionalInfomation(d.booked)}
                   >
                     <InfoCircleOutlined className="tw-text-secondary-color" />
                   </Tooltip>

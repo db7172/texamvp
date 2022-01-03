@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { emailRegex } from "../../../constant/comman.const";
 import { upperCase } from "../../../utils/utils";
 import MobileNumber from "../../form-component/MobileNumber";
-import firebase from "../../../firebase";
+import firebaseUser from "../../../firebaseUser";
 
 const VERIFICATION_CODE = 1234;
 
@@ -81,7 +81,15 @@ export const LoginModal = ({ header, onCancel }) => {
         // User signed in successfully.
         const user = result.user;
         console.log(JSON.stringify(user));
-
+        firebaseUser
+          .firestore()
+          .collection("users")
+          .doc(user.id)
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+            }
+          });
         // ...
       })
       .catch((error) => {
@@ -140,7 +148,7 @@ export const LoginModal = ({ header, onCancel }) => {
   };
 
   function configureRecaptcha() {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+    window.recaptchaVerifier = new firebaseUser.auth.RecaptchaVerifier(
       "sign-in-container",
       {
         size: "invisible",
@@ -151,11 +159,12 @@ export const LoginModal = ({ header, onCancel }) => {
       }
     );
   }
+
   function onSignInSubmit() {
     configureRecaptcha();
     const number = "+91" + phoneNumber;
     const appVerifier = window.recaptchaVerifier;
-    firebase
+    firebaseUser
       .auth()
       .signInWithPhoneNumber(number, appVerifier)
       .then((confirmationResult) => {

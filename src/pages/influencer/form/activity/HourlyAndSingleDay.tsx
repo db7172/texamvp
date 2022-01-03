@@ -22,7 +22,7 @@ import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
@@ -115,7 +115,8 @@ const HourlyAndSingleDay = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const onSubmit = (value: any) => {
+  const onSubmit = async (value: any) => {
+    console.log(value.dragger);
     const formData = hourlyAndSingleDayDataHelper({
       ...value,
       tags,
@@ -126,12 +127,25 @@ const HourlyAndSingleDay = () => {
     // db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData,{ merge: true });
     const data = {
       formData: finalData,
-      userID: currentUser.uid,
+      userID: currentUser.id,
       status: "processing",
       booked: 0,
     };
-    db.collection("hr_sg_avy")
-      .add(data)
+    console.log(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`hourlyAndSingle/${currentUser.id}/${i}`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await db
+      .collection("hr_sg_avy")
+      .add({ data, imgLink })
       .then(() => {})
       .catch((error) => {
         console.error("Error writing document: ", error);
@@ -170,7 +184,7 @@ const HourlyAndSingleDay = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={onSubmit}
-                // onValuesChange={(value, obj) => console.log(obj)}
+                onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"
