@@ -1,7 +1,7 @@
 import { Button, Form, InputNumber } from "antd";
 import { Package } from "Models";
-import { useEffect, useRef, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { indCurrency } from "../../utils/utils";
 import ViewMorePriceCard from "./ViewMorePriceCard";
 
@@ -43,21 +43,6 @@ const ViewMoreEventCard = ({ retreat = false }: ViewMoreEventCardType) => {
   const handlePlanClick = (value: Package) => {
     setActive(value);
   };
-
-  // const handleSubmit = () => {
-  //   if (retreat) {
-  //     console.log(retreat);
-  //     return (
-  //       <Redirect
-  //         to={{
-  //           pathname: "/payment",
-  //           state: { numberOfPpl, price: active.price },
-  //         }}
-  //       />
-  //     );
-  //   }
-  //   console.log(active);
-  // };
 
   useEffect(() => {
     const state = {

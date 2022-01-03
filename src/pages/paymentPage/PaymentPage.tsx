@@ -369,7 +369,7 @@ const PaymentPage = () => {
         <Divider className="tw-my-5" />
         <div className="tw-flex tw-justify-between tw-items-center tw-text-base tw-font-medium">
           <p>You Pay :</p>
-          <p>{indCurrency(28000)}</p>
+          <p>{indCurrency(state.price * state.numberOfPpl || 28000)}</p>
         </div>
 
         <p

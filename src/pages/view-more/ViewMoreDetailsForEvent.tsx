@@ -14,7 +14,6 @@ import MoreDetailsPageHeader from "../../components/view-more-details/MoreDetail
 import ViewMoreEventCard from "../../components/view-more-details/ViewMoreEventCard";
 import ViewMoreEventSummary from "../../components/view-more-details/ViewMoreEventSummary";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
-import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import {
   getEventPagePath,
   LEFT_SPACING_LARGE_VALUE,

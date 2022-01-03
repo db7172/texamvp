@@ -7,6 +7,7 @@ import {
   Row,
   Select,
   TimePicker,
+  Typography,
 } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import classNames from "classnames";
@@ -17,15 +18,19 @@ import banner from "../../assets/png/carousal1.png";
 import { indCurrency } from "../../utils/utils";
 import { Package } from "Models";
 import ViewMorePriceCard from "./ViewMorePriceCard";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 const MOCK_DATE = [
   {
     month: "May",
     date: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+    year: 2022,
   },
   {
     month: "Jun",
     date: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+    year: 2022,
   },
 ];
 
@@ -53,35 +58,56 @@ const MOCK_PACKAGE: Package[] = [
 const ViewMoreActivityBookingCard = () => {
   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
+  const [isDateSelected, setIsDateSelected] = useState(true);
   const [active, setActive] = useState<Package>(MOCK_PACKAGE[0]);
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<{
+    dateOfTravel: any;
+    time: any;
+    noOfPerson: number;
+  }>({
     dateOfTravel: "",
     time: "",
     noOfPerson: 1,
   });
   const [form] = Form.useForm();
+  const history = useHistory();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    form.resetFields();
   };
 
   const handleClick = (e: any) => {
+    setIsDateSelected(true);
     setSelectedDate(e.target.dataset.valueid);
   };
 
   const handleSubmit = () => {
-    setIsModalVisible(true);
-    console.log({
-      departureCity,
-      totalCost: active.price * formValue.noOfPerson,
-    });
+    // const isDate = !selectedDate && setIsDateSelected(false);
+    if (selectedDate) {
+      setFormValue({
+        ...formValue,
+        dateOfTravel: moment(selectedDate),
+      });
+      form.setFieldsValue({ ...formValue, dateOfTravel: moment(selectedDate) });
+      setIsModalVisible(true);
+    } else {
+      setIsDateSelected(false);
+    }
   };
 
   const handleModalSubmit = () => {
     setIsModalVisible(false);
-    console.log({ formValue, selectedDate });
+
+    history.push({
+      pathname: "/payment",
+      state: {
+        numberOfPpl: formValue.noOfPerson,
+        price: active.price,
+      },
+    });
   };
 
   const handlePlanClick = (value: Package) => {
@@ -120,21 +146,23 @@ const ViewMoreActivityBookingCard = () => {
                 <div className="tw-flex tw-gap-2 tw-flex-wrap">
                   {d.date.map((date, index) => (
                     <button
-                      data-valueid={`${lowerCase(d.month)}-${date}`}
+                      data-valueid={`${d.year}-${lowerCase(d.month)}-${date}`}
                       key={index}
                       className={classNames(
                         "tw-h-8 tw-w-8 tw-flex-center tw-border tw-cursor-pointer",
-                        selectedDate === `${lowerCase(d.month)}-${date}`
+                        selectedDate ===
+                          `${d.year}-${lowerCase(d.month)}-${date}`
                           ? "tw-border-primary-yellow"
                           : null
                       )}
                       onClick={handleClick}
                     >
                       <p
-                        data-valueid={`${lowerCase(d.month)}-${date}`}
+                        data-valueid={`${d.year}-${lowerCase(d.month)}-${date}`}
                         className={classNames(
                           "tw-w-6 tw-h-6 tw-flex-center tw-rounded-full",
-                          selectedDate === `${lowerCase(d.month)}-${date}`
+                          selectedDate ===
+                            `${d.year}-${lowerCase(d.month)}-${date}`
                             ? "tw-bg-secondary-color"
                             : "tw-bg-gray-background"
                         )}
@@ -146,6 +174,13 @@ const ViewMoreActivityBookingCard = () => {
                 </div>
               </div>
             ))}
+            {!isDateSelected && (
+              <p className="tw-mt-5">
+                <Typography.Text type="danger">
+                  Please select traveling date.
+                </Typography.Text>
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -201,9 +236,7 @@ const ViewMoreActivityBookingCard = () => {
                 form={form}
                 layout="vertical"
                 size="large"
-                initialValues={formValue}
                 className="form-resets"
-                onFinish={handleModalSubmit}
               >
                 <Row gutter={12}>
                   <Col span={12}>
@@ -259,7 +292,7 @@ const ViewMoreActivityBookingCard = () => {
             <h4 className="tw-text-xl tw-text-yellow-color tw-font-medium">
               {indCurrency(active.price * formValue.noOfPerson)}
             </h4>
-            <Form form={form}>
+            <Form form={form} onFinish={handleModalSubmit}>
               <Button
                 type="default"
                 className="tw-texa-button tw-m-0"

@@ -17,7 +17,6 @@ import ViewMoreActivityBookingCard from "../../components/view-more-details/View
 import ViewMoreActivityCard from "../../components/view-more-details/ViewMoreActivityCard";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
 import ViewMoreSummary from "../../components/view-more-details/ViewMoreSummary";
-import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import ViewMoreTravellingInfo from "../../components/view-more-details/ViewMoreTravellingInfo";
 import {
   getActivityPagePath,
