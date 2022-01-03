@@ -1,8 +1,13 @@
-import { Button } from "antd";
+import { Button, Form, InputNumber } from "antd";
 import { Package } from "Models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { indCurrency } from "../../utils/utils";
 import ViewMorePriceCard from "./ViewMorePriceCard";
+
+type ViewMoreEventCardType = {
+  retreat?: boolean;
+};
 
 const MOCK_PACKAGE: Package[] = [
   {
@@ -24,16 +29,29 @@ const MOCK_PACKAGE: Package[] = [
       "Ac eget sollicitudin ut proin. Quisque sapien quam ac mattis donec faucibus.",
   },
 ];
-const ViewMoreEventCard = () => {
+const ViewMoreEventCard = ({ retreat = false }: ViewMoreEventCardType) => {
   const [active, setActive] = useState<Package>(MOCK_PACKAGE[0]);
+  const [numberOfPpl, setNumberOfPpl] = useState(1);
+  const [redirectState, setRedirectState] = useState<{
+    pathname: string;
+    state: any;
+  }>({
+    pathname: "/payment",
+    state: { numberOfPpl, price: active.price },
+  });
 
   const handlePlanClick = (value: Package) => {
     setActive(value);
   };
 
-  const handleSubmit = () => {
-    console.log(active);
-  };
+  useEffect(() => {
+    const state = {
+      numberOfPpl,
+      price: active.price,
+    };
+    setRedirectState(() => ({ ...redirectState, state }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, numberOfPpl]);
 
   return (
     <section>
@@ -71,19 +89,36 @@ const ViewMoreEventCard = () => {
       <div className="tw-mt-5 tw-pt-3 tw-pb-6 tw-border-t tw-border-b">
         {MOCK_PACKAGE.map((d, i) => (
           <ViewMorePriceCard
+            key={i}
             data={d}
             active={active}
             handlePlanClick={handlePlanClick}
           />
         ))}
       </div>
-      <Button
-        type="default"
-        className="tw-texa-button tw-w-full"
-        onClick={handleSubmit}
-      >
-        Book Now
-      </Button>
+      <div className="tw-mt-5 tw-pt-3 tw-pb-6 tw-border-t tw-border-b">
+        <Form size="large">
+          <Form.Item
+            name="noOfPerson"
+            label="Number of people"
+            className="tw-mb-0"
+            initialValue={numberOfPpl}
+            rules={[{ required: true }]}
+          >
+            <InputNumber
+              placeholder="Enter No. of people"
+              className="tw-w-full tw-rounded-md"
+              min={1}
+              onChange={(v) => setNumberOfPpl(v)}
+            />
+          </Form.Item>
+        </Form>
+      </div>
+      <Link to={redirectState}>
+        <Button type="default" className="tw-texa-button tw-w-full">
+          Book Now
+        </Button>
+      </Link>
     </section>
   );
 };

@@ -17,7 +17,6 @@ import ViewMoreActivityBookingCard from "../../components/view-more-details/View
 import ViewMoreActivityCard from "../../components/view-more-details/ViewMoreActivityCard";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
 import ViewMoreSummary from "../../components/view-more-details/ViewMoreSummary";
-import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import ViewMoreTravellingInfo from "../../components/view-more-details/ViewMoreTravellingInfo";
 import {
   getActivityPagePath,
@@ -91,12 +90,12 @@ const ViewMoreDetailsForActivity = () => {
                     <ViewMoreActivityBookingCard />
                   </div>
                 </Col>
-                <Col
+                {/* <Col
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
                   <ViewMoreTestimonial />
-                </Col>
+                </Col> */}
               </Row>
             </Col>
             <Col span={17} order={1}>

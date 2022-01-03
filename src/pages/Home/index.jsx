@@ -11,7 +11,9 @@ import {
   SECONDARY_COLOR,
 } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
-import Retreat from "../../components/home-page-tabs/Retreat";
+import Retreat, {
+  reteratOptions,
+} from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
@@ -151,6 +153,18 @@ function Home() {
                       <span>Retreat</span>
                     </div>
                   </button>
+
+                  <button
+                    className={getTabClasses(4, activeTab)}
+                    onClick={() => setActiveTab(4)}
+                  >
+                    <div className="tw-flex">
+                      <span className="tw-mr-2">
+                        {getIcon(CalendarIcon, activeTab === 4)}
+                      </span>
+                      <span>Workcation</span>
+                    </div>
+                  </button>
                 </nav>
               </div>
               <div className="tw-tab-container">
@@ -173,6 +187,15 @@ function Home() {
                   />
                 )}
                 {activeTab === 3 && <Retreat />}
+                {activeTab === 4 && (
+                  <ActivityTab
+                    dropDownLabel="Destination"
+                    placeHolder="Select your destination"
+                    DropDownOptions={reteratOptions}
+                    dateLabel="DATE"
+                    onClick={handleClick}
+                  />
+                )}
               </div>
             </div>
           </div>

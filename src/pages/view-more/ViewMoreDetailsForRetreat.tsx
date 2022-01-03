@@ -84,7 +84,7 @@ const ViewMoreDetailsForRetreat = () => {
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
-                  <ViewMoreEventCard />
+                  <ViewMoreEventCard retreat />
                 </Col>
               </Row>
             </Col>
