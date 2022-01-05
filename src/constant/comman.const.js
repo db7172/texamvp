@@ -52,7 +52,7 @@ export const ROUTES = {
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
-  ACTIVITES: `/activites`,
+  ACTIVITES: `/activities`,
   ACTIVITY: `/activity/${ACTIVITY_TYPE}`,
   ACTIVITY_IN_CITY: `/activity/${ACTIVITY_TYPE}/${DESTINATION_NAME}`,
   EVENTS: `/events`,

@@ -19,6 +19,7 @@ const ViewMorePriceCard = ({ handlePlanClick, active, data }: Props) => {
         <h3 className="tw-text-base tw-font-medium">{`${
           data.type
         } - ${indCurrency(data.price)}`}</h3>
+
         <CheckCircleFilled
           style={{
             color: active.type === data.type ? "yellow" : "white",
@@ -26,6 +27,10 @@ const ViewMorePriceCard = ({ handlePlanClick, active, data }: Props) => {
           }}
         />
       </div>
+      <p className="tw-mt-2">
+        <span className="tw-mr-1">Availability -</span>
+        <span>100</span>
+      </p>
       <p className="tw-mt-3 tw-text-secondary-color">{data.description}</p>
     </div>
   );

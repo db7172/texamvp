@@ -20,6 +20,10 @@ const ActivityCard = (props) => {
     activityBy,
     price,
   } = props;
+
+  const { totalActivities } = props;
+  const { multi } = props;
+
   const routingDetails = {
     pathname: getViewMoreDetailsForActivityPath(activityType, title),
     state: {
@@ -30,33 +34,37 @@ const ActivityCard = (props) => {
       review: "89 Reviews",
     },
   };
+  // let totalActivities = single.concat(multi);
+  // console.log(totalActivities[0].data.data.formData);
+
+  console.log(props);
 
   return (
     <PageCardContainer imgUrl={imgUrl} title={title}>
       <div className="tw-flex tw-flex-wrap tw-mt-3">
-        {tags.map((t, i) => (
+        {/* {tags.map((t, i) => (
           <Tags className="tw-my-1 tw-mr-2 tw-text-xs" tag={t} key={i} />
-        ))}
+        ))} */}
       </div>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Cities : </span>
-        <span>{cities}</span>
+        <span>{}</span>
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Duration : </span>
-        <span>{duration}</span>
+        <span>{}</span>
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Activity Type : </span>
-        <span>{activityType}</span>
+        <span>{}</span>
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Activity Level : </span>
-        <span>{activityLevel}</span>
+        <span>{}</span>
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Activity By : </span>
-        <span>{activityBy}</span>
+        <span>{}</span>
       </p>
       <div className="tw-font-medium tw-mt-3 tw-flex tw-items-center">
         <span className="tw-text-secondary-color tw-mr-3">Includes : </span>
@@ -79,7 +87,7 @@ const ActivityCard = (props) => {
             Starting from
           </span>
           <span className="tw-mr-2 tw-price tw-text-xl">
-            {indCurrency(price)}
+            {/* {indCurrency(price)} */}
           </span>
           <span className="tw-text-secondary-color tw-text-xs">Per Person</span>
         </p>

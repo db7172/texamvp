@@ -14,7 +14,6 @@ import MoreDetailsPageHeader from "../../components/view-more-details/MoreDetail
 import ViewMoreEventCard from "../../components/view-more-details/ViewMoreEventCard";
 import ViewMoreEventSummary from "../../components/view-more-details/ViewMoreEventSummary";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
-import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
 import {
   getEventPagePath,
   LEFT_SPACING_LARGE_VALUE,
@@ -84,12 +83,12 @@ const ViewMoreDetailsForEvent = () => {
                 >
                   <ViewMoreEventCard />
                 </Col>
-                <Col
+                {/* <Col
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
                   <ViewMoreTestimonial />
-                </Col>
+                </Col> */}
               </Row>
             </Col>
             <Col span={17} order={1} className="">

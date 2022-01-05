@@ -17,12 +17,13 @@ import {
   Tabs,
   Tag,
   TimePicker,
+  Checkbox,
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
@@ -115,7 +116,8 @@ const HourlyAndSingleDay = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const onSubmit = (value: any) => {
+  const onSubmit = async (value: any) => {
+    console.log(value.dragger);
     const formData = hourlyAndSingleDayDataHelper({
       ...value,
       tags,
@@ -126,12 +128,25 @@ const HourlyAndSingleDay = () => {
     // db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData,{ merge: true });
     const data = {
       formData: finalData,
-      userID: currentUser.uid,
+      userID: currentUser.id,
       status: "processing",
       booked: 0,
     };
-    db.collection("hr_sg_avy")
-      .add(data)
+    console.log(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`hourlyAndSingle/${currentUser.id}/${i}`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await db
+      .collection("hr_sg_avy")
+      .add({ data, imgLink })
       .then(() => {})
       .catch((error) => {
         console.error("Error writing document: ", error);
@@ -170,7 +185,7 @@ const HourlyAndSingleDay = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={onSubmit}
-                // onValuesChange={(value, obj) => console.log(obj)}
+                onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"
@@ -437,10 +452,14 @@ const HourlyAndSingleDay = () => {
                     label="What is your Activity Type ?"
                     name="activityType"
                   >
-                    <Input
+                    <Select
                       className="tw-rounded-md"
-                      placeholder="Enter Your Activity Type"
-                    />
+                      placeholder="Select Your Activity Type"
+                    >
+                      <Select.Option value="option1">Option1</Select.Option>
+                      <Select.Option value="option2">Option2</Select.Option>
+                      <Select.Option value="option3">Option3</Select.Option>
+                    </Select>
                   </Form.Item>
 
                   <Form.Item
@@ -516,6 +535,41 @@ const HourlyAndSingleDay = () => {
                       </Form.Item>
                     </Form.Item>
                   )}
+
+                  <Form.Item
+                    className="checkboxinput"
+                    label="What package includes?"
+                    name="includes"
+                  >
+                    <Checkbox.Group>
+                      <Row>
+                        <Col span={12}>
+                          <Checkbox
+                            value="picAnddrop"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Picup & Drop
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="hotalStay"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Hotal Stay
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="photography"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Photography
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                    </Checkbox.Group>
+                  </Form.Item>
 
                   <RightSidePenal
                     title="Sailent Feature"

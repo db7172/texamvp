@@ -1,20 +1,19 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Row, Form, Col, Input, DatePicker, Upload, Button } from "antd";
+import { Row, Form, Col, Input, DatePicker } from "antd";
 import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
-const normFile = (e: any) => {
-  console.log("Upload event:", e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
+// const normFile = (e: any) => {
+//   console.log("Upload event:", e);
+//   if (Array.isArray(e)) {
+//     return e;
+//   }
+//   return e && e.fileList;
+// };
 
 export const TranspotationFormTab = ({
   keyValue,
   updateTabFormData,
-  singleDay = false,
+  singleDay = true,
 }: {
   keyValue: string;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
@@ -48,7 +47,7 @@ export const TranspotationFormTab = ({
     >
       <Form.Item noStyle>
         <Row gutter={20}>
-          {!singleDay && (
+          {/* {!singleDay && (
             <Col span={12}>
               <Form.Item
                 name="photos"
@@ -73,9 +72,9 @@ export const TranspotationFormTab = ({
                 </Upload>
               </Form.Item>
             </Col>
-          )}
+          )} */}
 
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item name="transportMode" label="Transportaion Mode">
               <Input
                 className="tw-rounded-md"

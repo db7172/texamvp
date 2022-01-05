@@ -97,6 +97,7 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
     date,
     itineraryDetails,
     title,
+    includes,
   } = value;
 
   const departureData = departure ? formateDeparture(departure) : [];
@@ -127,6 +128,7 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
         start: formatMomentTime(startTime),
         end: formatMomentTime(endTime),
       },
+      includes,
     },
     destinations: {
       destination: destinationFistField,
@@ -182,6 +184,7 @@ export const multiDayDataHelper = (value: any) => {
     certificateRequired,
     termsAndCondition,
     cancellationPolicy,
+    includes,
   } = value;
 
   const updatedDestinations = destinations
@@ -211,6 +214,7 @@ export const multiDayDataHelper = (value: any) => {
       },
       numberOfTicketInclude: value.numberOfPeople,
       activityDuration: value.activityDuration,
+      includes,
     },
     destination: [
       {

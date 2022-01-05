@@ -15,17 +15,16 @@ const InfluencerLogin = () => {
   const [isValidIdPwd, setIsValidIdPwd] = useState(false);
   const [otp, setOtp] = useState({
     mobileOtp: "",
-    error: false,
   });
   const [mobile, setMobile] = useState("");
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  const { setCurrentUser } = useContext(AuthContext);
 
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtp({
-      error: !(mobileOTP === +e.target.value),
       mobileOtp: e.target.value,
     });
   };
@@ -58,18 +57,68 @@ const InfluencerLogin = () => {
         });
     } else {
       const mobileNo = values.prefix + values.mobile;
-      console.log(mobileNo);
       setMobile(mobileNo);
+      onSignInSubmit(mobileNo);
       setIsModalVisible(true);
     }
   };
 
+  function configureRecaptcha() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-container",
+      {
+        size: "invisible",
+        callback: (response: any) => {
+          onSignInSubmit(null);
+          console.log("Recaptcha verified");
+        },
+      }
+    );
+  }
+
+  function onSignInSubmit(phoneNumber: any) {
+    configureRecaptcha();
+    const number = "+" + phoneNumber;
+    const appVerifier = window.recaptchaVerifier;
+    console.log(number);
+    firebase
+      .auth()
+      .signInWithPhoneNumber(number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        console.log("OTP sent.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   const handleVerify = () => {
-    if (!otp.error && +otp.mobileOtp === mobileOTP) {
-      // logic for login with mobile will go here
-      setIsModalVisible(false);
-      console.log("loggedIn");
-    }
+    const code = otp.mobileOtp;
+    window.confirmationResult
+      .confirm(code)
+      .then((result: any) => {
+        // User signed in successfully.
+        const user = result.user;
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setCurrentUser(doc.data());
+            } else {
+              user.delete();
+              firebase.auth().signOut();
+              history.push("/influencer/signup");
+            }
+          });
+        history.push("/influencer/dashboard");
+      })
+      .catch((error: any) => {
+        console.log("encounted some error");
+      });
   };
 
   useEffect(() => {
@@ -90,6 +139,7 @@ const InfluencerLogin = () => {
           In fames morbi dictumst faucibus. Enim in aenean tincidunt dolor at id
           risus non. Vel aliquet sapien, ornare nec in turpis a proin.
         </p>
+        <div id="sign-in-container"></div>
       </div>
       <Form
         initialValues={{
@@ -240,7 +290,7 @@ const InfluencerLogin = () => {
               maxLength={6}
             />
 
-            {otp.error ? (
+            {otp.mobileOtp.length < 6 ? (
               <Typography.Text type="danger">Enter valid OTP.</Typography.Text>
             ) : null}
 
@@ -253,7 +303,7 @@ const InfluencerLogin = () => {
           type="default"
           className="tw-w-full tw-texa-button"
           onClick={handleVerify}
-          disabled={otp.error || otp.mobileOtp.length < 6}
+          disabled={otp.mobileOtp.length < 6}
         >
           Verify
         </Button>

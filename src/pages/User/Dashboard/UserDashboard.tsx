@@ -1,6 +1,6 @@
 import { Avatar, Button, Col, Divider, Row } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
 import UserMyEnquiry from "../../../components/user/user-tabs/UserMyEnquiry";
@@ -9,6 +9,7 @@ import UserMyTrip from "../../../components/user/user-tabs/UserMyTrip";
 import UserReviewsTab from "../../../components/user/user-tabs/UserReviewsTab";
 import UserSupport from "../../../components/user/user-tabs/UserSupport";
 import { USER_DASHBOAR_TABS } from "./userData";
+import firebase from "../../../firebase";
 
 const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
@@ -18,9 +19,17 @@ const UserDashboard = () => {
 
   const history = useHistory();
 
-  const handleLogout = () => {
-    history.push("/");
-  };
+  function handleLogout() {
+    firebase.auth().signOut();
+  }
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        history.push("/");
+      }
+    });
+  }, []);
 
   return (
     <Container>

@@ -15,6 +15,8 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
   const { currentUser } = useContext(AuthContext);
 
+  console.log(currentUser);
+
   if (currentUser) {
     return (
       <Container>

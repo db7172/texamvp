@@ -7,7 +7,7 @@ import exit from "../../../assets/svg/exit.svg";
 import trip from "../../../assets/png/influencer/details_activity.png";
 import { uniqueId } from "lodash";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
 import MenuItem from "../../common/MenuItem/MenuItem";
@@ -45,11 +45,23 @@ const notificationData = [
 
 const LogedIn = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setCurrentUser(user);
+        setUserData(user);
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setCurrentUser({ id: doc.id, data: doc.data() });
+            } else {
+            }
+          });
       } else {
         window.location.href = "/influencer";
       }
@@ -69,7 +81,7 @@ const LogedIn = () => {
             <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                {currentUser ? currentUser.displayName : "Profile Name"}
+                {currentUser ? currentUser.data.name : "Profile Name"}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted

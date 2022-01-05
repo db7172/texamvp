@@ -16,6 +16,7 @@ import {
   Button,
   Tabs,
   Tag,
+  Checkbox,
 } from "antd";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
@@ -147,7 +148,6 @@ const MultiDays = () => {
     } else if (type === "transpotation") {
       setTranspotationFormData({
         ...transpotationFormData,
-        // for photo you can get value from value.photos
         [key]: value.data,
       });
     } else if (type === "itinerary") {
@@ -169,7 +169,7 @@ const MultiDays = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const onSubmit = (value: any) => {
+  const onSubmit = async (value: any) => {
     const formData = multiDayDataHelper({
       ...value,
       tags,
@@ -179,9 +179,34 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    const data = { formData: finalData, userId: currentUser.uid };
+    // const data = { formData: finalData, userId: currentUser.uid };
+    // console.log(data);
+    // db.collection("multi-activity").add(data);
+    const data = {
+      formData: finalData,
+      userID: currentUser.id,
+      status: "processing",
+      booked: 0,
+    };
     console.log(data);
-    db.collection("multi-activity").add(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`multiDay/${currentUser.id}/${i}`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await db
+      .collection("multi-activity")
+      .add({ data, imgLink })
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (
@@ -216,7 +241,7 @@ const MultiDays = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={(value) => onSubmit(value)}
-                // onValuesChange={(value, obj) => console.log(obj)}
+                onValuesChange={(value, obj) => console.log(obj)}
                 onFinishFailed={(error) => console.log(error)}
                 layout="vertical"
                 size="large"
@@ -476,10 +501,14 @@ const MultiDays = () => {
                     label="What is your Activity Type ?"
                     name="activityType"
                   >
-                    <Input
+                    <Select
                       className="tw-rounded-md"
-                      placeholder="Enter Your Activity Type"
-                    />
+                      placeholder="Select Your Activity Type"
+                    >
+                      <Select.Option value="option1">Option1</Select.Option>
+                      <Select.Option value="option2">Option2</Select.Option>
+                      <Select.Option value="option3">Option3</Select.Option>
+                    </Select>
                   </Form.Item>
 
                   <Form.Item
@@ -546,6 +575,41 @@ const MultiDays = () => {
                       min={1}
                       placeholder="Enter No. of Days"
                     />
+                  </Form.Item>
+
+                  <Form.Item
+                    className="checkboxinput"
+                    label="What package includes?"
+                    name="includes"
+                  >
+                    <Checkbox.Group>
+                      <Row>
+                        <Col span={12}>
+                          <Checkbox
+                            value="picAnddrop"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Picup & Drop
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="hotalStay"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Hotal Stay
+                          </Checkbox>
+                        </Col>
+                        <Col span={12}>
+                          <Checkbox
+                            value="photography"
+                            style={{ lineHeight: "32px" }}
+                          >
+                            Photography
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                    </Checkbox.Group>
                   </Form.Item>
 
                   <RightSidePenal
@@ -916,6 +980,7 @@ const MultiDays = () => {
                       ({ title, Content, key, closable }) => (
                         <Tabs.TabPane tab={title} key={key} closable={closable}>
                           <Content
+                            captureBulletData
                             keyValue={key}
                             updateTabFormData={updateTabFormData}
                           />

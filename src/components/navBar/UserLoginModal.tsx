@@ -1,6 +1,8 @@
 import { Button, Divider, Form, Input, Modal, Select } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Auth";
+import firebase from "../../firebase";
 
 type Props = {
   isModalOpen: boolean;
@@ -20,6 +22,8 @@ const UserLoginModal = ({
   const [userDetailsForm] = Form.useForm();
   const [isNewUser, setIsNewUser] = useState(false);
   const [isNumDisable, setIsNumDisable] = useState(isModalOpen);
+  const { setCurrentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
 
@@ -34,28 +38,106 @@ const UserLoginModal = ({
     </Form.Item>
   );
 
+  function configureRecaptcha() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-container",
+      {
+        size: "invisible",
+        callback: (response: any) => {
+          onSignInSubmit(null);
+          console.log("Recaptcha verified");
+        },
+      }
+    );
+  }
+
+  function onSignInSubmit(value: any) {
+    configureRecaptcha();
+    const number = "+" + value.prefix + value.number;
+    const appVerifier = window.recaptchaVerifier;
+    firebase
+      .auth()
+      .signInWithPhoneNumber(number, appVerifier)
+      .then((confirmationResult: any) => {
+        window.confirmationResult = confirmationResult;
+        console.log("OTP sent.");
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }
+
   const handleNumberSubmit = (value: any) => {
     // handle sending otp to mobile things here
-    console.log(value);
+    // console.log(value);
+    onSignInSubmit(value);
     setIsNumDisable(true);
   };
 
   const handleVerify = (value: any) => {
     // verify if its 1st time user or not here
     // if 1st time userer set isNewUser true else handleModalCancel after doing necessary task
+    const code = value.otp;
+    window.confirmationResult
+      .confirm(code)
+      .then((result: any) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log(user);
+        // const checkIfVender = firebase
+        //   .firestore()
+        //   .collection("venders")
+        //   .doc(user.uid);
+        // checkIfVender
+        //   .get()
+        //   .then((doc) => {
+        //     if (doc.exists) {
+        //       // Show an error that user is already a vender.
+        //       console.log("already exists");
+        //       firebase.auth().signOut();
+        //     } else {
+        //       console.log("does not exists");
+        //       setIsNewUser(true);
+        //     }
+        //   })
+        //   .catch((err) => console.log(err));
+        const checkIfNew = firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid);
+        checkIfNew.get().then((doc) => {
+          if (doc.exists) {
+            console.log("already a user");
+            setIsNewUser(false);
+            // setCurrentUser(user);
+            handleModalCancel();
+            handleLogin(true);
+          } else {
+            // setCurrentUser(user);
+            setIsNewUser(true);
+            setUserData(user);
+          }
+        });
+      })
+      .catch((error: any) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+      });
     console.log(value);
-    const newUser = value.otp === mockOtpNewUser;
-    console.log(value);
-    if (newUser) {
-      setIsNewUser(true);
-    } else {
-      handleModalCancel();
-      handleLogin(true);
-    }
+    // const newUser = value.otp === mockOtpNewUser;
+    // console.log(value);
+    // if (newUser) {
+    //   setIsNewUser(true);
+    // } else {
+    //   handleModalCancel();
+    //   handleLogin(true);
+    // }
   };
-
   const handleUserDetailsSubmit = (value: any) => {
     console.log(value);
+
+    console.log(userData.uid);
+    firebase.firestore().collection("users").doc(userData.uid).set(value);
     handleLogin(true);
     handleModalCancel();
   };
@@ -81,6 +163,7 @@ const UserLoginModal = ({
               {description}
             </p>
           </div>
+          <div id="sign-in-container"></div>
           {!isNewUser && (
             <>
               <Form
@@ -136,23 +219,8 @@ const UserLoginModal = ({
                         {
                           required: true,
                           message: "Please input your OTP number!",
-                        },
-                        {
-                          validator(_, value) {
-                            // replace mockOtp value with original otp value
-                            if (
-                              !value ||
-                              mockOtpOldUser === value ||
-                              mockOtpNewUser === value
-                            ) {
-                              return Promise.resolve();
-                            }
-                            return Promise.reject(
-                              new Error(
-                                "The OTP that you entered do not match!"
-                              )
-                            );
-                          },
+                          min: 6,
+                          max: 6,
                         },
                       ]}
                       hasFeedback
@@ -259,8 +327,11 @@ const UserLoginModal = ({
 
           <div className="tw-w-10/12 tw-mx-auto tw-mt-14">
             <p className="tw-text-secondary-color tw-font-light">
-              Having trouble? Please contact help@texatrove.com for further
-              support.
+              Having trouble? Please contact{" "}
+              <a className="tw-text-blue-500" href="mailto:help@texatrove.com">
+                help@texatrove.com
+              </a>{" "}
+              for further support.
             </p>
           </div>
         </div>

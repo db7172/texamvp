@@ -17,6 +17,7 @@ import { CITY_ARR } from "../../constant/city-array";
 import { lowerCase } from "lodash";
 import UserLoginModal from "./UserLoginModal";
 import UserLogin from "./UserLogin";
+import firebase from "../../firebase";
 
 const default_Options = {
   data: { title: "", options: [] },
@@ -32,6 +33,14 @@ function NavBar() {
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setIsLogedIn(true);
+      }
+    });
+  }, []);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
