@@ -148,7 +148,6 @@ const MultiDays = () => {
     } else if (type === "transpotation") {
       setTranspotationFormData({
         ...transpotationFormData,
-        // for photo you can get value from value.photos
         [key]: value.data,
       });
     } else if (type === "itinerary") {
@@ -981,6 +980,7 @@ const MultiDays = () => {
                       ({ title, Content, key, closable }) => (
                         <Tabs.TabPane tab={title} key={key} closable={closable}>
                           <Content
+                            captureBulletData
                             keyValue={key}
                             updateTabFormData={updateTabFormData}
                           />
