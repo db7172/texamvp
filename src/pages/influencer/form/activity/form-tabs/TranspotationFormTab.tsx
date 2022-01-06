@@ -74,11 +74,21 @@ export const TranspotationFormTab = ({
             </Col>
           )} */}
 
-          <Col span={24}>
+          <Col span={12}>
             <Form.Item name="transportMode" label="Transportaion Mode">
               <Input
                 className="tw-rounded-md"
                 placeholder="Enter Your Cab Type"
+              />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item name="maxCapacity" label="Max Passanger Capacity">
+              <Input
+                type="number"
+                className="tw-rounded-md"
+                placeholder="Max Passanger Capacity"
               />
             </Form.Item>
           </Col>

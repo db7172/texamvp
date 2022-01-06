@@ -1048,6 +1048,43 @@ const MultiDays = () => {
                 </div>
 
                 <Divider className="tw-my-10" />
+
+                <Form.Item>
+                  <div className="tw-relative">
+                    <h3 className="tw-text-base tw-font-medium tw-mb-4">
+                      Important Note
+                    </h3>
+                  </div>
+
+                  <Form.Item
+                    name="additionalCharges"
+                    label="Additional Charges"
+                  >
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="Additional Charges"
+                    />
+                  </Form.Item>
+
+                  <Form.Item name="notes" label="Notes">
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="Notes"
+                    />
+                  </Form.Item>
+
+                  <Form.Item name="disclaimer" label="Disclaimer">
+                    <Input.TextArea
+                      rows={6}
+                      className="tw-rounded-md"
+                      placeholder="disclaimer"
+                    />
+                  </Form.Item>
+                </Form.Item>
+
+                <Divider className="tw-my-10" />
                 <Form.Item>
                   <div className="tw-relative">
                     <h3 className="tw-text-base tw-font-medium tw-mb-4">
@@ -1083,14 +1120,14 @@ const MultiDays = () => {
                     <Input.TextArea
                       rows={6}
                       className="tw-rounded-md"
-                      placeholder="Safty Norms"
+                      placeholder="Things Prohibitted"
                     />
                   </Form.Item>
                   <Form.Item name="saftyNorms" label="Safty Norms">
                     <Input.TextArea
                       rows={6}
                       className="tw-rounded-md"
-                      placeholder="Things Prohibitted"
+                      placeholder="Safty Norms"
                     />
                   </Form.Item>
                   <Form.Item
