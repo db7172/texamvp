@@ -8,8 +8,9 @@ import {
   DatePicker,
   Upload,
   Button,
+  Checkbox,
 } from "antd";
-import { isUndefined, uniqueId } from "lodash";
+import { camelCase, isUndefined, uniqueId } from "lodash";
 import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
@@ -20,6 +21,18 @@ const normFile = (e: any) => {
   }
   return e && e.fileList;
 };
+
+const AMENITIES = [
+  "Room service",
+  "Power backup",
+  "Smoking room",
+  "Wifi",
+  "Intercom",
+  "Telephone",
+  "Housekeeping",
+  "Bathroom",
+  "Restaurant",
+];
 
 export const AccomodationFormTab = ({
   keyValue,
@@ -46,6 +59,7 @@ export const AccomodationFormTab = ({
           ];
         }
         delete newObj.data["photos"];
+        console.log(newObj);
         updateTabFormData("accomodation", newObj, keyValue);
       }}
     >
@@ -146,6 +160,19 @@ export const AccomodationFormTab = ({
             </Form.Item>
           </Col>
         </Row>
+      </Form.Item>
+      <Form.Item label="Amenities" name="amenities">
+        <Checkbox.Group className="tw-w-full">
+          <Row>
+            {AMENITIES.map((d, i) => (
+              <Col span={6} key={i}>
+                <Checkbox value={d} style={{ lineHeight: "32px" }}>
+                  {d}
+                </Checkbox>
+              </Col>
+            ))}
+          </Row>
+        </Checkbox.Group>
       </Form.Item>
       <Form.Item name="note" label="Note">
         <Input className="tw-rounded-md" placeholder="Enter Note" />

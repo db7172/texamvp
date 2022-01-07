@@ -21,7 +21,7 @@ export const RoomAccomodationTab = ({
             ...obj,
           },
         };
-        delete newObj.data["photos"];
+        delete newObj.data.photos;
         updateTabFormData("accomodation", newObj, keyValue);
       }}
     >

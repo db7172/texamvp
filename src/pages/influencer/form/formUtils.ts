@@ -109,8 +109,12 @@ export const hourlyAndSingleDayDataHelper = (value: any) => {
     departureDate: [
       {
         dateRange: {
-          start: formatMomentDate(departureDateFirstField[0] || ""),
-          end: formatMomentDate(departureDateFirstField[1] || ""),
+          start: formatMomentDate(
+            departureDateFirstField ? departureDateFirstField[0] : ""
+          ),
+          end: formatMomentDate(
+            departureDateFirstField ? departureDateFirstField[1] : ""
+          ),
         },
         ratePerPerson: ratePerPersonFirstField,
       },
@@ -185,6 +189,9 @@ export const multiDayDataHelper = (value: any) => {
     termsAndCondition,
     cancellationPolicy,
     includes,
+    additionalCharges,
+    notes,
+    disclaimer,
   } = value;
 
   const updatedDestinations = destinations
@@ -219,8 +226,12 @@ export const multiDayDataHelper = (value: any) => {
     destination: [
       {
         destinationDateRang: {
-          start: formatMomentDate(destinationDateRang[0] || ""),
-          end: formatMomentDate(destinationDateRang[1] || ""),
+          start: formatMomentDate(
+            destinationDateRang ? destinationDateRang[0] : ""
+          ),
+          end: formatMomentDate(
+            destinationDateRang ? destinationDateRang[1] : ""
+          ),
         },
         destination: value.destinationFistField,
       },
@@ -239,6 +250,11 @@ export const multiDayDataHelper = (value: any) => {
     featureKeyWord: value.tags,
     inclusion,
     exclusion,
+    importantNote: {
+      additionalCharges,
+      notes,
+      disclaimer,
+    },
     tripEssential: {
       howToReachPickupPoint,
       thingsToCarry,
