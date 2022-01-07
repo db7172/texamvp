@@ -22,6 +22,7 @@ import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
 import { getEventPagePath } from "../../constant/comman.const";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
+import firebase from "../../firebase";
 
 // dummy data
 
@@ -53,6 +54,7 @@ const EventPage = () => {
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
+  const [events, setEvents] = useState([]);
 
   const coverTitle = `${eventType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -109,6 +111,16 @@ const EventPage = () => {
       destination: formatActiveButton(unqDestination),
       categories: formatActiveButton(unqCategories),
     });
+
+    firebase
+      .firestore()
+      .collection("events")
+      .get()
+      .then((querySnap) => {
+        setEvents(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
   }, [DESTINATION_NAME, EVENT_TYPE]);
 
   const handleShowCallbackModalCancel = () => {
@@ -264,7 +276,7 @@ const EventPage = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {EVENT.map((d, i) => (
+              {events.map((d, i) => (
                 <EventPageCard {...d} key={i} />
               ))}
             </div>

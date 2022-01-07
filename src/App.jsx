@@ -8,6 +8,7 @@ import { AuthProvider } from "./Auth";
 import { useState } from "react";
 import UserRouter from "./pages/router/UserRouter";
 import UserNavBar from "./components/navBar/user/UserNavBar";
+import AdminRouter from "./AdminPanel/AdminRouter";
 
 function App() {
   const [isUserLogedIn] = useState(true);
@@ -26,13 +27,17 @@ function App() {
             <UserNavBar />
             <UserRouter />
           </>
+        ) : location.pathname.includes("admin") ? (
+          <>
+            <AdminRouter />
+          </>
         ) : (
           <>
             <NavBar />
             <AppRouter />
           </>
         )}
-        <Footer />
+        {location.pathname.includes("admin") ? null : <Footer />}
       </>
     </AuthProvider>
   );

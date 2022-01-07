@@ -29,6 +29,7 @@ export const RETREAT_TYPES = {
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
+const ACTIVITY_ID = ":id";
 const EVENT_TYPE = ":eventType";
 const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";
@@ -62,7 +63,7 @@ export const ROUTES = {
   WORKATION_IN_CITY: `/workcation/${WORKATION_TYPE}/${DESTINATION_NAME}`,
   RETREAT: `/retreat/${RETREAT_TYPE}`,
   RETREAT_IN_CITY: `/retreat/${RETREAT_TYPE}/${DESTINATION_NAME}`,
-  VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}`,
+  VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}/${ACTIVITY_ID}`,
   VIEW_MORE_DETAILS_EVENT: `/details/event/${EVENT_TYPE}/${EVENT_NAME}`,
   VIEW_MORE_DETAILS_RETREAT: `/details/retreat/${RETREAT_TYPE}/${RETREAT_NAME}`,
   NOT_FOUND: "/404",
@@ -146,11 +147,13 @@ export const getWorkationPageWithCityPath = (
 
 export const getViewMoreDetailsForActivityPath = (
   activityType,
-  activityName
+  activityName,
+  id
 ) => {
   let path = ROUTES.VIEW_MORE_DETAILS_ACTIVITY;
   path = path.replace(ACTIVITY_TYPE, activityType);
   path = path.replace(ACTIVITY_NAME, activityName);
+  path = path.replace(ACTIVITY_ID, id);
 
   return path;
 };

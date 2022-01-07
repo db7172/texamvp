@@ -11,9 +11,10 @@ const DUMMY_DESCRIPTION =
 type Props = {
   title: string;
   className?: string;
+  desc?: string;
 };
 
-const PageHeader = ({ title, className }: Props) => {
+const PageHeader = ({ title, className, desc }: Props) => {
   const [ellipsis, setEllipsis] = React.useState(true);
   return (
     <>
@@ -26,7 +27,7 @@ const PageHeader = ({ title, className }: Props) => {
         className="tw-section-description tw-mt-3 tw-mb-0"
         ellipsis={ellipsis ? { rows: 2, expandable: true, symbol: " " } : false}
       >
-        {DUMMY_DESCRIPTION}
+        {desc}
       </Paragraph>
       <p className="tw-text-right">
         <Button

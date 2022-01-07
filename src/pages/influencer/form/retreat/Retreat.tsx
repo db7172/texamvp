@@ -21,7 +21,7 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
@@ -39,6 +39,8 @@ import {
 } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
+import firebase from "../../../../firebase";
+import { AuthContext } from "../../../../Auth";
 
 let addPaymentField: {
   (): void;
@@ -85,6 +87,7 @@ const Retreat = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
+  const { currentUser } = useContext(AuthContext);
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -126,7 +129,7 @@ const Retreat = () => {
     }
   };
 
-  const onFinishForm = (value: any) => {
+  const onFinishForm = async (value: any) => {
     const departureDetails = value.departure
       ? formateDeparture(value.departure)
       : [];
@@ -184,6 +187,32 @@ const Retreat = () => {
     };
 
     console.log(formValue);
+    const data = {
+      formData: formValue,
+      userID: currentUser.id,
+      status: "processing",
+      booked: 0,
+    };
+    console.log(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`retreat/${currentUser.id}/${i}/`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await firebase
+      .firestore()
+      .collection("retreat")
+      .add({ data, imgLink })
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (

@@ -11,7 +11,7 @@ const UserRouter = () => {
         {/* user dashboard */}
         <Route component={UserDashboard} path={ROUTES.USER_DASHBOARD} />
         {/* Redirect to 404 */}
-        <Redirect to={ROUTES.NOT_FOUND} />
+        {/* <Redirect to={ROUTES.NOT_FOUND} /> */}
       </Switch>
     </>
   );

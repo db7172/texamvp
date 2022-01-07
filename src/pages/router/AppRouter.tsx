@@ -22,7 +22,7 @@ const AppRouter = () => {
     <>
       <ScrollToTop />
       <Switch>
-        <Route exact component={NotFound} path={ROUTES.NOT_FOUND} />
+        {/* <Route exact component={NotFound} path={ROUTES.NOT_FOUND} /> */}
         <Route exact component={Home} path={ROUTES.HOME} />
 
         {/* Destination page */}

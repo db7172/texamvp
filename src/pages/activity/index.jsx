@@ -348,7 +348,7 @@ const Activity = () => {
           <div className="tw-mt-5">
             <div>
               {totalActivities.map((d, i) => (
-                <ActivityCard {...d} key={i} data={totalActivities} />
+                <ActivityCard key={i} data={d} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">
