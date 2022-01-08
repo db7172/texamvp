@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { useState } from "react";
 import icon from "../../../assets/svg/telephone_gray.svg";
+import firebase from "../../../firebase";
 
 const RequestCallbackModal = ({
   handleSubmit,
@@ -24,8 +25,14 @@ const RequestCallbackModal = ({
 
   const onSubmit = (value: any) => {
     handleSubmit(value);
-    setShowConfirmationModal(true);
-    form.resetFields();
+    firebase
+      .firestore()
+      .collection("requests")
+      .add(value)
+      .then(() => {
+        setShowConfirmationModal(true);
+        form.resetFields();
+      });
   };
 
   return (

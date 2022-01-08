@@ -42,6 +42,19 @@ const LeftPane = ({ mobileNav, setMobile, mob }) => {
             <p>Activity</p>
           </li>
         </Link>
+        <Link to="/admin/dashboard/requests">
+          <li
+            onClick={() => {
+              setFilter(2);
+            }}
+            style={{ backgroundColor: filter === 2 ? "#2e538a" : null }}
+          >
+            <span>
+              <img alt=""></img>
+            </span>
+            <p>Call Requests</p>
+          </li>
+        </Link>
       </ul>
     </div>
   );

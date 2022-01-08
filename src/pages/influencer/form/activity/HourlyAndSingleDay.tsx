@@ -86,6 +86,7 @@ const HourlyAndSingleDay = () => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [paymentCategory, setPaymentCategory] = useState(false);
+  const [activityCategory, setActivityCategory] = useState([]) as any;
 
   const { state: transportationTabs, methods: transportationMethods } = useTabs(
     {
@@ -113,6 +114,20 @@ const HourlyAndSingleDay = () => {
   const onTagClose = (id: number) => {
     setTags(tags.filter((_, i) => id !== i));
   };
+
+  useEffect(() => {
+    db.collection("categories")
+      .get()
+      .then((querySnap) => {
+        setActivityCategory(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "activity";
+            })
+        );
+      });
+  }, []);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -152,6 +167,8 @@ const HourlyAndSingleDay = () => {
         console.error("Error writing document: ", error);
       });
   };
+
+  console.log(activityCategory);
 
   return (
     <Container>
@@ -458,9 +475,13 @@ const HourlyAndSingleDay = () => {
                       className="tw-rounded-md"
                       placeholder="Select Your Activity Type"
                     >
-                      <Select.Option value="option1">Option1</Select.Option>
-                      <Select.Option value="option2">Option2</Select.Option>
-                      <Select.Option value="option3">Option3</Select.Option>
+                      {activityCategory.map((activity: any, i: number) => {
+                        return (
+                          <Select.Option value={activity.data.name} key={i}>
+                            {activity.data.name}
+                          </Select.Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
 

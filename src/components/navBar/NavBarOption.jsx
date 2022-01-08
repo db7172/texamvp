@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
-function NavBarOption({ isShow = false, data, toggleNavBar }) {
-  const { path, data: pageInfo } = data;
-  const { title, options } = pageInfo;
+function NavBarOption(props) {
+  // const { path, data: pageInfo } = data;
+  const { path } = props;
+  const { data } = props;
+  // const { title, options } = pageInfo;
   let { url } = useRouteMatch();
 
   const [viewAllPath, setViewAllPath] = useState("#");
@@ -29,20 +31,22 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
       default:
         break;
     }
-  }, [path, title]);
+  }, [path]);
 
   const handleLinkClick = (label = "") => {
     console.log(`${url}${path}/${label}`);
-    toggleNavBar();
+    props.toggleNavBar();
   };
 
   return (
-    <div className={`${isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
+    <div className={`${props.isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
-        <h3 className="tw-text-lg tw-font-medium">{title}</h3>
+        <h3 className="tw-text-lg tw-font-medium">
+          {path.charAt(0).toUpperCase() + path.slice(1)}
+        </h3>
       </div>
       <div className="tw-flex tw-mt-2">
-        {options.map((option, index) => (
+        {/* {options.map((option, index) => (
           <ul key={index} className="tw-mr-12">
             {option.map((label, i) => (
               <li
@@ -63,7 +67,24 @@ function NavBarOption({ isShow = false, data, toggleNavBar }) {
               </li>
             )}
           </ul>
-        ))}
+        ))} */}
+        {/* {pageInfo.map((option, index) => ( */}
+        <ul className="tw-mr-12">
+          {data ? (
+            data.map((data, i) => (
+              <li
+                key={i}
+                className="tw-p-1 tw-cursor-pointer"
+                onClick={() => handleLinkClick(data.id)}
+              >
+                <Link to={`${url}${path}/${data.id}`}>{data.data.name}</Link>
+              </li>
+            ))
+          ) : (
+            <h3>Loading...</h3>
+          )}
+        </ul>
+        {/* ))} */}
       </div>
     </div>
   );

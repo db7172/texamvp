@@ -88,6 +88,10 @@ const Activity = () => {
   const [singleActivity, setSingleActivity] = useState([]);
   const [multiDay, setmultiDay] = useState([]);
 
+  console.log(activeDuration);
+  console.log(activeLevel);
+  console.log(destinationfilter);
+
   useEffect(() => {
     if (isEmpty(DESTINATION_NAME)) {
       setSlashedTableName([
@@ -153,7 +157,14 @@ const Activity = () => {
       .get()
       .then((querySnap) => {
         setSingleActivity(
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return (
+                item.data.data.formData.sailentFeatures.activityType ===
+                activityType
+              );
+            })
         );
       });
 
@@ -163,7 +174,14 @@ const Activity = () => {
       .get()
       .then((querySnap) => {
         setmultiDay(
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return (
+                item.data.data.formData.sailentFeatures.activityType ===
+                activityType
+              );
+            })
         );
       });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);

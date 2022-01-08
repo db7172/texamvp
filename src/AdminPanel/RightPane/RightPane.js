@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import "./rightPane.css";
 import HomePage from "../Homepage/HomePage";
 import ActivityPage from "../ActivityPage/ActivityPage";
+import CallRequests from "../CallRequests/CallRequests";
 
 const rightPane = () => {
   return (
@@ -23,6 +24,14 @@ const rightPane = () => {
           render={() => (
             <Fragment>
               <ActivityPage />
+            </Fragment>
+          )}
+        />
+        <Route
+          path="/admin/dashboard/requests"
+          render={() => (
+            <Fragment>
+              <CallRequests />
             </Fragment>
           )}
         />

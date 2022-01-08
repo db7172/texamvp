@@ -16,7 +16,6 @@ const ActivityCard = (props) => {
   const { totalActivities } = props;
   const { multi } = props;
   const { data } = props;
-  console.log(props);
   const activityData = data.data.data.formData;
   const [vender, setVender] = useState({});
 
