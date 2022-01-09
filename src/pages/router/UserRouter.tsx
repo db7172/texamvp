@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch } from "react-router";
 import ScrollToTop from "../../components/common/scroll-to-top/ScrollToTop";
 import { ROUTES } from "../../constant/comman.const";
 import UserDashboard from "../User/Dashboard/UserDashboard";

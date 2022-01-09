@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../../Auth";
 import firebase from "../../../firebase";
 
-const mobileOTP = 123456;
+// const mobileOTP = 123456;
 
 const InfluencerLogin = () => {
   const history = useHistory();

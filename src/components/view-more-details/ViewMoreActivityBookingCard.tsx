@@ -21,7 +21,7 @@ import ViewMorePriceCard from "./ViewMorePriceCard";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import firebase from "../../firebase";
-import UserLoginModal from "../navBar/UserLoginModal";
+// import UserLoginModal from "../navBar/UserLoginModal";
 
 const MOCK_DATE = [
   {

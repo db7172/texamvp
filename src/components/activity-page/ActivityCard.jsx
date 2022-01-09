@@ -1,5 +1,5 @@
 import { indCurrency } from "../../utils/utils";
-import Tags from "../Tags/Tags";
+// import Tags from "../Tags/Tags";
 import hotel from "../../assets/png/hotel.png";
 import camera from "../../assets/png/photo-camera.png";
 import taxi from "../../assets/png/taxi.png";
@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 const ActivityCard = (props) => {
   const { imgUrl } = props;
 
-  const { totalActivities } = props;
-  const { multi } = props;
+  // const { totalActivities } = props;
+  // const { multi } = props;
   const { data } = props;
   const activityData = data.data.data.formData;
   const [vender, setVender] = useState({});

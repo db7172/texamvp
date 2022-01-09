@@ -14,7 +14,7 @@ import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
 import Title from "../../components/common/title/Title";
 import FaqSection from "../../components/view-more-details/FaqSection";
-import { getActivityIcon } from "../../constant/activity-icon";
+// import { getActivityIcon } from "../../constant/activity-icon";
 import {
   RIGHT_SPACING_VALUE,
   LEFT_SPACING_VALUE,
@@ -24,16 +24,16 @@ import { ACTIVITY } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import firebase from "../../firebase";
 
-type Icon = {
-  icon: string;
-  name: string;
-};
+// type Icon = {
+//   icon: string;
+//   name: string;
+// };
 
 const Activites = () => {
   const [slashedTableName, setSlashedTableName] = useState<
     Array<TitleBreadCrumb>
   >([]);
-  const [activityIcon, setActivityIcon] = useState<Array<Icon>>([]);
+  // const [activityIcon, setActivityIcon] = useState<Array<Icon>>([]);
   const [cardCount, setCardCount] = useState(23);
   const [activities, setActivities] = useState([]) as any;
 
@@ -51,7 +51,7 @@ const Activites = () => {
   }, []);
 
   useEffect(() => {
-    setActivityIcon(getActivityIcon(cardCount));
+    // setActivityIcon(getActivityIcon(cardCount));
     firebase
       .firestore()
       .collection("categories")

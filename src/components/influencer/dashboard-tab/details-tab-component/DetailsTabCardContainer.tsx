@@ -16,14 +16,14 @@ import share from "../../../../assets/svg/influencer/share.svg";
 import cancel from "../../../../assets/svg/influencer/cancel.svg";
 import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
-import firebase from "../../../../firebase";
+// import firebase from "../../../../firebase";
 import coverImg from "../../../../assets/png/activity.png";
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
 
 const mockReason = [
   {

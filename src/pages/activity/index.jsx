@@ -6,7 +6,7 @@ import ActivityCard from "../../components/activity-page/ActivityCard";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { POPULAR_ACTIVITY } from "../../constant/dummyData";
+// import { POPULAR_ACTIVITY } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";

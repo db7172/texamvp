@@ -10,7 +10,7 @@ import {
   Button,
   Checkbox,
 } from "antd";
-import { camelCase, isUndefined, uniqueId } from "lodash";
+import { isUndefined, uniqueId } from "lodash";
 import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 

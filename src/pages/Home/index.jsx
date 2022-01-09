@@ -11,9 +11,7 @@ import {
   SECONDARY_COLOR,
 } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
-import Retreat, {
-  reteratOptions,
-} from "../../components/home-page-tabs/Retreat";
+import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
@@ -35,44 +33,44 @@ const getTabClasses = (tab, activeTab) => {
 
 //TODO:- remove dummy data once API come
 
-const activityOptions = [
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-  "Cycle Trip",
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-];
+// const activityOptions = [
+//   "Trekking",
+//   "Camping",
+//   "Skiingg",
+//   "Surfing",
+//   "Kayking",
+//   "Scuba Diving",
+//   "Snookering",
+//   "Web Shows",
+//   "Ladakh",
+//   "Cycle Trip",
+//   "Trekking",
+//   "Camping",
+//   "Skiingg",
+//   "Surfing",
+//   "Kayking",
+//   "Scuba Diving",
+//   "Snookering",
+//   "Web Shows",
+//   "Ladakh",
+// ];
 
-const eventOptions = [
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-  "Music",
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-  "Music",
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-];
+// const eventOptions = [
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+//   "Music",
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+//   "Music",
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+// ];
 
 const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 

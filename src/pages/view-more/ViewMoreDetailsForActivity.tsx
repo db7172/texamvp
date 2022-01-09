@@ -32,13 +32,7 @@ import info from "../../assets/svg/info.svg";
 
 import { ACTIVITY } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
-import {
-  EXCLUSION_DETAILS,
-  INCLUSION_DETAILS,
-  TERMS_AND_CONDITIONS,
-  TRIP_ESSENTIALS,
-  VIEW_MORE_ACTIVITY_DETAILS,
-} from "./data.mock";
+import { VIEW_MORE_ACTIVITY_DETAILS } from "./data.mock";
 
 type ParamTypes = {
   activityName: string;
