@@ -67,7 +67,7 @@ const ViewMoreDetailsForWorkcation = () => {
             </p>
           </div>
         </div>
-        <Row gutter={RIGHT_SPACING_VALUE} className="tw-mt-10">
+        <Row gutter={RIGHT_SPACING_VALUE} className="tw-items-center">
           <Col span={17}>
             <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
           </Col>
