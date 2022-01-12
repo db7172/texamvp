@@ -13,6 +13,8 @@ const ActivityTab = ({
   const [dateTime, setDateTime] = useState("");
   const [form] = Form.useForm();
 
+  console.log(DropDownOptions);
+
   const handleClick = () => {
     onClick(selectedOption, dateTime);
   };
@@ -36,8 +38,8 @@ const ActivityTab = ({
             }
           >
             {DropDownOptions.map((o, i) => (
-              <Select.Option key={i} value={o}>
-                {capitalize(o)}
+              <Select.Option key={i} value={o.data.name}>
+                {o.data.name}
               </Select.Option>
             ))}
           </Select>

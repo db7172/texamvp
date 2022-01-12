@@ -17,8 +17,9 @@ import {
   Tag,
   Upload,
 } from "antd";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../../Auth";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { formatMomentDate } from "../../../../utils/utils";
@@ -30,6 +31,7 @@ import CreateActivity from "../CreateActivity";
 import { normFile, onKeyDownEvent, stripUndefined } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
+import firebase from "../../../../firebase";
 
 const accomodationPanes = [
   {
@@ -60,6 +62,7 @@ const Workation = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
+  const { currentUser } = useContext(AuthContext);
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -105,7 +108,7 @@ const Workation = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const onFinishForm = (value: any) => {
+  const onFinishForm = async (value: any) => {
     const formValue: any = {
       workationName: value.eventName,
       description: value.description,
@@ -131,6 +134,32 @@ const Workation = () => {
     };
     const finalData = stripUndefined(formValue);
     console.log(finalData);
+    const data = {
+      formData: formValue,
+      userID: currentUser.id,
+      status: "processing",
+      booked: 0,
+    };
+    console.log(data);
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        const storageRef = firebase
+          .storage()
+          .ref(`workation/${currentUser.id}/${i}/`);
+        await storageRef.put(image);
+        const downloadLink = storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    await firebase
+      .firestore()
+      .collection("workation")
+      .add({ data, imgLink })
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (

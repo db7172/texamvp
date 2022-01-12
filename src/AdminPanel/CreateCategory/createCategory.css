@@ -1,0 +1,19 @@
+.create-category {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-top: 30px;
+}
+.cc {
+  justify-content: flex-start !important;
+}
+.ccg {
+  margin-left: 20px;
+}
+.ccg select {
+  width: 230px;
+  padding: 12px;
+  background-color: #eee;
+}

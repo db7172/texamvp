@@ -20,6 +20,8 @@ import { Package } from "Models";
 import ViewMorePriceCard from "./ViewMorePriceCard";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import firebase from "../../firebase";
+// import UserLoginModal from "../navBar/UserLoginModal";
 
 const MOCK_DATE = [
   {
@@ -86,21 +88,29 @@ const ViewMoreActivityBookingCard = () => {
 
   const handleSubmit = () => {
     // const isDate = !selectedDate && setIsDateSelected(false);
-    if (selectedDate) {
-      setFormValue({
-        ...formValue,
-        dateOfTravel: moment(selectedDate),
-      });
-      form.setFieldsValue({ ...formValue, dateOfTravel: moment(selectedDate) });
-      setIsModalVisible(true);
-    } else {
-      setIsDateSelected(false);
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        if (selectedDate) {
+          setFormValue({
+            ...formValue,
+            dateOfTravel: moment(selectedDate),
+          });
+          form.setFieldsValue({
+            ...formValue,
+            dateOfTravel: moment(selectedDate),
+          });
+          setIsModalVisible(true);
+        } else {
+          setIsDateSelected(false);
+        }
+      } else {
+        alert("You need to be logged in !");
+      }
+    });
   };
 
   const handleModalSubmit = () => {
     setIsModalVisible(false);
-
     history.push({
       pathname: "/payment",
       state: {

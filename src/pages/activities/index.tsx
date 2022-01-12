@@ -14,7 +14,7 @@ import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
 import Title from "../../components/common/title/Title";
 import FaqSection from "../../components/view-more-details/FaqSection";
-import { getActivityIcon } from "../../constant/activity-icon";
+// import { getActivityIcon } from "../../constant/activity-icon";
 import {
   RIGHT_SPACING_VALUE,
   LEFT_SPACING_VALUE,
@@ -22,18 +22,20 @@ import {
 } from "../../constant/comman.const";
 import { ACTIVITY } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
+import firebase from "../../firebase";
 
-type Icon = {
-  icon: string;
-  name: string;
-};
+// type Icon = {
+//   icon: string;
+//   name: string;
+// };
 
 const Activites = () => {
   const [slashedTableName, setSlashedTableName] = useState<
     Array<TitleBreadCrumb>
   >([]);
-  const [activityIcon, setActivityIcon] = useState<Array<Icon>>([]);
+  // const [activityIcon, setActivityIcon] = useState<Array<Icon>>([]);
   const [cardCount, setCardCount] = useState(23);
+  const [activities, setActivities] = useState([]) as any;
 
   useEffect(() => {
     setSlashedTableName([
@@ -49,12 +51,27 @@ const Activites = () => {
   }, []);
 
   useEffect(() => {
-    setActivityIcon(getActivityIcon(cardCount));
+    // setActivityIcon(getActivityIcon(cardCount));
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setActivities(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "activity";
+            })
+        );
+      });
   }, [cardCount]);
 
   const handleCradClick = () => {
     setCardCount(cardCount + 12);
   };
+
+  console.log(activities);
 
   return (
     <>
@@ -82,13 +99,13 @@ const Activites = () => {
           </Col>
           <Col span={24}>
             <Row gutter={[20, 20]}>
-              {activityIcon.map(({ icon, name }: Icon, i) => (
+              {activities.map((activity: any, i: number) => (
                 <Col span={4} className="effect">
-                  <Link to={getActivityPagePath(lowerCase(name))}>
+                  <Link to={getActivityPagePath(lowerCase(activity.data.name))}>
                     <IconCard
-                      path={icon}
-                      name={name}
-                      description={`124 Acticites`}
+                      path={"path/"}
+                      name={activity.data.name}
+                      description={`124 Activites`}
                       key={i}
                     />
                   </Link>

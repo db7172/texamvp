@@ -7,38 +7,44 @@ const classNamesInclustionImg = {
   img: "tw-h-4 tw-w-4",
 };
 
-const ViewMoreActivityCard = () => {
+const ViewMoreActivityCard = (props: any) => {
+  console.log(props);
+  const data = props.data.data.data.formData;
   return (
     <main>
       <p className="tw-text-secondary-color">
         Starting from{" "}
         <span className="tw-mx-1 tw-text-yellow-color tw-text-lg tw-font-bold">
-          {indCurrency(16450)}
+          {indCurrency(data.payment)}
         </span>{" "}
         Per Person
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Start From :</span>{" "}
-        <span className="tw-font-medium">Lisbon</span>
+        <span className="tw-font-medium">{data.departureCity[0]}</span>
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Duration :</span>{" "}
-        <span className="tw-font-medium">Multi-day - ( 3 days )</span>
+        <span className="tw-font-medium">Single-day - ( 1 days )</span>
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Activity Type :</span>{" "}
-        <span className="tw-font-medium">Trekking</span>
+        <span className="tw-font-medium">
+          {data.sailentFeatures.activityType}
+        </span>
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">
           Activity Level :
         </span>{" "}
-        <span className="tw-font-medium">Easy</span>
+        <span className="tw-font-medium">
+          {data.sailentFeatures.activityLevel}
+        </span>
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Activity By :</span>{" "}
         <span className="tw-font-medium tw-text-blue-500 tw-underline">
-          Vishal joshi
+          {props.venderName}
         </span>
       </p>
       <div className="tw-mt-3 tw-flex tw-items-center">

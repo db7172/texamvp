@@ -11,9 +11,7 @@ import {
   SECONDARY_COLOR,
 } from "../../constant/comman.const";
 import ActivityTab from "../../components/home-page-tabs/ActivityTab";
-import Retreat, {
-  reteratOptions,
-} from "../../components/home-page-tabs/Retreat";
+import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
@@ -25,8 +23,9 @@ import EventCarousel from "../../components/common/carousel/EventCarousel";
 import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
 import Testimonials from "../../components/common/carousel/Testimonials";
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { lowerCase } from "lodash";
+import firebase from "../../firebase";
 
 const getTabClasses = (tab, activeTab) => {
   return "tw-gh-tabs" + (activeTab === tab ? " active" : "");
@@ -34,44 +33,44 @@ const getTabClasses = (tab, activeTab) => {
 
 //TODO:- remove dummy data once API come
 
-const activityOptions = [
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-  "Cycle Trip",
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-];
+// const activityOptions = [
+//   "Trekking",
+//   "Camping",
+//   "Skiingg",
+//   "Surfing",
+//   "Kayking",
+//   "Scuba Diving",
+//   "Snookering",
+//   "Web Shows",
+//   "Ladakh",
+//   "Cycle Trip",
+//   "Trekking",
+//   "Camping",
+//   "Skiingg",
+//   "Surfing",
+//   "Kayking",
+//   "Scuba Diving",
+//   "Snookering",
+//   "Web Shows",
+//   "Ladakh",
+// ];
 
-const eventOptions = [
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-  "Music",
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-  "Music",
-  "Comedy",
-  "Music Fest",
-  "Online Course",
-  "Theatre",
-];
+// const eventOptions = [
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+//   "Music",
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+//   "Music",
+//   "Comedy",
+//   "Music Fest",
+//   "Online Course",
+//   "Theatre",
+// ];
 
 const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 
@@ -79,6 +78,26 @@ function Home() {
   const [activeTab, setActiveTab] = useState(1);
   const [activityIcon, setActivityIcon] = useState([]);
   const { width } = useWindowDimensions();
+  const [dropData, setDropData] = useState({
+    activities: [],
+    events: [],
+    retreats: [],
+    workations: [],
+  });
+
+  const history = useHistory();
+
+  // const fetchDropData = (type) => {
+  //   firebase
+  //     .firestore()
+  //     .collection("categories")
+  //     .get()
+  //     .then((querySnap) => {
+  //       setDropData(querySnap.docs.map((doc) => doc.data)).filter(
+  //         (item) => item.data.type === type
+  //       );
+  //     });
+  // };
 
   useEffect(() => {
     if (width >= 1440) {
@@ -90,11 +109,48 @@ function Home() {
     } else {
       setActivityIcon(getActivityIcon(3));
     }
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setDropData({
+          ...dropData,
+          activities: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "activity";
+            }),
+
+          events: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "event";
+            }),
+
+          retreats: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "retreat";
+            }),
+
+          workations: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "workation";
+            }),
+        });
+      });
   }, [width]);
 
   const handleClick = (activity, date) => {
     console.log({ activity, date });
+    history.push(
+      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
+    );
   };
+
+  console.log(dropData);
 
   return (
     <>
@@ -172,7 +228,7 @@ function Home() {
                   <ActivityTab
                     dropDownLabel="ACTIVITY TYPE"
                     placeHolder="Select your activity"
-                    DropDownOptions={activityOptions}
+                    DropDownOptions={dropData.activities}
                     dateLabel="START DATE"
                     onClick={handleClick}
                   />
@@ -181,7 +237,7 @@ function Home() {
                   <ActivityTab
                     dropDownLabel="EVENT TYPE"
                     placeHolder="Select your event"
-                    DropDownOptions={eventOptions}
+                    DropDownOptions={dropData.events}
                     dateLabel="DATE"
                     onClick={handleClick}
                   />
@@ -191,7 +247,7 @@ function Home() {
                   <ActivityTab
                     dropDownLabel="Destination"
                     placeHolder="Select your destination"
-                    DropDownOptions={reteratOptions}
+                    DropDownOptions={dropData.workations}
                     dateLabel="DATE"
                     onClick={handleClick}
                   />

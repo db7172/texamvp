@@ -6,7 +6,7 @@ import ActivityCard from "../../components/activity-page/ActivityCard";
 import ExploreMoreWrapper from "../../components/common/explore-more-wrapper/ExploreMoreWrapper";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { POPULAR_ACTIVITY } from "../../constant/dummyData";
+// import { POPULAR_ACTIVITY } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
@@ -88,6 +88,10 @@ const Activity = () => {
   const [singleActivity, setSingleActivity] = useState([]);
   const [multiDay, setmultiDay] = useState([]);
 
+  console.log(activeDuration);
+  console.log(activeLevel);
+  console.log(destinationfilter);
+
   useEffect(() => {
     if (isEmpty(DESTINATION_NAME)) {
       setSlashedTableName([
@@ -153,7 +157,14 @@ const Activity = () => {
       .get()
       .then((querySnap) => {
         setSingleActivity(
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return (
+                item.data.data.formData.sailentFeatures.activityType ===
+                activityType
+              );
+            })
         );
       });
 
@@ -163,7 +174,14 @@ const Activity = () => {
       .get()
       .then((querySnap) => {
         setmultiDay(
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return (
+                item.data.data.formData.sailentFeatures.activityType ===
+                activityType
+              );
+            })
         );
       });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
@@ -348,7 +366,7 @@ const Activity = () => {
           <div className="tw-mt-5">
             <div>
               {totalActivities.map((d, i) => (
-                <ActivityCard {...d} key={i} data={totalActivities} />
+                <ActivityCard key={i} data={d} />
               ))}
             </div>
             <div className="tw-flex tw-justify-center tw-mt-10">

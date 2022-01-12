@@ -295,7 +295,9 @@ const MultiDays = () => {
                 <Divider className="tw-my-10" />
                 <Form.Item className="">
                   <div className="tw-flex tw-justify-between">
-                    <h3 className="tw-text-base tw-font-medium">Payment</h3>
+                    <h3 className="tw-text-base tw-font-medium">
+                      Payment and Packages
+                    </h3>
                     <p
                       className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
                       onClick={() => {

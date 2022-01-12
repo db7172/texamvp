@@ -4,12 +4,12 @@ import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
 import { ReactComponent as Location } from "../../assets/svg/location.svg";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import NavBarOption from "./NavBarOption";
-import {
-  ACTIVITY_DATA,
-  EVENT_DATA,
-  RETREAT_DATA,
-  WORKCATION_DATA,
-} from "../../constant/navData.const";
+// import {
+//   ACTIVITY_DATA,
+//   EVENT_DATA,
+//   RETREAT_DATA,
+//   WORKCATION_DATA,
+// } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { Select } from "antd";
@@ -19,17 +19,25 @@ import UserLoginModal from "./UserLoginModal";
 import UserLogin from "./UserLogin";
 import firebase from "../../firebase";
 
-const default_Options = {
-  data: { title: "", options: [] },
-  path: "",
-};
+// const default_Options = {
+//   data: { title: "", options: [] },
+//   path: "",
+// };
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
   // const [showReterat, setShowReterat] = useState(false);
-  const [navData, setNavData] = useState(default_Options);
+  const [navData, setNavData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isLogedIn, setIsLogedIn] = useState(false);
+  const [allData, setAllData] = useState({
+    activities: [],
+    events: [],
+    retreats: [],
+    workations: [],
+  });
+  const [path, setPath] = useState("");
+  // const [flag, setFlag] = useState(0);
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
@@ -40,7 +48,41 @@ function NavBar() {
         setIsLogedIn(true);
       }
     });
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setAllData({
+          ...allData,
+          activities: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "activity";
+            }),
+
+          events: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "event";
+            }),
+
+          retreats: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "retreat";
+            }),
+
+          workations: querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "workation";
+            }),
+        });
+      });
   }, []);
+
+  console.log(allData.activities);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -59,15 +101,17 @@ function NavBar() {
     }, [ref]);
   }
 
-  const handleShow = (data) => {
+  const handleShow = (data, path) => {
     // setShowReterat(false);
-    if (data.data.title === navData.data.title) {
-      setIsShow(false);
-      setNavData(default_Options);
-    } else {
-      setIsShow(true);
-      setNavData(data);
-    }
+    // console.log(data.data.title, navData.data.title);
+    // if (data.data.title === navData.data.title) {
+    //   setIsShow(false);
+    //   setNavData(default_Options);
+    // } else {
+    setIsShow(!isShow);
+    setNavData(data);
+    setPath(path);
+    // }
   };
 
   // const handleShowReterat = () => {
@@ -98,9 +142,7 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link"
-                  onClick={() =>
-                    handleShow({ data: ACTIVITY_DATA, path: "activity" })
-                  }
+                  onClick={() => handleShow(allData.activities, "activity")}
                 >
                   <span className="tw-mr-2">Activities</span>
                   <span className="">
@@ -111,9 +153,7 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link"
-                  onClick={() =>
-                    handleShow({ data: EVENT_DATA, path: "event" })
-                  }
+                  onClick={() => handleShow(allData.events, "event")}
                 >
                   <span className="tw-mr-2">Events</span>
                   <span className="">
@@ -124,9 +164,7 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link"
-                  onClick={() =>
-                    handleShow({ data: RETREAT_DATA, path: "retreat" })
-                  }
+                  onClick={() => handleShow(allData.retreats, "retreat")}
                 >
                   <span className="tw-mr-2">Retreats</span>
                   <span className="">
@@ -137,9 +175,7 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link tw-mr-0"
-                  onClick={() =>
-                    handleShow({ data: WORKCATION_DATA, path: "workcation" })
-                  }
+                  onClick={() => handleShow(allData.workations, "workcation")}
                 >
                   <span className="tw-mr-2">Workcations</span>
                   <span className="">
@@ -233,6 +269,7 @@ function NavBar() {
               toggleNavBar={handleLinkClick}
               isShow={isShow}
               data={navData}
+              path={path}
             />
           </div>
         </div>

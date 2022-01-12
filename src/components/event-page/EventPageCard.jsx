@@ -2,25 +2,33 @@ import { Link } from "react-router-dom";
 import { getViewMoreDetailsForEventPath } from "../../constant/comman.const";
 import { indCurrency } from "../../utils/utils";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
+import coverImg from "../../assets/png/event.jpg";
 
-const EventPageCard = ({ name, datetime, type, price, imgUrl }) => {
+const EventPageCard = ({ name, datetime, type, price, imgUrl, data }) => {
   const routingDetails = {
-    pathname: getViewMoreDetailsForEventPath(type, name),
-    state: { name, datetime, type, price, imgUrl },
+    pathname: getViewMoreDetailsForEventPath(
+      data.data.formData.eventType,
+      data.data.formData.eventName
+    ),
+    state: { data },
   };
 
+  console.log(data.data.formData);
+
   return (
-    <PageCardContainer imgUrl={imgUrl} title={name}>
+    <PageCardContainer imgUrl={coverImg} title={data.data.formData.eventName}>
       <p className="tw-font-medium tw-text-secondary-color tw-mt-2">
-        {datetime}
+        {`${data.data.formData.sailentFeatures.startDate} | ${data.data.formData.sailentFeatures.startTime}`}
       </p>
-      <p className="tw-mt-2 tw-text-secondary-color tw-font-medium">{type}</p>
+      <p className="tw-mt-2 tw-text-secondary-color tw-font-medium">
+        {data.data.formData.eventType}
+      </p>
 
       <p className=" tw-my-5 tw-price tw-text-xl">
         <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-mr-2">
           Starting from
         </span>
-        {indCurrency(price)}
+        {indCurrency(data.data.formData.payment)}
         <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-ml-2">
           Onwards
         </span>

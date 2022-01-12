@@ -8,13 +8,26 @@ import { AuthProvider } from "./Auth";
 import { useState } from "react";
 import UserRouter from "./pages/router/UserRouter";
 import UserNavBar from "./components/navBar/user/UserNavBar";
-
+import AdminRouter from "./AdminPanel/AdminRouter";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 function App() {
   const [isUserLogedIn] = useState(true);
   let location = useLocation();
 
   return (
     <AuthProvider>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <>
         {location.pathname.includes("influencer") ? (
           <>
@@ -26,13 +39,17 @@ function App() {
             <UserNavBar />
             <UserRouter />
           </>
+        ) : location.pathname.includes("admin") ? (
+          <>
+            <AdminRouter />
+          </>
         ) : (
           <>
             <NavBar />
             <AppRouter />
           </>
         )}
-        <Footer />
+        {location.pathname.includes("admin") ? null : <Footer />}
       </>
     </AuthProvider>
   );

@@ -16,13 +16,14 @@ import share from "../../../../assets/svg/influencer/share.svg";
 import cancel from "../../../../assets/svg/influencer/cancel.svg";
 import edit from "../../../../assets/svg/influencer/edit.svg";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
-import firebase from "../../../../firebase";
+// import firebase from "../../../../firebase";
+import coverImg from "../../../../assets/png/activity.png";
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
 
 const mockReason = [
   {
@@ -129,10 +130,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               style={{ maxWidth: d.data.formData.date ? "250px" : "330px" }}
             >
               <div>
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/hourlyAndSingle%2FB31BYMbgfGU4oKE78cEmyJyZGHZ2%2F0?alt=media&token=19f189e6-dc54-4da2-84d5-82dbc9bb4fa8"
-                  alt="details card"
-                />
+                <img src={coverImg} alt="details card" />
               </div>
               <div style={{ width: d.data.formData.date ? "180px" : "220px" }}>
                 <Tooltip title={d.data.formData.activityName}>

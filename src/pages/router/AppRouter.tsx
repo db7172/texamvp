@@ -1,7 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import ScrollToTop from "../../components/common/scroll-to-top/ScrollToTop";
 import { ROUTES } from "../../constant/comman.const";
-import NotFound from "../404/NotFound";
 import Activites from "../activities/index";
 import Activity from "../activity";
 import DestinationPage from "../destination";
@@ -23,7 +22,7 @@ const AppRouter = () => {
     <>
       <ScrollToTop />
       <Switch>
-        <Route exact component={NotFound} path={ROUTES.NOT_FOUND} />
+        {/* <Route exact component={NotFound} path={ROUTES.NOT_FOUND} /> */}
         <Route exact component={Home} path={ROUTES.HOME} />
 
         {/* Destination page */}

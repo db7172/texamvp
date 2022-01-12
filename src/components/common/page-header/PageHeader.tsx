@@ -5,15 +5,16 @@ import { startCase } from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 
-const DUMMY_DESCRIPTION =
-  "The human instinct to explore new places and things is always there. People travel for all sorts of reasons, be it to spend time with their loved ones or today North Andaman and Baratang Island are also popular with travelers. From pristine beaches to bewildering Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team.";
+// const DUMMY_DESCRIPTION =
+//   "The human instinct to explore new places and things is always there. People travel for all sorts of reasons, be it to spend time with their loved ones or today North Andaman and Baratang Island are also popular with travelers. From pristine beaches to bewildering Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team.";
 
 type Props = {
   title: string;
   className?: string;
+  desc?: string;
 };
 
-const PageHeader = ({ title, className }: Props) => {
+const PageHeader = ({ title, className, desc }: Props) => {
   const [ellipsis, setEllipsis] = React.useState(true);
   return (
     <>
@@ -26,7 +27,7 @@ const PageHeader = ({ title, className }: Props) => {
         className="tw-section-description tw-mt-3 tw-mb-0"
         ellipsis={ellipsis ? { rows: 2, expandable: true, symbol: " " } : false}
       >
-        {DUMMY_DESCRIPTION}
+        {desc}
       </Paragraph>
       <p className="tw-text-right">
         <Button
