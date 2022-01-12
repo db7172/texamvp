@@ -1,3 +1,4 @@
+import { isString } from "lodash";
 import InformationSection from "./InformationSection";
 import ViewMoreSectionTitleWithImg from "./ViewMoreSectionTitleWithImg";
 
@@ -9,7 +10,7 @@ type InfoSection = {
 type Props = {
   header: string;
   image: string;
-  data: InfoSection | InfoSection[];
+  data: string | InfoSection | InfoSection[];
 };
 
 const ViewMoreOtherInformation = ({ header, image, data }: Props) => {
@@ -17,7 +18,9 @@ const ViewMoreOtherInformation = ({ header, image, data }: Props) => {
     <section>
       <ViewMoreSectionTitleWithImg header={header} image={image} />
       <div className="tw-pt-5">
-        {Array.isArray(data) ? (
+        {isString(data) ? (
+          <p className="tw-text-secondary-color tw-font-lato">{data}</p>
+        ) : Array.isArray(data) ? (
           data.map((d, i) => (
             <InformationSection header={d.header} content={d.content} />
           ))
