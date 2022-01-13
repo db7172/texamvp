@@ -50,11 +50,11 @@ module.exports = {
         "lite-green": liteGreen,
         "lite-gray": litegray,
         "green-background": green,
+        "gray-background": gray,
       },
       backgroundColor: {
         "primary-color": primaryBackground,
         "secondary-color": yellow,
-        "gray-background": gray,
         "lightGray-background": secondaryText,
         "lightGreen-background": lightGreen,
         "darkYellow-background": darkYellow,

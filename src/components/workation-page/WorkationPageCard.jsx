@@ -1,4 +1,3 @@
-import React from "react";
 import star from "../../assets/svg/star.svg";
 import GreenBadge from "../green-badge/GreenBadge";
 import time from "../../assets/svg/time.svg";
@@ -6,8 +5,21 @@ import wifi from "../../assets/svg/wifi.svg";
 import cooking from "../../assets/svg/cooking.svg";
 import { indCurrency } from "../../utils/utils";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
+import { getViewMoreDetailsForWorkcationPath } from "../../constant/comman.const";
+import { Link } from "react-router-dom";
 
-const WorkationPageCard = ({ name, duration, facility, price, imgUrl }) => {
+const WorkationPageCard = ({
+  name,
+  duration,
+  facility,
+  price,
+  imgUrl,
+  city,
+}) => {
+  const routingDetails = {
+    pathname: getViewMoreDetailsForWorkcationPath(city, name),
+    state: { name, duration, facility, price, imgUrl, city },
+  };
   return (
     <PageCardContainer imgUrl={imgUrl}>
       <div className="tw-flex tw-justify-between tw-items-center">
@@ -51,9 +63,11 @@ const WorkationPageCard = ({ name, duration, facility, price, imgUrl }) => {
           Per Person
         </span>
       </p>
-      <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
-        View Details
-      </button>
+      <Link to={routingDetails}>
+        <button className="tw-w-full tw-py-3 tw-bg-secondary-color tw-rounded-lg tw-text-primary-color tw-font-medium">
+          View Details
+        </button>
+      </Link>
     </PageCardContainer>
   );
 };
