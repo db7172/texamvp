@@ -77,9 +77,39 @@ const ViewMoreRoomDetails = () => {
           {ROOM_DETAILS.map((data) =>
             data.map((d) => (
               <tr>
-                {d.roomType && <td rowSpan={data.length}>{d.roomType.name}</td>}
-                <td>{d.notes[0]}</td>
-                <td>{d.price.discountPrice}</td>
+                {d.roomType && (
+                  <td className="tw-w-1/3" rowSpan={data.length}>
+                    <div className="tw-p-2 tw-pt-4">
+                      <p className="tw-mb-4 tw-font-medium tw-text-base">
+                        {d.roomType.name}
+                      </p>
+                      <div className="tw-mb-4">
+                        <img
+                          className="tw-rounded-lg"
+                          src={d.roomType.imgage}
+                          alt="roomPhoto"
+                        />
+                      </div>
+                      <div>
+                        {d.roomType.service.map((list) => (
+                          <li className="tw-text-secondary-color" key={list}>
+                            {list}
+                          </li>
+                        ))}
+                      </div>
+                    </div>
+                  </td>
+                )}
+                <td className="tw-w-1/3">
+                  <ul className="tw-list-disc tw-list-outside tw-p-2 tw-pl-4 tw-pt-4">
+                    {d.notes.map((list) => (
+                      <li className="tw-text-secondary-color" key={list}>
+                        {list}
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td className="tw-w-1/3">{d.price.discountPrice}</td>
               </tr>
             ))
           )}
