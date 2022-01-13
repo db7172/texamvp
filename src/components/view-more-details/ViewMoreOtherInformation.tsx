@@ -22,7 +22,7 @@ const ViewMoreOtherInformation = ({ header, image, data }: Props) => {
           <p className="tw-text-secondary-color tw-font-lato">{data}</p>
         ) : Array.isArray(data) ? (
           data.map((d, i) => (
-            <InformationSection header={d.header} content={d.content} />
+            <InformationSection key={i} header={d.header} content={d.content} />
           ))
         ) : (
           <InformationSection header={data.header} content={data.content} />

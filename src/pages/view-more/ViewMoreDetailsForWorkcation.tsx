@@ -12,12 +12,25 @@ import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import ViewMoreWorkcationBookingCard from "../../components/view-more-details/ViewMoreWorkcationBookingCard";
 import { indCurrency } from "../../utils/utils";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
-import { INCLUSION_DETAILS, VIEW_MORE_WORKCATION } from "./data.mock";
+import { VIEW_MORE_WORKCATION } from "./data.mock";
 import ViewMoreRoomDetails from "../../components/view-more-details/ViewMoreRoomDetails";
+import ViewMoreSectionTitleWithImg from "../../components/view-more-details/ViewMoreSectionTitleWithImg";
+import hotel from "../../assets/svg/hotel.svg";
+import WorkationCarousel from "../../components/common/carousel/WorkationCarousel";
+import { WORKATION } from "../../constant/dummyData";
+import FaqSection from "../../components/view-more-details/FaqSection";
+import Title from "../../components/common/title/Title";
+import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTestimonial";
+import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 
 type ParamTypes = {
   destinationName: string;
   workationType: string;
+};
+
+const LOCATION = {
+  header: "Location",
+  image: hotel,
 };
 
 const NAVIGATION_OPTION = ["About", "Rooms", "Reviews", "Location", "Policies"];
@@ -31,7 +44,6 @@ const ViewMoreDetailsForWorkcation = () => {
   const DESTINATION_NAME = startCase(destinationName);
 
   useEffect(() => {
-    // setEventDetails(state);
     setSlashedTableName([
       {
         name: "Home",
@@ -116,9 +128,9 @@ const ViewMoreDetailsForWorkcation = () => {
         </Container>
       </div>
       <Container>
-        <Row gutter={RIGHT_SPACING_VALUE} className="tw-items-center">
+        <Row gutter={[0, RIGHT_SPACING_VALUE]} className="tw-items-center">
           <Col
-            span={17}
+            span={20}
             className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
           >
             <Row gutter={[0, 20]}>
@@ -132,9 +144,60 @@ const ViewMoreDetailsForWorkcation = () => {
               <Col span={24}>
                 <ViewMoreRoomDetails />
               </Col>
+              <Col span={24}>
+                <ViewMoreSectionTitleWithImg
+                  header={LOCATION.header}
+                  image={LOCATION.image}
+                />
+                <div className="tw-my-5">
+                  <iframe
+                    title="location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82634.01441356662!2d72.88642358324472!3d19.210528728687713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b6da82cefc5b%3A0x754baa6c6a4d49c!2sRaghuleela%20Mega%20Mall!5e0!3m2!1sen!2sin!4v1642092310258!5m2!1sen!2sin"
+                    width="100%"
+                    height="450"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              </Col>
+              <Col span={24}>
+                <ViewMoreOtherInformation
+                  header={VIEW_MORE_WORKCATION.policies.header}
+                  image={VIEW_MORE_WORKCATION.policies.image}
+                  data={VIEW_MORE_WORKCATION.policies.content}
+                />
+              </Col>
             </Row>
           </Col>
-          <Col span={7}></Col>
+          <Col span={24}>
+            <WorkationCarousel
+              title="Similar Workcations"
+              data={WORKATION}
+              setting={{ slidesToShow: 3 }}
+              description="Lorem ipsum is the dummy text for placing any thing"
+              path=""
+              hideViewAll
+            />
+          </Col>
+          <Col span={24}>
+            <FaqSection title={WORKCATION_TYPE} />
+          </Col>
+          <Col span={24}>
+            <Title
+              title="Visitors Reviews"
+              description="Lorem ipsum is the dummy text for placing any thing"
+              path="#"
+            />
+            <div className="tw-mt-10">
+              <ViewMoreTestimonial slidesToShow={3} arrows />
+            </div>
+          </Col>
+          <Col span={24}>
+            <BlogCarousel
+              description="Lorem ipsum is the dummy text for placing any thing"
+              title="Binge worthy blogs by members"
+            />
+          </Col>
         </Row>
       </Container>
     </>
