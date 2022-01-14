@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
 import { ReactComponent as Location } from "../../assets/svg/location.svg";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
@@ -18,6 +18,7 @@ import { lowerCase } from "lodash";
 import UserLoginModal from "./UserLoginModal";
 import UserLogin from "./UserLogin";
 import firebase from "../../firebase";
+import { AuthContext } from "../../Auth";
 
 // const default_Options = {
 //   data: { title: "", options: [] },
@@ -37,6 +38,7 @@ function NavBar() {
     workations: [],
   });
   const [path, setPath] = useState("");
+  const { currentUss } = useContext(AuthContext);
   // const [flag, setFlag] = useState(0);
 
   const wrapperRef = useRef(null);
@@ -45,7 +47,7 @@ function NavBar() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setIsLogedIn(true);
+        if (currentUss) setIsLogedIn(true);
       }
     });
     firebase

@@ -45,7 +45,7 @@ const notificationData = [
 
 const LogedIn = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -69,6 +69,8 @@ const LogedIn = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(userData.displayName);
+
   const signOut = () => {
     firebase.auth().signOut();
   };
@@ -81,7 +83,9 @@ const LogedIn = () => {
             <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                {currentUser ? currentUser.data.name : "Profile Name"}
+                {/* {currentUser ? currentUser.data.name : "Profile Name"} */}
+                {userData ? userData.displayName : "Profile Name"}
+                {/* {"Profile Name"} */}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted

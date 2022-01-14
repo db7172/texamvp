@@ -22,7 +22,7 @@ const UserLoginModal = ({
   const [userDetailsForm] = Form.useForm();
   const [isNewUser, setIsNewUser] = useState(false);
   const [isNumDisable, setIsNumDisable] = useState(isModalOpen);
-  const { setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUss } = useContext(AuthContext);
   const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
@@ -110,10 +110,11 @@ const UserLoginModal = ({
             console.log("already a user");
             setIsNewUser(false);
             // setCurrentUser(user);
+            setCurrentUss(user);
             handleModalCancel();
             handleLogin(true);
           } else {
-            // setCurrentUser(user);
+            setCurrentUss(user);
             setIsNewUser(true);
             setUserData(user);
           }
@@ -142,6 +143,15 @@ const UserLoginModal = ({
     handleModalCancel();
   };
 
+  function editNum() {
+    document.getElementById("sign-in-container")?.remove();
+    var newDiv = document.createElement("div");
+    newDiv.id = "sign-in-container";
+    document.getElementById("recaptcha-container")?.appendChild(newDiv);
+    window.recaptchaVerifier.clear();
+    setIsNumDisable(false);
+  }
+
   useEffect(() => {
     setIsNumDisable(false);
     signInForm.resetFields();
@@ -163,7 +173,9 @@ const UserLoginModal = ({
               {description}
             </p>
           </div>
-          <div id="sign-in-container"></div>
+          <div id="recaptcha-container">
+            <div id="sign-in-container"></div>
+          </div>
           {!isNewUser && (
             <>
               <Form
@@ -206,7 +218,7 @@ const UserLoginModal = ({
                   <>
                     <p
                       className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
-                      onClick={() => setIsNumDisable(false)}
+                      onClick={editNum}
                     >
                       Edit Number
                     </p>

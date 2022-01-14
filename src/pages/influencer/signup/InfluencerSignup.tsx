@@ -43,7 +43,7 @@ type PersonalDetailsProps = {
 
 function configureRecaptcha() {
   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-    "recaptcha-container",
+    "sign-in-container",
     {
       size: "invisible",
       callback: (response: any) => {
@@ -109,7 +109,9 @@ const PersonalDetails = ({
           risus non. Vel aliquet sapien, ornare nec in turpis a proin.
         </p>
       </div>
-      <div id="recaptcha-container"></div>
+      <div id="recaptcha-container">
+        <div id="sign-in-container"></div>
+      </div>
       <Form
         name="basicDetails"
         initialValues={{
@@ -267,7 +269,8 @@ const InfluencerSignup = () => {
       });
     }
   };
-
+  // 6306463076
+  // saxena.deepanshu09@gmail.com
   const { setCurrentUser } = useContext(AuthContext);
 
   function verifyOTP() {
@@ -329,6 +332,16 @@ const InfluencerSignup = () => {
     );
   };
 
+  function resendOtp() {
+    document.getElementById("sign-in-container")?.remove();
+    var newDiv = document.createElement("div");
+    newDiv.id = "sign-in-container";
+    document.getElementById("recaptcha-container")?.appendChild(newDiv);
+    window.recaptchaVerifier.clear();
+    configureRecaptcha();
+    firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier);
+  }
+
   return (
     <Container>
       <div className="tw-flex tw-flex-col tw-items-center tw-mt-24">
@@ -370,7 +383,10 @@ const InfluencerSignup = () => {
             <p className="tw-font-medium tw-text-base tw-mb-1">
               +91 {personalFormData?.number}
             </p>
-            <p className="tw-text-xs tw-text-blue-500 tw-underline tw-mb-5">
+            <p
+              className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer tw-mb-5"
+              onClick={resendOtp}
+            >
               Resend OTP
             </p>
             <p className="tw-mb-1">Enter Your 6 Digit OTP</p>

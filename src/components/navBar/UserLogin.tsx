@@ -14,7 +14,7 @@ const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserLogin = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUss, setCurrentUss } = useContext(AuthContext);
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -28,14 +28,12 @@ const UserLogin = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUser({ id: doc.id, data: doc.data() });
+              setCurrentUss({ id: doc.id, data: doc.data() });
             }
           });
       }
     });
   }, []);
-
-  console.log(currentUser);
 
   function signOut() {
     firebase.auth().signOut();
@@ -61,14 +59,14 @@ const UserLogin = () => {
       </div>
     </div>
   );
-  if (currentUser) {
+  if (userData) {
     return (
       <div className="tw-flex tw-items-center">
         <Popover className="tw-cursor-pointer" content={menu} trigger="click">
           <div>
             <Avatar src={avatarImg} className="tw-mr-2" />
             <span className="tw-mr-2">
-              {currentUser ? currentUser.data.name : "User name"}
+              {currentUss ? currentUss.data.name : "User name"}
             </span>
             <DownOutlined className="tw-text-xs tw-text-secondary-color" />
           </div>

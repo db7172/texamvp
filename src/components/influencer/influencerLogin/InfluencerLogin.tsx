@@ -22,6 +22,7 @@ const InfluencerLogin = () => {
     setIsModalVisible(false);
   };
   const { setCurrentUser } = useContext(AuthContext);
+  const [phoneNumberSt, setPhoneNumberSt] = useState("");
 
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtp({
@@ -129,6 +130,21 @@ const InfluencerLogin = () => {
     });
   }, []);
 
+  const handlePhoneNumber = (e: any) => {
+    setPhoneNumberSt(e.target.value);
+  };
+
+  function resendOtp() {
+    document.getElementById("sign-in-container")?.remove();
+    var newDiv = document.createElement("div");
+    newDiv.id = "sign-in-container";
+    document.getElementById("recaptcha-container")?.appendChild(newDiv);
+    window.recaptchaVerifier.clear();
+    const phoneNum = "+91" + phoneNumberSt;
+    configureRecaptcha();
+    firebase.auth().signInWithPhoneNumber(phoneNum, window.recaptchaVerifier);
+  }
+
   return (
     <div className="tw-p-8 tw-shadow-card tw-rounded-lg">
       <div>
@@ -139,7 +155,9 @@ const InfluencerLogin = () => {
           In fames morbi dictumst faucibus. Enim in aenean tincidunt dolor at id
           risus non. Vel aliquet sapien, ornare nec in turpis a proin.
         </p>
-        <div id="sign-in-container"></div>
+        <div id="recaptcha-container">
+          <div id="sign-in-container"></div>
+        </div>
       </div>
       <Form
         initialValues={{
@@ -210,6 +228,7 @@ const InfluencerLogin = () => {
               addonBefore={prefixSelector}
               style={{ width: "100%" }}
               placeholder="Enter Your Mobile No"
+              onChange={handlePhoneNumber}
               className="tw-rounded-lg"
             />
           </Form.Item>
@@ -278,7 +297,10 @@ const InfluencerLogin = () => {
               Mobile number
             </p>
             <p className="tw-font-medium tw-text-base tw-mb-1">+{mobile}</p>
-            <p className="tw-text-xs tw-text-blue-500 tw-underline tw-mb-5">
+            <p
+              className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer tw-mb-5"
+              onClick={resendOtp}
+            >
               Resend OTP
             </p>
             <p className="tw-mb-1">Enter Your 6 Digit OTP</p>
