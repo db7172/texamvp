@@ -245,6 +245,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -252,6 +253,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "delhi",
   },
   {
     name: "Tashi namgay resort",
@@ -259,6 +261,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -266,6 +269,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -273,6 +277,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -280,6 +285,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -287,6 +293,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
   {
     name: "Tashi namgay resort",
@@ -294,6 +301,7 @@ export const WORKATION = [
     facility: { Breakfast: true, FreeWifi: true },
     price: 16999,
     imgUrl: workation,
+    city: "mumbai",
   },
 ];
 

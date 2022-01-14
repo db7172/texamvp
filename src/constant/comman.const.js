@@ -66,6 +66,7 @@ export const ROUTES = {
   VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}/${ACTIVITY_ID}`,
   VIEW_MORE_DETAILS_EVENT: `/details/event/${EVENT_TYPE}/${EVENT_NAME}`,
   VIEW_MORE_DETAILS_RETREAT: `/details/retreat/${RETREAT_TYPE}/${RETREAT_NAME}`,
+  VIEW_MORE_DETAILS_WORKCATION: `/details/workcation/${DESTINATION_NAME}/${WORKATION_TYPE}`,
   NOT_FOUND: "/404",
 };
 
@@ -170,6 +171,17 @@ export const getViewMoreDetailsForRetreatPath = (retreatType, retreatName) => {
   let path = ROUTES.VIEW_MORE_DETAILS_RETREAT;
   path = path.replace(RETREAT_TYPE, retreatType);
   path = path.replace(RETREAT_NAME, retreatName);
+
+  return path;
+};
+
+export const getViewMoreDetailsForWorkcationPath = (
+  workcationDestination,
+  workcationType
+) => {
+  let path = ROUTES.VIEW_MORE_DETAILS_WORKCATION;
+  path = path.replace(DESTINATION_NAME, workcationDestination);
+  path = path.replace(WORKATION_TYPE, workcationType);
 
   return path;
 };

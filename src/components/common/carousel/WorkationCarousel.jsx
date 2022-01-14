@@ -1,10 +1,16 @@
 import { Carousel } from "antd";
-import React from "react";
 import { defaultSettings } from "../../../utils/utils";
 import WorkationCard from "../../card/workation-card/WorkationCard";
 import Title from "../title/Title";
 
-const WorkationCarousel = ({ title, data, setting, path, description }) => {
+const WorkationCarousel = ({
+  title,
+  data,
+  setting,
+  path,
+  description,
+  hideViewAll = false,
+}) => {
   const settings = {
     ...defaultSettings,
     ...setting,
@@ -12,7 +18,12 @@ const WorkationCarousel = ({ title, data, setting, path, description }) => {
 
   return (
     <div>
-      <Title title={title} path={path} description={description} />
+      <Title
+        hideViewAll={hideViewAll}
+        title={title}
+        path={path}
+        description={description}
+      />
       <div className="tw-mt-3 menual-carousal">
         {Boolean(data.length) ? (
           <Carousel autoplay {...settings}>
