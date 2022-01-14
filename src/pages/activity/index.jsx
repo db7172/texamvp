@@ -23,7 +23,7 @@ import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 import firebase from "../../firebase";
 
-const option = ["Hourly", "Single-day", "Multi-day", "Multi-day"];
+const option = ["Hourly", "SingleDay", "MultiDay", "MultiDay"];
 const MIN = 10000,
   MAX = 80000;
 const INITIAL_RANGE = [MIN, MAX];
@@ -88,9 +88,12 @@ const Activity = () => {
   const [singleActivity, setSingleActivity] = useState([]);
   const [multiDay, setmultiDay] = useState([]);
 
+  let totalActivities = [];
+
   console.log(activeDuration);
   console.log(activeLevel);
   console.log(destinationfilter);
+  console.log(priceRange);
 
   useEffect(() => {
     if (isEmpty(DESTINATION_NAME)) {
@@ -241,7 +244,43 @@ const Activity = () => {
     setActiveCategorie(resetValue.categories);
     setPriceRange(resetValue.priceRange);
   };
-  let totalActivities = singleActivity.concat(multiDay);
+
+  if (activeDuration.Hourly) {
+    totalActivities = singleActivity;
+  }
+  if (activeDuration.SingleDay) {
+    totalActivities = singleActivity;
+  }
+  if (activeDuration.MultiDay) {
+    totalActivities = multiDay;
+  }
+
+  // if (activeLevel.Easy) {
+  //   totalActivities.filter((item) => {
+  //     return item.data.data.formData.sailentFeatures.activityLevel === "Easy";
+  //   });
+  // }
+  // if (activeLevel.Moderate) {
+  //   totalActivities.filter((item) => {
+  //     return item.data.data.formData.sailentFeatures.activeLevel === "Moderate";
+  //   });
+  // }
+  // if (activeLevel.Difficult) {
+  //   totalActivities.filter((item) => {
+  //     return (
+  //       item.data.data.formData.sailentFeatures.activeLevel === "Difficult"
+  //     );
+  //   });
+  // }
+  // if (activeLevel.Pro) {
+  //   totalActivities.filter((item) => {
+  //     return item.data.data.formData.sailentFeatures.activeLevel === "Pro";
+  //   });
+  // }
+  else {
+    totalActivities = singleActivity.concat(multiDay);
+  }
+
   return (
     <ExploreMoreWrapper
       coverImage={DESTINATION_IMAGE}

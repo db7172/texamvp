@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
 import { Button } from "antd";
 import firebase from "../../firebase";
+import img from "../../assets/png/activity.png";
 import { useEffect, useState } from "react";
 
 const ActivityCard = (props) => {
@@ -49,7 +50,7 @@ const ActivityCard = (props) => {
   }, [data.data.data.userID]);
 
   return (
-    <PageCardContainer imgUrl={imgUrl} title={activityData.activityName}>
+    <PageCardContainer imgUrl={img} title={activityData.activityName}>
       <div className="tw-flex tw-flex-wrap tw-mt-3">
         {/* {tags.map((t, i) => (
           <Tags className="tw-my-1 tw-mr-2 tw-text-xs" tag={t} key={i} />

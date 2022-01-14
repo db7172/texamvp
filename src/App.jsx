@@ -11,9 +11,13 @@ import UserNavBar from "./components/navBar/user/UserNavBar";
 import AdminRouter from "./AdminPanel/AdminRouter";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import firebase from "./firebase";
+
 function App() {
   const [isUserLogedIn] = useState(true);
   let location = useLocation();
+
+  // firebase.auth().signOut();
 
   return (
     <AuthProvider>
