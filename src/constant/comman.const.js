@@ -50,6 +50,7 @@ export const ROUTES = {
   INFLUENCER_RETREAT_FORM: `/influencer/retreat/${RETREAT_TYPE}`,
   USER_DASHBOARD: "/user/dashboard",
   PAYMENT: "/payment",
+  ALL_REVIEWS: "/reviews",
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
