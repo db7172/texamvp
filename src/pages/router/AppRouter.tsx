@@ -16,6 +16,7 @@ import Workcations from "../workations";
 import PaymentPage from "../paymentPage/PaymentPage";
 import ViewMoreDetailsForRetreat from "../view-more/ViewMoreDetailsForRetreat";
 import ViewMoreDetailsForWorkcation from "../view-more/ViewMoreDetailsForWorkcation";
+import AllReviews from "../allReviews/AllReviews";
 
 const AppRouter = () => {
   return (
@@ -82,6 +83,9 @@ const AppRouter = () => {
 
         {/* Payment page */}
         <Route component={PaymentPage} path={ROUTES.PAYMENT} />
+
+        {/* All reviews page */}
+        <Route component={AllReviews} path={ROUTES.ALL_REVIEWS} />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />
