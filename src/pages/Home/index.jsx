@@ -143,11 +143,11 @@ function Home() {
       });
   }, [width]);
 
-  const handleClick = (activity, date) => {
+  const handleClick = (activity, date, type) => {
     console.log({ activity, date });
-    history.push(
-      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
-    );
+    // history.push(
+    //   `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
+    // );
   };
 
   console.log(dropData);
@@ -206,7 +206,7 @@ function Home() {
                       <span className="tw-mr-2">
                         {getIcon(CalendarIcon, activeTab === 3)}
                       </span>
-                      <span>Retreat</span>
+                      <span>Workcation</span>
                     </div>
                   </button>
 
@@ -218,7 +218,7 @@ function Home() {
                       <span className="tw-mr-2">
                         {getIcon(CalendarIcon, activeTab === 4)}
                       </span>
-                      <span>Workcation</span>
+                      <span>Retreat</span>
                     </div>
                   </button>
                 </nav>
@@ -227,6 +227,7 @@ function Home() {
                 {activeTab === 1 && (
                   <ActivityTab
                     dropDownLabel="ACTIVITY TYPE"
+                    type="activity"
                     placeHolder="Select your activity"
                     DropDownOptions={dropData.activities}
                     dateLabel="START DATE"
@@ -236,6 +237,7 @@ function Home() {
                 {activeTab === 2 && (
                   <ActivityTab
                     dropDownLabel="EVENT TYPE"
+                    type="event"
                     placeHolder="Select your event"
                     DropDownOptions={dropData.events}
                     dateLabel="DATE"
@@ -245,8 +247,9 @@ function Home() {
                 {activeTab === 3 && <Retreat />}
                 {activeTab === 4 && (
                   <ActivityTab
-                    dropDownLabel="Destination"
-                    placeHolder="Select your destination"
+                    dropDownLabel="Retreat"
+                    type="retreat"
+                    placeHolder="Select your retreat"
                     DropDownOptions={dropData.workations}
                     dateLabel="DATE"
                     onClick={handleClick}
@@ -259,6 +262,7 @@ function Home() {
             <Title
               title="Destination"
               description="Lorem ipsum is the dummy text for placing any thing"
+              path="/workcations"
             />
             <div className="tw-mt-3">
               <DestinationCarousel setting={{ slidesToShow: 4 }} />
@@ -277,7 +281,7 @@ function Home() {
             <Title
               title="Browse Activities"
               description="Lorem ipsum is the dummy text for placing any thing"
-              path="/activites"
+              path="/activities"
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
               {activityIcon.map(({ icon, name }, i) => (
@@ -310,7 +314,7 @@ function Home() {
               description="Lorem ipsum is the dummy text for placing any thing"
             />
           </div>
-          <div className="tw-mt-20">
+          {/* <div className="tw-mt-20">
             <Title
               title="Events"
               description="Lorem ipsum is the dummy text for placing any thing"
@@ -318,6 +322,16 @@ function Home() {
             <div className="tw-mt-3">
               <DestinationCarousel setting={{ slidesToShow: 4 }} />
             </div>
+          </div> */}
+          <div className="tw-mt-20">
+            <EventCarousel
+              title="Events"
+              data={EVENT}
+              setting={{ slidesToShow: 3 }}
+              path="/events"
+              description="Lorem ipsum is the dummy text for placing any thing"
+              event
+            />
           </div>
           <div className="tw-mt-20">
             <EventCarousel
@@ -329,16 +343,6 @@ function Home() {
               event
             />
           </div>
-          {/* <div className="tw-mt-20">
-            <EventCarousel
-              title="Worshop"
-              data={EVENT}
-              setting={{ slidesToShow: 3 }}
-              path={getEventPagePath("Worshop")}
-              description="Lorem ipsum is the dummy text for placing any thing"
-              event
-            />
-          </div> */}
           <div className="tw-mt-20">
             <EventCarousel
               title="Music"

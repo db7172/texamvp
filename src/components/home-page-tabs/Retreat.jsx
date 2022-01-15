@@ -38,7 +38,7 @@ const Retreat = () => {
         size="large"
         className="tw-flex-auto tw-grid xl:tw-grid-cols-4 md:tw-grid-cols-2 xl:tw-mr-5 tw-gap-5"
       >
-        <Form.Item name="retreat" label="Destination">
+        <Form.Item name="workcation" label="Destination">
           <Select
             showSearch
             placeholder="Select your Destinaion"
