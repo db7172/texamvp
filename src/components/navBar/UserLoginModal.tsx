@@ -10,9 +10,6 @@ type Props = {
   handleLogin: (value: boolean) => void;
 };
 
-const mockOtpNewUser = "123456";
-const mockOtpOldUser = "654321";
-
 const UserLoginModal = ({
   isModalOpen,
   handleModalCancel,
@@ -114,7 +111,8 @@ const UserLoginModal = ({
             handleModalCancel();
             handleLogin(true);
           } else {
-            setCurrentUss(user);
+            // setCurrentUss(user);
+            console.log("does not exists");
             setIsNewUser(true);
             setUserData(user);
           }
@@ -139,6 +137,9 @@ const UserLoginModal = ({
 
     console.log(userData.uid);
     firebase.firestore().collection("users").doc(userData.uid).set(value);
+    firebase.auth().currentUser?.updateProfile({
+      displayName: value.name,
+    });
     handleLogin(true);
     handleModalCancel();
   };

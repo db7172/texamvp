@@ -15,7 +15,7 @@ const avatarImg =
 
 const UserLogin = () => {
   const { currentUss, setCurrentUss } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -66,7 +66,7 @@ const UserLogin = () => {
           <div>
             <Avatar src={avatarImg} className="tw-mr-2" />
             <span className="tw-mr-2">
-              {currentUss ? currentUss.data.name : "User name"}
+              {userData ? userData.displayName : "User name"}
             </span>
             <DownOutlined className="tw-text-xs tw-text-secondary-color" />
           </div>

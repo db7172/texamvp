@@ -38,7 +38,7 @@ function NavBar() {
     workations: [],
   });
   const [path, setPath] = useState("");
-  const { currentUss } = useContext(AuthContext);
+  const { currentUss, setCurrentUss } = useContext(AuthContext);
   // const [flag, setFlag] = useState(0);
 
   const wrapperRef = useRef(null);
@@ -47,7 +47,16 @@ function NavBar() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        if (currentUss) setIsLogedIn(true);
+        console.log(user);
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then(() => {
+            setCurrentUss(user);
+            setIsLogedIn(true);
+          });
       }
     });
     firebase
