@@ -1,9 +1,11 @@
 import { capitalize } from "lodash";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Button, DatePicker, Select } from "antd";
+import moment from "moment";
 
 const ActivityTab = ({
   dropDownLabel,
+  type,
   placeHolder,
   DropDownOptions,
   dateLabel,
@@ -16,7 +18,7 @@ const ActivityTab = ({
   console.log(DropDownOptions);
 
   const handleClick = () => {
-    onClick(selectedOption, dateTime);
+    onClick(selectedOption, dateTime, type);
   };
 
   return (
