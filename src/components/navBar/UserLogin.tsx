@@ -14,13 +14,14 @@ const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserLogin = () => {
-  const { currentUss, setCurrentUss } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUserData(user);
+        console.log(user);
+        setCurrentUser(user);
         firebase
           .firestore()
           .collection("users")
@@ -28,12 +29,12 @@ const UserLogin = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUss({ id: doc.id, data: doc.data() });
+              setUserData({ id: doc.id, data: doc.data() });
             }
           });
       }
     });
-  }, []);
+  }, [currentUser]);
 
   function signOut() {
     firebase.auth().signOut();
@@ -66,7 +67,7 @@ const UserLogin = () => {
           <div>
             <Avatar src={avatarImg} className="tw-mr-2" />
             <span className="tw-mr-2">
-              {userData ? userData.displayName : "User name"}
+              {currentUser ? currentUser.displayName : "User name"}
             </span>
             <DownOutlined className="tw-text-xs tw-text-secondary-color" />
           </div>

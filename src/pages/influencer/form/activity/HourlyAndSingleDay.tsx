@@ -19,7 +19,7 @@ import {
   TimePicker,
   Checkbox,
 } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
@@ -87,6 +87,8 @@ const HourlyAndSingleDay = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [paymentCategory, setPaymentCategory] = useState(false);
   const [activityCategory, setActivityCategory] = useState([]) as any;
+  const [user, setUser] = useState([]) as any;
+  const history = useHistory();
 
   const { state: transportationTabs, methods: transportationMethods } = useTabs(
     {
@@ -127,9 +129,10 @@ const HourlyAndSingleDay = () => {
             })
         );
       });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
   }, []);
-
-  const { currentUser } = useContext(AuthContext);
 
   const onSubmit = async (value: any) => {
     console.log(value.dragger);
@@ -140,10 +143,9 @@ const HourlyAndSingleDay = () => {
     });
     // formatted data
     let finalData = stripUndefined(formData);
-    // db.collection("hr_sg_avy").doc(currentUser.uid).set(finalData,{ merge: true });
     const data = {
       formData: finalData,
-      userID: currentUser.id,
+      userID: user.uid,
       status: "processing",
       booked: 0,
     };
@@ -153,7 +155,7 @@ const HourlyAndSingleDay = () => {
       value.dragger.map(async (image: any, i: Number) => {
         const storageRef = firebase
           .storage()
-          .ref(`hourlyAndSingle/${currentUser.id}/${i}`);
+          .ref(`hourlyAndSingle/${user.uid}/${i}`);
         await storageRef.put(image);
         const downloadLink = storageRef.getDownloadURL();
         return downloadLink;
@@ -162,7 +164,9 @@ const HourlyAndSingleDay = () => {
     await db
       .collection("hr_sg_avy")
       .add({ data, imgLink })
-      .then(() => {})
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });

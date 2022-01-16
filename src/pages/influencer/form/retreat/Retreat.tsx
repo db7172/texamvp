@@ -21,7 +21,7 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
@@ -87,7 +87,8 @@ const Retreat = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
-  const { currentUser } = useContext(AuthContext);
+  const [user, setUser] = useState([]) as any;
+  const [retreatCategory, setRetreatCategory] = useState([]) as any;
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -128,6 +129,25 @@ const Retreat = () => {
       });
     }
   };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setRetreatCategory(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "retreat";
+            })
+        );
+      });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
+  }, []);
 
   const onFinishForm = async (value: any) => {
     const departureDetails = value.departure
@@ -189,7 +209,7 @@ const Retreat = () => {
     console.log(formValue);
     const data = {
       formData: formValue,
-      userID: currentUser.id,
+      userID: user.uid,
       status: "processing",
       booked: 0,
     };
@@ -197,9 +217,7 @@ const Retreat = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
-          .storage()
-          .ref(`retreat/${currentUser.id}/${i}/`);
+        const storageRef = firebase.storage().ref(`retreat/${user.uid}/${i}/`);
         await storageRef.put(image);
         const downloadLink = storageRef.getDownloadURL();
         return downloadLink;
@@ -506,9 +524,13 @@ const Retreat = () => {
                       className="tw-rounded-md"
                       placeholder="Select Your Retreat format"
                     >
-                      <Select.Option value="option1">Option 1</Select.Option>
-                      <Select.Option value="option2">Option 2</Select.Option>
-                      <Select.Option value="option3">Option 3</Select.Option>
+                      {retreatCategory.map((retreat: any, i: number) => {
+                        return (
+                          <Select.Option value={retreat.data.name} key={i}>
+                            {retreat.data.name}
+                          </Select.Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
 

@@ -108,27 +108,20 @@ const InfluencerLogin = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUser(doc.data());
+              setCurrentUser(user);
+              // setCurrentUser(doc.data());
             } else {
               user.delete();
               firebase.auth().signOut();
               history.push("/influencer/signup");
             }
           });
-        history.push("/influencer/dashboard");
+        // history.push("/influencer/dashboard");
       })
       .catch((error: any) => {
         console.log("encounted some error");
       });
   };
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        history.push("/influencer/dashboard");
-      }
-    });
-  }, []);
 
   const handlePhoneNumber = (e: any) => {
     setPhoneNumberSt(e.target.value);

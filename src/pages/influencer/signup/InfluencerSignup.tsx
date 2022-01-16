@@ -269,8 +269,7 @@ const InfluencerSignup = () => {
       });
     }
   };
-  // 6306463076
-  // saxena.deepanshu09@gmail.com
+
   const { setCurrentUser } = useContext(AuthContext);
 
   function verifyOTP() {
@@ -281,6 +280,7 @@ const InfluencerSignup = () => {
         const user = result.user;
         setCurrentUser(user);
         setCurrent(1);
+        console.log(current);
         setIsModalVisible(false);
         auth.currentUser
           ?.linkWithCredential(

@@ -150,6 +150,8 @@ function ActivityInformation({
   nextStep,
   updateFormData,
 }: Information) {
+  const { currentUser } = useContext(AuthContext);
+
   const handleFormSubmit = (value: any) => {
     const updatedValue: ProfileDataFormType = {
       ...value,
@@ -157,11 +159,11 @@ function ActivityInformation({
     };
     console.log(updatedValue);
     updateFormData(updatedValue);
-    db.collection('venders').doc(currentUser.uid).set(updatedValue,{merge: true})
+    db.collection("venders")
+      .doc(currentUser.uid)
+      .set(updatedValue, { merge: true });
     nextStep();
   };
-
-  const {currentUser} = useContext(AuthContext);
 
   return (
     <>

@@ -17,7 +17,7 @@ import {
   Tag,
   Upload,
 } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../Auth";
 import Container from "../../../../components/common/container/Container";
@@ -62,7 +62,8 @@ const Workation = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
-  const { currentUser } = useContext(AuthContext);
+  const [user, setUser] = useState([]) as any;
+  const [workationCategory, setWorkationCategory] = useState([]) as any;
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -108,6 +109,25 @@ const Workation = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
+  useEffect(() => {
+    // firebase
+    //   .firestore()
+    //   .collection("categories")
+    //   .get()
+    //   .then((querySnap) => {
+    //     setWorkationCategory(
+    //       querySnap.docs
+    //         .map((doc) => ({ id: doc.id, data: doc.data() }))
+    //         .filter((item) => {
+    //           return item.data.type === "workation";
+    //         })
+    //     );
+    //   });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
+  }, []);
+
   const onFinishForm = async (value: any) => {
     const formValue: any = {
       workationName: value.eventName,
@@ -136,7 +156,7 @@ const Workation = () => {
     console.log(finalData);
     const data = {
       formData: formValue,
-      userID: currentUser.id,
+      userID: user.uid,
       status: "processing",
       booked: 0,
     };
@@ -146,7 +166,7 @@ const Workation = () => {
       value.dragger.map(async (image: any, i: Number) => {
         const storageRef = firebase
           .storage()
-          .ref(`workation/${currentUser.id}/${i}/`);
+          .ref(`workation/${user.uid}/${i}/`);
         await storageRef.put(image);
         const downloadLink = storageRef.getDownloadURL();
         return downloadLink;

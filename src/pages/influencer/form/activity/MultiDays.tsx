@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
@@ -113,6 +113,8 @@ const MultiDays = () => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [paymentCategory, setPaymentCategory] = useState(false);
+  const [user, setUser] = useState([]) as any;
+  const [activityCategory, setActivityCategory] = useState([]) as any;
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -167,7 +169,24 @@ const MultiDays = () => {
     setTags(tags.filter((_, i) => id !== i));
   };
 
-  const { currentUser } = useContext(AuthContext);
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setActivityCategory(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "activity";
+            })
+        );
+      });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
+  }, []);
 
   const onSubmit = async (value: any) => {
     const formData = multiDayDataHelper({
@@ -184,7 +203,7 @@ const MultiDays = () => {
     // db.collection("multi-activity").add(data);
     const data = {
       formData: finalData,
-      userID: currentUser.id,
+      userID: user.uid,
       status: "processing",
       booked: 0,
     };
@@ -192,9 +211,7 @@ const MultiDays = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
-          .storage()
-          .ref(`multiDay/${currentUser.id}/${i}`);
+        const storageRef = firebase.storage().ref(`multiDay/${user.uid}/${i}`);
         await storageRef.put(image);
         const downloadLink = storageRef.getDownloadURL();
         return downloadLink;
@@ -507,9 +524,13 @@ const MultiDays = () => {
                       className="tw-rounded-md"
                       placeholder="Select Your Activity Type"
                     >
-                      <Select.Option value="option1">Option1</Select.Option>
-                      <Select.Option value="option2">Option2</Select.Option>
-                      <Select.Option value="option3">Option3</Select.Option>
+                      {activityCategory.map((activity: any, i: number) => {
+                        return (
+                          <Select.Option value={activity.data.name} key={i}>
+                            {activity.data.name}
+                          </Select.Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
 

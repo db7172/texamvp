@@ -1,6 +1,6 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Container from "../../../components/common/container/Container";
 import CompletedTab from "../../../components/influencer/dashboard-tab/CompletedTab";
 import EarningTab from "../../../components/influencer/dashboard-tab/EarningTab";
@@ -10,12 +10,19 @@ import { SIDEBAR_OPTION } from "./data";
 import { AuthContext } from "../../../Auth";
 import NotesTab from "../../../components/influencer/dashboard-tab/NotesTab";
 import StatementTab from "../../../components/influencer/dashboard-tab/StatementTab";
+import firebase from "../../../firebase";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(SIDEBAR_OPTION[0].id);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
 
-  console.log(currentUser);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+  }, []);
 
   if (currentUser) {
     return (

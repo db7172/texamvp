@@ -19,7 +19,7 @@ const UserLoginModal = ({
   const [userDetailsForm] = Form.useForm();
   const [isNewUser, setIsNewUser] = useState(false);
   const [isNumDisable, setIsNumDisable] = useState(isModalOpen);
-  const { setCurrentUss } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
@@ -106,12 +106,11 @@ const UserLoginModal = ({
           if (doc.exists) {
             console.log("already a user");
             setIsNewUser(false);
-            // setCurrentUser(user);
-            setCurrentUss(user);
+            setCurrentUser(user);
             handleModalCancel();
             handleLogin(true);
           } else {
-            // setCurrentUss(user);
+            setCurrentUser(user);
             console.log("does not exists");
             setIsNewUser(true);
             setUserData(user);
@@ -135,7 +134,7 @@ const UserLoginModal = ({
   const handleUserDetailsSubmit = (value: any) => {
     console.log(value);
 
-    console.log(userData.uid);
+    // console.log(userData.uid);
     firebase.firestore().collection("users").doc(userData.uid).set(value);
     firebase.auth().currentUser?.updateProfile({
       displayName: value.name,
