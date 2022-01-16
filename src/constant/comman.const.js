@@ -35,6 +35,7 @@ const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
 const RETREAT_NAME = ":retreatName";
+const REVIEW_TYPE = ":reviewType";
 
 export const ROUTES = {
   HOME: "/",
@@ -51,6 +52,7 @@ export const ROUTES = {
   USER_DASHBOARD: "/user/dashboard",
   PAYMENT: "/payment",
   ALL_REVIEWS: "/reviews",
+  SINGLE_REVIEWS: `/review/${REVIEW_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
@@ -206,6 +208,15 @@ export const getEventFormPath = (eventType) => {
 export const getRetreatFormPath = (retreatType) => {
   let path = ROUTES.INFLUENCER_RETREAT_FORM;
   path = path.replace(RETREAT_TYPE, retreatType);
+
+  return path;
+};
+
+// singleReview Page
+
+export const getReviewPagePath = (reviewType) => {
+  let path = ROUTES.SINGLE_REVIEWS;
+  path = path.replace(REVIEW_TYPE, reviewType);
 
   return path;
 };
