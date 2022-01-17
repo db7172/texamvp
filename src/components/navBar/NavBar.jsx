@@ -19,6 +19,7 @@ import UserLoginModal from "./UserLoginModal";
 import UserLogin from "./UserLogin";
 import firebase from "../../firebase";
 import { AuthContext } from "../../Auth";
+import { chunkArray } from "../../utils/utils";
 
 const default_Options = {
   data: { title: "", options: [] },
@@ -153,7 +154,9 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link"
-                  onClick={() => handleShow(allData.activities, "activity")}
+                  onClick={() =>
+                    handleShow(chunkArray(allData.activities, 5), "activity")
+                  }
                 >
                   <span className="tw-mr-2">Activities</span>
                   <span className="">

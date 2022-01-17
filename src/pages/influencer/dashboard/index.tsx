@@ -20,6 +20,16 @@ const Dashboard = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+              firebase.auth().signOut();
+            }
+          });
       }
     });
   }, []);

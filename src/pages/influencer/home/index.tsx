@@ -24,6 +24,16 @@ const Influencer = () => {
       if (user && currentUser) {
         console.log(currentUser);
         history.push("/influencer/dashboard");
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+              firebase.auth().signOut();
+            }
+          });
       }
     });
   }, [currentUser, history]);
