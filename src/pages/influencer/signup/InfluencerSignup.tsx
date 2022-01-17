@@ -241,6 +241,7 @@ const InfluencerSignup = () => {
     mobileOTP: "",
     emailOTP: "",
   });
+  const [show, setShow] = useState(0);
 
   const [otpError, setOtpError] = useState({
     mobileOTP: false,
@@ -333,6 +334,7 @@ const InfluencerSignup = () => {
   };
 
   function resendOtp() {
+    setShow(1);
     document.getElementById("sign-in-container")?.remove();
     var newDiv = document.createElement("div");
     newDiv.id = "sign-in-container";
@@ -404,7 +406,10 @@ const InfluencerSignup = () => {
               </Text>
             ) : null}
 
-            <p className="tw-text-blue-500 tw-font-medium tw-mt-5">
+            <p
+              className="tw-text-blue-500 tw-font-medium tw-mt-5"
+              style={{ display: show ? "block" : "none" }}
+            >
               Your OTP sent successfully
             </p>
           </div>

@@ -17,6 +17,7 @@ const InfluencerLogin = () => {
     mobileOtp: "",
   });
   const [mobile, setMobile] = useState("");
+  const [show, setShow] = useState(0);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -128,6 +129,7 @@ const InfluencerLogin = () => {
   };
 
   function resendOtp() {
+    setShow(1);
     document.getElementById("sign-in-container")?.remove();
     var newDiv = document.createElement("div");
     newDiv.id = "sign-in-container";
@@ -309,7 +311,10 @@ const InfluencerLogin = () => {
               <Typography.Text type="danger">Enter valid OTP.</Typography.Text>
             ) : null}
 
-            <p className="tw-text-blue-500 tw-font-medium tw-mt-5">
+            <p
+              className="tw-text-blue-500 tw-font-medium tw-mt-5"
+              style={{ display: show ? "block" : "none" }}
+            >
               Your OTP sent successfully
             </p>
           </div>
