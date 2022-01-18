@@ -35,6 +35,8 @@ const UserLoginModal = ({
     </Form.Item>
   );
 
+  let number = "";
+
   function configureRecaptcha() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       "sign-in-container",
@@ -50,7 +52,7 @@ const UserLoginModal = ({
 
   function onSignInSubmit(value: any) {
     configureRecaptcha();
-    const number = "+" + value.prefix + value.number;
+    number = "+" + value.prefix + value.number;
     const appVerifier = window.recaptchaVerifier;
     firebase
       .auth()
@@ -152,6 +154,16 @@ const UserLoginModal = ({
     setIsNumDisable(false);
   }
 
+  function resendOtp() {
+    document.getElementById("sign-in-container")?.remove();
+    var newDiv = document.createElement("div");
+    newDiv.id = "sign-in-container";
+    document.getElementById("recaptcha-container")?.appendChild(newDiv);
+    window.recaptchaVerifier.clear();
+    configureRecaptcha();
+    firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier);
+  }
+
   useEffect(() => {
     setIsNumDisable(false);
     signInForm.resetFields();
@@ -244,7 +256,7 @@ const UserLoginModal = ({
                     </Form.Item>
                     <p
                       className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
-                      // onClick={editNum}
+                      onClick={resendOtp}
                     >
                       Resend OTP
                     </p>
