@@ -145,9 +145,9 @@ function Home() {
 
   const handleClick = (activity, date, type) => {
     console.log({ activity, date });
-    // history.push(
-    //   `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
-    // );
+    history.push(
+      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
+    );
   };
 
   console.log(dropData);

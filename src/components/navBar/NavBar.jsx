@@ -154,9 +154,7 @@ function NavBar() {
               <li>
                 <button
                   className="tw-navbar-link"
-                  onClick={() =>
-                    handleShow(chunkArray(allData.activities, 5), "activity")
-                  }
+                  onClick={() => handleShow(allData.activities, "activity")}
                 >
                   <span className="tw-mr-2">Activities</span>
                   <span className="">
