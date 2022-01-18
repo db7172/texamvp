@@ -16,6 +16,7 @@ const InfluencerTestimonials = () => {
         title="Testomonials"
         path="#"
         className="tw-text-3xl tw-font-medium"
+        hideViewAll
       />
       <div className="tw-mt-3 menual-carousal">
         <Carousel autoplay {...settings}>

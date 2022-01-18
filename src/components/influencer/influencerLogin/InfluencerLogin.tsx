@@ -141,7 +141,7 @@ const InfluencerLogin = () => {
   }
 
   return (
-    <div className="tw-p-8 tw-shadow-card tw-rounded-lg">
+    <div className="tw-p-8 tw-shadow-card tw-rounded-lg" id="influencerHome">
       <div>
         <h4 className="tw-font-medium tw-text-2xl tw-mb-4">
           Login to your account

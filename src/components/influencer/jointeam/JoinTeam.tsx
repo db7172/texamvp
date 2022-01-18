@@ -21,10 +21,11 @@ const JoinTeam = () => {
             Lorem Ipsum has been the industry's standard dummy text for oyu the
             1500s, when an unknown printer.
           </p>
-
-          <Button type="default" className="tw-texa-button">
-            Join Now
-          </Button>
+          <a href="#influencerHome">
+            <Button type="default" className="tw-texa-button">
+              Join Now
+            </Button>
+          </a>
         </Col>
       </Row>
     </div>

@@ -21,13 +21,16 @@ const HowToJoin = () => {
             <li>Start recommending Trips</li>
             <li>Start Earning your Reward</li>
           </ol>
-
-          <Button type="default" className="tw-texa-button tw-mr-5">
-            Join Now
-          </Button>
-          <Button type="default" className="btn-outline">
-            Create Account
-          </Button>
+          <a href="#influencerHome">
+            <Button type="default" className="tw-texa-button tw-mr-5">
+              Join Now
+            </Button>
+          </a>
+          <a href="#influencerHome">
+            <Button type="default" className="btn-outline">
+              Create Account
+            </Button>
+          </a>
         </Col>
         <Col span={12}>
           <div className="tw-w-100 tw-mt-8">

@@ -1,5 +1,5 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Popover } from "antd";
+import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { Avatar, Divider, Modal, Popover } from "antd";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import exit from "../../assets/svg/logoutUser.svg";
@@ -16,6 +16,8 @@ const avatarImg =
 const UserLogin = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState([]) as any;
+
+  const { confirm } = Modal;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -41,6 +43,23 @@ const UserLogin = () => {
     window.location.reload();
   }
 
+  function showConfirm() {
+    confirm({
+      title: "Are you sure?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Log Out",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk() {
+        firebase.auth().signOut();
+        window.location.reload();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
+
   const menu = (
     <div style={{ width: "250px" }} className="tw-p-3">
       <div>
@@ -55,7 +74,7 @@ const UserLogin = () => {
         </Link>
       </div>
       <Divider className="tw-my-3" />
-      <div onClick={signOut}>
+      <div onClick={showConfirm}>
         <MenuItem icon={exit} title="Log Out" />
       </div>
     </div>

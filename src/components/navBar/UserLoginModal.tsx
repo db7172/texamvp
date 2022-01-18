@@ -242,6 +242,12 @@ const UserLoginModal = ({
                         placeholder="Enter Your OTP Number"
                       />
                     </Form.Item>
+                    <p
+                      className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
+                      // onClick={editNum}
+                    >
+                      Resend OTP
+                    </p>
 
                     <Form.Item>
                       <Button
