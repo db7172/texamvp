@@ -296,7 +296,7 @@ const UserLoginModal = ({
                 Signin As a{" "}
                 <Link to="/influencer">
                   <button className="tw-text-blue-500 tw-underline">
-                    Travel Influancer
+                    Travel Influencer
                   </button>
                 </Link>
               </p>

@@ -63,13 +63,13 @@ const UserLogin = () => {
   const menu = (
     <div style={{ width: "250px" }} className="tw-p-3">
       <div>
-        <Link to={{ pathname: "user/dashboard" }}>
+        <Link to={{ pathname: "/user/dashboard" }}>
           <MenuItem icon={user} title="My Account" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Link to={{ pathname: "user/dashboard" }}>
+        <Link to={{ pathname: "/user/dashboard", state: 2 }}>
           <MenuItem icon={bag} title="My Trip" />
         </Link>
       </div>

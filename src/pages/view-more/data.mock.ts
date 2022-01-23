@@ -30,7 +30,7 @@ export const VIEW_MORE_ACTIVITY_DETAILS: ActivityInfoVMD[] = [
   {
     image: duration,
     title: "Base Camp",
-    description: "Lonawala",
+    description: "Lonavala",
   },
   {
     image: level,
