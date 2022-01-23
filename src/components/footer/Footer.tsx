@@ -66,15 +66,15 @@ const data: FooterData[] = [
       },
       {
         option: "Workcation",
-        path: "#",
+        path: "/workcations",
       },
       {
         option: "Retreate",
-        path: "#",
+        path: "/retreats",
       },
       {
         option: "Travel Infulancer ?",
-        path: "#",
+        path: "/influencer",
         extraInfo: {
           info: "Join Us",
           type: "link",
@@ -91,7 +91,7 @@ const data: FooterData[] = [
       },
       {
         option: "Reviwes",
-        path: "#",
+        path: "/reviews",
       },
       {
         option: "Blog",

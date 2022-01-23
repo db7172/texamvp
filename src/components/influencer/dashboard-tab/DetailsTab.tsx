@@ -162,8 +162,8 @@ const DetailsTab = () => {
                   <p>
                     <span>
                       {isNumber(activeViewMoreData.bookedTickets)
-                        ? activeViewMoreData.bookedTickets
-                        : activeViewMoreData.bookedTickets.totalBooked}
+                        ? activeViewMoreData?.bookedTickets || 0
+                        : activeViewMoreData?.bookedTickets?.totalBooked || 0}
                     </span>
                   </p>
                 </div>

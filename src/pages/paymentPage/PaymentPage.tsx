@@ -27,7 +27,7 @@ import {
 } from "../../components/payment-page/PassangerForm";
 import { lowerCase } from "lodash";
 import classNames from "classnames";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 // do not remove this, below is the classnames for rounded img of inclusion card
 const classNamesInclustionImg = {
@@ -119,6 +119,8 @@ const PaymentPage = () => {
     numberOfPpl: number;
     price: number;
   }>();
+
+  const history = useHistory();
 
   const handlePassangerFormSubmit = (details: any, id: number) => {
     const key = `passanger${id}`;
@@ -269,7 +271,7 @@ const PaymentPage = () => {
               <span className="tw-text-blue-500 tw-cursor-pointer">
                 Good Health
               </span>{" "}
-              terms and confirm all passengers arebetween 2 to 40 years of age
+              terms and confirm all passengers are between 2 to 40 years of age
             </span>
           </Checkbox>
         </div>
@@ -450,7 +452,10 @@ const PaymentPage = () => {
   return (
     <Container>
       <div>
-        <span className="tw-text-blue-500 tw-flex tw-items-center tw-cursor-pointer tw-max-w-max tw-mt-10">
+        <span
+          className="tw-text-blue-500 tw-flex tw-items-center tw-cursor-pointer tw-max-w-max tw-mt-10"
+          onClick={() => history.goBack()}
+        >
           <ArrowLeftOutlined />{" "}
           <span className="tw-ml-1 tw-underline">Back To Package</span>
         </span>
