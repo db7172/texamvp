@@ -301,7 +301,8 @@ export const PassangerContactDetails = ({
           <Input
             addonBefore={prefixSelector}
             className="tw-rounded-lg tw-w-3/4"
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Phone Number"
             disabled={isDisable}
           />

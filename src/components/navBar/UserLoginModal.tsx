@@ -220,7 +220,8 @@ const UserLoginModal = ({
                 >
                   <Input
                     addonBefore={prefixSelector}
-                    type="number"
+                    type="tel"
+                    pattern="[0-9]*"
                     placeholder="Enter Your Mobile Number"
                     disabled={isNumDisable}
                   />
@@ -250,7 +251,8 @@ const UserLoginModal = ({
                       hasFeedback
                     >
                       <Input
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         placeholder="Enter Your OTP Number"
                       />
                     </Form.Item>

@@ -67,7 +67,8 @@ export const RoomAccomodationTab = ({
       >
         <Input
           className="tw-rounded-md"
-          type="number"
+          type="tel"
+          pattern="[0-9]*"
           prefix="₹"
           placeholder="Enter Your Rate Per Person"
         />
