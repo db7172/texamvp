@@ -17,6 +17,7 @@ const InfluencerLogin = () => {
     mobileOtp: "",
   });
   const [mobile, setMobile] = useState("");
+  const [show, setShow] = useState(0);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -108,33 +109,27 @@ const InfluencerLogin = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUser(doc.data());
+              setCurrentUser(user);
+              // setCurrentUser(doc.data());
             } else {
               user.delete();
               firebase.auth().signOut();
               history.push("/influencer/signup");
             }
           });
-        history.push("/influencer/dashboard");
+        // history.push("/influencer/dashboard");
       })
       .catch((error: any) => {
         console.log("encounted some error");
       });
   };
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        history.push("/influencer/dashboard");
-      }
-    });
-  }, []);
-
   const handlePhoneNumber = (e: any) => {
     setPhoneNumberSt(e.target.value);
   };
 
   function resendOtp() {
+    setShow(1);
     document.getElementById("sign-in-container")?.remove();
     var newDiv = document.createElement("div");
     newDiv.id = "sign-in-container";
@@ -146,7 +141,7 @@ const InfluencerLogin = () => {
   }
 
   return (
-    <div className="tw-p-8 tw-shadow-card tw-rounded-lg">
+    <div className="tw-p-8 tw-shadow-card tw-rounded-lg" id="influencerHome">
       <div>
         <h4 className="tw-font-medium tw-text-2xl tw-mb-4">
           Login to your account
@@ -316,7 +311,10 @@ const InfluencerLogin = () => {
               <Typography.Text type="danger">Enter valid OTP.</Typography.Text>
             ) : null}
 
-            <p className="tw-text-blue-500 tw-font-medium tw-mt-5">
+            <p
+              className="tw-text-blue-500 tw-font-medium tw-mt-5"
+              style={{ display: show ? "block" : "none" }}
+            >
               Your OTP sent successfully
             </p>
           </div>

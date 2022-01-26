@@ -2,7 +2,7 @@ import { Timeline } from "antd";
 
 const tripTimeline = [
   {
-    day: "Day 1 : 12 May’ 2020 ( Monday )  →  Pick up Lonawala to Longhard",
+    day: "Day 1 : 12 May’ 2020 ( Monday )  →  Pick up Lonavala to Longhard",
     activity: [
       {
         time: "10:45 hrs",
@@ -31,7 +31,7 @@ const tripTimeline = [
     ],
   },
   {
-    day: "Day 2 : 13 May’ 2020 ( Tuesday )  →  Pick up Longhard to Lonawala",
+    day: "Day 2 : 13 May’ 2020 ( Tuesday )  →  Pick up Longhard to Lonavala",
     activity: [
       {
         time: "10:45 hrs",

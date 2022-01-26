@@ -86,7 +86,8 @@ export const TranspotationFormTab = ({
           <Col span={12}>
             <Form.Item name="maxCapacity" label="Max Passanger Capacity">
               <Input
-                type="number"
+                type="tel"
+                pattern="[0-9]*"
                 className="tw-rounded-md"
                 placeholder="Max Passanger Capacity"
               />

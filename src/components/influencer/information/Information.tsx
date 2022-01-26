@@ -21,10 +21,11 @@ const Information = () => {
             when an unknown printer took a galley of scrambled it to make a type
             specimen book.
           </p>
-
-          <Button type="default" className="tw-texa-button">
-            Join Now
-          </Button>
+          <a href="#influencerHome">
+            <Button type="default" className="tw-texa-button">
+              Join Now
+            </Button>
+          </a>
         </Col>
         <Col span={12} className="tw-p-6">
           <div className="tw-w-96 tw-ml-auto">

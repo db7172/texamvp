@@ -22,7 +22,8 @@ const InfluencerNavBar = () => {
           </Link>
         )}
         {location.pathname !== "/influencer" &&
-          location.pathname !== "/influencer/signup" && <LogedIn />}
+          location.pathname !== "/influencer/signup" &&
+          location.pathname !== "/influencer/passwordreset" && <LogedIn />}
       </div>
     </div>
   );

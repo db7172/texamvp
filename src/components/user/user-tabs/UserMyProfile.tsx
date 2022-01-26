@@ -179,7 +179,8 @@ const UserMyProfile = () => {
                   <Input
                     addonBefore={prefixSelector}
                     className="tw-rounded-lg"
-                    type="number"
+                    type="tel"
+                    pattern="[0-9]*"
                     placeholder="Enter Your Phone Number"
                   />
                 </Form.Item>

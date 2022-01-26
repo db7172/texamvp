@@ -145,9 +145,9 @@ function Home() {
 
   const handleClick = (activity, date, type) => {
     console.log({ activity, date });
-    // history.push(
-    //   `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
-    // );
+    history.push(
+      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
+    );
   };
 
   console.log(dropData);
@@ -285,7 +285,7 @@ function Home() {
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
               {activityIcon.map(({ icon, name }, i) => (
-                <Link to={getActivityPagePath(lowerCase(name))}>
+                <Link key={i} to={getActivityPagePath(lowerCase(name))}>
                   <IconCard
                     path={icon}
                     name={name}

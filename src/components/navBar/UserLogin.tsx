@@ -1,5 +1,5 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Popover } from "antd";
+import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { Avatar, Divider, Modal, Popover } from "antd";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import exit from "../../assets/svg/logoutUser.svg";
@@ -14,13 +14,16 @@ const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserLogin = () => {
-  const { currentUss, setCurrentUss } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState([]) as any;
+
+  const { confirm } = Modal;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUserData(user);
+        console.log(user);
+        setCurrentUser(user);
         firebase
           .firestore()
           .collection("users")
@@ -28,33 +31,50 @@ const UserLogin = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUss({ id: doc.id, data: doc.data() });
+              setUserData({ id: doc.id, data: doc.data() });
             }
           });
       }
     });
-  }, []);
+  }, [currentUser]);
 
   function signOut() {
     firebase.auth().signOut();
     window.location.reload();
   }
 
+  function showConfirm() {
+    confirm({
+      title: "Are you sure?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Log Out",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk() {
+        firebase.auth().signOut();
+        window.location.reload();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
+
   const menu = (
     <div style={{ width: "250px" }} className="tw-p-3">
       <div>
-        <Link to={{ pathname: "user/dashboard" }}>
+        <Link to={{ pathname: "/user/dashboard" }}>
           <MenuItem icon={user} title="My Account" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
       <div>
-        <Link to={{ pathname: "user/dashboard" }}>
+        <Link to={{ pathname: "/user/dashboard", state: 2 }}>
           <MenuItem icon={bag} title="My Trip" />
         </Link>
       </div>
       <Divider className="tw-my-3" />
-      <div onClick={signOut}>
+      <div onClick={showConfirm}>
         <MenuItem icon={exit} title="Log Out" />
       </div>
     </div>
@@ -66,7 +86,7 @@ const UserLogin = () => {
           <div>
             <Avatar src={avatarImg} className="tw-mr-2" />
             <span className="tw-mr-2">
-              {currentUss ? currentUss.data.name : "User name"}
+              {currentUser ? currentUser.displayName : "User name"}
             </span>
             <DownOutlined className="tw-text-xs tw-text-secondary-color" />
           </div>

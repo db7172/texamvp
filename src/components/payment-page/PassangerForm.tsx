@@ -301,7 +301,8 @@ export const PassangerContactDetails = ({
           <Input
             addonBefore={prefixSelector}
             className="tw-rounded-lg tw-w-3/4"
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Phone Number"
             disabled={isDisable}
           />
@@ -347,7 +348,7 @@ export const GstDetails = ({ handleFormSubmit }: GstDetailsProps) => {
     <div>
       <p className="tw-text-base tw-font-medium tw-mt-3">
         Claim credit of GST charges. Your taxes may get updated post submitting
-        your GST detils.
+        your GST details.
       </p>
       <Form
         name="gstDetailsForm"

@@ -10,9 +10,6 @@ type Props = {
   handleLogin: (value: boolean) => void;
 };
 
-const mockOtpNewUser = "123456";
-const mockOtpOldUser = "654321";
-
 const UserLoginModal = ({
   isModalOpen,
   handleModalCancel,
@@ -22,7 +19,7 @@ const UserLoginModal = ({
   const [userDetailsForm] = Form.useForm();
   const [isNewUser, setIsNewUser] = useState(false);
   const [isNumDisable, setIsNumDisable] = useState(isModalOpen);
-  const { setCurrentUss } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
@@ -37,6 +34,8 @@ const UserLoginModal = ({
       </Select>
     </Form.Item>
   );
+
+  let number = "";
 
   function configureRecaptcha() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -53,7 +52,7 @@ const UserLoginModal = ({
 
   function onSignInSubmit(value: any) {
     configureRecaptcha();
-    const number = "+" + value.prefix + value.number;
+    number = "+" + value.prefix + value.number;
     const appVerifier = window.recaptchaVerifier;
     firebase
       .auth()
@@ -109,12 +108,12 @@ const UserLoginModal = ({
           if (doc.exists) {
             console.log("already a user");
             setIsNewUser(false);
-            // setCurrentUser(user);
-            setCurrentUss(user);
+            setCurrentUser(user);
             handleModalCancel();
             handleLogin(true);
           } else {
-            setCurrentUss(user);
+            setCurrentUser(user);
+            console.log("does not exists");
             setIsNewUser(true);
             setUserData(user);
           }
@@ -137,8 +136,11 @@ const UserLoginModal = ({
   const handleUserDetailsSubmit = (value: any) => {
     console.log(value);
 
-    console.log(userData.uid);
+    // console.log(userData.uid);
     firebase.firestore().collection("users").doc(userData.uid).set(value);
+    firebase.auth().currentUser?.updateProfile({
+      displayName: value.name,
+    });
     handleLogin(true);
     handleModalCancel();
   };
@@ -150,6 +152,16 @@ const UserLoginModal = ({
     document.getElementById("recaptcha-container")?.appendChild(newDiv);
     window.recaptchaVerifier.clear();
     setIsNumDisable(false);
+  }
+
+  function resendOtp() {
+    document.getElementById("sign-in-container")?.remove();
+    var newDiv = document.createElement("div");
+    newDiv.id = "sign-in-container";
+    document.getElementById("recaptcha-container")?.appendChild(newDiv);
+    window.recaptchaVerifier.clear();
+    configureRecaptcha();
+    firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier);
   }
 
   useEffect(() => {
@@ -208,7 +220,8 @@ const UserLoginModal = ({
                 >
                   <Input
                     addonBefore={prefixSelector}
-                    type="number"
+                    type="tel"
+                    pattern="[0-9]*"
                     placeholder="Enter Your Mobile Number"
                     disabled={isNumDisable}
                   />
@@ -238,10 +251,17 @@ const UserLoginModal = ({
                       hasFeedback
                     >
                       <Input
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         placeholder="Enter Your OTP Number"
                       />
                     </Form.Item>
+                    <p
+                      className="tw-text-right tw-text-blue-700 tw-cursor-pointer tw-underline"
+                      onClick={resendOtp}
+                    >
+                      Resend OTP
+                    </p>
 
                     <Form.Item>
                       <Button
@@ -276,7 +296,7 @@ const UserLoginModal = ({
                 Signin As a{" "}
                 <Link to="/influencer">
                   <button className="tw-text-blue-500 tw-underline">
-                    Travel Influancer
+                    Travel Influencer
                   </button>
                 </Link>
               </p>

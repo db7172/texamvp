@@ -22,7 +22,7 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
@@ -60,7 +60,8 @@ const EventForm = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
-  const { currentUser } = useContext(AuthContext);
+  const [user, setUser] = useState([]) as any;
+  const [eventCategory, setEventCategory] = useState([]) as any;
 
   const { state: itinerayTabs, methods: itinerayMethods } = useTabs(
     {
@@ -96,6 +97,25 @@ const EventForm = () => {
   const onTagClose = (id: number) => {
     setTags(tags.filter((_, i) => id !== i));
   };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .get()
+      .then((querySnap) => {
+        setEventCategory(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+            .filter((item) => {
+              return item.data.type === "event";
+            })
+        );
+      });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
+  }, []);
 
   const onFinish = async (value: any) => {
     const formValue: any = {
@@ -137,7 +157,7 @@ const EventForm = () => {
 
     const data = {
       formData: formValue,
-      userID: currentUser.id,
+      userID: user.uid,
       status: "processing",
       booked: 0,
     };
@@ -145,9 +165,7 @@ const EventForm = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
-          .storage()
-          .ref(`events/${currentUser.id}/${i}/`);
+        const storageRef = firebase.storage().ref(`events/${user.uid}/${i}/`);
         await storageRef.put(image);
         const downloadLink = storageRef.getDownloadURL();
         return downloadLink;
@@ -268,7 +286,8 @@ const EventForm = () => {
                     >
                       <Input
                         className="tw-rounded-md"
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         prefix="₹"
                         placeholder="Enter Your Rate Per Person"
                       />
@@ -307,7 +326,8 @@ const EventForm = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   placeholder="Enter Your Rate Per Person"
                                 />
@@ -321,7 +341,8 @@ const EventForm = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   placeholder="Enter No. of Tickets"
                                 />
                               </Form.Item>
@@ -372,9 +393,13 @@ const EventForm = () => {
                       className="tw-rounded-md"
                       placeholder="Select Your Event format"
                     >
-                      <Select.Option value="option1">Option 1</Select.Option>
-                      <Select.Option value="option2">Option 2</Select.Option>
-                      <Select.Option value="option3">Option 3</Select.Option>
+                      {eventCategory.map((event: any, i: number) => {
+                        return (
+                          <Select.Option value={event.data.name} key={i}>
+                            {event.data.name}
+                          </Select.Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
 
@@ -439,7 +464,8 @@ const EventForm = () => {
                     name="numberOfTicket"
                   >
                     <Input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       className="tw-rounded-md"
                       min={1}
                       placeholder="Enter No. of People"

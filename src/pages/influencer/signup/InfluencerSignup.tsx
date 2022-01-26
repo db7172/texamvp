@@ -146,7 +146,8 @@ const PersonalDetails = ({
           <Input
             addonBefore={prefixSelector}
             className="tw-rounded-lg"
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Phone Number"
           />
         </Form.Item>
@@ -241,6 +242,7 @@ const InfluencerSignup = () => {
     mobileOTP: "",
     emailOTP: "",
   });
+  const [show, setShow] = useState(0);
 
   const [otpError, setOtpError] = useState({
     mobileOTP: false,
@@ -269,8 +271,7 @@ const InfluencerSignup = () => {
       });
     }
   };
-  // 6306463076
-  // saxena.deepanshu09@gmail.com
+
   const { setCurrentUser } = useContext(AuthContext);
 
   function verifyOTP() {
@@ -281,6 +282,7 @@ const InfluencerSignup = () => {
         const user = result.user;
         setCurrentUser(user);
         setCurrent(1);
+        console.log(current);
         setIsModalVisible(false);
         auth.currentUser
           ?.linkWithCredential(
@@ -333,6 +335,7 @@ const InfluencerSignup = () => {
   };
 
   function resendOtp() {
+    setShow(1);
     document.getElementById("sign-in-container")?.remove();
     var newDiv = document.createElement("div");
     newDiv.id = "sign-in-container";
@@ -404,7 +407,10 @@ const InfluencerSignup = () => {
               </Text>
             ) : null}
 
-            <p className="tw-text-blue-500 tw-font-medium tw-mt-5">
+            <p
+              className="tw-text-blue-500 tw-font-medium tw-mt-5"
+              style={{ display: show ? "block" : "none" }}
+            >
               Your OTP sent successfully
             </p>
           </div>

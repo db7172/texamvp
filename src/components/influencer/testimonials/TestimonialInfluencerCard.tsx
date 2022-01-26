@@ -55,9 +55,9 @@ const TestimonialInfluencerCard = ({ data }: Props) => {
                 <p className="tw-text-secondary-color tw-text-xs">
                   {description}
                 </p>
-                <Button type="default" className="tw-texa-button tw-w-full">
+                {/* <Button type="default" className="tw-texa-button tw-w-full">
                   Read More
-                </Button>
+                </Button> */}
               </div>
             </div>
           </Col>

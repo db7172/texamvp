@@ -44,13 +44,12 @@ const notificationData = [
 ];
 
 const LogedIn = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUserData(user);
         firebase
           .firestore()
           .collection("venders")
@@ -58,18 +57,19 @@ const LogedIn = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              setCurrentUser({ id: doc.id, data: doc.data() });
+              setUserData({ id: doc.id, data: doc.data() });
             } else {
+              console.log("does'nt existss");
             }
           });
       } else {
         window.location.href = "/influencer";
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(userData.displayName);
+  console.log(currentUser);
+  console.log(userData);
 
   const signOut = () => {
     firebase.auth().signOut();
@@ -83,9 +83,7 @@ const LogedIn = () => {
             <Avatar src={avatarImg} className="tw-mr-2" />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
-                {/* {currentUser ? currentUser.data.name : "Profile Name"} */}
-                {userData ? userData.displayName : "Profile Name"}
-                {/* {"Profile Name"} */}
+                {currentUser ? currentUser.displayName : "Profile Name"}
               </p>
               <p className="tw-text-xs tw-text-secondary-color">
                 79 Trip Conducted

@@ -150,6 +150,8 @@ function ActivityInformation({
   nextStep,
   updateFormData,
 }: Information) {
+  const { currentUser } = useContext(AuthContext);
+
   const handleFormSubmit = (value: any) => {
     const updatedValue: ProfileDataFormType = {
       ...value,
@@ -157,11 +159,11 @@ function ActivityInformation({
     };
     console.log(updatedValue);
     updateFormData(updatedValue);
-    db.collection('venders').doc(currentUser.uid).set(updatedValue,{merge: true})
+    db.collection("venders")
+      .doc(currentUser.uid)
+      .set(updatedValue, { merge: true });
     nextStep();
   };
-
-  const {currentUser} = useContext(AuthContext);
 
   return (
     <>
@@ -383,7 +385,8 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
           ]}
         >
           <Input
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Pan Card Number"
             className="tw-rounded-lg"
           />
@@ -435,7 +438,8 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
           rules={[{ required: true, message: "Please input account number!" }]}
         >
           <Input
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Account Number"
             className="tw-rounded-lg"
           />

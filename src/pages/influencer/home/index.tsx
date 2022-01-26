@@ -13,16 +13,30 @@ import InfluencerLogin from "../../../components/influencer/influencerLogin/Infl
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../Auth";
 import { useHistory } from "react-router-dom";
+import firebase from "../../../firebase";
 
 const Influencer = () => {
-  const { currentUser } = useContext(AuthContext);
   const history = useHistory();
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    if (currentUser) {
-      history.push("/influencer/dashboard");
-    }
-  });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user && currentUser) {
+        console.log(currentUser);
+        history.push("/influencer/dashboard");
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+              firebase.auth().signOut();
+            }
+          });
+      }
+    });
+  }, [currentUser, history]);
 
   return (
     <Container>
