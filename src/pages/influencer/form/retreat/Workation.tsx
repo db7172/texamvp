@@ -18,7 +18,7 @@ import {
   Upload,
 } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../../Auth";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
@@ -32,6 +32,7 @@ import { normFile, onKeyDownEvent, stripUndefined } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import firebase from "../../../../firebase";
+import { v4 as uuid } from "uuid";
 
 const accomodationPanes = [
   {
@@ -64,6 +65,7 @@ const Workation = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
   const [workationCategory, setWorkationCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -160,23 +162,31 @@ const Workation = () => {
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
           .storage()
-          .ref(`workation/${user.uid}/${i}/`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+          .ref(`workation/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await firebase
+
+    firebase
       .firestore()
       .collection("workation")
-      .add({ data, imgLink })
-      .then(() => {})
+      .doc(docId)
+      .set({ data, imgLink, user: user.uid })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });

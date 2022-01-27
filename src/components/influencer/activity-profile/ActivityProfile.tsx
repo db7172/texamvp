@@ -319,11 +319,77 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
 
     return e && e.fileList;
   };
+  const { currentUser } = useContext(AuthContext);
 
-  const handleFormSubmit = (value: any) => {
+  const handleFormSubmit = async (value: any) => {
     console.log(value);
+    let adhaarLink = [];
+    adhaarLink = await Promise.all(
+      value.aadharCardPhoto.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/adhaar/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let cancelLink = [];
+    cancelLink = await Promise.all(
+      value.cancelCheck.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/cancelCheck/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let certificationLink = [];
+    certificationLink = await Promise.all(
+      value.certification.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/certifications/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let panLink = [];
+    panLink = await Promise.all(
+      value.panCardPhoto.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/pancard/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+
+    await db.collection("venders").doc(currentUser.uid).set(
+      {
+        aadharCard: value.aadhaarCard,
+        aadharCardPhoto: adhaarLink,
+        accountName: value.accountName,
+        accountNumber: value.accountNumber,
+        cancelCheck: cancelLink,
+        certifications: certificationLink,
+        gstNumber: value.gstNumber,
+        ifscCode: value.ifscCode,
+        panCard: value.panCard,
+        panCardPhoto: panLink,
+        address: "Update your address",
+        landline: "Update your landline",
+      },
+      { merge: true }
+    );
     updateKycData(value);
-    // firebase.auth().signOut();
     showModal();
   };
 

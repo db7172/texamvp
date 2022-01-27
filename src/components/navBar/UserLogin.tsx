@@ -22,7 +22,6 @@ const UserLogin = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         setCurrentUser(user);
         firebase
           .firestore()

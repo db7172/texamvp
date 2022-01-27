@@ -20,15 +20,14 @@ const UserDashboard = () => {
 
   const history = useHistory();
   const { confirm } = Modal;
-
-  function handleLogout() {
-    firebase.auth().signOut();
-  }
+  const [user, setUser] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         history.push("/");
+      } else {
+        setUser(user);
       }
     });
   }, []);
@@ -63,9 +62,11 @@ const UserDashboard = () => {
                   <Avatar src={avatarImg} />
                 </div>
                 <div>
-                  <p className="tw-text-base">User Name</p>
+                  <p className="tw-text-base">
+                    {user ? user.displayName : "User Name"}
+                  </p>
                   <p className="tw-text-xs tw-text-secondary-color">
-                    user.name@gmail.com
+                    {user ? user.email : "user.name@gmail.com"}
                   </p>
                 </div>
               </div>

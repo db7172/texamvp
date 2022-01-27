@@ -77,6 +77,13 @@ const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 function Home() {
   const [activeTab, setActiveTab] = useState(1);
   const [activityIcon, setActivityIcon] = useState([]);
+  const [popData, setPopData] = useState([]);
+  const [aomData, setAomData] = useState([]);
+  const [bestActivites, setBestActivities] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [popularEvents, setPopularEvents] = useState([]);
+  const [popularRetreat, setPopularRetreat] = useState([]);
+  const [popularWorkation, setPopularWorkation] = useState([]);
   const { width } = useWindowDimensions();
   const [dropData, setDropData] = useState({
     activities: [],
@@ -141,6 +148,62 @@ function Home() {
             }),
         });
       });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("popular")
+      .get()
+      .then((doc) => {
+        setPopData(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("activity_of_month")
+      .get()
+      .then((doc) => {
+        setAomData(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("best_activities")
+      .get()
+      .then((doc) => {
+        setBestActivities(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("events")
+      .get()
+      .then((doc) => {
+        setEvents(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("popular_events")
+      .get()
+      .then((doc) => {
+        setPopularEvents(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("popular_retreat")
+      .get()
+      .then((doc) => {
+        setPopularRetreat(doc.data());
+      });
+    firebase
+      .firestore()
+      .collection("homepage")
+      .doc("popular_workation")
+      .get()
+      .then((doc) => {
+        setPopularWorkation(doc.data());
+      });
   }, [width]);
 
   const handleClick = (activity, date, type) => {
@@ -149,8 +212,6 @@ function Home() {
       `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
     );
   };
-
-  console.log(dropData);
 
   return (
     <>
@@ -271,10 +332,10 @@ function Home() {
           <div className="tw-mt-20">
             <ActivityCarousel
               setting={{ slidesToShow: 3 }}
-              title="Popular Activities"
-              data={ACTIVITY}
+              title={popData.title}
+              data={popData.trips}
               path={getActivityPagePath("Popular Activities")}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={popData.description}
             />
           </div>
           <div className="tw-mt-20">
@@ -299,22 +360,22 @@ function Home() {
           <div className="tw-mt-20">
             <ActivityCarousel
               setting={{ slidesToShow: 3 }}
-              title="Activity of the Month"
-              data={ACTIVITY}
+              title={aomData.title}
+              data={aomData.trips}
               path={getActivityPagePath("Activity of the Month")}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={aomData.description}
             />
           </div>
           <div className="tw-mt-20">
             <ActivityCarousel
               setting={{ slidesToShow: 3 }}
-              title="Best Activity of Maldives"
-              data={ACTIVITY}
+              title={bestActivites.title}
+              data={bestActivites.trips}
               path={getActivityPageWithCityPath("Best Activity", "Maldives")}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={bestActivites.description}
             />
           </div>
-          {/* <div className="tw-mt-20">
+          <div className="tw-mt-20">
             <Title
               title="Events"
               description="Lorem ipsum is the dummy text for placing any thing"
@@ -322,28 +383,28 @@ function Home() {
             <div className="tw-mt-3">
               <DestinationCarousel setting={{ slidesToShow: 4 }} />
             </div>
-          </div> */}
+          </div>
           <div className="tw-mt-20">
             <EventCarousel
-              title="Events"
-              data={EVENT}
+              title={events.title}
+              data={events.trips}
               setting={{ slidesToShow: 3 }}
               path="/events"
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={events.description}
               event
             />
           </div>
           <div className="tw-mt-20">
             <EventCarousel
-              title="Popular Events"
-              data={EVENT}
+              title={popularEvents.title}
+              data={popularEvents.trips}
               setting={{ slidesToShow: 3 }}
               path={getEventPagePath("Popular Events")}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={popularEvents.description}
               event
             />
           </div>
-          <div className="tw-mt-20">
+          {/* <div className="tw-mt-20">
             <EventCarousel
               title="Music"
               data={EVENT}
@@ -352,22 +413,22 @@ function Home() {
               description="Lorem ipsum is the dummy text for placing any thing"
               event
             />
-          </div>
+          </div> */}
           <div className="tw-mt-20">
             <EventCarousel
-              title="Popular Retreat"
-              data={RETREAT}
+              title={popularRetreat.title}
+              data={popularRetreat.trips}
               setting={{ slidesToShow: 3 }}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={popularRetreat.description}
               path={getRetreatPagePath("Popular Retreat")}
             />
           </div>
           <div className="tw-mt-20">
             <WorkationCarousel
-              title="Popular Workcation"
-              data={WORKATION}
+              title={popularWorkation.title}
+              data={popularWorkation.trips}
               setting={{ slidesToShow: 3 }}
-              description="Lorem ipsum is the dummy text for placing any thing"
+              description={popularWorkation.description}
               path={getWorkationPagePath("Popular Workation")}
             />
           </div>

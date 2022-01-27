@@ -51,6 +51,7 @@ const ViewMoreDetailsForActivity = () => {
 
   useEffect(() => {
     setActivityDetails(state);
+    console.log(state);
     setSlashedTableName([
       {
         name: "Home",
@@ -241,13 +242,13 @@ const ViewMoreDetailsForActivity = () => {
               </Row>
             </Col>
             <Col span={24} order={3}>
-              <ActivityCarousel
+              {/* <ActivityCarousel
                 setting={{ slidesToShow: 3 }}
                 title="Similar Activities"
                 data={ACTIVITY}
                 path={getActivityPagePath("Similar Activities")}
                 description="Lorem ipsum is the dummy text for placing any thing"
-              />
+              /> */}
             </Col>
             <Col span={24} order={4}>
               <FaqSection />

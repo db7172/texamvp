@@ -18,7 +18,7 @@ import {
   Tag,
   Checkbox,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
@@ -38,6 +38,7 @@ import {
 } from "../formUtils";
 import { AuthContext } from "../../../../Auth";
 import firebase from "../../../../firebase";
+import { v4 as uuid } from "uuid";
 
 const db = firebase.firestore();
 
@@ -115,6 +116,7 @@ const MultiDays = () => {
   const [paymentCategory, setPaymentCategory] = useState(false);
   const [user, setUser] = useState([]) as any;
   const [activityCategory, setActivityCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -198,32 +200,38 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    // const data = { formData: finalData, userId: currentUser.uid };
-    // console.log(data);
-    // db.collection("multi-activity").add(data);
     const data = {
       formData: finalData,
-      userID: user.uid,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
-    let imgLink = [];
-    imgLink = await Promise.all(
-      value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase.storage().ref(`multiDay/${user.uid}/${i}`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
-        return downloadLink;
-      })
-    );
-    await db
-      .collection("multi-activity")
-      .add({ data, imgLink })
-      .then(() => {})
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+    console.log(formData);
+
+    // let docId = uuid();
+
+    // let imgLink = [];
+    // imgLink = await Promise.all(
+    //   value.dragger.map(async (image: any, i: Number) => {
+    //     console.log(image);
+    //     console.log(user.uid);
+    //     let storageRef = firebase
+    //       .storage()
+    //       .ref(`multi-activity/${user.uid}/${docId}/${i}`);
+    //     await storageRef.put(image.originFileObj);
+    //     let downloadLink = await storageRef.getDownloadURL();
+    //     return downloadLink;
+    //   })
+    // );
+
+    // db.collection("multi-activity")
+    //   .doc(docId)
+    //   .set({ data, imgLink, user: user.uid })
+    //   .then(() => {
+    //     history.push("/influencer/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error writing document: ", error);
+    //   });
   };
 
   return (

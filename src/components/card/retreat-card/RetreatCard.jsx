@@ -6,11 +6,14 @@ import { getViewMoreDetailsForRetreatPath } from "../../../constant/comman.const
 import { indCurrency } from "../../../utils/utils";
 import GreenBadge from "../../green-badge/GreenBadge";
 
-const RetreatCard = ({ name, duration, type, price, imgUrl, language }) => {
+const RetreatCard = (props) => {
+  const { name, duration, type, price, imgUrl, language } = props;
   const routingDetails = {
     pathname: getViewMoreDetailsForRetreatPath(type, name),
     state: { name, duration, type, price, imgUrl, language },
   };
+  console.log(props);
+  // let data = props.data.formData;
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">

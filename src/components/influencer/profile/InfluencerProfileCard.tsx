@@ -37,17 +37,21 @@ const mockData = {
   ],
 };
 
-const InfluencerProfileCard = () => {
+const InfluencerProfileCard = (props: any) => {
   return (
     <div className="card-container">
       <Row gutter={[10, 20]}>
         <Col span={24}>
           <div className="tw-h-20 tw-w-20 tw-mx-auto tw-mb-5">
-            <img src={mockData.img} className="tw-rounded-full" alt="user" />
+            <img
+              src={props.profileUrl}
+              className="tw-rounded-full"
+              alt="user"
+            />
           </div>
           <div className="tw-text-center">
-            <h4 className="tw-text-xl tw-font-medium">{mockData.name}</h4>
-            <p className="tw-text-secondary-color">{mockData.profile}</p>
+            <h4 className="tw-text-xl tw-font-medium">{props.name}</h4>
+            <p className="tw-text-secondary-color">Travel Influencer</p>
           </div>
         </Col>
         <Col span={24}>
@@ -86,18 +90,68 @@ const InfluencerProfileCard = () => {
         <Col span={24} className="tw-flex tw-justify-center">
           <div className="tw-w-1/2 tw-border-b" />
         </Col>
-        {mockData.otherDetails.map((d) => (
-          <Col span={24} key={uniqueId()}>
-            <Row gutter={10} className="tw-items-center">
-              <Col span={15}>
-                <span className="tw-font-medium">{d.key}</span>
-              </Col>
-              <Col span={9}>
-                <p className="tw-text-secondary-color">{d.value}</p>
-              </Col>
-            </Row>
-          </Col>
-        ))}
+        {/* {mockData.otherDetails.map((d) => ( */}
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Age</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">21</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Gender</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">Male</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Lives in</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">{props.city}</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Years In Business</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">{props.operatingSince}</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Activity Conducted</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">8</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10} className="tw-items-center">
+            <Col span={15}>
+              <span className="tw-font-medium">Certificate</span>
+            </Col>
+            <Col span={9}>
+              <p className="tw-text-secondary-color">2 Certificates</p>
+            </Col>
+          </Row>
+        </Col>
+        {/* ))} */}
       </Row>
     </div>
   );

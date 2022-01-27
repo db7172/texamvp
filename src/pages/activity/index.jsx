@@ -154,6 +154,8 @@ const Activity = () => {
       categories: formatActiveButton(unqCategories),
     });
 
+    console.log(activityType);
+
     firebase
       .firestore()
       .collection("hr_sg_avy")

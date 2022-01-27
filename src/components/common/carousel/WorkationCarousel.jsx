@@ -1,7 +1,9 @@
 import { Carousel } from "antd";
+import { useEffect, useState } from "react";
 import { defaultSettings } from "../../../utils/utils";
 import WorkationCard from "../../card/workation-card/WorkationCard";
 import Title from "../title/Title";
+import firebase from "../../../firebase";
 
 const WorkationCarousel = ({
   title,
@@ -16,6 +18,27 @@ const WorkationCarousel = ({
     ...setting,
   };
 
+  const [workations, setWorkations] = useState([]);
+
+  useEffect(() => {
+    let dataArr = [];
+    data?.map((data) => {
+      firebase
+        .firestore()
+        .collection("workation")
+        .doc(data)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            dataArr.push(doc.data());
+          }
+        });
+    });
+    setWorkations(dataArr);
+  }, [data]);
+
+  console.log(workations);
+
   return (
     <div>
       <Title
@@ -25,9 +48,9 @@ const WorkationCarousel = ({
         description={description}
       />
       <div className="tw-mt-3 menual-carousal">
-        {Boolean(data.length) ? (
+        {data ? (
           <Carousel autoplay {...settings}>
-            {data?.map((d, i) => (
+            {workations?.map((d, i) => (
               <WorkationCard {...d} key={i} />
             ))}
           </Carousel>

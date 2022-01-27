@@ -48,7 +48,7 @@ function NavBar() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
+        // console.log(user);
         firebase
           .firestore()
           .collection("users")
@@ -94,7 +94,7 @@ function NavBar() {
       });
   }, []);
 
-  console.log(allData.activities);
+  // console.log(allData.activities);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {

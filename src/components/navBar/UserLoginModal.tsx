@@ -83,23 +83,6 @@ const UserLoginModal = ({
         // User signed in successfully.
         const user = result.user;
         console.log(user);
-        // const checkIfVender = firebase
-        //   .firestore()
-        //   .collection("venders")
-        //   .doc(user.uid);
-        // checkIfVender
-        //   .get()
-        //   .then((doc) => {
-        //     if (doc.exists) {
-        //       // Show an error that user is already a vender.
-        //       console.log("already exists");
-        //       firebase.auth().signOut();
-        //     } else {
-        //       console.log("does not exists");
-        //       setIsNewUser(true);
-        //     }
-        //   })
-        //   .catch((err) => console.log(err));
         const checkIfNew = firebase
           .firestore()
           .collection("users")
@@ -123,24 +106,14 @@ const UserLoginModal = ({
         // User couldn't sign in (bad verification code?)
         // ...
       });
-    console.log(value);
-    // const newUser = value.otp === mockOtpNewUser;
-    // console.log(value);
-    // if (newUser) {
-    //   setIsNewUser(true);
-    // } else {
-    //   handleModalCancel();
-    //   handleLogin(true);
-    // }
   };
-  const handleUserDetailsSubmit = (value: any) => {
+  const handleUserDetailsSubmit = async (value: any) => {
     console.log(value);
-
-    // console.log(userData.uid);
-    firebase.firestore().collection("users").doc(userData.uid).set(value);
-    firebase.auth().currentUser?.updateProfile({
+    await firebase.firestore().collection("users").doc(userData.uid).set(value);
+    await firebase.auth().currentUser?.updateProfile({
       displayName: value.name,
     });
+    await firebase.auth().currentUser?.updateEmail(value.email);
     handleLogin(true);
     handleModalCancel();
   };

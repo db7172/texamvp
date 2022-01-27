@@ -130,7 +130,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               style={{ maxWidth: d.data.formData.date ? "250px" : "330px" }}
             >
               <div>
-                <img src={coverImg} alt="details card" />
+                <img src={d.imgLink[0]} alt="details card" />
               </div>
               <div style={{ width: d.data.formData.date ? "180px" : "220px" }}>
                 <Tooltip title={d.data.formData.activityName}>

@@ -3,9 +3,10 @@ import panCardImg from "../../../assets/png/influencer/panMock.png";
 import aadharCardImg from "../../../assets/png/influencer/aadharMock.png";
 import agreement from "../../../assets/png/influencer/payment-agreement-template.png";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultSettings } from "../../../utils/utils";
 import { uniqueId } from "lodash";
+import firebase from "../../../firebase";
 
 type KycDocs = { images: string[]; title: string };
 
@@ -26,6 +27,7 @@ const mockAgreement = [agreement, agreement, agreement];
 const InfluencerDocuments = () => {
   const [showKycModal, setShowKycModal] = useState(false);
   const [activeDocument, setActiveDocument] = useState<KycDocs>();
+  const [userData, setUserData] = useState([]) as any;
 
   const handleShowKycModal = (images: KycDocs) => {
     setActiveDocument(images);
@@ -37,6 +39,23 @@ const InfluencerDocuments = () => {
     setActiveDocument(undefined);
   };
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setUserData(doc.data());
+            }
+          });
+      }
+    });
+  }, []);
+
   const information = (
     <div className="tw-flex tw-gap-3 tw-mt-10">
       <InfoCircleFilled className="tw-text-secondary-color" />
@@ -46,7 +65,6 @@ const InfluencerDocuments = () => {
       </p>
     </div>
   );
-
   return (
     <div>
       <p className="tw-text-2xl tw-font-medium">KYC Documents</p>
@@ -55,13 +73,13 @@ const InfluencerDocuments = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Aadhar Card</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between tw-items-center">
           <p className="tw-w-6/12 tw-text-secondary-color tw-text-base">
-            {`Number: ${mockData.aadharCard.number}`}
+            {`Number: ${userData.aadharCard}`}
           </p>
 
           <div className="tw-w-4/12">
             <img
               className="tw-h-20"
-              src={mockData.aadharCard.img[0]}
+              src={userData.aadharCardPhoto[0]}
               alt="aadhar-card"
             />
           </div>
@@ -72,8 +90,8 @@ const InfluencerDocuments = () => {
             size="small"
             onClick={() =>
               handleShowKycModal({
-                images: mockData.aadharCard.img,
-                title: "Your Adhar Card ",
+                images: userData.aadharCardPhoto,
+                title: "Your Aadhar Card ",
               })
             }
           >
@@ -85,13 +103,13 @@ const InfluencerDocuments = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Pan Card</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between tw-items-center">
           <p className="tw-w-6/12 tw-text-secondary-color tw-text-base">
-            {`Number: ${mockData.panCard.number}`}
+            {`Number: ${userData.panCard}`}
           </p>
 
           <div className="tw-w-4/12">
             <img
               className="tw-h-20"
-              src={mockData.panCard.img}
+              src={userData.panCardPhoto[0]}
               alt="pan-card"
             />
           </div>
@@ -102,7 +120,7 @@ const InfluencerDocuments = () => {
             size="small"
             onClick={() =>
               handleShowKycModal({
-                images: [mockData.panCard.img],
+                images: userData.panCardPhoto,
                 title: "Your Pan Card",
               })
             }

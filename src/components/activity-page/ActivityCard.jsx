@@ -32,7 +32,7 @@ const ActivityCard = (props) => {
       duration: "3 Days",
       rating: 5,
       review: "89 Reviews",
-      venderName: vender.name,
+      venderName: vender.companyName,
     },
   };
   // let totalActivities = single.concat(multi);
@@ -42,15 +42,18 @@ const ActivityCard = (props) => {
     firebase
       .firestore()
       .collection("venders")
-      .doc(data.data.data.userID)
+      .doc(data.data.user)
       .get()
       .then((doc) => {
         if (doc.exists) setVender(doc.data());
       });
-  }, [data.data.data.userID]);
+  }, [data.data.user]);
 
   return (
-    <PageCardContainer imgUrl={img} title={activityData.activityName}>
+    <PageCardContainer
+      imgUrl={data.data.imgLink[0]}
+      title={activityData.activityName}
+    >
       <div className="tw-flex tw-flex-wrap tw-mt-3">
         {/* {tags.map((t, i) => (
           <Tags className="tw-my-1 tw-mr-2 tw-text-xs" tag={t} key={i} />
@@ -58,7 +61,9 @@ const ActivityCard = (props) => {
       </div>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Cities : </span>
-        <span>{activityData.destinations.destination}</span>
+        <span>{activityData.destination[0].destination}</span>,{" "}
+        <span>{activityData.destination[1]?.destination}</span>,{" "}
+        <span>{activityData.destination[2]?.destination}</span>
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Duration : </span>
@@ -74,7 +79,7 @@ const ActivityCard = (props) => {
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Activity By : </span>
-        <span>{vender ? vender.name : null}</span>
+        <span>{vender ? vender.companyName : null}</span>
       </p>
       <div className="tw-font-medium tw-mt-3 tw-flex tw-items-center">
         <span className="tw-text-secondary-color tw-mr-3">Includes : </span>

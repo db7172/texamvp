@@ -24,6 +24,7 @@ import classNames from "classnames";
 import { uniqueId } from "lodash";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
@@ -37,6 +38,7 @@ import { useTabs } from "../useTabs";
 import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
 import { AuthContext } from "../../../../Auth";
 import firebase from "../../../../firebase";
+import { v4 as uuid } from "uuid";
 
 let addPaymentField: {
   (): void;
@@ -62,6 +64,7 @@ const EventForm = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
   const [eventCategory, setEventCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: itinerayTabs, methods: itinerayMethods } = useTabs(
     {
@@ -157,25 +160,34 @@ const EventForm = () => {
 
     const data = {
       formData: formValue,
-      userID: user.uid,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase.storage().ref(`events/${user.uid}/${i}/`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
+          .storage()
+          .ref(`events/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await firebase
+
+    firebase
       .firestore()
       .collection("events")
-      .add({ data, imgLink })
-      .then(() => {})
+      .doc(docId)
+      .set({ data, imgLink, user: user.uid })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });

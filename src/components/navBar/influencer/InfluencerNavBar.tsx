@@ -9,7 +9,7 @@ const InfluencerNavBar = () => {
   return (
     <div className="tw-bg-white tw-shadow-nav-bar tw-flex tw-justify-between tw-items-center tw-py-4 tw-text-primary-color tw-px-7">
       <div>
-        <Link to="/">
+        <Link to="/influencer">
           <h1 className="tw-font-bold tw-text-4xl">Texa Trove</h1>
         </Link>
       </div>

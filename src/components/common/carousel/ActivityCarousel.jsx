@@ -7,12 +7,14 @@ import CheckBox from "../../form-component/CheckBox";
 import TourCard from "../../card/tour-card/TourCard";
 import Title from "../title/Title";
 import { Carousel } from "antd";
+import firebase from "../../../firebase";
 
 const ActivityCarousel = ({ setting, title, data, path, description }) => {
   const [multiday, setMultiday] = useState(false);
   const [singleday, setSingleday] = useState(false);
   const [hourly, setHourly] = useState(false);
   const [activityData, setActivityData] = useState([]);
+  // const [multiData, setMultiData] = useState([]);
 
   const settings = {
     ...defaultSettings,
@@ -21,19 +23,81 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
-    const modifiedData = data?.filter((d) => {
-      if (multiday && d.type === "multi day") {
-        return d;
-      } else if (singleday && d.type === "single day") {
-        return d;
-      } else if (hourly && d.type === "hourly") {
-        return d;
-      } else if (!multiday && !singleday && !hourly) {
-        return d;
-      }
-    });
-    setActivityData(modifiedData);
+    // const modifiedData = data?.filter((d) => {
+    //   if (multiday && d.type === "multi day") {
+    //     return d;
+    //   } else if (singleday && d.type === "single day") {
+    //     return d;
+    //   } else if (hourly && d.type === "hourly") {
+    //     return d;
+    //   } else if (!multiday && !singleday && !hourly) {
+    //     return d;
+    //   }
+    // });
+
+    // data = [activities ids];
+
+    if (hourly || singleday) {
+      let dataArr = [];
+      data?.map((data) => {
+        firebase
+          .firestore()
+          .collection("hr_sg_avy")
+          .doc(data)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              dataArr.push(doc.data());
+            }
+          });
+      });
+      setActivityData(dataArr);
+    } else if (multiday) {
+      let dataArr = [];
+      data?.map((data) => {
+        firebase
+          .firestore()
+          .collection("multi-activity")
+          .doc(data)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              dataArr.push(doc.data());
+            }
+          });
+      });
+      setActivityData(dataArr);
+    } else {
+      let dataArr = [];
+      data?.map((data) => {
+        firebase
+          .firestore()
+          .collection("hr_sg_avy")
+          .doc(data)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              dataArr.push(doc.data());
+            }
+          });
+      });
+      data?.map((data) => {
+        firebase
+          .firestore()
+          .collection("multi-activity")
+          .doc(data)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              dataArr.push(doc.data());
+            }
+          });
+      });
+      setActivityData(dataArr);
+    }
   }, [multiday, singleday, hourly, data]);
+
+  console.log(activityData);
 
   return (
     <div>
@@ -68,9 +132,9 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
       </div>
       <div className="tw-mt-3 menual-carousal">
         <Carousel autoplay {...settings}>
-          {activityData?.map((d, i) => (
+          {/* {activityData?.map((d, i) => (
             <TourCard {...d} key={i} />
-          ))}
+          ))} */}
         </Carousel>
       </div>
     </div>

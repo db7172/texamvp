@@ -52,19 +52,19 @@ const Activites = () => {
 
   useEffect(() => {
     // setActivityIcon(getActivityIcon(cardCount));
-    firebase
-      .firestore()
-      .collection("categories")
-      .get()
-      .then((querySnap) => {
-        setActivities(
-          querySnap.docs
-            .map((doc) => ({ id: doc.id, data: doc.data() }))
-            .filter((item) => {
-              return item.data.type === "activity";
-            })
-        );
-      });
+    // firebase
+    //   .firestore()
+    //   .collection("categories")
+    //   .get()
+    //   .then((querySnap) => {
+    //     setActivities(
+    //       querySnap.docs
+    //         .map((doc) => ({ id: doc.id, data: doc.data() }))
+    //         .filter((item) => {
+    //           return item.data.type === "activity";
+    //         })
+    //     );
+    //   });
   }, [cardCount]);
 
   const handleCradClick = () => {

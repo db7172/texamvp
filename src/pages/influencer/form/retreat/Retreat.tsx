@@ -22,7 +22,7 @@ import {
 import classNames from "classnames";
 import { uniqueId } from "lodash";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
@@ -41,6 +41,7 @@ import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
+import { v4 as uuid } from "uuid";
 
 let addPaymentField: {
   (): void;
@@ -89,6 +90,7 @@ const Retreat = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
   const [retreatCategory, setRetreatCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -209,28 +211,57 @@ const Retreat = () => {
     console.log(formValue);
     const data = {
       formData: formValue,
-      userID: user.uid,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase.storage().ref(`retreat/${user.uid}/${i}/`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
+          .storage()
+          .ref(`retreat/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await firebase
+
+    firebase
       .firestore()
       .collection("retreat")
-      .add({ data, imgLink })
-      .then(() => {})
+      .doc(docId)
+      .set({ data, imgLink, user: user.uid })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
+
+    // let imgLink = [];
+    // imgLink = await Promise.all(
+    //   value.dragger.map(async (image: any, i: Number) => {
+    //     const storageRef = firebase.storage().ref(`retreat/${user.uid}/${i}/`);
+    //     await storageRef.put(image);
+    //     const downloadLink = storageRef.getDownloadURL();
+    //     return downloadLink;
+    //   })
+    // );
+    // await firebase
+    //   .firestore()
+    //   .collection("retreat")
+    //   .add({ data, imgLink })
+    //   .then(() => {
+    //     history.push("/influencer/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error writing document: ", error);
+    //   });
   };
 
   return (

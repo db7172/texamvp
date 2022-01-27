@@ -37,6 +37,7 @@ import {
 } from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
+import { v4 as uuid } from "uuid";
 
 const db = firebase.firestore();
 
@@ -145,25 +146,29 @@ const HourlyAndSingleDay = () => {
     let finalData = stripUndefined(formData);
     const data = {
       formData: finalData,
-      userID: user.uid,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
           .storage()
-          .ref(`hourlyAndSingle/${user.uid}/${i}`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+          .ref(`hourlyAndSingle/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await db
-      .collection("hr_sg_avy")
-      .add({ data, imgLink })
+
+    db.collection("hr_sg_avy")
+      .doc(docId)
+      .set({ data, imgLink, user: user.uid })
       .then(() => {
         history.push("/influencer/dashboard");
       })
