@@ -23,7 +23,11 @@ const AllReviews = () => {
     <div>
       <div style={{ height: "737px" }} className="tw-relative">
         <div className="tw-absolute tw-inset-0">
-          <img src={reviewBG} alt="background" />
+          <img
+            className="tw-h-full tw-w-full"
+            src={reviewBG}
+            alt="background"
+          />
         </div>
         <Container className="tw-relative tw-h-full">
           <div className="tw-flex tw-flex-col tw-justify-center tw-items-center tw-h-full">

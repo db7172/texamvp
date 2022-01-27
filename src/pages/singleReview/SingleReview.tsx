@@ -1,15 +1,77 @@
 import { Col, Rate, Row } from "antd";
 import { capitalize } from "lodash";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sticky from "react-stickynode";
+import ReviewCard from "../../components/card/review-card/ReviewCard";
 import Container from "../../components/common/container/Container";
+import HotelStarFilter from "../../components/form-component/filters/HotelStar";
+import Pagination from "../../components/pagination";
+import { reviewDummyData } from "../../constant/reviewData.const";
+import { formatActiveButton } from "../../utils/utils";
+import ProgressRatting from "./ProgressRatting";
 
 type Params = {
   reviewType: string;
 };
 
+const progressData = [
+  {
+    title: "Excellent",
+    total: 3000,
+    actual: 2000,
+  },
+  {
+    title: "Very Good",
+    total: 3000,
+    actual: 500,
+  },
+  {
+    title: "Good",
+    total: 3000,
+    actual: 250,
+  },
+  {
+    title: "Poor",
+    total: 3000,
+    actual: 150,
+  },
+  {
+    title: "Bad",
+    total: 3000,
+    actual: 100,
+  },
+];
+
+const hotel = ["1", "2", "3", "4", "5"];
+
 const SingleReview = () => {
   const { reviewType } = useParams<Params>();
+  const [reviewData] = useState(reviewDummyData.slice(0, 10));
+  const [activePage, setActivePage] = useState(1);
+  const [hotelRatting, setHotelRatting] = useState<any>({});
+
+  useEffect(() => {
+    setHotelRatting(formatActiveButton(hotel));
+  }, []);
+
+  const handleReset = () => {
+    setHotelRatting(formatActiveButton(hotel));
+  };
+
+  const handleHotelStarFilter = (e: React.ChangeEvent<HTMLButtonElement>) => {
+    const name: any = e.target.name;
+    setHotelRatting((pre: { [x: string]: any }) => ({
+      ...pre,
+      [name]: !pre[name],
+    }));
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    console.log(`active page is ${pageNumber}`);
+    setActivePage(pageNumber);
+  };
+
   return (
     <div>
       <div className="tw-w-full tw-h-96 tw-relative">
@@ -69,16 +131,57 @@ const SingleReview = () => {
                   <p className="tw-filter-title tw-font-medium">Filters</p>
                   <button
                     className="tw-text-secondary-color tw-text-base"
-                    // onClick={handleReset}
+                    onClick={handleReset}
                   >
                     Reset all
                   </button>
                 </div>
+
+                <div className="tw-py-7 tw-border-b">
+                  {progressData.map((d, i) => (
+                    <ProgressRatting
+                      title={d.title}
+                      total={d.total}
+                      actual={d.actual}
+                      key={i}
+                    />
+                  ))}
+                </div>
+                <div className="tw-py-7 tw-border-b">
+                  <HotelStarFilter
+                    ratting={hotelRatting}
+                    handleClick={handleHotelStarFilter}
+                  />
+                </div>
               </div>
             </Sticky>
           </Col>
-          <Col span={17}></Col>
+          <Col span={17}>
+            <Row className="" gutter={[25, 25]}>
+              {reviewData.map((d) => (
+                <Col span={24}>
+                  <ReviewCard
+                    img={d.img}
+                    name={d.name}
+                    comment={d.comment}
+                    place={d.place}
+                    date={d.date}
+                    star={d.star}
+                  />
+                </Col>
+              ))}
+            </Row>
+            <div className="tw-flex tw-justify-center tw-mt-10">
+              <Pagination
+                currentPage={activePage}
+                paginate={handlePageChange}
+                sizePerPage={10}
+                totalNumberOfValues={100}
+              />
+            </div>
+          </Col>
         </Row>
+        <div id="row-bottom" />
       </Container>
     </div>
   );
