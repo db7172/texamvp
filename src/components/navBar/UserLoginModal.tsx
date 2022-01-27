@@ -193,7 +193,8 @@ const UserLoginModal = ({
                 >
                   <Input
                     addonBefore={prefixSelector}
-                    type="number"
+                    type="tel"
+                    pattern="[0-9]*"
                     placeholder="Enter Your Mobile Number"
                     disabled={isNumDisable}
                   />
@@ -223,7 +224,8 @@ const UserLoginModal = ({
                       hasFeedback
                     >
                       <Input
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         placeholder="Enter Your OTP Number"
                       />
                     </Form.Item>
@@ -267,7 +269,7 @@ const UserLoginModal = ({
                 Signin As a{" "}
                 <Link to="/influencer">
                   <button className="tw-text-blue-500 tw-underline">
-                    Travel Influancer
+                    Travel Influencer
                   </button>
                 </Link>
               </p>

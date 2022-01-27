@@ -303,7 +303,8 @@ const ProfileSetting = () => {
             <Input
               addonBefore={prefixSelector}
               className="tw-rounded-lg"
-              type="number"
+              type="tel"
+              pattern="[0-9]*"
               placeholder="Enter Your Phone Number"
             />
           </Form.Item>
@@ -322,7 +323,8 @@ const ProfileSetting = () => {
           >
             <Input
               className="tw-rounded-lg"
-              type="number"
+              type="tel"
+              pattern="[0-9]*"
               placeholder="Enter Your Landline Number"
             />
           </Form.Item>
@@ -394,7 +396,8 @@ const ProfileSetting = () => {
           >
             <Input
               className="tw-rounded-lg"
-              type="number"
+              type="tel"
+              pattern="[0-9]*"
               placeholder="Enter Your Bank Account Number"
             />
           </Form.Item>
@@ -446,6 +449,8 @@ const ProfileSetting = () => {
           >
             <Input
               className="tw-rounded-lg"
+              type="tel"
+              pattern="[0-9]*"
               placeholder="Enter Your GST Account Number"
             />
           </Form.Item>

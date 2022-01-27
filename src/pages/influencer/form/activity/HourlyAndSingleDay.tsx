@@ -288,7 +288,8 @@ const HourlyAndSingleDay = () => {
                     >
                       <Input
                         className="tw-rounded-md"
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         prefix="₹"
                         placeholder="Enter Your Rate Per Person"
                       />
@@ -327,7 +328,8 @@ const HourlyAndSingleDay = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   min={1}
                                   placeholder="Enter Your Rate Per Person"
@@ -342,7 +344,8 @@ const HourlyAndSingleDay = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   min={1}
                                   placeholder="Enter No. of Tickets"
                                 />
@@ -411,7 +414,8 @@ const HourlyAndSingleDay = () => {
                   >
                     <Input
                       className="tw-rounded-md"
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       prefix="₹"
                       min={1}
                       placeholder="Rate Per Person"
@@ -449,7 +453,8 @@ const HourlyAndSingleDay = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   min={1}
                                   placeholder="Rate Per Person"
@@ -541,7 +546,8 @@ const HourlyAndSingleDay = () => {
                     name="numberOfPeople"
                   >
                     <Input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       className="tw-rounded-md"
                       min={1}
                       placeholder="Enter No. of People"

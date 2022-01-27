@@ -1,7 +1,7 @@
 import { Avatar, Button, Col, Divider, Modal, Row } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
 import UserMyEnquiry from "../../../components/user/user-tabs/UserMyEnquiry";
 import UserMyProfile from "../../../components/user/user-tabs/UserMyProfile";
@@ -16,7 +16,8 @@ const avatarImg =
   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserDashboard = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState((location?.state as number) || 1);
 
   const history = useHistory();
   const { confirm } = Modal;

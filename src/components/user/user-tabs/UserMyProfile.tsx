@@ -237,8 +237,10 @@ const UserMyProfile = () => {
                   <Input
                     addonBefore={prefixSelector}
                     className="tw-rounded-lg"
-                    type="number"
                     defaultValue={user.phoneNumber.slice(3)}
+                    type="tel"
+                    pattern="[0-9]*"
+                    placeholder="Enter Your Phone Number"
                   />
                 </Form.Item>
               </Col>

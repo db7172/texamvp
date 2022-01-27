@@ -451,7 +451,8 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
           ]}
         >
           <Input
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Pan Card Number"
             className="tw-rounded-lg"
           />
@@ -503,7 +504,8 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
           rules={[{ required: true, message: "Please input account number!" }]}
         >
           <Input
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             placeholder="Enter Your Account Number"
             className="tw-rounded-lg"
           />

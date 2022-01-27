@@ -298,7 +298,8 @@ const EventForm = () => {
                     >
                       <Input
                         className="tw-rounded-md"
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         prefix="₹"
                         placeholder="Enter Your Rate Per Person"
                       />
@@ -337,7 +338,8 @@ const EventForm = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   placeholder="Enter Your Rate Per Person"
                                 />
@@ -351,7 +353,8 @@ const EventForm = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   placeholder="Enter No. of Tickets"
                                 />
                               </Form.Item>
@@ -473,7 +476,8 @@ const EventForm = () => {
                     name="numberOfTicket"
                   >
                     <Input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       className="tw-rounded-md"
                       min={1}
                       placeholder="Enter No. of People"

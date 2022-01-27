@@ -343,7 +343,8 @@ const MultiDays = () => {
                     >
                       <Input
                         className="tw-rounded-md"
-                        type="number"
+                        type="tel"
+                        pattern="[0-9]*"
                         prefix="₹"
                         placeholder="Enter Your Rate Per Person"
                       />
@@ -382,7 +383,8 @@ const MultiDays = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   placeholder="Enter Your Rate Per Person"
                                 />
@@ -396,7 +398,8 @@ const MultiDays = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   placeholder="Enter No. of Tickets"
                                 />
                               </Form.Item>
@@ -461,7 +464,8 @@ const MultiDays = () => {
                   >
                     <Input
                       className="tw-rounded-md"
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       prefix="₹"
                       placeholder="Rate Per Person"
                     />
@@ -498,7 +502,8 @@ const MultiDays = () => {
                               >
                                 <Input
                                   className="tw-rounded-md"
-                                  type="number"
+                                  type="tel"
+                                  pattern="[0-9]*"
                                   prefix="₹"
                                   placeholder="Rate Per Person"
                                 />
@@ -589,7 +594,8 @@ const MultiDays = () => {
                     name="numberOfPeople"
                   >
                     <Input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       className="tw-rounded-md"
                       min={1}
                       placeholder="Enter No. of People"
@@ -601,7 +607,8 @@ const MultiDays = () => {
                     name="activityDuration"
                   >
                     <Input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]*"
                       className="tw-rounded-md"
                       min={1}
                       placeholder="Enter No. of Days"
