@@ -166,7 +166,7 @@ const Activity = () => {
             .map((doc) => ({ id: doc.id, data: doc.data() }))
             .filter((item) => {
               return (
-                item.data.data.formData.sailentFeatures.activityType ===
+                item.data.data.formData.sailentFeatures.activityType.toLowerCase() ===
                 activityType
               );
             })
@@ -183,7 +183,7 @@ const Activity = () => {
             .map((doc) => ({ id: doc.id, data: doc.data() }))
             .filter((item) => {
               return (
-                item.data.data.formData.sailentFeatures.activityType ===
+                item.data.data.formData.sailentFeatures.activityType.toLowerCase() ===
                 activityType
               );
             })

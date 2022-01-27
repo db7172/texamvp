@@ -27,11 +27,12 @@ const TourCard = (props) => {
 
   let data = props.data.formData;
 
+  // we can run this to get the information of vender who created this activity
   // useEffect(() => {
   //   firebase
   //     .firestore()
   //     .collection("venders")
-  //     .doc(props.data.userID)
+  //     .doc(props.user)
   //     .get()
   //     .then((doc) => {
   //       setVender(doc.data());
