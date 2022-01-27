@@ -152,13 +152,13 @@ const ProfileSetting = () => {
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
             {details.number}
           </p>
-          <Button
+          {/* <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
             onClick={handleShowUserModal}
-          />
+          /> */}
         </div>
       </div>
       <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
@@ -278,8 +278,8 @@ const ProfileSetting = () => {
             details.number
               ? {
                   ...details,
-                  mobileNo: details.number.split("-")[1],
-                  prefix: details.number.slice(1, 3),
+                  mobileNo: details.number?.slice(3, details.number.length),
+                  prefix: details.number?.slice(1, 3),
                 }
               : { prefix: userData.mobileNo.slice(3) }
           }
@@ -301,6 +301,7 @@ const ProfileSetting = () => {
             ]}
           >
             <Input
+              disabled
               addonBefore={prefixSelector}
               className="tw-rounded-lg"
               type="tel"

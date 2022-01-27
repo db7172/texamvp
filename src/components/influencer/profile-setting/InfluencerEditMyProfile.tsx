@@ -288,13 +288,13 @@ const InfluencerEditMyProfile = () => {
               <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
                 {userData.email}
               </p>
-              <Button
+              {/* <Button
                 className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
                 type="text"
                 icon={<EditOutlined />}
                 size="small"
                 onClick={showUserDetailsModal}
-              />
+              /> */}
             </div>
           </div>
           <div>
@@ -385,6 +385,7 @@ const InfluencerEditMyProfile = () => {
                 ]}
               >
                 <Input
+                  disabled
                   className="tw-rounded-lg"
                   placeholder="Enter Your E-mail id"
                 />
