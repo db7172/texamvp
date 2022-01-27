@@ -37,7 +37,7 @@ const HotelStarFilter = ({ ratting, handleClick }) => {
 };
 
 HotelStarFilter.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default HotelStarFilter;

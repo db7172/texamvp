@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Progress, Row } from "antd";
+import { Col, Divider, Progress, Row } from "antd";
 import { indCurrency } from "../../../utils/utils";
 
 type Props = {
