@@ -10,6 +10,7 @@ const InfluencerChangePasswoard = () => {
   const handleSubmit = (value: any) => {
     console.log(value);
     form.resetFields();
+    setStep(1);
   };
 
   const handleValidationClick = () => {
