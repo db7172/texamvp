@@ -246,6 +246,7 @@ const InfluencerEditMyProfile = () => {
               style={{ overflow: "hidden" }}
             >
               <img
+                className="tw-w-20 tw-h-20 tw-rounded-full"
                 src={`${
                   userData.profileUrl
                     ? userData.profileUrl
