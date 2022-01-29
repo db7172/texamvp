@@ -22,6 +22,7 @@ const UserDashboard = () => {
   const history = useHistory();
   const { confirm } = Modal;
   const [user, setUser] = useState([]) as any;
+  const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -29,6 +30,15 @@ const UserDashboard = () => {
         history.push("/");
       } else {
         setUser(user);
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            console.log(doc.data());
+            setUserData({ id: doc.id, data: doc.data() });
+          });
       }
     });
   }, []);
@@ -60,7 +70,7 @@ const UserDashboard = () => {
             <Col span={24}>
               <div className="tw-flex tw-gap-4">
                 <div>
-                  <Avatar src={avatarImg} />
+                  <Avatar src={user.photoURL} />
                 </div>
                 <div>
                   <p className="tw-text-base">
@@ -106,7 +116,7 @@ const UserDashboard = () => {
           {activeTab === 1 && <UserMyProfile />}
           {activeTab === 2 && <UserMyTrip />}
           {activeTab === 3 && <UserMyEnquiry />}
-          {activeTab === 4 && <UserReviewsTab />}
+          {activeTab === 4 && <UserReviewsTab {...userData} />}
           {activeTab === 5 && <UserSupport />}
         </Col>
       </Row>

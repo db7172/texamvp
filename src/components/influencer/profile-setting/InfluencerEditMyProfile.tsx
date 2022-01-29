@@ -104,6 +104,9 @@ const InfluencerEditMyProfile = () => {
         let storageRef = firebase.storage().ref(`venders/${user.uid}/profile`);
         await storageRef.put(profileImg.file);
         downloadLink = await storageRef.getDownloadURL();
+        await user.updateProfile({
+          photoURL: downloadLink,
+        });
       }
       await firebase
         .firestore()
@@ -124,9 +127,6 @@ const InfluencerEditMyProfile = () => {
         .catch((err) => {
           console.log(err);
         });
-      await user.updateProfile({
-        photoURL: downloadLink,
-      });
       if (value.email !== user.email) {
         await user
           .updateEmail(value.email)

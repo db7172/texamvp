@@ -16,6 +16,7 @@ import profile from "../../../assets/png/influencer/user/user1.png";
 import { formatMomentDate } from "../../../utils/utils";
 import UserCard from "../card/UserCard";
 import firebase from "../../../firebase";
+import { stripUndefined } from "../../../pages/influencer/form/formUtils";
 
 const OPTIONS = ["Option 1", "Option 2", "Option 3"];
 
@@ -53,7 +54,7 @@ const UserMyProfile = () => {
     });
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   const handleSubmit = async (value: any) => {
     let downloadLink = user.photoURL;
@@ -61,12 +62,17 @@ const UserMyProfile = () => {
       let storageRef = firebase.storage().ref(`users/${user.uid}/profile`);
       await storageRef.put(profileImg.file);
       downloadLink = await storageRef.getDownloadURL();
+      await user.updateProfile({
+        photoURL: downloadLink,
+      });
     }
     const backendvalue = {
       ...value,
       dateOfBirth: formatMomentDate(value.dateOfBirth),
       profileUrl: downloadLink,
     };
+
+    const finalData = stripUndefined(backendvalue);
 
     if (value.dateOfAnniversary) {
       backendvalue["dateOfAnniversary"] = formatMomentDate(
@@ -78,7 +84,7 @@ const UserMyProfile = () => {
       .firestore()
       .collection("users")
       .doc(user.uid)
-      .set(backendvalue, { merge: true });
+      .set(finalData, { merge: true });
     setIsEdit(false);
   };
 

@@ -1,11 +1,12 @@
 import { Button, Col, Form, Input, Modal, Rate, Row, Select } from "antd";
 import classNames from "classnames";
 import { isUndefined } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { COMPLETED } from "../../influencer/dashboard-tab/data";
 import TripDetailCard from "../card/TripDetailCard";
 import TripReviewCard from "../card/TripReviewCard";
 import { UPCOMING_TRIP_DATA } from "./userTabsConstants";
+import firebase from "../../../firebase";
 
 const SORTBY = [
   {
@@ -28,11 +29,11 @@ const SORTBY = [
 
 const mockReview = COMPLETED.ACTIVITY[0].review[0];
 
-const UserReviewsTab = () => {
+const UserReviewsTab = (props: any) => {
   const [activeButton, setActiveButton] = useState(1);
   const [activeModalId, setActiveModalId] = useState<number | undefined>();
   const [rating, setRating] = useState<undefined | number>(5);
-
+  const [trips, setTrips] = useState([]) as any;
   const [form] = Form.useForm();
 
   const onModalCancel = () => {
@@ -42,25 +43,46 @@ const UserReviewsTab = () => {
 
   const onRatingSubmit = (value: any) => {
     console.log({ ...value, rating });
-    onModalCancel();
+    console.log(activeModalId);
   };
+
+  let userId = props.id;
+  let userData = props.data;
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("completedTours")
+      .where("userId", "==", props.id)
+      .get()
+      .then((querySnap) => {
+        setTrips(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData.completedTours, userData]);
+
+  // console.log(userData);
+  console.log(userId);
+  console.log(trips);
 
   const getReviewYourProduct = () => {
     return (
       <div className="tw-mt-14">
-        {UPCOMING_TRIP_DATA.map((value, id) => (
+        {trips.map((value: any, id: any) => (
           <TripDetailCard
             key={id}
             id={id}
-            title={value.title}
-            description={value.duration}
-            icon={value.icon}
-            bookingDate={value.bookingDate}
-            bookingId={value.bookingId}
-            paidAmt={value.bookingAmt}
-            type={value.type}
+            title={value.data.title}
+            description={value.data.duration}
+            icon={value.data.icon}
+            bookingDate={value.data.bookingDate}
+            bookingId={value.id}
+            paidAmt={value.data.paidAmt}
+            type={value.data.type}
             buttonText="Rate Your Trip"
-            handleButtonClick={(id) => setActiveModalId(id)}
+            handleButtonClick={(id) => setActiveModalId(value.id)}
           />
         ))}
       </div>

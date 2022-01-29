@@ -207,31 +207,31 @@ const MultiDays = () => {
     };
     console.log(formData);
 
-    // let docId = uuid();
+    let docId = uuid();
 
-    // let imgLink = [];
-    // imgLink = await Promise.all(
-    //   value.dragger.map(async (image: any, i: Number) => {
-    //     console.log(image);
-    //     console.log(user.uid);
-    //     let storageRef = firebase
-    //       .storage()
-    //       .ref(`multi-activity/${user.uid}/${docId}/${i}`);
-    //     await storageRef.put(image.originFileObj);
-    //     let downloadLink = await storageRef.getDownloadURL();
-    //     return downloadLink;
-    //   })
-    // );
+    let imgLink = [];
+    imgLink = await Promise.all(
+      value.dragger.map(async (image: any, i: Number) => {
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
+          .storage()
+          .ref(`multi-activity/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
 
-    // db.collection("multi-activity")
-    //   .doc(docId)
-    //   .set({ data, imgLink, user: user.uid })
-    //   .then(() => {
-    //     history.push("/influencer/dashboard");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error writing document: ", error);
-    //   });
+    db.collection("multi-activity")
+      .doc(docId)
+      .set({ data, imgLink, user: user.uid })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   };
 
   return (

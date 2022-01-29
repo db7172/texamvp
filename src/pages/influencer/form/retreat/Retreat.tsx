@@ -36,6 +36,7 @@ import {
   formateInstructor,
   normFile,
   onKeyDownEvent,
+  stripUndefined,
 } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
@@ -208,9 +209,10 @@ const Retreat = () => {
       cancellationPolicy: value.cancellationPolicy,
     };
 
-    console.log(formValue);
+    let finalData = stripUndefined(formValue);
+
     const data = {
-      formData: formValue,
+      formData: finalData,
       status: "processing",
       booked: 0,
     };

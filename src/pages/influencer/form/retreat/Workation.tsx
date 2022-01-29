@@ -155,9 +155,9 @@ const Workation = () => {
       includes: value.includes,
     };
     const finalData = stripUndefined(formValue);
-    console.log(finalData);
+
     const data = {
-      formData: formValue,
+      formData: finalData,
       userID: user.uid,
       status: "processing",
       booked: 0,

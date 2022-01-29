@@ -83,7 +83,10 @@ const UserLogin = () => {
       <div className="tw-flex tw-items-center">
         <Popover className="tw-cursor-pointer" content={menu} trigger="click">
           <div>
-            <Avatar src={avatarImg} className="tw-mr-2" />
+            <Avatar
+              src={currentUser ? currentUser.photoURL : Avatar}
+              className="tw-mr-2"
+            />
             <span className="tw-mr-2">
               {currentUser ? currentUser.displayName : "User name"}
             </span>
