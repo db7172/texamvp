@@ -127,29 +127,29 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
           >
             <div
               className="tw-flex tw-gap-3"
-              style={{ maxWidth: d.data.formData.date ? "250px" : "330px" }}
+              style={{ maxWidth: d.date ? "250px" : "330px" }}
             >
               <div>
                 <img src={d.imgLink[0]} alt="details card" />
               </div>
-              <div style={{ width: d.data.formData.date ? "180px" : "220px" }}>
-                <Tooltip title={d.data.formData.activityName}>
+              <div style={{ width: d.date ? "180px" : "220px" }}>
+                <Tooltip title={d.activityName}>
                   <h5 className="tw-text-base tw-font-medium tw-mb-3 tw-text-ellipsis">
-                    {d.data.formData.activityName}
+                    {d.activityName}
                   </h5>
                 </Tooltip>
                 <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                  {d.data.formData.description}
+                  {d.description}
                 </p>
               </div>
             </div>
-            {isNumber(d.data.formData.payment) ? (
+            {isNumber(d.payment) ? (
               <div>
                 <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                   Price
                 </p>
                 <p className="tw-text-base tw-font-medium">
-                  {indCurrency(d.data.formData.payment)}
+                  {indCurrency(d.payment)}
                 </p>
               </div>
             ) : // ) : (
@@ -175,11 +175,11 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               </p>
               <p
                 className={classNames(
-                  getStatusClass(d.data.status.toLowerCase()),
+                  getStatusClass(d.status.toLowerCase()),
                   "tw-rounded-md tw-p-2 tw-text-xs tw-font-medium tw-max-w-max"
                 )}
               >
-                {d.data.status}
+                {d.status}
               </p>
             </div>
 
@@ -199,7 +199,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
                     {d.bookedTickets}
                   </span>
                   <span className="tw-text-secondary-color">
-                    /{d.totlaTickets}
+                    /{d.totalTickets}
                   </span>
                 </p>
               ) : (

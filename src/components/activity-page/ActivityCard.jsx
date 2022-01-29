@@ -12,12 +12,8 @@ import img from "../../assets/png/activity.png";
 import { useEffect, useState } from "react";
 
 const ActivityCard = (props) => {
-  const { imgUrl } = props;
-
-  // const { totalActivities } = props;
-  // const { multi } = props;
   const { data } = props;
-  const activityData = data.data.data.formData;
+  const activityData = data.data;
   const [vender, setVender] = useState({});
 
   const routingDetails = {
@@ -35,8 +31,6 @@ const ActivityCard = (props) => {
       venderName: vender.companyName,
     },
   };
-  // let totalActivities = single.concat(multi);
-  // console.log(totalActivities[0].data.data.formData);
 
   useEffect(() => {
     firebase
@@ -61,9 +55,12 @@ const ActivityCard = (props) => {
       </div>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Cities : </span>
-        <span>{activityData.destination[0].destination}</span>,{" "}
+        {activityData.destinations
+          ? activityData.destinations.destination
+          : activityData.destination.map((d) => d.destination + ", ")}
+        {/* <span>{activityData.destination[0].destination}</span>,{" "}
         <span>{activityData.destination[1]?.destination}</span>,{" "}
-        <span>{activityData.destination[2]?.destination}</span>
+        <span>{activityData.destination[2]?.destination}</span> */}
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Duration : </span>

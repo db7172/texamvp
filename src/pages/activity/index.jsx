@@ -166,7 +166,7 @@ const Activity = () => {
             .map((doc) => ({ id: doc.id, data: doc.data() }))
             .filter((item) => {
               return (
-                item.data.data.formData.sailentFeatures.activityType.toLowerCase() ===
+                item.data.sailentFeatures.activityType.toLowerCase() ===
                 activityType
               );
             })
@@ -183,7 +183,7 @@ const Activity = () => {
             .map((doc) => ({ id: doc.id, data: doc.data() }))
             .filter((item) => {
               return (
-                item.data.data.formData.sailentFeatures.activityType.toLowerCase() ===
+                item.data.sailentFeatures.activityType.toLowerCase() ===
                 activityType
               );
             })
@@ -255,31 +255,7 @@ const Activity = () => {
   }
   if (activeDuration.MultiDay) {
     totalActivities = multiDay;
-  }
-
-  // if (activeLevel.Easy) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activityLevel === "Easy";
-  //   });
-  // }
-  // if (activeLevel.Moderate) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activeLevel === "Moderate";
-  //   });
-  // }
-  // if (activeLevel.Difficult) {
-  //   totalActivities.filter((item) => {
-  //     return (
-  //       item.data.data.formData.sailentFeatures.activeLevel === "Difficult"
-  //     );
-  //   });
-  // }
-  // if (activeLevel.Pro) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activeLevel === "Pro";
-  //   });
-  // }
-  else {
+  } else {
     totalActivities = singleActivity.concat(multiDay);
   }
 
