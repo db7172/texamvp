@@ -29,7 +29,7 @@ const data: FooterData[] = [
     options: [
       {
         option: "About us",
-        path: "#",
+        path: "/landingpage/aboutus",
       },
       {
         option: "Careers",
@@ -41,11 +41,11 @@ const data: FooterData[] = [
       },
       {
         option: "Terms of Service",
-        path: "#",
+        path: "/landingpage/terms",
       },
       {
         option: "Privacy Policy",
-        path: "#",
+        path: "/landingpage/policy",
       },
       {
         option: "Site Map",
@@ -58,19 +58,19 @@ const data: FooterData[] = [
     options: [
       {
         option: "Activities",
-        path: "/activities",
+        path: "/landingpage/activity",
       },
       {
         option: "Events",
-        path: "/events",
+        path: "/landingpage/event",
       },
       {
         option: "Workcation",
-        path: "/workcations",
+        path: "/landingpage/workcation",
       },
       {
         option: "Retreate",
-        path: "/retreats",
+        path: "/landingpage/retreat",
       },
       {
         option: "Travel Infulancer ?",
@@ -82,24 +82,58 @@ const data: FooterData[] = [
       },
     ],
   },
-  {
-    title: "Resources",
-    options: [
-      {
-        option: "Travel Guide",
-        path: "#",
-      },
-      {
-        option: "Reviwes",
-        path: "/reviews",
-      },
-      {
-        option: "Blog",
-        path: "#",
-      },
-    ],
-  },
 ];
+
+const resources: FooterData = {
+  title: "Resources",
+  options: [
+    {
+      option: "Travel Guide",
+      path: "#",
+    },
+    {
+      option: "Reviwes",
+      path: "/reviews",
+    },
+    {
+      option: "Blog",
+      path: "#",
+    },
+  ],
+};
+
+const contact = {
+  title: "Contact",
+  contactNo: "1800-1256-1200",
+  email: "Info@texatrove.com",
+};
+
+const getFooterLinkSection = (d: FooterData) => {
+  return (
+    <div key={d.title}>
+      <h4 className="tw-section-title tw-font-medium tw-mb-8">{d.title}</h4>
+      <div className="tw-flex tw-flex-col tw-gap-4 tw-text-base tw-font-medium tw-text-secondary-color">
+        {d.options.map((o, j) => (
+          <div key={j}>
+            <Link to={o.path}>
+              <span>{o.option}</span>
+              {o.extraInfo && (
+                <span
+                  className={classNames(
+                    getClassName(o.extraInfo.type),
+                    "tw-ml-2"
+                  )}
+                >
+                  {o.extraInfo.info}
+                </span>
+              )}
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const getClassName = (type: "bedg" | "link") => {
   return type === "link"
@@ -112,7 +146,7 @@ const Footer = () => {
     <Container>
       <section className="tw-pt-20 tw-pb-28 tw-border-b-2 tw-mt-20 tw-flex tw-gap-28">
         <div>
-          <div className="tw-mb-10">
+          <div className="tw-mb-8">
             <img src={logo} alt="logo" />
           </div>
           <p className="tw-w-80 tw-mb-10 tw-font-lato tw-leading-7 tw-text-secondary-color tw-text-base">
@@ -132,32 +166,26 @@ const Footer = () => {
           </div>
         </div>
         <div className="tw-flex tw-justify-between tw-flex-1">
-          {data.map((d, i) => (
-            <div key={i}>
-              <h4 className="tw-section-title tw-font-medium tw-mb-12">
-                {d.title}
+          {data.map((d) => getFooterLinkSection(d))}
+          <div>
+            {getFooterLinkSection(resources)}
+            <div className="tw-mt-8">
+              <h4 className="tw-section-title tw-font-medium tw-mb-6">
+                {contact.title}
               </h4>
               <div className="tw-flex tw-flex-col tw-gap-4 tw-text-base tw-font-medium tw-text-secondary-color">
-                {d.options.map((o, j) => (
-                  <div key={j}>
-                    <Link to={o.path}>
-                      <span>{o.option}</span>
-                      {o.extraInfo && (
-                        <span
-                          className={classNames(
-                            getClassName(o.extraInfo.type),
-                            "tw-ml-2"
-                          )}
-                        >
-                          {o.extraInfo.info}
-                        </span>
-                      )}
-                    </Link>
-                  </div>
-                ))}
+                <p>{contact.contactNo}</p>
+                <p>
+                  <a
+                    className="hover:tw-text-blue-500"
+                    href={`mailto:${contact.email}`}
+                  >
+                    {contact.email}
+                  </a>
+                </p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
       <section className="tw-py-7">

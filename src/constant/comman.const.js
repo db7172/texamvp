@@ -35,6 +35,7 @@ const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
 const RETREAT_NAME = ":retreatName";
+const REVIEW_TYPE = ":reviewType";
 
 export const ROUTES = {
   HOME: "/",
@@ -48,9 +49,17 @@ export const ROUTES = {
   INFLUENCER_ACTIVITY_FORM: `/influencer/activity/${ACTIVITY_TYPE}`,
   INFLUENCER_EVENT_FORM: `/influencer/event/${EVENT_TYPE}`,
   INFLUENCER_RETREAT_FORM: `/influencer/retreat/${RETREAT_TYPE}`,
+  LANDING_PAGE_ACTIVITY: "/landingpage/activity",
+  LANDING_PAGE_EVENT: "/landingpage/event",
+  LANDING_PAGE_RETREAT: "/landingpage/retreat",
+  LANDING_PAGE_WORKCATION: "/landingpage/workcation",
+  LANDING_PAGE_TERMS: "/landingpage/terms",
+  LANDING_PAGE_POLICY: "/landingpage/policy",
+  LANDING_PAGE_ABOUT_US: "/landingpage/aboutus",
   USER_DASHBOARD: "/user/dashboard",
   PAYMENT: "/payment",
   ALL_REVIEWS: "/reviews",
+  SINGLE_REVIEWS: `/review/${REVIEW_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
@@ -206,6 +215,15 @@ export const getEventFormPath = (eventType) => {
 export const getRetreatFormPath = (retreatType) => {
   let path = ROUTES.INFLUENCER_RETREAT_FORM;
   path = path.replace(RETREAT_TYPE, retreatType);
+
+  return path;
+};
+
+// singleReview Page
+
+export const getReviewPagePath = (reviewType) => {
+  let path = ROUTES.SINGLE_REVIEWS;
+  path = path.replace(REVIEW_TYPE, reviewType);
 
   return path;
 };

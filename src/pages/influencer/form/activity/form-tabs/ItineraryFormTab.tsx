@@ -1,6 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { DatePicker, Form, Input, TimePicker } from "antd";
-import { isUndefined, uniqueId } from "lodash";
+import { debounce, isUndefined, uniqueId } from "lodash";
 import { formatMomentDate, formatMomentTime } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
@@ -33,35 +33,37 @@ export const ItineraryFormTab = ({
     return newValue;
   };
 
+  const debounceFunction = debounce((_, value) => {
+    const newValue = {
+      ...value,
+    };
+    newValue["date"] = formatMomentDate(value["date"]);
+
+    if (captureBulletData) {
+      const details =
+        value.activityDetails && !isUndefined(value.activityDetails[0])
+          ? generateActivityList(value.activityDetails)
+          : [];
+      newValue["itineraryDetails"] = [
+        {
+          time: formatMomentTime(value["activityTimeFirstField"]),
+          activity: value["activityDetailFirstField"],
+        },
+        ...details,
+      ];
+      delete newValue["activityTimeFirstField"];
+      delete newValue["activityDetails"];
+      delete newValue["activityDetailFirstField"];
+    }
+
+    updateTabFormData("itinerary", newValue, keyValue);
+  }, 5000);
+
   return (
     <Form
       name={"itinerary" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
-      onValuesChange={(_, value) => {
-        const newValue = {
-          ...value,
-        };
-        newValue["date"] = formatMomentDate(value["date"]);
-
-        if (captureBulletData) {
-          const details =
-            value.activityDetails && !isUndefined(value.activityDetails[0])
-              ? generateActivityList(value.activityDetails)
-              : [];
-          newValue["itineraryDetails"] = [
-            {
-              time: formatMomentTime(value["activityTimeFirstField"]),
-              activity: value["activityDetailFirstField"],
-            },
-            ...details,
-          ];
-          delete newValue["activityTimeFirstField"];
-          delete newValue["activityDetails"];
-          delete newValue["activityDetailFirstField"];
-        }
-
-        updateTabFormData("itinerary", newValue, keyValue);
-      }}
+      onValuesChange={debounceFunction}
     >
       <Form.Item name="date" label="Date of that day">
         <DatePicker

@@ -17,6 +17,14 @@ import PaymentPage from "../paymentPage/PaymentPage";
 import ViewMoreDetailsForRetreat from "../view-more/ViewMoreDetailsForRetreat";
 import ViewMoreDetailsForWorkcation from "../view-more/ViewMoreDetailsForWorkcation";
 import AllReviews from "../allReviews/AllReviews";
+import SingleReview from "../singleReview/SingleReview";
+import ActivityLanding from "../landingPage/ActivityLanding";
+import EventLandingPage from "../landingPage/EventLandingPage";
+import RetreatLandingPage from "../landingPage/RetreatLandingPage";
+import WorkcationLandingPage from "../landingPage/WorkcationLandingPage";
+import TermsOfService from "../landingPage/TermsOfService";
+import PrivacyPolicy from "../landingPage/PrivacyPolicy";
+import AboutUs from "../landingPage/AboutUs";
 
 const AppRouter = () => {
   return (
@@ -85,7 +93,49 @@ const AppRouter = () => {
         <Route component={PaymentPage} path={ROUTES.PAYMENT} />
 
         {/* All reviews page */}
-        <Route component={AllReviews} path={ROUTES.ALL_REVIEWS} />
+        <Route exact component={AllReviews} path={ROUTES.ALL_REVIEWS} />
+
+        {/* single review page */}
+        <Route exact component={SingleReview} path={ROUTES.SINGLE_REVIEWS} />
+
+        {/* landing page */}
+        <Route
+          exact
+          component={ActivityLanding}
+          path={ROUTES.LANDING_PAGE_ACTIVITY}
+        />
+
+        <Route
+          exact
+          component={EventLandingPage}
+          path={ROUTES.LANDING_PAGE_EVENT}
+        />
+
+        <Route
+          exact
+          component={RetreatLandingPage}
+          path={ROUTES.LANDING_PAGE_RETREAT}
+        />
+
+        <Route
+          exact
+          component={WorkcationLandingPage}
+          path={ROUTES.LANDING_PAGE_WORKCATION}
+        />
+
+        <Route
+          exact
+          component={TermsOfService}
+          path={ROUTES.LANDING_PAGE_TERMS}
+        />
+
+        <Route
+          exact
+          component={PrivacyPolicy}
+          path={ROUTES.LANDING_PAGE_POLICY}
+        />
+
+        <Route exact component={AboutUs} path={ROUTES.LANDING_PAGE_ABOUT_US} />
 
         {/* Redirect to 404 */}
         <Redirect to={ROUTES.NOT_FOUND} />
