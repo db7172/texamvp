@@ -157,7 +157,7 @@ const Workation = () => {
     const finalData = stripUndefined(formValue);
 
     const data = {
-      formData: finalData,
+      ...finalData,
       userID: user.uid,
       status: "processing",
       booked: 0,
@@ -183,7 +183,7 @@ const Workation = () => {
       .firestore()
       .collection("workation")
       .doc(docId)
-      .set({ data, imgLink, user: user.uid })
+      .set({ ...data, imgLink, collection_name: "hr_sg_avy" })
       .then(() => {
         history.push("/influencer/dashboard");
       })

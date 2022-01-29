@@ -212,7 +212,7 @@ const Retreat = () => {
     let finalData = stripUndefined(formValue);
 
     const data = {
-      formData: finalData,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
@@ -237,7 +237,7 @@ const Retreat = () => {
       .firestore()
       .collection("retreat")
       .doc(docId)
-      .set({ data, imgLink, user: user.uid })
+      .set({ ...data, imgLink, user: user.uid, collection_name: "retreat" })
       .then(() => {
         history.push("/influencer/dashboard");
       })

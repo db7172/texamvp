@@ -159,7 +159,7 @@ const EventForm = () => {
     console.log(formValue);
 
     const data = {
-      formData: formValue,
+      ...formValue,
       status: "processing",
       booked: 0,
     };
@@ -184,7 +184,7 @@ const EventForm = () => {
       .firestore()
       .collection("events")
       .doc(docId)
-      .set({ data, imgLink, user: user.uid })
+      .set({ ...data, imgLink, user: user.uid, collection_name: "events" })
       .then(() => {
         history.push("/influencer/dashboard");
       })

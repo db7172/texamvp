@@ -145,7 +145,7 @@ const HourlyAndSingleDay = () => {
     // formatted data
     let finalData = stripUndefined(formData);
     const data = {
-      formData: finalData,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
@@ -168,7 +168,7 @@ const HourlyAndSingleDay = () => {
 
     db.collection("hr_sg_avy")
       .doc(docId)
-      .set({ data, imgLink, user: user.uid })
+      .set({ ...data, imgLink, user: user.uid, collection_name: "hr_sg_avy" })
       .then(() => {
         history.push("/influencer/dashboard");
       })

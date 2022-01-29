@@ -44,6 +44,7 @@ const UserReviewsTab = (props: any) => {
   const onRatingSubmit = (value: any) => {
     console.log({ ...value, rating });
     console.log(activeModalId);
+    // firebase.firestore().collection()
   };
 
   let userId = props.id;
@@ -188,6 +189,7 @@ const UserReviewsTab = (props: any) => {
             <Input
               placeholder="Give A Title For Your Review"
               className="tw-rounded-lg"
+              required
             />
           </Form.Item>
 
@@ -195,6 +197,7 @@ const UserReviewsTab = (props: any) => {
             <Input.TextArea
               placeholder="Give A Description"
               className="tw-rounded-lg"
+              required
             />
           </Form.Item>
 

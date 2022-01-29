@@ -201,7 +201,7 @@ const MultiDays = () => {
     // formatted data
     const finalData = stripUndefined(formData);
     const data = {
-      formData: finalData,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
@@ -225,7 +225,12 @@ const MultiDays = () => {
 
     db.collection("multi-activity")
       .doc(docId)
-      .set({ data, imgLink, user: user.uid })
+      .set({
+        ...data,
+        imgLink,
+        user: user.uid,
+        collection_name: "multi_activity",
+      })
       .then(() => {
         history.push("/influencer/dashboard");
       })
