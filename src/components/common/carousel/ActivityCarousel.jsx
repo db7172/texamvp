@@ -14,11 +14,34 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
   const [singleday, setSingleday] = useState(false);
   const [hourly, setHourly] = useState(false);
   const [activityData, setActivityData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // const [multiData, setMultiData] = useState([]);
 
   const settings = {
     ...defaultSettings,
     ...setting,
+  };
+
+  const getData = async (type) => {
+    const snapshot = await firebase.firestore().collection(type).get();
+    return snapshot.docs.map((doc) => doc.data());
+  };
+
+  const setData = async () => {
+    if (hourly || singleday) {
+      const singleDay = await getData("hr_sg_avy");
+      setActivityData(singleDay);
+      setIsLoading(false);
+    } else if (multiday) {
+      const multiday = await getData("multi-activity");
+      setActivityData(multiday);
+      setIsLoading(false);
+    } else {
+      const singleDay = await getData("hr_sg_avy");
+      const multiday = await getData("multi-activity");
+      setActivityData([...singleDay, ...multiday]);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -36,107 +59,120 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
     // });
 
     // data = [activities ids];
+    setIsLoading(true);
 
-    if (hourly || singleday) {
-      let dataArr = [];
-      data?.map((data) => {
-        firebase
-          .firestore()
-          .collection("hr_sg_avy")
-          .doc(data)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              dataArr.push(doc.data());
-            }
-          });
-      });
-      setActivityData(dataArr);
-    } else if (multiday) {
-      let dataArr = [];
-      data?.map((data) => {
-        firebase
-          .firestore()
-          .collection("multi-activity")
-          .doc(data)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              dataArr.push(doc.data());
-            }
-          });
-      });
-      setActivityData(dataArr);
-    } else {
-      let dataArr = [];
-      data?.map((data) => {
-        firebase
-          .firestore()
-          .collection("hr_sg_avy")
-          .doc(data)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              dataArr.push(doc.data());
-            }
-          });
-      });
-      data?.map((data) => {
-        firebase
-          .firestore()
-          .collection("multi-activity")
-          .doc(data)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              dataArr.push(doc.data());
-            }
-          });
-      });
-      setActivityData(dataArr);
-    }
+    // if (hourly || singleday) {
+    //   let dataArr = [];
+    //   data?.map((data) => {
+    //     firebase
+    //       .firestore()
+    //       .collection("hr_sg_avy")
+    //       .doc(data)
+    //       .get()
+    //       .then((doc) => {
+    //         if (doc.exists) {
+    //           dataArr.push(doc.data());
+    //         }
+    //         setIsLoading(false);
+    //       });
+    //   });
+    //   setActivityData(dataArr);
+    // } else if (multiday) {
+    //   let dataArr = [];
+    //   data?.map((data) => {
+    //     firebase
+    //       .firestore()
+    //       .collection("multi-activity")
+    //       .doc(data)
+    //       .get()
+    //       .then((doc) => {
+    //         if (doc.exists) {
+    //           dataArr.push(doc.data());
+    //         }
+    //         setIsLoading(false);
+    //       });
+    //   });
+    //   setActivityData(dataArr);
+    // } else {
+    //   // let dataArr = [];
+    //   data?.map((data) => {
+    //     firebase
+    //       .firestore()
+    //       .collection("hr_sg_avy")
+    //       .doc(data)
+    //       .get()
+    //       .then((doc) => {
+    //         if (doc.exists) {
+    //           // dataArr.push(doc.data());
+    //           setActivityData([...activityData, doc.data()]);
+    //         }
+    //       });
+    //   });
+    //   data?.map((data) => {
+    //     firebase
+    //       .firestore()
+    //       .collection("multi-activity")
+    //       .doc(data)
+    //       .get()
+    //       .then((doc) => {
+    //         if (doc.exists) {
+    //           // dataArr.push(doc.data());
+    //           setActivityData([...activityData, doc.data()]);
+    //         }
+    //       });
+    //   });
+    //   // console.log(dataArr);
+    //   // setActivityData(dataArr);
+    //   setIsLoading(false);
+    // }
+    setData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [multiday, singleday, hourly, data]);
-
-  console.log(activityData);
 
   return (
     <div>
-      <div>
-        <Title title={title} description={description} path={path || "#"} />
-        <div className="tw-mt-3 tw-flex tw-flex-wrap">
-          <div className="tw-mr-12">
-            <CheckBox
-              label="Multi Day Activity"
-              checked={multiday}
-              name="multiday"
-              onChange={() => setMultiday(!multiday)}
-            />
+      {!isLoading ? (
+        <>
+          <div>
+            <Title title={title} description={description} path={path || "#"} />
+            <div className="tw-mt-3 tw-flex tw-flex-wrap">
+              <div className="tw-mr-12">
+                <CheckBox
+                  label="Multi Day Activity"
+                  checked={multiday}
+                  name="multiday"
+                  onChange={() => setMultiday(!multiday)}
+                />
+              </div>
+              <div className="tw-mr-12">
+                <CheckBox
+                  label="Single Day Activity"
+                  checked={singleday}
+                  name="singleday"
+                  onChange={() => setSingleday(!singleday)}
+                />
+              </div>
+              <div className="tw-mr-12">
+                <CheckBox
+                  label="Hourly Activity"
+                  checked={hourly}
+                  name="hourly"
+                  onChange={() => setHourly(!hourly)}
+                />
+              </div>
+            </div>
           </div>
-          <div className="tw-mr-12">
-            <CheckBox
-              label="Single Day Activity"
-              checked={singleday}
-              name="singleday"
-              onChange={() => setSingleday(!singleday)}
-            />
+          <div className="tw-mt-3 menual-carousal">
+            <Carousel autoplay {...settings}>
+              {activityData.map((d, i) => (
+                <TourCard key={i} data={d} />
+              ))}
+            </Carousel>
           </div>
-          <div className="tw-mr-12">
-            <CheckBox
-              label="Hourly Activity"
-              checked={hourly}
-              name="hourly"
-              onChange={() => setHourly(!hourly)}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="tw-mt-3 menual-carousal">
-        <Carousel autoplay {...settings}>
-          {/* {activityData?.map((d, i) => (
-            <TourCard {...d} key={i} />
-          ))} */}
-        </Carousel>
-      </div>
+        </>
+      ) : (
+        <div>No data</div>
+      )}
     </div>
   );
 };

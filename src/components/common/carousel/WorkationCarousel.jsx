@@ -37,8 +37,6 @@ const WorkationCarousel = ({
     setWorkations(dataArr);
   }, [data]);
 
-  console.log(workations);
-
   return (
     <div>
       <Title

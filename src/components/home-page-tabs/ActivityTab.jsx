@@ -15,8 +15,6 @@ const ActivityTab = ({
   const [dateTime, setDateTime] = useState("");
   const [form] = Form.useForm();
 
-  console.log(DropDownOptions);
-
   const handleClick = () => {
     onClick(selectedOption, dateTime, type);
   };
