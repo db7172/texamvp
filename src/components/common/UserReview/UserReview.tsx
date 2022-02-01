@@ -1,9 +1,10 @@
 import { Button, Modal, Rate } from "antd";
 import { uniqueId } from "lodash";
 import { ReviewData } from "Models";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserReply from "./UserReply";
 import dp from "../../../assets/png/influencer/dp.png";
+import firebase from "../../../firebase";
 
 type Props = {
   d: ReviewData;
@@ -23,6 +24,7 @@ const UserReview = ({
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [data] = useState(d);
   const [comment, setComment] = useState(data.comment);
+  const [review, setReview] = useState([]) as any;
 
   const handleShowForReplyModal = () => {
     // handleCancel();
@@ -49,6 +51,19 @@ const UserReview = ({
     console.log(reply);
     handleCancelForReplyModal();
   };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("multi-activity")
+      .doc("b1a45e15-960e-457c-86b6-355320a630ea")
+      .get()
+      .then((doc) => {
+        setReview(doc.data());
+      });
+  }, []);
+
+  console.log(review);
 
   return (
     <div>

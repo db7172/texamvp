@@ -2,10 +2,11 @@ import { InfoCircleOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Col, Divider, Modal, Row, Tooltip } from "antd";
 import { isNumber, uniqueId } from "lodash";
 import { ReviewData, TripData } from "Models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
 import UserReview from "../../../common/UserReview/UserReview";
 import { addtionalInfomation } from "../DashboardUtils";
+import firebase from "../../../../firebase";
 
 type Props = {
   data: Array<TripData>;
@@ -14,6 +15,7 @@ type Props = {
 const CompletedTabComponent = ({ data }: Props) => {
   const [activeReview, setActiveReview] = useState<Array<ReviewData>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [review, setReview] = useState([]) as any;
 
   const handleViewAllClick = (value: Array<ReviewData>) => {
     setActiveReview(value);

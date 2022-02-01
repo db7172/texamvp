@@ -9,9 +9,15 @@ type TripDetails = {
   bookingId: string;
   bookingDate: string;
   type: string;
+  tripId: string;
+  collection_name: string;
   paidAmt: number;
   buttonText?: string;
-  handleButtonClick: (id: number) => void;
+  handleButtonClick: (
+    id: number,
+    tripId: string,
+    collection_name: string
+  ) => void;
 };
 
 const TripDetailCard = ({
@@ -23,6 +29,8 @@ const TripDetailCard = ({
   bookingDate,
   paidAmt,
   buttonText,
+  tripId,
+  collection_name,
   type,
   handleButtonClick,
 }: TripDetails) => {
@@ -62,7 +70,7 @@ const TripDetailCard = ({
             <Button
               type="default"
               className="tw-w-full tw-texa-button"
-              onClick={() => handleButtonClick(id)}
+              onClick={() => handleButtonClick(id, tripId, collection_name)}
             >
               {buttonText ? buttonText : "View Booking"}
             </Button>

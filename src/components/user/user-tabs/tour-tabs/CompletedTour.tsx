@@ -202,6 +202,8 @@ const CompletedTour = ({
             <TripDetailCard
               key={id}
               id={id}
+              tripId={"tripId"}
+              collection_name={"kdflsk"}
               title={value.title}
               description={value.duration}
               icon={value.icon}

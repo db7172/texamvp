@@ -32,6 +32,8 @@ const mockReview = COMPLETED.ACTIVITY[0].review[0];
 const UserReviewsTab = (props: any) => {
   const [activeButton, setActiveButton] = useState(1);
   const [activeModalId, setActiveModalId] = useState<number | undefined>();
+  const [tripId, setTripId] = useState<string>();
+  const [collectionName, setCollectionName] = useState<string>();
   const [rating, setRating] = useState<undefined | number>(5);
   const [trips, setTrips] = useState([]) as any;
   const [form] = Form.useForm();
@@ -43,8 +45,18 @@ const UserReviewsTab = (props: any) => {
 
   const onRatingSubmit = (value: any) => {
     console.log({ ...value, rating });
-    console.log(activeModalId);
-    // firebase.firestore().collection()
+    if (collectionName) {
+      firebase
+        .firestore()
+        .collection(collectionName)
+        .doc(tripId)
+        .set(
+          {
+            review: [{ userId: activeModalId, review: { ...value, rating } }],
+          },
+          { merge: true }
+        );
+    }
   };
 
   let userId = props.id;
@@ -62,11 +74,7 @@ const UserReviewsTab = (props: any) => {
         );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData.completedTours, userData]);
-
-  // console.log(userData);
-  console.log(userId);
-  console.log(trips);
+  }, [userData]);
 
   const getReviewYourProduct = () => {
     return (
@@ -82,8 +90,14 @@ const UserReviewsTab = (props: any) => {
             bookingId={value.id}
             paidAmt={value.data.paidAmt}
             type={value.data.type}
+            tripId={value.data.tripId}
+            collection_name={value.data.collection_name}
             buttonText="Rate Your Trip"
-            handleButtonClick={(id) => setActiveModalId(value.id)}
+            handleButtonClick={(id, tripId, collection_name) => {
+              setActiveModalId(value.userId);
+              setTripId(tripId);
+              setCollectionName(collection_name);
+            }}
           />
         ))}
       </div>
