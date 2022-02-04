@@ -6,7 +6,8 @@ const EventCard = (props) => {
   const { name, datetime, type, price, imgUrl } = props;
   const routingDetails = {
     pathname: getViewMoreDetailsForEventPath(type, name),
-    state: { name, datetime, type, price, imgUrl },
+    search: "?id=12345",
+    // state: { name, datetime, type, price, imgUrl },
   };
 
   let data = props ? props.data.formData : [];
