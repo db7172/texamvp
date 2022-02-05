@@ -2,6 +2,8 @@ import { Button, Divider, Form, Input, Modal, Select } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth";
+import CallCodes from "../../constant/CallCodes";
+
 import firebase from "../../firebase";
 
 type Props = {
@@ -25,14 +27,7 @@ const UserLoginModal = ({
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
 
   const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }} disabled={isNumDisable}>
-        {/* add loop/map for dynamic data from back end */}
-        <Select.Option value="91">+91</Select.Option>
-        <Select.Option value="86">+86</Select.Option>
-        <Select.Option value="87">+87</Select.Option>
-      </Select>
-    </Form.Item>
+    <CallCodes isNumDisable={isNumDisable} />
   );
 
   let number = "";

@@ -7,7 +7,7 @@ import dp from "../../../assets/png/influencer/dp.png";
 import firebase from "../../../firebase";
 
 type Props = {
-  d: ReviewData;
+  d: any;
   ViewAll?: boolean;
   textForViewAll?: string;
   handleViewAllClick?: () => void;
@@ -24,7 +24,7 @@ const UserReview = ({
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [data] = useState(d);
   const [comment, setComment] = useState(data.comment);
-  const [review, setReview] = useState([]) as any;
+  const [user, setUser] = useState([]) as any;
 
   const handleShowForReplyModal = () => {
     // handleCancel();
@@ -48,31 +48,35 @@ const UserReview = ({
         },
       ],
     });
-    console.log(reply);
+
     handleCancelForReplyModal();
   };
 
   useEffect(() => {
     firebase
       .firestore()
-      .collection("multi-activity")
-      .doc("b1a45e15-960e-457c-86b6-355320a630ea")
+      .collection("users")
+      .doc(d.userId)
       .get()
       .then((doc) => {
-        setReview(doc.data());
+        setUser(doc.data());
       });
-  }, []);
+  }, [d.userId]);
 
-  console.log(review);
+  // console.log(d.review.rating);
 
   return (
     <div>
       {showUserName && (
         <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
           <div className="tw-rounded-full tw-w-5 tw-h-5">
-            <img className="tw-w-full" src={data.profilePic} alt="profilePic" />
+            <img
+              className="tw-w-full"
+              src={user?.profileUrl}
+              alt="profilePic"
+            />
           </div>
-          <p className="tw-font-medium tw-text-base">{data.name}</p>
+          <p className="tw-font-medium tw-text-base">{user?.name}</p>
           {ViewAll && (
             <p
               className="tw-text-xs tw-text-blue-500 tw-underline tw-cursor-pointer"
@@ -84,26 +88,28 @@ const UserReview = ({
         </div>
       )}
       <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-        <Rate disabled defaultValue={d.ratting} />
+        <Rate disabled defaultValue={d.review.rating} />
         <div className="tw-flex tw-gap-3">
-          {d.tags.map((t) => (
+          {/* {d.tags.map((t) => (
             <p
               key={uniqueId()}
               className="tw-bg-gray-background tw-text-xs tw-rounded-md tw-font-medium tw-py-2 tw-px-3"
             >
               {t}
             </p>
-          ))}
+          ))} */}
         </div>
       </div>
 
       <div>
-        <h3 className="tw-text-base tw-font-medium tw-mb-2">{d.title}</h3>
+        <h3 className="tw-text-base tw-font-medium tw-mb-2">
+          {d.review.reason}
+        </h3>
         <p className="tw-text-secondary-color tw-font-lato">
-          {comment.initialComment}
+          {d.review.description}
         </p>
 
-        {comment.reply && (
+        {/* {comment.reply && (
           <div className="tw-ml-10">
             {comment.reply.map((replyData) => (
               <div key={uniqueId()} className="tw-mt-7">
@@ -125,7 +131,7 @@ const UserReview = ({
               </div>
             ))}
           </div>
-        )}
+        )} */}
 
         <Button
           type="default"

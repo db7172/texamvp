@@ -103,8 +103,8 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: "Activites",
-          url: "/activites",
+          name: "Activities",
+          url: "/activities",
         },
         {
           name: ACTIVITY_TYPE,
@@ -118,7 +118,7 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: "Activites",
+          name: "Activities",
           url: "/activites",
         },
         {
@@ -167,7 +167,7 @@ const Activity = () => {
             .filter((item) => {
               return (
                 item.data.sailentFeatures.activityType.toLowerCase() ===
-                activityType
+                  activityType && item.data.status !== "cancelled"
               );
             })
         );
@@ -184,7 +184,7 @@ const Activity = () => {
             .filter((item) => {
               return (
                 item.data.sailentFeatures.activityType.toLowerCase() ===
-                activityType
+                  activityType && item.data.status !== "cancelled"
               );
             })
         );

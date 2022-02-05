@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import { useState } from "react";
+import firebase from "../../../firebase";
 
 const mockOldPassword = "Test@123";
 
@@ -9,21 +10,40 @@ const InfluencerChangePasswoard = () => {
   const [form] = Form.useForm();
   const handleSubmit = (value: any) => {
     console.log(value);
-    form.resetFields();
-    setStep(1);
+    const user = firebase.auth().currentUser;
+    if (user) {
+      user
+        .updatePassword(value.newPassword)
+        .then(() => {
+          form.resetFields();
+          setStep(1);
+        })
+        .catch((error) => {
+          alert("Encountered some error while updating the password.");
+        });
+    }
   };
 
   const handleValidationClick = () => {
     const formDetails = form.getFieldsValue();
     console.log(formDetails);
     // some verification stuff from backend
-    const isVerified = true;
+    const user = firebase.auth().currentUser;
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      formDetails.email,
+      formDetails.oldPassword
+    );
 
-    if (isVerified) {
-      setStep(2);
-    } else {
-      setIsOldPasswordIsCorrect(false);
-      form.submit();
+    if (user) {
+      user
+        .reauthenticateWithCredential(credentials)
+        .then(() => {
+          setStep(2);
+        })
+        .catch((err) => {
+          setIsOldPasswordIsCorrect(false);
+          form.submit();
+        });
     }
   };
 

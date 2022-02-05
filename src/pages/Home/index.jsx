@@ -357,7 +357,7 @@ function Home() {
               ))}
             </div>
           </div>
-          {/* <div className="tw-mt-20">
+          <div className="tw-mt-20">
             <ActivityCarousel
               setting={{ slidesToShow: 3 }}
               title={aomData.title}
@@ -374,7 +374,7 @@ function Home() {
               path={getActivityPageWithCityPath("Best Activity", "Maldives")}
               description={bestActivites.description}
             />
-          </div> */}
+          </div>
           <div className="tw-mt-20">
             <Title
               title="Events"

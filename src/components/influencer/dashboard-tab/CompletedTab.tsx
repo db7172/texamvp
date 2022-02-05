@@ -1,12 +1,32 @@
 import { Button, Col, Row, Form, Select } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CompletedTabComponent from "./completed-tab-component/CompletedTabComponent";
 import { COMPLETED, highLowOptions } from "./data";
 import { ButtonType } from "./DetailsTab";
+import firebase from "../../../firebase";
 
 const CompletedTab = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
+  const [activity, setActivity] = useState([]) as any;
+
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      firebase
+        .firestore()
+        .collection("completedTours")
+        .where("venderId", "==", user.uid)
+        .get()
+        .then((querySnap) => {
+          setActivity(
+            querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+          );
+        });
+    }
+  }, []);
+
+  console.log(activity);
 
   return (
     <Row gutter={[0, 40]}>
@@ -97,7 +117,7 @@ const CompletedTab = () => {
           </Row>
         </Form>
         {activeButton === "activity" && (
-          <CompletedTabComponent data={COMPLETED.ACTIVITY} />
+          <CompletedTabComponent activity={activity} />
         )}
         {activeButton === "event" && (
           <CompletedTabComponent data={COMPLETED.EVENT} />

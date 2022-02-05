@@ -31,8 +31,8 @@ const mockReview = COMPLETED.ACTIVITY[0].review[0];
 
 const UserReviewsTab = (props: any) => {
   const [activeButton, setActiveButton] = useState(1);
-  const [activeModalId, setActiveModalId] = useState<number | undefined>();
-  const [tripId, setTripId] = useState<string>();
+  const [activeModalId, setActiveModalId] = useState<string | undefined>();
+  const [userId, setUserId] = useState<string>();
   const [collectionName, setCollectionName] = useState<string>();
   const [rating, setRating] = useState<undefined | number>(5);
   const [trips, setTrips] = useState([]) as any;
@@ -45,21 +45,21 @@ const UserReviewsTab = (props: any) => {
 
   const onRatingSubmit = (value: any) => {
     console.log({ ...value, rating });
+    console.log(activeModalId);
     if (collectionName) {
       firebase
         .firestore()
-        .collection(collectionName)
-        .doc(tripId)
-        .set(
-          {
-            review: [{ userId: activeModalId, review: { ...value, rating } }],
-          },
-          { merge: true }
-        );
+        .collection("completedTours")
+        .doc(activeModalId)
+        .update({
+          review: firebase.firestore.FieldValue.arrayUnion({
+            userId: userId,
+            review: { ...value, rating },
+          }),
+        });
     }
   };
 
-  let userId = props.id;
   let userData = props.data;
 
   useEffect(() => {
@@ -94,8 +94,8 @@ const UserReviewsTab = (props: any) => {
             collection_name={value.data.collection_name}
             buttonText="Rate Your Trip"
             handleButtonClick={(id, tripId, collection_name) => {
-              setActiveModalId(value.userId);
-              setTripId(tripId);
+              setActiveModalId(value.id);
+              setUserId(value.userId);
               setCollectionName(collection_name);
             }}
           />

@@ -123,7 +123,7 @@ const ViewMoreDetailsForActivity = () => {
                   <PageHeader
                     title={`About ${activityDetails.activityName}`}
                     className="tw-text-lg"
-                    desc={activityDetails.data.data.data.formData.description}
+                    // desc={activityDetails.data.data.data.formData.description}
                   />
                 </Col>
                 <Col span={24}>

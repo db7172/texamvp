@@ -19,7 +19,6 @@ const TourCard = (props) => {
   const imgUrl = props.data.imgLink[0];
   const type = props.data.sailentFeatures.activityType;
   const destination = props.data?.destinations?.destination;
-  console.log(props);
   // const [vender, setVender] = useState([]);
 
   const routingDetails = {

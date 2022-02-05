@@ -20,8 +20,7 @@ import { useState } from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
-// import firebase from "../../../../firebase";
-import coverImg from "../../../../assets/png/activity.png";
+import firebase from "../../../../firebase";
 
 // const db = firebase.firestore();
 
@@ -69,7 +68,7 @@ type Props = {
 };
 
 const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
-  const [activeCard, setActiveCard] = useState<DataDetailsType>();
+  const [activeCard, setActiveCard] = useState([]) as any;
   const [shareMessageModal, setShareMessageModal] = useState(false);
   const [cancelBookingModal, setCancelBookingModal] = useState(false);
   const [shareMessageForm] = Form.useForm();
@@ -86,8 +85,23 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
   };
 
   const handleClosingBookingSubmit = (value: any) => {
+    console.log(activeCard);
     console.log(value);
     cancelBookingForm.setFieldsValue({ radioButton: "", otherMessage: "" });
+    firebase
+      .firestore()
+      .collection(activeCard.data.collection_name)
+      .doc(activeCard.id)
+      .set(
+        {
+          closingReason: {
+            closingReason: value.radioButton,
+            otherMessage: value.otherMessage,
+          },
+          status: "cancelled",
+        },
+        { merge: true }
+      );
     setCancelBookingModal(false);
   };
 
@@ -108,8 +122,6 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
     setShareMessageModal(false);
   };
 
-  // console.log(data[0].imgLink[0]);
-
   return (
     <div>
       <Row gutter={[0, 20]}>
@@ -127,41 +139,41 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
           >
             <div
               className="tw-flex tw-gap-3"
-              style={{ maxWidth: d.date ? "250px" : "330px" }}
+              style={{ maxWidth: d.data.date ? "250px" : "330px" }}
             >
               <div>
-                <img src={d.imgLink[0]} alt="details card" />
+                <img src={d.data.imgLink[0]} alt="details card" />
               </div>
-              <div style={{ width: d.date ? "180px" : "220px" }}>
-                <Tooltip title={d.activityName}>
+              <div style={{ width: d.data.date ? "180px" : "220px" }}>
+                <Tooltip title={d.data.activityName}>
                   <h5 className="tw-text-base tw-font-medium tw-mb-3 tw-text-ellipsis">
-                    {d.activityName}
+                    {d.data.activityName}
                   </h5>
                 </Tooltip>
                 <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                  {d.description}
+                  {d.data.description}
                 </p>
               </div>
             </div>
-            {isNumber(d.payment) ? (
+            {isNumber(d.data.payment) ? (
               <div>
                 <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                   Price
                 </p>
                 <p className="tw-text-base tw-font-medium">
-                  {indCurrency(d.payment)}
+                  {indCurrency(d.data.payment)}
                 </p>
               </div>
             ) : // ) : (
             //   <div>
             //     <p className="tw-text-secondary-color tw-text-base tw-mb-3">
-            //       {d.price.label}
+            //       {d.data.price.label}
             //     </p>
             //     <p className="tw-text-base tw-font-medium tw-flex tw-items-center">
-            //       {d.price.additionalInfo.Bronze}
+            //       {d.data.price.additionalInfo.Bronze}
             //       <Tooltip
             //         className="tw-ml-2"
-            //         title={addtionalInfomation(d.price.additionalInfo)}
+            //         title={addtionalInfomation(d.data.price.additionalInfo)}
             //       >
             //         <InfoCircleOutlined className="tw-text-secondary-color" />
             //       </Tooltip>
@@ -175,11 +187,11 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               </p>
               <p
                 className={classNames(
-                  getStatusClass(d.status.toLowerCase()),
+                  getStatusClass(d.data.status.toLowerCase()),
                   "tw-rounded-md tw-p-2 tw-text-xs tw-font-medium tw-max-w-max"
                 )}
               >
-                {d.status}
+                {d.data.status}
               </p>
             </div>
 
@@ -187,36 +199,36 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                 Booked
               </p>
-              {isNumber(d.bookedTickets) ? (
+              {isNumber(d.data.bookedTickets) ? (
                 <p>
                   <span
                     className={classNames(
-                      d.bookedTickets > 0
+                      d.data.bookedTickets > 0
                         ? "tw-text-primary-color"
                         : "tw-text-secondary-color"
                     )}
                   >
-                    {d.bookedTickets}
+                    {d.data.bookedTickets}
                   </span>
                   <span className="tw-text-secondary-color">
-                    /{d.totalTickets}
+                    /{d.data.totalTickets}
                   </span>
                 </p>
               ) : (
                 <p className="tw-flex tw-items-center">
                   <span
                     className={classNames(
-                      d.booked > 0
+                      d.data.booked > 0
                         ? "tw-text-primary-color"
                         : "tw-text-secondary-color"
                     )}
                   >
-                    {d.booked}
+                    {d.data.booked}
                   </span>
                   <span className="tw-text-secondary-color">/{10}</span>
                   <Tooltip
                     className="tw-ml-2"
-                    title={addtionalInfomation(d.booked)}
+                    title={addtionalInfomation(d.data.booked)}
                   >
                     <InfoCircleOutlined className="tw-text-secondary-color" />
                   </Tooltip>
@@ -224,12 +236,12 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               )}
             </div>
 
-            {d.date && (
+            {d.data.date && (
               <div>
                 <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                   Date
                 </p>
-                <p className="tw-font-medium">{d.date}</p>
+                <p className="tw-font-medium">{d.data.date}</p>
               </div>
             )}
 
