@@ -141,8 +141,8 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               className="tw-flex tw-gap-3"
               style={{ maxWidth: d.data.date ? "250px" : "330px" }}
             >
-              <div>
-                <img src={d.data.imgLink[0]} alt="details card" />
+              <div style={{ maxWidth: d.date ? "70px" : "110px" }}>
+                <img src={d.imgLink[0]} alt="details card" />
               </div>
               <div style={{ width: d.data.date ? "180px" : "220px" }}>
                 <Tooltip title={d.data.activityName}>
@@ -150,9 +150,11 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
                     {d.data.activityName}
                   </h5>
                 </Tooltip>
-                <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                  {d.data.description}
-                </p>
+                <Tooltip title={d.description}>
+                  <p className="tw-text-xs tw-text-secondary-color tw-font-medium tw-truncate">
+                    {d.description}
+                  </p>
+                </Tooltip>
               </div>
             </div>
             {isNumber(d.data.payment) ? (

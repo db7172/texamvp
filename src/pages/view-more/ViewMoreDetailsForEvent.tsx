@@ -43,10 +43,10 @@ const ViewMoreDetailsForEvent = () => {
   const { eventName, eventType } = useParams<ParamTypes>();
   const EVENT_TYPE = startCase(eventType);
   const EVENT_NAME = startCase(eventName);
-  const { state }: { state: EventObjectTypes } = useLocation();
+  const { search }: { search: string } = useLocation();
 
   useEffect(() => {
-    setEventDetails(state);
+    console.log(search);
     setSlashedTableName([
       {
         name: "Home",
@@ -65,7 +65,7 @@ const ViewMoreDetailsForEvent = () => {
         url: "",
       },
     ]);
-  }, [EVENT_NAME, EVENT_TYPE, state]);
+  }, [EVENT_NAME, EVENT_TYPE, search]);
 
   return (
     <Container className="">
