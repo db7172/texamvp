@@ -21,7 +21,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
 
   const getData = async () => {
     const snapshot = await firebase.firestore().collection("events").get();
-    return snapshot.docs.map((doc) => doc.data());
+    return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
   };
 
   const setData = async () => {
@@ -29,7 +29,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
       const online = await getData("events");
       setEventData(
         online.filter((item) => {
-          return item.eventType === "online";
+          return item.data.eventType === "online";
         })
       );
       setIsLoading(false);
@@ -37,7 +37,7 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
       const offline = await getData("events");
       setEventData(
         offline.filter((item) => {
-          return item.eventType === "offline";
+          return item.data.eventType === "offline";
         })
       );
       setIsLoading(false);

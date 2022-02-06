@@ -29,6 +29,7 @@ import {
   TERMS_AND_CONDITIONS,
   VIEW_MORE_EVENT_DETAILS,
 } from "./data.mock";
+import firebase from "../../firebase";
 
 type ParamTypes = {
   eventName: string;
@@ -39,14 +40,13 @@ const ViewMoreDetailsForEvent = () => {
   const [slashedTableName, setSlashedTableName] = useState<
     Array<TitleBreadCrumb>
   >([]);
-  const [eventDetails, setEventDetails] = useState<EventObjectTypes>();
+  const [eventDetails, setEventDetails] = useState([]) as any;
   const { eventName, eventType } = useParams<ParamTypes>();
   const EVENT_TYPE = startCase(eventType);
   const EVENT_NAME = startCase(eventName);
   const { search }: { search: string } = useLocation();
 
   useEffect(() => {
-    console.log(search);
     setSlashedTableName([
       {
         name: "Home",
@@ -65,6 +65,19 @@ const ViewMoreDetailsForEvent = () => {
         url: "",
       },
     ]);
+    firebase
+      .firestore()
+      .collection("events")
+      .doc(search.substring(1))
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          setEventDetails(doc.data());
+        } else {
+          console.log("Not found");
+        }
+      });
   }, [EVENT_NAME, EVENT_TYPE, search]);
 
   return (
@@ -95,11 +108,11 @@ const ViewMoreDetailsForEvent = () => {
               <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
                 <Col span={24}>
                   <div className="tw-mt-5">
-                    <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
+                    {/* <MoreDetailsPageCarousal images={eventDetails.imgLink} /> */}
                   </div>
                   <div className="tw-mt-5">
                     <MoreDetailsPageHeader
-                      title={eventDetails.name}
+                      title={eventDetails.eventName}
                       ratting={5}
                       review={"125 Reviews"}
                     />
@@ -110,8 +123,9 @@ const ViewMoreDetailsForEvent = () => {
                   className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
                   <PageHeader
-                    title={`About ${eventDetails.name}`}
+                    title={`About ${eventDetails.eventName}`}
                     className="tw-text-lg"
+                    desc={eventDetails.eventDescription}
                   />
                 </Col>
                 <Col span={24}>
