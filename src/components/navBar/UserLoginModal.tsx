@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, Modal, Select } from "antd";
+import { Button, Divider, Form, Input, Modal, Select, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth";
@@ -25,10 +25,9 @@ const UserLoginModal = ({
   const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
+  const [LoginError, setLoginError] = useState("");
 
-  const prefixSelector = (
-    <CallCodes isNumDisable={isNumDisable} />
-  );
+  const prefixSelector = <CallCodes isNumDisable={isNumDisable} />;
 
   let number = "";
 
@@ -194,6 +193,9 @@ const UserLoginModal = ({
                     disabled={isNumDisable}
                   />
                 </Form.Item>
+                {LoginError && (
+                  <Typography.Text type="danger">{LoginError}</Typography.Text>
+                )}
 
                 {isNumDisable ? (
                   <>
