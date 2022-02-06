@@ -331,6 +331,7 @@ const Workation = () => {
                     >
                       <DatePicker
                         className="tw-rounded-md tw-w-full"
+                        format="DD/MM/YYYY"
                         placeholder="Eneter Check In Timing"
                       />
                     </Form.Item>
@@ -342,6 +343,7 @@ const Workation = () => {
                     >
                       <DatePicker
                         className="tw-rounded-md tw-w-full"
+                        format="DD/MM/YYYY"
                         placeholder="Eneter Check Out Timing"
                       />
                     </Form.Item>

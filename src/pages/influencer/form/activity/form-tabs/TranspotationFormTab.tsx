@@ -111,6 +111,7 @@ export const TranspotationFormTab = ({
               <DatePicker
                 className="tw-rounded-md tw-w-full"
                 placeholder="Enter Pick up Date"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>
@@ -132,6 +133,7 @@ export const TranspotationFormTab = ({
               <DatePicker
                 className="tw-rounded-md tw-w-full"
                 placeholder="Enter Dropping Date"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>

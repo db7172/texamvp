@@ -69,6 +69,7 @@ export const ItineraryFormTab = ({
         <DatePicker
           className="tw-rounded-md tw-w-1/2"
           placeholder="Select Date of that day"
+          format="DD/MM/YYYY"
         />
       </Form.Item>
 

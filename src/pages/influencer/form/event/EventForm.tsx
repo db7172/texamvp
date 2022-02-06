@@ -461,7 +461,10 @@ const EventForm = () => {
                     label="What is the Start date of your Event ?"
                     name="startDate"
                   >
-                    <DatePicker className="tw-rounded-md tw-w-full" />
+                    <DatePicker
+                      className="tw-rounded-md tw-w-full"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
 
                   <Form.Item

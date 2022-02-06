@@ -49,6 +49,7 @@ const ActivityTab = ({
             onChange={(_, d) => setDateTime(d)}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
+            format="DD/MM/YYYY"
           />
         </Form.Item>
       </Form>
