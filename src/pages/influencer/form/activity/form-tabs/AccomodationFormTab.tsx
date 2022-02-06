@@ -110,7 +110,10 @@ export const AccomodationFormTab = ({
 
           <Col span={8}>
             <Form.Item name="dateRange" label="Dates">
-              <DatePicker.RangePicker className="tw-rounded-md" />
+              <DatePicker.RangePicker
+                className="tw-rounded-md"
+                format="DD/MM/YYYY"
+              />
             </Form.Item>
           </Col>
         </Row>

@@ -405,7 +405,10 @@ const HourlyAndSingleDay = () => {
                     name="departureDateFirstField"
                     className="tw-w-10/12 tw-m-0"
                   >
-                    <DatePicker.RangePicker className="tw-rounded-md" />
+                    <DatePicker.RangePicker
+                      className="tw-rounded-md"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Rate Per Person"
@@ -442,7 +445,10 @@ const HourlyAndSingleDay = () => {
                                 fieldKey={[field.fieldKey, "dateOfDeparture"]}
                                 className="tw-w-10/12 tw-m-0"
                               >
-                                <DatePicker.RangePicker className="tw-rounded-md" />
+                                <DatePicker.RangePicker
+                                  className="tw-rounded-md"
+                                  format="DD/MM/YYYY"
+                                />
                               </Form.Item>
                               <Form.Item
                                 {...field}
@@ -868,6 +874,7 @@ const HourlyAndSingleDay = () => {
                   <Form.Item name="date" label="Date of that day">
                     <DatePicker
                       className="tw-rounded-md tw-w-1/2"
+                      format="DD/MM/YYYY"
                       placeholder="Select Date of that day"
                     />
                   </Form.Item>

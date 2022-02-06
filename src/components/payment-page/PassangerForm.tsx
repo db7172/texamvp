@@ -147,6 +147,7 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
                 className="tw-rounded-md tw-w-2/3"
                 placeholder="Birth Date"
                 disabled={isDisable}
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>

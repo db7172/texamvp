@@ -208,7 +208,10 @@ const StatementTab = () => {
                   name="dateRange"
                   className="tw-w-6/12"
                 >
-                  <DatePicker.RangePicker className="tw-rounded-md" />
+                  <DatePicker.RangePicker
+                    className="tw-rounded-md"
+                    format="DD/MM/YYYY"
+                  />
                 </Form.Item>
                 <Form.Item
                   label="Category"

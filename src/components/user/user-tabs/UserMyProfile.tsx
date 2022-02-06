@@ -331,6 +331,7 @@ const UserMyProfile = () => {
                   <DatePicker
                     placeholder={data.dateOfBirth}
                     className="tw-rounded-lg"
+                    format="DD/MM/YYYY"
                   />
                 </Form.Item>
               </Col>
@@ -339,6 +340,7 @@ const UserMyProfile = () => {
                   <DatePicker
                     placeholder={data.dateOfAnniversary}
                     className="tw-rounded-lg"
+                    format="DD/MM/YYYY"
                   />
                 </Form.Item>
               </Col>

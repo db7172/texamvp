@@ -257,6 +257,7 @@ const ViewMoreActivityBookingCard = () => {
                     >
                       <DatePicker
                         className="tw-w-full tw-rounded-md"
+                        format="DD/MM/YYYY"
                         onChange={(_, d) =>
                           setFormValue({ ...formValue, dateOfTravel: d })
                         }

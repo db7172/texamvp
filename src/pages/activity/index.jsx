@@ -624,6 +624,7 @@ const Activity = () => {
         </Col>
         <Col span={24}>
           <Title
+            hideViewAll
             title="Traveller Reviews"
             description="Lorem ipsum is the dummy text for placing any thing"
           />

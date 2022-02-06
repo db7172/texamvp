@@ -61,6 +61,7 @@ const Retreat = () => {
             onChange={(_, d) => setCheckInDate(d)}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
+            format="DD/MM/YYYY"
           />
         </Form.Item>
 
@@ -69,6 +70,7 @@ const Retreat = () => {
             onChange={(_, d) => setCheckOutDate(d)}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
+            format="DD/MM/YYYY"
           />
         </Form.Item>
 

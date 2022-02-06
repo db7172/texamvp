@@ -460,7 +460,10 @@ const MultiDays = () => {
                     name="departureDateFirstField"
                     className="tw-w-10/12 tw-m-0"
                   >
-                    <DatePicker.RangePicker className="tw-rounded-md" />
+                    <DatePicker.RangePicker
+                      className="tw-rounded-md"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Rate Per Person"
@@ -496,7 +499,10 @@ const MultiDays = () => {
                                 fieldKey={[field.fieldKey, "dateOfDeparture"]}
                                 className="tw-w-10/12 tw-m-0"
                               >
-                                <DatePicker.RangePicker className="tw-rounded-md" />
+                                <DatePicker.RangePicker
+                                  className="tw-rounded-md"
+                                  format="DD/MM/YYYY"
+                                />
                               </Form.Item>
                               <Form.Item
                                 {...field}
@@ -700,7 +706,10 @@ const MultiDays = () => {
                       name="destinationDateRang"
                       className="tw-w-10/12 tw-m-0"
                     >
-                      <DatePicker.RangePicker className="tw-rounded-md" />
+                      <DatePicker.RangePicker
+                        className="tw-rounded-md"
+                        format="DD/MM/YYYY"
+                      />
                     </Form.Item>
 
                     <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
@@ -739,7 +748,10 @@ const MultiDays = () => {
                                   ]}
                                   className="tw-w-10/12 tw-m-0"
                                 >
-                                  <DatePicker.RangePicker className="tw-rounded-md" />
+                                  <DatePicker.RangePicker
+                                    className="tw-rounded-md"
+                                    format="DD/MM/YYYY"
+                                  />
                                 </Form.Item>
 
                                 <MinusCircleOutlined
