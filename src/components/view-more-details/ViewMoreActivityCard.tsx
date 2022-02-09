@@ -1,3 +1,4 @@
+import moment from "moment";
 import { INCLUSTION_IMG } from "../../pages/view-more/data.mock";
 import { indCurrency } from "../../utils/utils";
 
@@ -9,7 +10,12 @@ const classNamesInclustionImg = {
 
 const ViewMoreActivityCard = (props: any) => {
   console.log(props);
-  const data = props.data.data.data.formData;
+  const data = props;
+
+  var startDate = moment(props.departureDate[0].dateRange.start, "DD.MM.YYYY");
+  var endDate = moment(props.departureDate[0].dateRange.end, "DD.MM.YYYY");
+  var numDays = endDate.diff(startDate, "days");
+
   return (
     <main>
       <p className="tw-text-secondary-color">
@@ -25,7 +31,11 @@ const ViewMoreActivityCard = (props: any) => {
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Duration :</span>{" "}
-        <span className="tw-font-medium">Single-day - ( 1 days )</span>
+        <span className="tw-font-medium">
+          {props.departureDate
+            ? `${numDays} Days & ${numDays - 1} Nights`
+            : "One Day"}
+        </span>
       </p>
       <p className="tw-mt-3">
         <span className="tw-text-secondary-color tw-mr-2">Activity Type :</span>{" "}

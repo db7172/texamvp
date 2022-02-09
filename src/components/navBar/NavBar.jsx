@@ -199,7 +199,7 @@ function NavBar() {
           </div>
           <div className="tw-flex">
             <ul className="tw-flex tw-gap-4 tw-items-center">
-              <li className="tw-navbar-link">
+              {/* <li className="tw-navbar-link">
                 <span>
                   <Location />
                 </span>
@@ -216,7 +216,7 @@ function NavBar() {
                     </Select.Option>
                   ))}
                 </Select>
-              </li>
+              </li> */}
               <li className="tw-navbar-link">
                 <span className="tw-mr-2">
                   <Telephone />

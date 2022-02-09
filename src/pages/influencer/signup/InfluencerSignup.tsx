@@ -1,6 +1,6 @@
 import Container from "../../../components/common/container/Container";
-import { Steps, Button, Input, Form, Select } from "antd";
-import { ChangeEvent, ReactNode, useState, useContext } from "react";
+import { Steps, Button, Input, Form } from "antd";
+import { ChangeEvent, ReactNode, useState, useContext, useEffect } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
 import Modal from "antd/lib/modal/Modal";
@@ -8,6 +8,8 @@ import Text from "antd/lib/typography/Text";
 import ActivityProfile from "../../../components/influencer/activity-profile/ActivityProfile";
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
+import CallCodes from "../../../constant/CallCodes";
+import { Country, State, City } from "country-state-city";
 
 const auth = firebase.auth();
 
@@ -78,27 +80,34 @@ const PersonalDetails = ({
   showModal,
   handlePersonalData,
 }: PersonalDetailsProps) => {
-  const handleSubmit = (value: PersonalFormData) => {
-    handlePersonalData(value);
-    onSignInSubmit(value);
+  const handleSubmit = async (value: PersonalFormData) => {
+    let isUser = false;
     console.log(value);
     name = value.fullName;
     number = "+91" + value.number;
     email = value.email;
     password = value.password;
+    await firebase
+      .firestore()
+      .collection("users")
+      .where("number", "==", value.number)
+      .get()
+      .then((querySnap) => {
+        querySnap.docs.map((doc) => {
+          if (doc.exists) {
+            return (isUser = true);
+          }
+        });
+      });
+    if (isUser) {
+      return console.log("already a user");
+    }
+    handlePersonalData(value);
+    onSignInSubmit(value);
     showModal();
   };
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        {/* add loop/map for dynamic data from back end */}
-        <Select.Option value="91">+91</Select.Option>
-        <Select.Option value="86">+86</Select.Option>
-        <Select.Option value="87">+87</Select.Option>
-      </Select>
-    </Form.Item>
-  );
+  const prefixSelector = <CallCodes />;
 
   return (
     <>

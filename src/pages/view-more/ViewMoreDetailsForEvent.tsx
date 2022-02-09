@@ -94,7 +94,7 @@ const ViewMoreDetailsForEvent = () => {
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
-                  <ViewMoreEventCard />
+                  <ViewMoreEventCard {...eventDetails} />
                 </Col>
                 {/* <Col
                   span={24}

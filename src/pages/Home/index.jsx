@@ -94,18 +94,6 @@ function Home() {
 
   const history = useHistory();
 
-  // const fetchDropData = (type) => {
-  //   firebase
-  //     .firestore()
-  //     .collection("categories")
-  //     .get()
-  //     .then((querySnap) => {
-  //       setDropData(querySnap.docs.map((doc) => doc.data)).filter(
-  //         (item) => item.data.type === type
-  //       );
-  //     });
-  // };
-
   useEffect(() => {
     if (width >= 1440) {
       setActivityIcon(getActivityIcon(6));
@@ -375,7 +363,7 @@ function Home() {
               description={bestActivites.description}
             />
           </div>
-          <div className="tw-mt-20">
+          {/* <div className="tw-mt-20">
             <Title
               title="Events"
               description="Lorem ipsum is the dummy text for placing any thing"
@@ -383,7 +371,7 @@ function Home() {
             <div className="tw-mt-3">
               <DestinationCarousel setting={{ slidesToShow: 4 }} />
             </div>
-          </div>
+          </div> */}
           <div className="tw-mt-20">
             <EventCarousel
               title={events.title}

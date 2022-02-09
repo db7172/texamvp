@@ -7,6 +7,7 @@ import { Button, Col, Form, Input, Modal, Row, Typography } from "antd";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
+import firebase from "../../../firebase";
 
 const mobileOTP = 123456;
 const { confirm } = Modal;
@@ -55,7 +56,18 @@ const PasswordReset = () => {
   const onFinish = (value: any) => {
     console.log(value);
     setEmailOrMobile(value.emailOrMobile);
-    showConfirm();
+    firebase
+      .auth()
+      .sendPasswordResetEmail(value.email)
+      .then(() => {
+        showConfirm();
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+      });
   };
 
   return (

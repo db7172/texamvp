@@ -57,7 +57,7 @@ const MOCK_PACKAGE: Package[] = [
   },
 ];
 
-const ViewMoreActivityBookingCard = () => {
+const ViewMoreActivityBookingCard = (props: any) => {
   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
   const [isDateSelected, setIsDateSelected] = useState(true);
@@ -124,6 +124,8 @@ const ViewMoreActivityBookingCard = () => {
     setActive(value);
   };
 
+  console.log(props);
+
   return (
     <section>
       <div className="tw-pt-4 tw-pb-8 tw-border-b tw-border-t">
@@ -138,7 +140,7 @@ const ViewMoreActivityBookingCard = () => {
             placeholder="Location"
             onChange={(e) => setDepartureCity(e)}
           >
-            {CITY_ARR.map((c, i) => (
+            {props.departureCity.map((c: any, i: any) => (
               <Select.Option key={i} value={lowerCase(c)}>
                 {c}
               </Select.Option>

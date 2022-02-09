@@ -7,6 +7,7 @@ import ViewMorePriceCard from "./ViewMorePriceCard";
 
 type ViewMoreEventCardType = {
   retreat?: boolean;
+  props?: any;
 };
 
 const MOCK_PACKAGE: Package[] = [

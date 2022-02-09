@@ -60,9 +60,28 @@ const UserLoginModal = ({
       });
   }
 
-  const handleNumberSubmit = (value: any) => {
+  const handleNumberSubmit = async (value: any) => {
     // handle sending otp to mobile things here
     // console.log(value);
+    let num = "+" + value.prefix + value.number;
+    let isVender = false;
+    await firebase
+      .firestore()
+      .collection("venders")
+      .where("number", "==", num)
+      .get()
+      .then((querySnap) => {
+        querySnap.docs.map((doc) => {
+          if (doc.exists) {
+            return (isVender = true);
+          }
+        });
+      });
+    if (isVender) {
+      return setLoginError(
+        "You are registered as an influencer, kindly use influencer login panel."
+      );
+    }
     onSignInSubmit(value);
     setIsNumDisable(true);
   };

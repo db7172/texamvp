@@ -19,47 +19,54 @@ const WorkationCarousel = ({
   };
 
   const [workations, setWorkations] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getData = async (type) => {
+    const snapshot = await firebase.firestore().collection(type).get();
+    return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+  };
+
+  const setData = async () => {
+    const data = await getData("workation");
+    setWorkations(data);
+    console.log(workations);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    let dataArr = [];
-    data?.map((data) => {
-      firebase
-        .firestore()
-        .collection("workation")
-        .doc(data)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            dataArr.push(doc.data());
-          }
-        });
-    });
-    setWorkations(dataArr);
-  }, [data]);
+    setLoading(true);
+    setData();
+  }, []);
 
   return (
     <div>
-      <Title
-        hideViewAll={hideViewAll}
-        title={title}
-        path={path}
-        description={description}
-      />
-      <div className="tw-mt-3 menual-carousal">
-        {data ? (
-          <Carousel autoplay {...settings}>
-            {workations?.map((d, i) => (
-              <WorkationCard {...d} key={i} />
-            ))}
-          </Carousel>
-        ) : (
-          <div className="tw-flex tw-justify-center tw-items-center tw-h-96">
-            <h1 className="tw-text-h1 tw-text-secondary-color">
-              No Workation is available.
-            </h1>
+      {!loading ? (
+        <>
+          <Title
+            hideViewAll={hideViewAll}
+            title={title}
+            path={path}
+            description={description}
+          />
+          <div className="tw-mt-3 menual-carousal">
+            {data ? (
+              <Carousel autoplay {...settings}>
+                {workations?.map((d, i) => (
+                  <WorkationCard {...d} key={i} />
+                ))}
+              </Carousel>
+            ) : (
+              <div className="tw-flex tw-justify-center tw-items-center tw-h-96">
+                <h1 className="tw-text-h1 tw-text-secondary-color">
+                  No Workation is available.
+                </h1>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      ) : (
+        <h1>Loading</h1>
+      )}
     </div>
   );
 };

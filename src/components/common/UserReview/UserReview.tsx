@@ -61,9 +61,7 @@ const UserReview = ({
       .then((doc) => {
         setUser(doc.data());
       });
-  }, [d.userId]);
-
-  // console.log(d.review.rating);
+  }, []);
 
   return (
     <div>
@@ -88,7 +86,7 @@ const UserReview = ({
         </div>
       )}
       <div className="tw-flex tw-items-center tw-gap-3 tw-mb-5">
-        <Rate disabled defaultValue={d.review.rating} />
+        {/* <Rate disabled defaultValue={d.review.rating} /> */}
         <div className="tw-flex tw-gap-3">
           {/* {d.tags.map((t) => (
             <p
@@ -103,10 +101,10 @@ const UserReview = ({
 
       <div>
         <h3 className="tw-text-base tw-font-medium tw-mb-2">
-          {d.review.reason}
+          {/* {d.review.reason} */}
         </h3>
         <p className="tw-text-secondary-color tw-font-lato">
-          {d.review.description}
+          {/* {d.review.description} */}
         </p>
 
         {/* {comment.reply && (

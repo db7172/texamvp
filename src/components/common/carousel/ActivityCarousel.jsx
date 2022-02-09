@@ -24,7 +24,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
 
   const getData = async (type) => {
     const snapshot = await firebase.firestore().collection(type).get();
-    return snapshot.docs.map((doc) => doc.data());
+    return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
   };
 
   const setData = async () => {
@@ -86,7 +86,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
           <div className="tw-mt-3 menual-carousal">
             <Carousel autoplay {...settings}>
               {activityData.map((d, i) => (
-                <TourCard key={i} data={d} />
+                <TourCard key={i} data={d.data} id={d.id} />
               ))}
             </Carousel>
           </div>

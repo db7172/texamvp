@@ -1,4 +1,5 @@
 import { Steps } from "antd";
+import moment from "moment";
 
 const stepsData = [
   {
@@ -23,11 +24,22 @@ const stepsData = [
   },
 ];
 
-const BookingTimeLineX = () => {
+const BookingTimeLineX = (props: any) => {
   const { Step } = Steps;
+  console.log(props);
+
+  var startDate = moment(props.departureDate[0].dateRange.start, "DD.MM.YYYY");
+  var endDate = moment(props.departureDate[0].dateRange.end, "DD.MM.YYYY");
+  var numDays = endDate.diff(startDate, "days");
+
   return (
     <div>
-      <h3 className="tw-base-title ">Booking for Bhutan : 6Days & 5Nights</h3>
+      <h3 className="tw-base-title ">
+        Booking for {props.activityName} :{" "}
+        {props.departureDate
+          ? `${numDays} Days & ${numDays - 1} Nights`
+          : "One Day"}
+      </h3>
       <div className="tw-mt-2 tw-py-5 tw-overflow-x-auto time-line-x">
         <Steps current={stepsData.length} progressDot size="small">
           {stepsData.map((d, i) => (

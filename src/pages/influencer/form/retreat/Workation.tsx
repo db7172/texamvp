@@ -139,7 +139,7 @@ const Workation = () => {
         googleMap: value.googleMap,
       },
       checkinAndCheckOutTime: {
-        chcekIn: formatMomentDate(value.checkIn),
+        checkIn: formatMomentDate(value.checkIn),
         chcekOut: formatMomentDate(value.checkOut),
       },
       accomodation: {

@@ -229,7 +229,7 @@ const MultiDays = () => {
         ...data,
         imgLink,
         user: user.uid,
-        collection_name: "multi_activity",
+        collection_name: "multi-activity",
       })
       .then(() => {
         history.push("/influencer/dashboard");

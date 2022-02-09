@@ -6,39 +6,35 @@ import RattingReview from "../../common/ratting/RattingReview";
 import firebase from "../../../firebase";
 
 const TourCard = (props) => {
-  const {
-    activityName,
-    // duration,
-    cities,
-    offerBy,
-    otherDetails,
-    rating,
-    review,
-    payment,
-  } = props.data;
+  const { activityName, otherDetails, payment } = props.data;
   const imgUrl = props.data.imgLink[0];
   const type = props.data.sailentFeatures.activityType;
   const destination = props.data?.destinations?.destination;
-  // const [vender, setVender] = useState([]);
+  const [vender, setVender] = useState([]);
 
   const routingDetails = {
-    pathname: getViewMoreDetailsForActivityPath(type, activityName),
-    state: { ...props },
+    pathname: getViewMoreDetailsForActivityPath(
+      type,
+      // props.data.activityName,
+      props.data.collection_name
+    ),
+    search: props.id,
   };
-
   // let data = props.data.formData;
 
   // we can run this to get the information of vender who created this activity
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection("venders")
-  //     .doc(props.user)
-  //     .get()
-  //     .then((doc) => {
-  //       setVender(doc.data());
-  //     });
-  // }, [props.data.userID]);
+  useEffect(() => {
+    if (props.data.user) {
+      firebase
+        .firestore()
+        .collection("venders")
+        .doc(props.data.user)
+        .get()
+        .then((doc) => {
+          setVender(doc.data());
+        });
+    }
+  }, [props.data.userID]);
 
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
@@ -57,12 +53,12 @@ const TourCard = (props) => {
               <RattingReview ratting={4} review={"12 reviews"} />
             </div>
             <p className="tw-mt-2">Cities: {destination}</p>
-            {/* <p className="tw-mt-2">
+            <p className="tw-mt-2">
               Offered by{" "}
               <span className="tw-underline tw-cursor-pointer">
                 {vender ? vender.name : ""}
               </span>
-            </p> */}
+            </p>
             <p className="tw-mt-2">{otherDetails}</p>
           </div>
           <div className="tw-my-5 tw-border-y tw-py-2 tw-border-gray-200">

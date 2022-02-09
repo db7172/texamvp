@@ -8,20 +8,26 @@ import { getViewMoreDetailsForWorkcationPath } from "../../../constant/comman.co
 import { Link } from "react-router-dom";
 
 const WorkationCard = (props) => {
-  const { name, duration, facility, price, imgUrl, city } = props;
+  // const { name, duration, facility, price, imgUrl, city } = props;
   const routingDetails = {
-    pathname: getViewMoreDetailsForWorkcationPath(city, name),
-    state: { name, duration, facility, price, imgUrl, city },
+    pathname: getViewMoreDetailsForWorkcationPath(
+      props.data.destinations.destination,
+      props.data.workationName
+    ),
+    // state: { name, duration, facility, price, imgUrl, city },
   };
 
-  // const data = props.data.formData;
-  console.log(props);
+  const data = props.data;
 
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
-      {/* <div className="card-container">
+      <div className="card-container">
         <div className="card_img_height">
-          <img className="tw-rounded-lg" src="" alt={data.workationName} />
+          <img
+            className="tw-rounded-lg"
+            src={data.imgLink[0]}
+            alt={data.workationName}
+          />
         </div>
         <div className="tw-mt-5 tw-text-secondary-color">
           <div className="tw-flex tw-justify-between tw-items-center">
@@ -36,7 +42,7 @@ const WorkationCard = (props) => {
             <GreenBadge ratting={4.4} />
           </div>
           <p className="tw-text-primary-color tw-mt-2 tw-font-medium">
-            {data.destinations[0].destination}
+            {data.destinations.destination}
           </p>
           <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-mt-2 tw-text-primary-color tw-text-ellipsis">
             {data.workationName}
@@ -65,7 +71,7 @@ const WorkationCard = (props) => {
             <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
               Starting from
             </span>
-            {indCurrency(data.accomodation.paymentRatePerPersion)}
+            {indCurrency(data.accomodation.data.room1.paymentRatePerPerson)}
             <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-ml-2">
               Onwards
             </span>
@@ -76,7 +82,7 @@ const WorkationCard = (props) => {
             View Details
           </button>
         </Link>
-      </div> */}
+      </div>
     </div>
   );
 };

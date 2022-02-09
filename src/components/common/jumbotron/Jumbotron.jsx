@@ -20,7 +20,11 @@ const Jumbotron = ({
         {/* <img className="tw-w-full tw-h-auto" src={image} alt="" /> */}
         <img
           className="tw-h-full tw-w-full tw-object-cover"
-          src="https://images.unsplash.com/photo-1501555088652-021faa106b9b"
+          src={
+            image
+              ? image
+              : "https://images.unsplash.com/photo-1501555088652-021faa106b9b"
+          }
           alt=""
         />
         <div className="tw-absolute tw-inset-0 tw-bg-black tw-bg-opacity-20 tw-z-10 tw-flex tw-items-center tw-flex-col tw-justify-evenly tw-text-white">
