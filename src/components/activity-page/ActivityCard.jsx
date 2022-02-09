@@ -6,7 +6,7 @@ import taxi from "../../assets/png/taxi.png";
 import { getViewMoreDetailsForActivityPath } from "../../constant/comman.const";
 import { Link } from "react-router-dom";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import firebase from "../../firebase";
 import img from "../../assets/png/activity.png";
 import { useEffect, useState } from "react";
@@ -81,15 +81,21 @@ const ActivityCard = (props) => {
       <div className="tw-font-medium tw-mt-3 tw-flex tw-items-center">
         <span className="tw-text-secondary-color tw-mr-3">Includes : </span>
         <span className="tw-flex">
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={hotel} alt="" />
-          </div>
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={taxi} alt="" />
-          </div>
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={camera} alt="" />
-          </div>
+          <Tooltip title="Hotel stay">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={hotel} alt="" />
+            </div>
+          </Tooltip>
+          <Tooltip title="Traveling">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={taxi} alt="" />
+            </div>
+          </Tooltip>
+          <Tooltip title="Photography">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={camera} alt="" />
+            </div>
+          </Tooltip>
         </span>
       </div>
 

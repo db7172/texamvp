@@ -54,7 +54,7 @@ const DestinationCarousel = ({ setting }) => {
       {destinationPlace.map(({ href, title }, i) => (
         <div className="tw-mr-3 tw-zoom-effect" key={i}>
           <Link to={getDestinationPagePath(title)}>
-            <div className="tw-relative tw-p-1 tw-flex tw-justify-center">
+            <div className="tw-relative tw-p-1 tw-flex tw-justify-center destination-card">
               <img
                 className="tw-w-full tw-h-auto tw-rounded-lg"
                 src={href}
