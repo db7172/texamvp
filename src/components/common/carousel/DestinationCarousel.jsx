@@ -68,11 +68,11 @@ const DestinationCarousel = ({ setting }) => {
   }, []);
 
   return (
-    <Carousel className="menual-carousal" autoplay {...settings}>
+    <Carousel className="menual-carousal auto-width-carousal" {...settings}>
       {destinations.destinations?.map((data, i) => (
         <div className="tw-mr-3 tw-zoom-effect" key={i}>
           <Link to={getDestinationPagePath(data.title)}>
-            <div className="tw-relative tw-p-1 tw-flex tw-justify-center">
+            <div className="tw-relative tw-p-1 tw-flex tw-justify-center destination-card">
               <img
                 className="tw-w-full tw-h-auto tw-rounded-lg"
                 src={data.coverImg}

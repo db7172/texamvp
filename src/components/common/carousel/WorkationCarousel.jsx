@@ -48,7 +48,7 @@ const WorkationCarousel = ({
             path={path}
             description={description}
           />
-          <div className="tw-mt-3 menual-carousal">
+          <div className="tw-mt-3 menual-carousal auto-width-carousal">
             {data ? (
               <Carousel autoplay {...settings}>
                 {workations?.map((d, i) => (
