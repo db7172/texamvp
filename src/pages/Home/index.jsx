@@ -195,10 +195,24 @@ function Home() {
   }, [width]);
 
   const handleClick = (activity, date, type) => {
-    console.log({ activity, date });
-    history.push(
-      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
-    );
+    console.log({ activity, date, type });
+    switch (type) {
+      case "activity":
+        history.push(`/activity/${lowerCase(activity)}`);
+        break;
+      case "event":
+        history.push(`/event/${lowerCase(activity)}`);
+        break;
+      case "retreat":
+        history.push(`/retreat/${lowerCase(activity)}`);
+        break;
+      case "workcation":
+        history.push(`/workcation/${lowerCase(activity)}`);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
