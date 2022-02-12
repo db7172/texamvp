@@ -135,9 +135,9 @@ const mockData = [
   },
 ];
 
-const Accomodations = () => {
+const Accomodations = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [data, setData] = useState<TypeModal>();
+  const [data, setData] = useState([]) as any;
 
   const showModal = (modalData: TypeModal) => {
     setData(modalData);
@@ -149,93 +149,124 @@ const Accomodations = () => {
     setData(undefined);
   };
 
-  return (
-    <section>
-      <ViewMoreSectionTitleWithImg header="Accomodations" image={hotel} />
-      <Row gutter={[0, 20]} className="tw-mt-8">
-        {mockData.map((d, i) => (
-          <Col span={24}>
-            <Row gutter={20}>
-              <Col span={12} className="small-carousal details_page_carousal">
-                <Carousel
-                  className=""
-                  autoplay
-                  {...defaultSettings}
-                  nextArrow={<span> &gt; </span>}
-                  prevArrow={<span> &gt; </span>}
-                >
-                  {d.images.map((img, i) => (
-                    <div className="tw-h-48 tw-w-96" key={i}>
-                      <img
-                        className="tw-w-full tw-h-auto tw-object-cover tw-rounded-lg"
-                        src={img}
-                        alt="carousal"
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </Col>
-              <Col span={12}>
-                <div>
-                  <p className="tw-font-medium">{d.details.subTitle}</p>
-                  <h4 className="tw-text-lg tw-font-medium tw-mt-2">
-                    {d.details.title}
-                  </h4>
-                  <p className="tw-text-secondary-color tw-mt-2">
-                    {d.details.description}
-                  </p>
-                </div>
-                <Row gutter={[0, 8]} className="tw-mt-2 tw-items-center">
-                  {d.details.accomodationDetails.map((data, i) => (
+  if (props.accomodation) {
+    return (
+      <section>
+        <ViewMoreSectionTitleWithImg header="Accomodations" image={hotel} />
+        <Row gutter={[0, 20]} className="tw-mt-8">
+          {Object.values(props.accomodation).map((d: any, i: any) => (
+            <Col span={24}>
+              <Row gutter={20}>
+                <Col span={12} className="small-carousal details_page_carousal">
+                  <Carousel
+                    className=""
+                    autoplay
+                    {...defaultSettings}
+                    nextArrow={<span> &gt; </span>}
+                    prevArrow={<span> &gt; </span>}
+                  >
+                    {mockData[0].images.map((img, i) => (
+                      <div className="tw-h-48 tw-w-96" key={i}>
+                        <img
+                          className="tw-w-full tw-h-auto tw-object-cover tw-rounded-lg"
+                          src={img}
+                          alt="carousal"
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                </Col>
+                <Col span={12}>
+                  <div>
+                    <p className="tw-font-medium">Phuentsholing</p>
+                    <h4 className="tw-text-lg tw-font-medium tw-mt-2">
+                      {d.accomodationName}
+                    </h4>
+                    <p className="tw-text-secondary-color tw-mt-2">{`${d.dateRange[0]} - ${d.dateRange[1]}`}</p>
+                  </div>
+                  <Row gutter={[0, 8]} className="tw-mt-2 tw-items-center">
+                    {/* {mockData[0]?.details.accomodationDetails.map( */}
+                    {/* (data: any, i: any) => ( */}
                     <Col
-                      span={
-                        i === d.details.accomodationDetails.length - 1 ? 18 : 24
-                      }
+                      span={i === d.length - 1 ? 18 : 24}
                       className="tw-flex tw-gap-3 tw-items-center tw-text-secondary-color"
                       key={i}
                     >
                       <div className="tw-w-4">
-                        <img src={data.image} alt="room" />
+                        <img
+                          src={mockData[0].details.accomodationDetails[0].image}
+                          alt="room"
+                        />
                       </div>
-                      <p>{data.detail}</p>
+                      <p>Room Per Sharing: {d.roomSharing}</p>
                     </Col>
-                  ))}
-                  <Col span={6}>
-                    <Button
-                      type="link"
-                      className="tw-m-0 tw-p-0 tw-text-blue-500 hover:tw-text-blue-500 focus:tw-text-blue-500"
-                      onClick={() => showModal(d.details.modal)}
+                    <Col
+                      span={i === d.length - 1 ? 18 : 24}
+                      className="tw-flex tw-gap-3 tw-items-center tw-text-secondary-color"
+                      key={i}
                     >
-                      <span className="tw-underline">View More</span>
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
+                      <div className="tw-w-4">
+                        <img
+                          src={mockData[0].details.accomodationDetails[1].image}
+                          alt="room"
+                        />
+                      </div>
+                      <p>Meal Provided: Lunch</p>
+                    </Col>
+                    <Col
+                      span={i === d.length - 1 ? 18 : 24}
+                      className="tw-flex tw-gap-3 tw-items-center tw-text-secondary-color"
+                      key={i}
+                    >
+                      <div className="tw-w-4">
+                        <img
+                          src={mockData[0].details.accomodationDetails[2].image}
+                          alt="room"
+                        />
+                      </div>
+                      <p>Accomodation Type: {d.accomodationType}</p>
+                    </Col>
+                    {/* ) */}
+                    {/* )} */}
+                    <Col span={6}>
+                      <Button
+                        type="link"
+                        className="tw-m-0 tw-p-0 tw-text-blue-500 hover:tw-text-blue-500 focus:tw-text-blue-500"
+                        onClick={() => showModal(d.amenities)}
+                      >
+                        <span className="tw-underline">View More</span>
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          ))}
+        </Row>
+        {data && (
+          <Modal
+            title={data.title || "Accommodation Amenities"}
+            visible={isModalVisible}
+            footer={null}
+            onCancel={handleCancel}
+          >
+            <Row gutter={[10, 6]}>
+              {data.map((s: any, i: any) => (
+                <Col span={8}>
+                  <p className="tw-flex tw-items-center">
+                    <span className="tw-inline-block tw-h-1 tw-w-1 tw-bg-lightGray-background tw-rounded-full tw-mr-2" />
+                    <span className="tw-text-secondary-color">{s}</span>
+                  </p>
+                </Col>
+              ))}
             </Row>
-          </Col>
-        ))}
-      </Row>
-      {data && (
-        <Modal
-          title={data.title || "Accommodation Amenities"}
-          visible={isModalVisible}
-          footer={null}
-          onCancel={handleCancel}
-        >
-          <Row gutter={[10, 6]}>
-            {data.body.map((s, i) => (
-              <Col span={8}>
-                <p className="tw-flex tw-items-center">
-                  <span className="tw-inline-block tw-h-1 tw-w-1 tw-bg-lightGray-background tw-rounded-full tw-mr-2" />
-                  <span className="tw-text-secondary-color">{s}</span>
-                </p>
-              </Col>
-            ))}
-          </Row>
-        </Modal>
-      )}
-    </section>
-  );
+          </Modal>
+        )}
+      </section>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Accomodations;

@@ -184,7 +184,13 @@ const EventForm = () => {
       .firestore()
       .collection("events")
       .doc(docId)
-      .set({ ...data, imgLink, user: user.uid, collection_name: "events" })
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "events",
+      })
       .then(() => {
         history.push("/influencer/dashboard");
       })

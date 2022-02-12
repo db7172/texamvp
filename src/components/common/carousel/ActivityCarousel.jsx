@@ -8,6 +8,7 @@ import TourCard from "../../card/tour-card/TourCard";
 import Title from "../title/Title";
 import { Carousel } from "antd";
 import firebase from "../../../firebase";
+import Loader from "../Loader/Loader";
 
 const ActivityCarousel = ({ setting, title, data, path, description }) => {
   const [multiday, setMultiday] = useState(false);
@@ -92,7 +93,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
           </div>
         </>
       ) : (
-        <div>No data</div>
+        <Loader />
       )}
     </div>
   );

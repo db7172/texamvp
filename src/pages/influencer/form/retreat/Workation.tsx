@@ -183,7 +183,13 @@ const Workation = () => {
       .firestore()
       .collection("workation")
       .doc(docId)
-      .set({ ...data, imgLink, collection_name: "hr_sg_avy" })
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "hr_sg_avy",
+      })
       .then(() => {
         history.push("/influencer/dashboard");
       })

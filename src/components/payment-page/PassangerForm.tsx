@@ -12,8 +12,9 @@ import veg from "../../assets/svg/veg.svg";
 import nonveg from "../../assets/svg/non-veg.svg";
 import { formatMomentDate } from "../../utils/utils";
 import { isNil, omitBy } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WhatsAppOutlined } from "@ant-design/icons";
+import firebase from "../../firebase";
 
 type PassangerFormProps = {
   id: number;
@@ -64,6 +65,7 @@ const dietPreference = [
 
 export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
   const [isDisable, setIsDisable] = useState(false);
+  const [user, setUser] = useState([]) as any;
 
   const onFinish = (value: any) => {
     if (!isDisable) {
@@ -76,6 +78,32 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
       setIsDisable(true);
     }
   };
+
+  useEffect(() => {
+    let isUser = false;
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        isUser = true;
+      } else {
+        isUser = false;
+        console.log("user not found");
+      }
+    });
+    if (isUser) {
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setUser(doc.data());
+            console.log(doc.data());
+          }
+        });
+    }
+  }, []);
+
   return (
     <div>
       <p className="tw-text-base tw-font-medium tw-mt-2">
@@ -114,7 +142,7 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
             >
               <Input
                 className="tw-rounded-md"
-                placeholder="First Name"
+                placeholder={user.name}
                 disabled={isDisable}
               />
             </Form.Item>

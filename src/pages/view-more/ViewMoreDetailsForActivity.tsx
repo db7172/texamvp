@@ -34,6 +34,7 @@ import { ACTIVITY } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import { VIEW_MORE_ACTIVITY_DETAILS } from "./data.mock";
 import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
 
 type ParamTypes = {
   activityName: string;
@@ -120,7 +121,9 @@ const ViewMoreDetailsForActivity = () => {
               <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
                 <Col span={24}>
                   <div className="tw-mt-5">
-                    <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
+                    <MoreDetailsPageCarousal
+                      images={activityDetails?.imgLink}
+                    />
                   </div>
                   <div className="tw-mt-5">
                     <MoreDetailsPageHeader
@@ -164,10 +167,10 @@ const ViewMoreDetailsForActivity = () => {
                       <BookingTimeLineX {...activityDetails} />
                     </Col>
                     <Col span={24}>
-                      <ViewMoreSummary />
+                      <ViewMoreSummary {...activityDetails} />
                     </Col>
                     <Col span={24}>
-                      <Accomodations />
+                      <Accomodations {...activityDetails} />
                     </Col>
                     <Col span={24}>
                       <ViewMoreTravellingInfo />
@@ -260,7 +263,7 @@ const ViewMoreDetailsForActivity = () => {
           </Row>
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loader />
       )}
     </Container>
   );

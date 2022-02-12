@@ -111,11 +111,13 @@ const ViewMoreActivityBookingCard = (props: any) => {
 
   const handleModalSubmit = () => {
     setIsModalVisible(false);
+    const data = props;
     history.push({
       pathname: "/payment",
       state: {
         numberOfPpl: formValue.noOfPerson,
         price: active.price,
+        activity: data,
       },
     });
   };
@@ -134,7 +136,7 @@ const ViewMoreActivityBookingCard = (props: any) => {
           <Select
             showSearch
             // defaultValue="mumbai"
-            value={departureCity}
+            value={props.departureCity[0]}
             className="tw-font-medium"
             style={{ width: 120 }}
             placeholder="Location"
@@ -221,9 +223,14 @@ const ViewMoreActivityBookingCard = (props: any) => {
             </div>
             <div>
               <h4 className="tw-font-medium tw-text-base">
-                Exciting Hampta Pass Trek trip
+                {props.activityName}
               </h4>
-              <p className="tw-text-secondary-color">Mumbai . Trekking</p>
+              <p className="tw-text-secondary-color">
+                {props.destinations
+                  ? props.destinations.destination
+                  : props.destination[0]?.destination}
+                . {props.sailentFeatures.activityType}
+              </p>
             </div>
           </div>
           <Row

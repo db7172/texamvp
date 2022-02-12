@@ -9,7 +9,7 @@ import {
   Steps,
   Typography,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "../../components/common/container/Container";
 import { indCurrency } from "../../utils/utils";
 import icon from "../../assets/svg/bag.svg";
@@ -28,6 +28,7 @@ import {
 import { lowerCase } from "lodash";
 import classNames from "classnames";
 import { useHistory, useLocation } from "react-router-dom";
+import moment from "moment";
 
 // do not remove this, below is the classnames for rounded img of inclusion card
 const classNamesInclustionImg = {
@@ -111,14 +112,27 @@ const tabHeader = (title: string, icon: string, optional?: string) => (
 
 const { Step } = Steps;
 const { Panel } = Collapse;
-const PaymentPage = () => {
+const PaymentPage = (props: any) => {
   const [currentState, setCurrentState] = useState(0);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  // const [activityDetails, setActivityDetails] = useState([]) as any;
   const [passangerFormDetails, setPassangerFormDetails] = useState<any>({});
   const { state } = useLocation<{
     numberOfPpl: number;
     price: number;
+    activity: Object;
   }>();
+
+  let activityDetails = props.location.state.activity;
+  var startDate = moment(
+    activityDetails.departureDate[0].dateRange.start,
+    "DD.MM.YYYY"
+  );
+  var endDate = moment(
+    activityDetails.departureDate[0].dateRange.end,
+    "DD.MM.YYYY"
+  );
+  var duration = endDate.diff(startDate, "days");
 
   const history = useHistory();
 
@@ -141,150 +155,172 @@ const PaymentPage = () => {
     });
   };
 
+  // useEffect(() => {
+  //   setActivityDetails(props.location.state.activity);
+  // }, []);
+
   const reviewSummery = () => {
-    return (
-      <div>
-        <Collapse
-          expandIconPosition="right"
-          className="site-collapse-custom-collapse single-collapse"
-        >
-          <Panel
-            header={PANEL_HEADER}
-            key="1"
-            className="site-collapse-custom-panel tw-shadow-card"
+    return activityDetails ? (
+      <>
+        <div>
+          <Collapse
+            expandIconPosition="right"
+            className="site-collapse-custom-collapse single-collapse"
           >
-            <Row gutter={25}>
-              <Col span={8}>
-                <img
-                  className="tw-w-full tw-mt-1.5"
-                  src={mockTripData.img}
-                  alt="activity"
-                />
-              </Col>
-              <Col span={16}>
-                <p className="tw-mb-2">
-                  <span className="tw-mr-1 tw-text-xl tw-font-medium">
-                    {mockTripData.title}
-                  </span>{" "}
-                  <span className="tw-font-medium">
-                    ({mockTripData.duration})
-                  </span>
-                </p>
-                <p className="tw-text-blue-500 tw-mb-2">
-                  <span className="tw-mr-2">{mockTripData.tripDate},</span>
-                  <span className="tw-mr-2">BLG,</span>
-                  <span className="tw-mr-2">{mockTripData.person},</span>
-                  <span>{mockTripData.room}</span>
-                </p>
-                <p className="tw-mb-2 tw-flex tw-items-center">
-                  <span className="tw-mr-3 tw-text-secondary-color tw-font-medium">
-                    Total Cost:
-                  </span>
-                  <span className="tw-font-medium tw-text-yellow-color tw-text-lg">
-                    {indCurrency(mockTripData.cost)}
-                  </span>
-                </p>
-                <div className="tw-mb-3 tw-flex tw-gap-3">
-                  <span className="tw-text-secondary-color tw-font-medium">
-                    Cities:
-                  </span>
-                  <div className="tw-flex tw-gap-2 tw-items-center">
-                    {mockTripData.cities.map((d, i) => (
-                      <div key={i} className="tw-flex tw-gap-2 tw-items-center">
-                        <span className="tw-font-medium">{`${d.name} (${d.days}D)`}</span>
-                        {i !== mockTripData.cities.length - 1 && (
-                          <img src={rightArrow} alt="" />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="tw-mb-4 tw-flex tw-items-center">
-                  <p className="tw-text-secondary-color tw-font-medium tw-mr-3">
-                    Includes :
+            <Panel
+              header={PANEL_HEADER}
+              key="1"
+              className="site-collapse-custom-panel tw-shadow-card"
+            >
+              <Row gutter={25}>
+                <Col span={8}>
+                  <img
+                    className="tw-w-full tw-mt-1.5"
+                    src={activityDetails.imgLink[0]}
+                    alt="activity"
+                  />
+                </Col>
+                <Col span={16}>
+                  <p className="tw-mb-2">
+                    <span className="tw-mr-1 tw-text-xl tw-font-medium">
+                      {activityDetails.activityName}
+                    </span>{" "}
+                    <span className="tw-font-medium">
+                      ({`${duration} Days & ${duration - 1} Nights`})
+                    </span>
                   </p>
-                  <div className="tw-flex tw-flex-wrap tw-gap-3">
-                    <div className={classNamesInclustionImg.div}>
-                      <img
-                        className={classNamesInclustionImg.img}
-                        src={INCLUSTION_IMG.hotel}
-                        alt="hotel"
-                      />
-                    </div>
-                    <div className={classNamesInclustionImg.div}>
-                      <img
-                        className={classNamesInclustionImg.img}
-                        src={INCLUSTION_IMG.plane}
-                        alt="plane"
-                      />
-                    </div>
-                    <div className={classNamesInclustionImg.div}>
-                      <img
-                        className={classNamesInclustionImg.img}
-                        src={INCLUSTION_IMG.taxi}
-                        alt="taxi"
-                      />
-                    </div>
-                    <div className={classNamesInclustionImg.div}>
-                      <img
-                        className={classNamesInclustionImg.img}
-                        src={INCLUSTION_IMG.photo}
-                        alt="camera"
-                      />
+                  <p className="tw-text-blue-500 tw-mb-2">
+                    <span className="tw-mr-2">{mockTripData.tripDate},</span>
+                    <span className="tw-mr-2">BLG,</span>
+                    <span className="tw-mr-2">{mockTripData.person},</span>
+                    <span>{mockTripData.room}</span>
+                  </p>
+                  <p className="tw-mb-2 tw-flex tw-items-center">
+                    <span className="tw-mr-3 tw-text-secondary-color tw-font-medium">
+                      Total Cost:
+                    </span>
+                    <span className="tw-font-medium tw-text-yellow-color tw-text-lg">
+                      {indCurrency(state?.price)}
+                    </span>
+                  </p>
+                  <div className="tw-mb-3 tw-flex tw-gap-3">
+                    <span className="tw-text-secondary-color tw-font-medium">
+                      Cities:
+                    </span>
+                    <div className="tw-flex tw-gap-2 tw-items-center">
+                      {activityDetails.destination.map((d: any, i: any) => (
+                        <div
+                          key={i}
+                          className="tw-flex tw-gap-2 tw-items-center"
+                        >
+                          <span className="tw-font-medium">
+                            {`${d.destination} (${moment(
+                              d.destinationDateRang.end,
+                              "DD.MM.YYYY"
+                            ).diff(
+                              moment(d.destinationDateRang.start, "DD.MM.YYYY"),
+                              "days"
+                            )}D)`}{" "}
+                          </span>
+                          {i !== mockTripData.cities.length - 1 && (
+                            <img src={rightArrow} alt="" />
+                          )}
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </div>
-                <div className="tw-mb-4">
-                  <span className="tw-text-secondary-color tw-font-medium tw-mr-3">
-                    Hotel Includes In this Packages
-                  </span>
-                  <span className="tw-px-2 tw-py-1 tw-shadow-card tw-rounded-lg tw-font-medium">
-                    {mockTripData.hotelType}
-                  </span>
-                </div>
-                <div className="tw-mb-4">
-                  <span className="tw-text-secondary-color tw-font-medium tw-mr-3">
-                    Cab Includes In this Packages
-                  </span>
-                  <span className="tw-px-2 tw-py-1 tw-shadow-card tw-rounded-lg tw-font-medium">
-                    {mockTripData.cabType}
-                  </span>
-                </div>
-              </Col>
-            </Row>
-          </Panel>
-        </Collapse>
-        <div className="tw-mt-5 tw-shadow-card tw-rounded-lg tw-bg-white tw-p-5">
-          <p className="tw-text-lg tw-font-medium tw-mb-1">
-            Terms and condition
-          </p>
-          <Checkbox
-            checked={isTermsAccepted}
-            onClick={() => setIsTermsAccepted(!isTermsAccepted)}
-          >
-            <span className="tw-text-secondary-color tw-text-sm">
-              Yes, secure my trip. I agree to the{" "}
-              <span className="tw-text-blue-500 tw-cursor-pointer">
-                terms and condition
-              </span>{" "}
-              and{" "}
-              <span className="tw-text-blue-500 tw-cursor-pointer">
-                Good Health
-              </span>{" "}
-              terms and confirm all passengers are between 2 to 40 years of age
-            </span>
-          </Checkbox>
+                  <div className="tw-mb-4 tw-flex tw-items-center">
+                    <p className="tw-text-secondary-color tw-font-medium tw-mr-3">
+                      Includes :
+                    </p>
+                    <div className="tw-flex tw-flex-wrap tw-gap-3">
+                      <div className={classNamesInclustionImg.div}>
+                        <img
+                          className={classNamesInclustionImg.img}
+                          src={INCLUSTION_IMG.hotel}
+                          alt="hotel"
+                        />
+                      </div>
+                      <div className={classNamesInclustionImg.div}>
+                        <img
+                          className={classNamesInclustionImg.img}
+                          src={INCLUSTION_IMG.plane}
+                          alt="plane"
+                        />
+                      </div>
+                      <div className={classNamesInclustionImg.div}>
+                        <img
+                          className={classNamesInclustionImg.img}
+                          src={INCLUSTION_IMG.taxi}
+                          alt="taxi"
+                        />
+                      </div>
+                      <div className={classNamesInclustionImg.div}>
+                        <img
+                          className={classNamesInclustionImg.img}
+                          src={INCLUSTION_IMG.photo}
+                          alt="camera"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="tw-mb-4">
+                    <span className="tw-text-secondary-color tw-font-medium tw-mr-3">
+                      Hotel Includes In this Packages
+                    </span>
+                    <span className="tw-px-2 tw-py-1 tw-shadow-card tw-rounded-lg tw-font-medium">
+                      {mockTripData.hotelType}
+                    </span>
+                  </div>
+                  <div className="tw-mb-4">
+                    <span className="tw-text-secondary-color tw-font-medium tw-mr-3">
+                      Cab Includes In this Packages
+                    </span>
+                    <span className="tw-px-2 tw-py-1 tw-shadow-card tw-rounded-lg tw-font-medium">
+                      {mockTripData.cabType}
+                    </span>
+                  </div>
+                </Col>
+              </Row>
+            </Panel>
+          </Collapse>
+          <div className="tw-mt-5 tw-shadow-card tw-rounded-lg tw-bg-white tw-p-5">
+            <p className="tw-text-lg tw-font-medium tw-mb-1">
+              Terms and condition
+            </p>
+            <Checkbox
+              checked={isTermsAccepted}
+              onClick={() => setIsTermsAccepted(!isTermsAccepted)}
+            >
+              <span className="tw-text-secondary-color tw-text-sm">
+                Yes, secure my trip. I agree to the{" "}
+                <span className="tw-text-blue-500 tw-cursor-pointer">
+                  terms and condition
+                </span>{" "}
+                and{" "}
+                <span className="tw-text-blue-500 tw-cursor-pointer">
+                  Good Health
+                </span>{" "}
+                terms and confirm all passengers are between 2 to 40 years of
+                age
+              </span>
+            </Checkbox>
+          </div>
+          <div className="">
+            <Button
+              type="default"
+              onClick={() => setCurrentState(1)}
+              className="tw-texa-button tw-mt-10"
+            >
+              Continue to pay
+            </Button>
+          </div>
         </div>
-        <div className="">
-          <Button
-            type="default"
-            onClick={() => setCurrentState(1)}
-            className="tw-texa-button tw-mt-10"
-          >
-            Continue to pay
-          </Button>
-        </div>
-      </div>
+      </>
+    ) : (
+      <>
+        <p>Loading...</p>
+      </>
     );
   };
 

@@ -228,7 +228,8 @@ const MultiDays = () => {
       .set({
         ...data,
         imgLink,
-        user: user.uid,
+        venderId: user.uid,
+        venderName: user.displayName,
         collection_name: "multi-activity",
       })
       .then(() => {

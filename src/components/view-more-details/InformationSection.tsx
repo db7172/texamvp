@@ -21,11 +21,9 @@ const InformationSection = ({ header, content, className }: Props) => {
       </Col>
       <Col span={24}>
         <ul className="tw-list-disc tw-list-outside">
-          {content.map((s, i) => (
-            <li key={i} className="tw-text-secondary-color tw-text-xs">
-              {s}
-            </li>
-          ))}
+          {/* {content.map((s, i) => ( */}
+          <li className="tw-text-secondary-color tw-text-xs">{content}</li>
+          {/* ))} */}
         </ul>
       </Col>
     </Row>

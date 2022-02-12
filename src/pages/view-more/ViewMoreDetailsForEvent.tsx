@@ -30,6 +30,7 @@ import {
   VIEW_MORE_EVENT_DETAILS,
 } from "./data.mock";
 import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
 
 type ParamTypes = {
   eventName: string;
@@ -40,7 +41,7 @@ const ViewMoreDetailsForEvent = () => {
   const [slashedTableName, setSlashedTableName] = useState<
     Array<TitleBreadCrumb>
   >([]);
-  const [eventDetails, setEventDetails] = useState([]) as any;
+  const [eventDetails, setEventDetails] = useState() as any;
   const { eventName, eventType } = useParams<ParamTypes>();
   const EVENT_TYPE = startCase(eventType);
   const EVENT_NAME = startCase(eventName);
@@ -108,7 +109,7 @@ const ViewMoreDetailsForEvent = () => {
               <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
                 <Col span={24}>
                   <div className="tw-mt-5">
-                    {/* <MoreDetailsPageCarousal images={eventDetails.imgLink} /> */}
+                    <MoreDetailsPageCarousal images={eventDetails?.imgLink} />
                   </div>
                   <div className="tw-mt-5">
                     <MoreDetailsPageHeader
@@ -148,34 +149,47 @@ const ViewMoreDetailsForEvent = () => {
                 >
                   <Row gutter={[0, 20]}>
                     <Col span={24}>
-                      <ViewMoreEventSummary />
+                      <ViewMoreEventSummary {...eventDetails} />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={INCLUSION_DETAILS.header}
                         image={INCLUSION_DETAILS.image}
-                        data={INCLUSION_DETAILS.content}
+                        data={{
+                          header: "Tour Inclusion by TexaTrove",
+                          content: eventDetails.inclusion,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={EXCLUSION_DETAILS.header}
                         image={EXCLUSION_DETAILS.image}
-                        data={EXCLUSION_DETAILS.content}
+                        data={{
+                          header: "Tour Exlusion by TexaTrove",
+                          content: eventDetails.exlusion,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={EVENT_ESSENTIALS.header}
                         image={EVENT_ESSENTIALS.image}
-                        data={EVENT_ESSENTIALS.content}
+                        data={{
+                          header: "Cancellation Policy by TexaTrove",
+                          content: eventDetails.cancellationPolicy,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={TERMS_AND_CONDITIONS.header}
                         image={TERMS_AND_CONDITIONS.image}
-                        data={TERMS_AND_CONDITIONS.content}
+                        // data={TERMS_AND_CONDITIONS.content}
+                        data={{
+                          header: "Terms and Conditions by TexaTrove",
+                          content: eventDetails.termsAndCondition,
+                        }}
                       />
                     </Col>
                   </Row>
@@ -198,7 +212,7 @@ const ViewMoreDetailsForEvent = () => {
           </Row>
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loader />
       )}
     </Container>
   );

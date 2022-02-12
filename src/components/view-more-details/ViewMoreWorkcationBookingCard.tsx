@@ -20,7 +20,9 @@ const mockSummery = [
   },
 ];
 
-const ViewMoreWorkcationBookingCard = () => {
+const ViewMoreWorkcationBookingCard = (props: any) => {
+  console.log(props.checkinAndCheckOutTime.chcekOut);
+
   return (
     <div className="tw-relative">
       <p className="tw-px-5 tw-py-1 tw-bg-lite-red tw-text-dark-red tw-absolute tw-right-0 tw-rounded-l-full">
@@ -29,7 +31,7 @@ const ViewMoreWorkcationBookingCard = () => {
       <div className="tw-shadow-card tw-px-5 tw-pt-12 tw-pb-5 tw-rounded-lg">
         <p>
           <span className="tw-text-yellow-color tw-text-xl tw-mr-3">
-            {indCurrency(28000)}
+            {indCurrency(props.accomodation.data.room1.paymentRatePerPerson)}
           </span>
           <span className="tw-text-secondary-color tw-line-through">
             {indCurrency(29000)}
@@ -40,16 +42,31 @@ const ViewMoreWorkcationBookingCard = () => {
         </p>
         <Divider />
 
-        {mockSummery.map((d, key) => (
-          <div className="tw-flex tw-items-center tw-mb-2 tw-gap-2" key={key}>
-            <div className="tw-w-4 tw-h-4">
-              <img src={d.img} alt="clock" />
-            </div>
-            <p className="tw-text-secondary-color tw-font-lato tw-text-base">
-              {d.description}
-            </p>
+        <div className="tw-flex tw-items-center tw-mb-2 tw-gap-2">
+          <div className="tw-w-4 tw-h-4">
+            <img src={mockSummery[0].img} alt="clock" />
           </div>
-        ))}
+          <p className="tw-text-secondary-color tw-font-lato tw-text-base">
+            {props.checkinAndCheckOutTime.checkIn} -{" "}
+            {props.checkinAndCheckOutTime.chcekOut}
+          </p>
+        </div>
+        <div className="tw-flex tw-items-center tw-mb-2 tw-gap-2">
+          <div className="tw-w-4 tw-h-4">
+            <img src={mockSummery[1].img} alt="clock" />
+          </div>
+          <p className="tw-text-secondary-color tw-font-lato tw-text-base">
+            Guest -
+          </p>
+        </div>
+        <div className="tw-flex tw-items-center tw-mb-2 tw-gap-2">
+          <div className="tw-w-4 tw-h-4">
+            <img src={mockSummery[2].img} alt="clock" />
+          </div>
+          <p className="tw-text-secondary-color tw-font-lato tw-text-base">
+            Rooms - {Object.values(props.accomodation.data).length}
+          </p>
+        </div>
 
         <Link to="#">
           <Button type="default" className="tw-texa-button tw-w-full">

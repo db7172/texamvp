@@ -14,6 +14,7 @@ const WorkationCard = (props) => {
       props.data.destinations.destination,
       props.data.workationName
     ),
+    search: props.id,
     // state: { name, duration, facility, price, imgUrl, city },
   };
 

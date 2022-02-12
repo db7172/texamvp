@@ -201,6 +201,8 @@ function Home() {
     );
   };
 
+  console.log(dropData.activities);
+
   return (
     <>
       <div className="tw-relative tw-h-96 tw-flex tw-items-center tw-justify-center">
@@ -333,11 +335,11 @@ function Home() {
               path="/activities"
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
-              {activityIcon.map(({ icon, name }, i) => (
-                <Link key={i} to={getActivityPagePath(lowerCase(name))}>
+              {dropData.activities.map((d, i) => (
+                <Link key={i} to={getActivityPagePath(lowerCase(d.data.name))}>
                   <IconCard
-                    path={icon}
-                    name={name}
+                    // path={icon}
+                    name={d.data.name}
                     description={`124 Activites`}
                     key={i}
                   />

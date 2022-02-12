@@ -168,7 +168,13 @@ const HourlyAndSingleDay = () => {
 
     db.collection("hr_sg_avy")
       .doc(docId)
-      .set({ ...data, imgLink, user: user.uid, collection_name: "hr_sg_avy" })
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "hr_sg_avy",
+      })
       .then(() => {
         history.push("/influencer/dashboard");
       })

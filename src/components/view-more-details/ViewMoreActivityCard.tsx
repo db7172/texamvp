@@ -9,7 +9,6 @@ const classNamesInclustionImg = {
 };
 
 const ViewMoreActivityCard = (props: any) => {
-  console.log(props);
   const data = props;
 
   var startDate = moment(props.departureDate[0].dateRange.start, "DD.MM.YYYY");
