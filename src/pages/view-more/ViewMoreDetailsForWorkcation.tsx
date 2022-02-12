@@ -2,10 +2,10 @@ import { Button, Col, Rate, Row } from "antd";
 import { lowerCase, startCase } from "lodash";
 import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Container from "../../components/common/container/Container";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { RIGHT_SPACING_VALUE } from "../../constant/comman.const";
+import { RIGHT_SPACING_VALUE, ROUTES } from "../../constant/comman.const";
 import map from "../../assets/svg/map.svg";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
@@ -51,7 +51,7 @@ const ViewMoreDetailsForWorkcation = () => {
       },
       {
         name: "Workcation",
-        url: "/workcation",
+        url: ROUTES.WORKCATIONS,
       },
       {
         name: DESTINATION_NAME,
@@ -72,7 +72,7 @@ const ViewMoreDetailsForWorkcation = () => {
             <TitleBreadcrumb titleLinks={slashedTableName} />
           </div>
           <div className="tw-mt-5">
-            <Rate className="tw-mb-2" value={5} />
+            <Rate className="tw-mb-2" disabled value={4} />
             <p className="tw-font-medium tw-text-xl tw-mb-1">
               {WORKCATION_TYPE}
             </p>
@@ -120,9 +120,11 @@ const ViewMoreDetailsForWorkcation = () => {
                 </span>
                 <span className="tw-font-medium">For 2 Nights</span>
               </p>
-              <Button type="default" className="tw-texa-button tw-m-0">
-                Book Now
-              </Button>
+              <Link to="/payment">
+                <Button type="default" className="tw-texa-button tw-m-0">
+                  Book Now
+                </Button>
+              </Link>
             </div>
           </div>
         </Container>

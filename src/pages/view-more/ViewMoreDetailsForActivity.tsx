@@ -23,6 +23,7 @@ import {
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
+  ROUTES,
 } from "../../constant/comman.const";
 
 import checkMark from "../../assets/svg/check-mark.svg";
@@ -60,15 +61,11 @@ const ViewMoreDetailsForActivity = () => {
       },
       {
         name: "Activites",
-        url: "/activites",
+        url: ROUTES.ACTIVITES,
       },
       {
         name: ACTIVITY_TYPE,
-        url: `/activity/${ACTIVITY_TYPE}`,
-      },
-      {
-        name: ACTIVITY_NAME,
-        url: "",
+        url: getActivityPagePath(ACTIVITY_TYPE),
       },
     ]);
 
@@ -79,8 +76,16 @@ const ViewMoreDetailsForActivity = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log(doc.data());
-          setActivityDetails(doc.data());
+          const data = doc.data();
+          setActivityDetails(data);
+
+          setSlashedTableName((pre) => [
+            ...pre,
+            {
+              name: data?.activityName || "",
+              url: "",
+            },
+          ]);
         } else {
           console.log("not found");
         }

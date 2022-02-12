@@ -22,6 +22,7 @@ import {
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
+  ROUTES,
 } from "../../constant/comman.const";
 import { RETREAT } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
@@ -55,12 +56,12 @@ const ViewMoreDetailsForRetreat = () => {
         url: "/",
       },
       {
-        name: "Events",
-        url: "/events",
+        name: "Retreats",
+        url: ROUTES.RETREATS,
       },
       {
         name: RETREAT_TYPE,
-        url: `/retreat/${RETREAT_TYPE}`,
+        url: getRetreatPagePath(RETREAT_TYPE),
       },
       {
         name: RETREAT_NAME,

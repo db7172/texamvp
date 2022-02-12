@@ -1,3 +1,4 @@
+import { lowerCase } from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 import { indCurrency } from "../../../utils/utils";
@@ -12,7 +13,7 @@ const ViewAllCard = ({
 }) => {
   return (
     <div className="tw-flex tw-flex-col">
-      <Link to={path(name)}>
+      <Link to={path(lowerCase(name))}>
         <div className="tw-relative tw-flex tw-justify-center">
           <img
             className="tw-w-full tw-h-auto tw-rounded-md"

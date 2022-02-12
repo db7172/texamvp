@@ -25,6 +25,7 @@ import WorkcationLandingPage from "../landingPage/WorkcationLandingPage";
 import TermsOfService from "../landingPage/TermsOfService";
 import PrivacyPolicy from "../landingPage/PrivacyPolicy";
 import AboutUs from "../landingPage/AboutUs";
+import DestinationsPage from "../destinations";
 
 const AppRouter = () => {
   return (
@@ -36,6 +37,7 @@ const AppRouter = () => {
 
         {/* Destination page */}
         <Route component={DestinationPage} path={ROUTES.DESTINATION} />
+        <Route component={DestinationsPage} path={ROUTES.DESTINATIONS} />
 
         {/* workation */}
         <Route component={Workcations} path={ROUTES.WORKCATIONS} />
