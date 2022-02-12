@@ -131,8 +131,8 @@ const InfluencerChangePasswoard = () => {
               label="New Password"
               rules={[
                 {
-                  pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,16}$/,
-                  message: "The new password is not valid!",
+                  min: 6,
+                  message: "The password should have min 6 character !",
                 },
                 {
                   required: true,

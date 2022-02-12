@@ -195,10 +195,24 @@ function Home() {
   }, [width]);
 
   const handleClick = (activity, date, type) => {
-    console.log({ activity, date });
-    history.push(
-      `/activity/${activity.charAt(0).toLowerCase() + activity.slice(1)}`
-    );
+    console.log({ activity, date, type });
+    switch (type) {
+      case "activity":
+        history.push(`/activity/${lowerCase(activity)}`);
+        break;
+      case "event":
+        history.push(`/event/${lowerCase(activity)}`);
+        break;
+      case "retreat":
+        history.push(`/retreat/${lowerCase(activity)}`);
+        break;
+      case "workcation":
+        history.push(`/workcation/${lowerCase(activity)}`);
+        break;
+
+      default:
+        break;
+    }
   };
 
   console.log(dropData.activities);
@@ -313,7 +327,7 @@ function Home() {
             <Title
               title="Destination"
               description="Lorem ipsum is the dummy text for placing any thing"
-              path="/workcations"
+              path="/destinations"
             />
             <div className="tw-mt-3">
               <DestinationCarousel setting={{ slidesToShow: 4 }} />
@@ -407,7 +421,7 @@ function Home() {
           <div className="tw-mt-20">
             <EventCarousel
               title={popularRetreat.title}
-              data={popularRetreat.trips}
+              data={RETREAT}
               setting={{ slidesToShow: 3 }}
               description={popularRetreat.description}
               path={getRetreatPagePath("Popular Retreat")}

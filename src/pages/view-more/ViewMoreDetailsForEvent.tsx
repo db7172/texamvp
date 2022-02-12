@@ -19,6 +19,7 @@ import {
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
+  ROUTES,
 } from "../../constant/comman.const";
 import { EVENT } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
@@ -55,15 +56,11 @@ const ViewMoreDetailsForEvent = () => {
       },
       {
         name: "Events",
-        url: "/events",
+        url: ROUTES.EVENTS,
       },
       {
         name: EVENT_TYPE,
-        url: `/event/${EVENT_TYPE}`,
-      },
-      {
-        name: EVENT_NAME,
-        url: "",
+        url: getEventPagePath(EVENT_TYPE),
       },
     ]);
     firebase
@@ -73,8 +70,16 @@ const ViewMoreDetailsForEvent = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log(doc.data());
-          setEventDetails(doc.data());
+          const data = doc.data();
+          setEventDetails(data);
+
+          setSlashedTableName((pre) => [
+            ...pre,
+            {
+              name: data?.eventName || "",
+              url: "",
+            },
+          ]);
         } else {
           console.log("Not found");
         }

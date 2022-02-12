@@ -68,7 +68,7 @@ const ViewMoreWorkcationBookingCard = (props: any) => {
           </p>
         </div>
 
-        <Link to="#">
+        <Link to="/payment">
           <Button type="default" className="tw-texa-button tw-w-full">
             Book Now
           </Button>

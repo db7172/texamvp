@@ -19,6 +19,13 @@ const ActivityTab = ({
     onClick(selectedOption, dateTime, type);
   };
 
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e);
+    form.setFieldsValue({
+      startDate: moment().add(1, "d"),
+    });
+  };
+
   return (
     <div className="tw-flex tw-items-center">
       <Form
@@ -32,7 +39,7 @@ const ActivityTab = ({
             showSearch
             placeholder={placeHolder}
             optionFilterProp="children"
-            onChange={(e) => setSelectedOption(e)}
+            onChange={handleDropdownChange}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }

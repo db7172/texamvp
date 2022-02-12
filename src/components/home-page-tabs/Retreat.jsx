@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, DatePicker, Select, InputNumber } from "antd";
-import { capitalize } from "lodash";
+import { capitalize, lowerCase } from "lodash";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 export const reteratOptions = [
   "Kashmir",
@@ -24,11 +26,23 @@ const Retreat = () => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [numberOfPeople, setNumberOfPeople] = useState();
+  const history = useHistory();
 
   const [form] = Form.useForm();
 
   const handleClick = () => {
     console.log({ selectedOption, checkInDate, checkOutDate, numberOfPeople });
+
+    history.push(`/workcation/${lowerCase(selectedOption)}`);
+  };
+
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e);
+    form.setFieldsValue({
+      startDate: moment().add(1, "d"),
+      endDate: moment().add(2, "d"),
+      numberOfPeople: 2,
+    });
   };
   return (
     <div className="tw-flex tw-flex-col xl:tw-flex-row tw-items-center">
@@ -43,7 +57,7 @@ const Retreat = () => {
             showSearch
             placeholder="Select your Destinaion"
             optionFilterProp="children"
-            onChange={(e) => setSelectedOption(e)}
+            onChange={handleDropdownChange}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }

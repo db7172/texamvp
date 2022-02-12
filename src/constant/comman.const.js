@@ -62,6 +62,7 @@ export const ROUTES = {
   ALL_REVIEWS: "/reviews",
   SINGLE_REVIEWS: `/review/${REVIEW_TYPE}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
+  DESTINATIONS: `/destinations`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
   ACTIVITES: `/activities`,

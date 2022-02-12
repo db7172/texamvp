@@ -49,8 +49,13 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    setData();
+    if (event) {
+      setIsLoading(true);
+      setData();
+    } else {
+      setEventData(data);
+      setIsLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, online, offline, event]);
 

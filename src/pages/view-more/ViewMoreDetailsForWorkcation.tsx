@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Container from "../../components/common/container/Container";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
-import { RIGHT_SPACING_VALUE } from "../../constant/comman.const";
+import { RIGHT_SPACING_VALUE, ROUTES } from "../../constant/comman.const";
 import map from "../../assets/svg/map.svg";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
@@ -55,7 +55,7 @@ const ViewMoreDetailsForWorkcation = () => {
       },
       {
         name: "Workcation",
-        url: "/workcation",
+        url: ROUTES.WORKCATIONS,
       },
       {
         name: DESTINATION_NAME,
