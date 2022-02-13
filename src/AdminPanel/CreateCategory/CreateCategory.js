@@ -60,6 +60,7 @@ const CreateCategory = () => {
             <option value="event">Event</option>
             <option value="retreat">Retreat</option>
             <option value="workation">Workation</option>
+            <option value="destination">Destination</option>
           </select>
         </div>
       </div>
