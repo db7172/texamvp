@@ -69,7 +69,7 @@ const BookingTimeLineX = (props: any) => {
           Booking for {props.activityName} :{" "}
           {props.departureDate
             ? `${numDays} Days & ${numDays - 1} Nights`
-            : "One Day"}
+            : "Single Day"}
         </h3>
         <div className="tw-mt-2 tw-py-5 tw-overflow-x-auto time-line-x">
           <Steps
@@ -77,10 +77,7 @@ const BookingTimeLineX = (props: any) => {
             progressDot
             size="small"
           >
-            <Step
-              title={props.itinerary.title}
-              // description={props.itinerary.itineraryDetails.activity}
-            />
+            <Step title={props.itinerary.title} description={"(Day 1)"} />
           </Steps>
         </div>
       </div>

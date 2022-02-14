@@ -22,6 +22,7 @@ import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTest
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import Title from "../../components/common/title/Title";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
+import firebase from "../../firebase";
 
 // dummy data
 
@@ -45,6 +46,7 @@ const RetreatPage = () => {
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
+  const [retreats, setRetreats] = useState([]);
 
   const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -93,6 +95,15 @@ const RetreatPage = () => {
       types: formatActiveButton(unqTypes),
       categories: formatActiveButton(unqCategories),
     });
+    firebase
+      .firestore()
+      .collection("retreats")
+      .get()
+      .then((querySnap) => {
+        setRetreats(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
   }, [DESTINATION_NAME, RETREAT_TYPE]);
 
   const handlePageChange = (pageNumber) => {

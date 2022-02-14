@@ -82,7 +82,7 @@ const BookingTimeLineY = (props: any) => {
     return (
       <div className="tw-pt-8 time-line-y">
         <div className="tw-pt-1">
-          <h4 className="tw-font-bold">{props.itinerary.title}</h4>
+          <h4 className="tw-font-bold">Day 1 - {props.itinerary.title}</h4>
           <Timeline mode="left" className="tw-mt-5">
             {/* {details.itineraryDetails.map((d: any, i: any) => ( */}
             <Timeline.Item label={props.itinerary.date}>

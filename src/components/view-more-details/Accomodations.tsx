@@ -182,7 +182,7 @@ const Accomodations = (props: any) => {
                     <h4 className="tw-text-lg tw-font-medium tw-mt-2">
                       {d.accomodationName}
                     </h4>
-                    <p className="tw-text-secondary-color tw-mt-2">{`${d.dateRange[0]} - ${d.dateRange[1]}`}</p>
+                    <p className="tw-text-secondary-color tw-mt-2">{`Day 1(${d.dateRange[0]}) - Day 3(${d.dateRange[1]})`}</p>
                   </div>
                   <Row gutter={[0, 8]} className="tw-mt-2 tw-items-center">
                     {/* {mockData[0]?.details.accomodationDetails.map( */}

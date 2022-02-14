@@ -10,31 +10,14 @@ const TourCard = (props) => {
   const imgUrl = props.data.imgLink[0];
   const type = props.data.sailentFeatures.activityType;
   const destination = props.data?.destinations?.destination;
-  const [vender, setVender] = useState([]);
 
   const routingDetails = {
     pathname: getViewMoreDetailsForActivityPath(
       type,
-      // props.data.activityName,
       props.data.collection_name
     ),
     search: props.id,
   };
-  // let data = props.data.formData;
-
-  // we can run this to get the information of vender who created this activity
-  useEffect(() => {
-    if (props.data.user) {
-      firebase
-        .firestore()
-        .collection("venders")
-        .doc(props.data.user)
-        .get()
-        .then((doc) => {
-          setVender(doc.data());
-        });
-    }
-  }, [props.data.userID]);
 
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
@@ -56,7 +39,7 @@ const TourCard = (props) => {
             <p className="tw-mt-2">
               Offered by{" "}
               <span className="tw-underline tw-cursor-pointer">
-                {vender ? vender.name : ""}
+                {props.data.venderName}
               </span>
             </p>
             <p className="tw-mt-2">{otherDetails}</p>

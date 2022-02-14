@@ -251,64 +251,6 @@ const Activity = () => {
         },
       ]);
     }
-
-    // const unq = uniq(option);
-    // const unqLevel = uniq(ACTIVITY_LEVEL);
-    // const unqDestination = uniq(DESTINATION_LEVEL);
-    // const unqCategories = uniq(CATEGORIES);
-    // const unqFromCity = uniq(FROM_CITY);
-
-    // setActiveDuration(formatActiveButton(unq));
-    // setActiveLevel(formatActiveButton(unqLevel));
-    // setDestinationfilter(formatActiveButton(unqDestination));
-    // setFromCityFilter(formatActiveButton(unqFromCity));
-    // setActiveCategorie(formatActiveButton(unqCategories));
-
-    // setResetValue({
-    //   ...resetValue,
-    //   fromCity: formatActiveButton(unqFromCity),
-    //   duration: formatActiveButton(unq),
-    //   destination: formatActiveButton(unqDestination),
-    //   priceRange: INITIAL_RANGE,
-    //   level: formatActiveButton(unqLevel),
-    //   categories: formatActiveButton(unqCategories),
-    // });
-
-    // console.log(activityType);
-
-    // firebase
-    //   .firestore()
-    //   .collection("hr_sg_avy")
-    //   .get()
-    //   .then((querySnap) => {
-    //     setSingleActivity(
-    //       querySnap.docs
-    //         .map((doc) => ({ id: doc.id, data: doc.data() }))
-    //         .filter((item) => {
-    //           return (
-    //             item.data.sailentFeatures.activityType.toLowerCase() ===
-    //             activityType
-    //           );
-    //         })
-    //     );
-    //   });
-
-    // firebase
-    //   .firestore()
-    //   .collection("multi-activity")
-    //   .get()
-    //   .then((querySnap) => {
-    //     setmultiDay(
-    //       querySnap.docs
-    //         .map((doc) => ({ id: doc.id, data: doc.data() }))
-    //         .filter((item) => {
-    //           return (
-    //             item.data.sailentFeatures.activityType.toLowerCase() ===
-    //             activityType
-    //           );
-    //         })
-    //     );
-    //   });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
 
   const handleShowCallbackModalCancel = () => {
@@ -443,18 +385,6 @@ const Activity = () => {
     setFilterActivity(allActivity);
     appliedFileter = {};
   };
-
-  // if (activeDuration.Hourly) {
-  //   totalActivities = singleActivity;
-  // }
-  // if (activeDuration.SingleDay) {
-  //   totalActivities = singleActivity;
-  // }
-  // if (activeDuration.MultiDay) {
-  //   totalActivities = multiDay;
-  // } else {
-  //   totalActivities = singleActivity.concat(multiDay);
-  // }
 
   return (
     <ExploreMoreWrapper

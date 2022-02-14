@@ -217,53 +217,35 @@ const Retreat = () => {
       booked: 0,
     };
 
-    let docId = uuid();
+    // let docId = uuid();
 
-    let imgLink = [];
-    imgLink = await Promise.all(
-      value.dragger.map(async (image: any, i: Number) => {
-        console.log(image);
-        console.log(user.uid);
-        let storageRef = firebase
-          .storage()
-          .ref(`retreat/${user.uid}/${docId}/${i}`);
-        await storageRef.put(image.originFileObj);
-        let downloadLink = await storageRef.getDownloadURL();
-        return downloadLink;
-      })
-    );
-
-    firebase
-      .firestore()
-      .collection("retreat")
-      .doc(docId)
-      .set({
-        ...data,
-        imgLink,
-        venderId: user.uid,
-        venderName: user.displayName,
-        collection_name: "retreat",
-      })
-      .then(() => {
-        history.push("/influencer/dashboard");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+    console.log(value);
 
     // let imgLink = [];
     // imgLink = await Promise.all(
     //   value.dragger.map(async (image: any, i: Number) => {
-    //     const storageRef = firebase.storage().ref(`retreat/${user.uid}/${i}/`);
-    //     await storageRef.put(image);
-    //     const downloadLink = storageRef.getDownloadURL();
+    //     console.log(image);
+    //     console.log(user.uid);
+    //     let storageRef = firebase
+    //       .storage()
+    //       .ref(`retreat/${user.uid}/${docId}/${i}`);
+    //     await storageRef.put(image.originFileObj);
+    //     let downloadLink = await storageRef.getDownloadURL();
     //     return downloadLink;
     //   })
     // );
-    // await firebase
+
+    // firebase
     //   .firestore()
     //   .collection("retreat")
-    //   .add({ data, imgLink })
+    //   .doc(docId)
+    //   .set({
+    //     ...data,
+    //     imgLink,
+    //     venderId: user.uid,
+    //     venderName: user.displayName,
+    //     collection_name: "retreat",
+    //   })
     //   .then(() => {
     //     history.push("/influencer/dashboard");
     //   })
