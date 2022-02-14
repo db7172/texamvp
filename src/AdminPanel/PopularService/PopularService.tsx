@@ -1,6 +1,8 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
+import { isString } from "lodash";
 import { useEffect, useState } from "react";
+import { indCurrency } from "../../utils/utils";
 import "../adminStyle.css";
 import ServiceList from "../common/ServiceList";
 import ViewServiceList from "../common/ViewServiceList";
@@ -13,13 +15,19 @@ const PopularService = ({ destination = "" }) => {
   const [allActivityData, setAllActivityData] = useState<any[]>([]);
   const [selectedActivityData, setSelectedActivityData] = useState<any[]>([]);
 
+  const getPriceData = (data: any[]) => {
+    return data.map((d) => indCurrency(d.ratePerPerson)).join(", ");
+  };
+
   useEffect(() => {
     if (ALL_ACTIVITY.length) {
       setAllActivityData(
         ALL_ACTIVITY.map((data) => {
           return {
             title: data.data.activityName,
-            price: data.data.payment,
+            price: isString(data.data.payment)
+              ? indCurrency(data.data.payment)
+              : getPriceData(data.data.payment),
             sell: 100,
             id: data.id,
             isSelected: false,

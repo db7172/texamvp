@@ -7,11 +7,13 @@ import {
   Input,
   Row,
   Select,
+  Tag,
   TimePicker,
 } from "antd";
 import classNames from "classnames";
 import { isString, uniqueId } from "lodash";
 import moment from "moment";
+import { useState } from "react";
 import { onKeyDownEvent } from "../../../pages/influencer/form/formUtils";
 
 type Props = {
@@ -29,8 +31,31 @@ let addDepartureDateField: {
   (defaultValue?: any, insertIndex?: number | undefined): void;
 };
 
+let addDepartureCityField: {
+  (): void;
+  (defaultValue?: any, insertIndex?: number | undefined): void;
+};
+
+let addReportingDroppingPointField: {
+  (): void;
+  (defaultValue?: any, insertIndex?: number | undefined): void;
+};
+
 const ActivityModalForm = ({ data, type }: Props) => {
   const paymentCategory = !isString(data.data.payment);
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<Array<string>>(
+    data.data.featureKeyWord || []
+  );
+
+  const updateTags = (e: any) => {
+    setTags([...tags, e.target.value]);
+    setTagInput("");
+  };
+
+  const onTagClose = (id: number) => {
+    setTags(tags.filter((_, i) => id !== i));
+  };
 
   return (
     <div className="">
@@ -60,6 +85,20 @@ const ActivityModalForm = ({ data, type }: Props) => {
           ageGroupTo: data.data.sailentFeatures.ageGroup.to,
           destinationFistField: data.data.destinations.destination,
           googleMap: data.data.destinations.googleMap,
+          departureCityList: data.data.departureCity,
+          reportingDroppingPointList: data.data.reportingAndDroppingPoint,
+          date: moment(data.data.itinerary.data),
+          title: data.data.itinerary.title,
+          itineraryDetails: data.data.itinerary.itineraryDetails,
+          inclusion: data.data.inclusion,
+          exclusion: data.data.exclusion,
+          howToReachPickupPoint: data.data.tripEssential.howToReachPickupPoint,
+          certificateRequired: data.data.tripEssential.certificateRequired,
+          termsAndCondition: data.data.tripEssential.termsAndCondition,
+          saftyNorms: data.data.tripEssential.saftyNorms,
+          thingsToCarry: data.data.tripEssential.thingsToCarry,
+          thingsProhibitted: data.data.tripEssential.thingsProhibitted,
+          cancellationPolicy: data.data.tripEssential.cancellationPolicy,
         }}
         onValuesChange={(value, obj) => console.log(obj)}
         onFinishFailed={(error) => console.log(error)}
@@ -427,8 +466,251 @@ const ActivityModalForm = ({ data, type }: Props) => {
               </div>
             </Form.Item>
           </Col>
+          <Col span={24}>
+            <div className="tw-flex tw-justify-between tw-mb-5">
+              <h3 className="tw-text-base tw-font-medium">Departure City</h3>
+              <p
+                className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
+                onClick={() => addDepartureCityField()}
+              >
+                <PlusOutlined />
+                <span>Add City</span>
+              </p>
+            </div>
+            <Form.List name="departureCityList">
+              {(fields, { add, remove }) => {
+                addDepartureCityField = add;
+                return (
+                  <>
+                    <div className="tw-flex tw-flex-wrap tw-mb-5">
+                      {fields.map((field) => (
+                        <div
+                          className="tw-w-1/2 tw-flex tw-items-center tw-gap-2 tw-mb-5"
+                          key={uniqueId("departureCity")}
+                        >
+                          <Form.Item
+                            {...field}
+                            label="Depature City"
+                            className="tw-w-10/12 tw-m-0"
+                          >
+                            <Input
+                              className="tw-rounded-md"
+                              placeholder="Enter Destination"
+                            />
+                          </Form.Item>
+
+                          <MinusCircleOutlined
+                            className="tw-text-lg tw-text-secondary-color tw-mt-5"
+                            onClick={() => remove(field.name)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                );
+              }}
+            </Form.List>
+          </Col>
+          <Col span={24}>
+            <div className="tw-flex tw-justify-between tw-mb-5">
+              <h3 className="tw-text-base tw-font-medium">
+                Reporting & Dropping Point
+              </h3>
+              <p
+                className="tw-flex tw-items-center tw-gap-2 tw-cursor-pointer tw-text-blue-500 tw-text-base"
+                onClick={() => addReportingDroppingPointField()}
+              >
+                <PlusOutlined />
+                <span>Add Reporting & Dropping Poin</span>
+              </p>
+            </div>
+
+            <Form.List name="reportingDroppingPointList">
+              {(fields, { add, remove }) => {
+                addReportingDroppingPointField = add;
+                return (
+                  <>
+                    <div className="tw-mb-5">
+                      {fields.map((field) => (
+                        <div
+                          className="tw-flex tw-items-center tw-gap-10 tw-mb-5"
+                          key={uniqueId("reportingPoint")}
+                        >
+                          <Form.Item
+                            {...field}
+                            label="Reporting Point"
+                            key={uniqueId("reportingPoint")}
+                            name={[field.name, "reportingPoint"]}
+                            fieldKey={[field.fieldKey, "reportingPoint"]}
+                            className="tw-w-10/12 tw-m-0"
+                          >
+                            <Input
+                              className="tw-rounded-md"
+                              placeholder="Enter Pick up Point"
+                            />
+                          </Form.Item>
+
+                          <Form.Item
+                            {...field}
+                            label="Droping Point"
+                            key={uniqueId("droppingPoint")}
+                            name={[field.name, "droppingPoint"]}
+                            fieldKey={[field.fieldKey, "droppingPoint"]}
+                            className="tw-w-10/12 tw-m-0"
+                          >
+                            <Input
+                              className="tw-rounded-md"
+                              placeholder="Enter Dropping Point"
+                            />
+                          </Form.Item>
+
+                          <MinusCircleOutlined
+                            className="tw-text-lg tw-text-secondary-color tw-mt-5"
+                            onClick={() => remove(field.name)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                );
+              }}
+            </Form.List>
+          </Col>
           <Col span={24}></Col>
-          <Col span={24}></Col>
+          <Col span={24}>
+            <h3 className="tw-text-base tw-font-medium tw-mb-5">Itinerary</h3>
+            <Form.Item name="date" label="Date of that day">
+              <DatePicker
+                className="tw-rounded-md tw-w-1/2"
+                format="DD/MM/YYYY"
+                placeholder="Select Date of that day"
+              />
+            </Form.Item>
+
+            <Form.Item name="title" label="Title - Main Highlight">
+              <Input
+                className="tw-rounded-md"
+                placeholder="Enter Title - Main Highlight"
+              />
+            </Form.Item>
+
+            <Form.Item name="itineraryDetails" label="Itinerary">
+              <Input.TextArea
+                rows={4}
+                className="tw-rounded-md"
+                placeholder="Itinerary Details"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item noStyle>
+              <h3 className="tw-text-base tw-font-medium tw-mb-5">
+                Featured Keyword
+              </h3>
+            </Form.Item>
+            <Form.Item label="Places You Want to Include">
+              <Form.Item
+                className="tw-mb-0"
+                extra={<p>* You can include upto 5 places</p>}
+              >
+                <Input
+                  value={tagInput}
+                  placeholder="Type a Tag and hit enter."
+                  onPressEnter={updateTags}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  disabled={tags.length > 4}
+                />
+              </Form.Item>
+
+              <Form.Item noStyle>
+                {tags.map((t, i) => (
+                  <Tag closable key={i} onClose={() => onTagClose(i)}>
+                    {t}
+                  </Tag>
+                ))}
+              </Form.Item>
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item name="inclusion" label="Inclusion">
+              <Input.TextArea
+                rows={6}
+                className="tw-rounded-md"
+                placeholder="Trip Inclusion"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item name="exclusion" label="Exclusion">
+              <Input.TextArea
+                rows={6}
+                className="tw-rounded-md"
+                placeholder="Trip Exclusion"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item>
+              <h3 className="tw-text-base tw-font-medium tw-mb-4">
+                Trip Essential
+              </h3>
+
+              <Form.Item
+                name="howToReachPickupPoint"
+                label="How to reach pick up location ?"
+              >
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="How to reach pick up location details"
+                />
+              </Form.Item>
+              <Form.Item name="thingsToCarry" label="Things To Carry ?">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Things To Carry In Trip"
+                />
+              </Form.Item>
+              <Form.Item name="thingsProhibitted" label="Things Prohibitted ?">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Safty Norms"
+                />
+              </Form.Item>
+              <Form.Item name="saftyNorms" label="Safty Norms">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Things Prohibitted"
+                />
+              </Form.Item>
+              <Form.Item name="certificateRequired" label="Certificate Require">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Certificate Require"
+                />
+              </Form.Item>
+
+              <Form.Item name="termsAndCondition" label="Terms and Conditions">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Terms and Conditions"
+                />
+              </Form.Item>
+
+              <Form.Item name="cancellationPolicy" label="Cancellation Policy">
+                <Input.TextArea
+                  rows={6}
+                  className="tw-rounded-md"
+                  placeholder="Cancellation Policy"
+                />
+              </Form.Item>
+            </Form.Item>
+          </Col>
         </Row>
       </Form>
     </div>
