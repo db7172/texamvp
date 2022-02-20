@@ -6,6 +6,7 @@ import { indCurrency } from "../../utils/utils";
 import "../adminStyle.css";
 import ServiceList from "../common/ServiceList";
 import ViewServiceList from "../common/ViewServiceList";
+import { getPriceData } from "../utils/commonAdminUtils";
 import { ALL_ACTIVITY } from "./mockData";
 
 type ButtonType = "activity" | "event" | "retreat" | "workcation";
@@ -14,10 +15,6 @@ const PopularService = ({ destination = "" }) => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
   const [allActivityData, setAllActivityData] = useState<any[]>([]);
   const [selectedActivityData, setSelectedActivityData] = useState<any[]>([]);
-
-  const getPriceData = (data: any[]) => {
-    return data.map((d) => indCurrency(d.ratePerPerson)).join(", ");
-  };
 
   useEffect(() => {
     if (ALL_ACTIVITY.length) {

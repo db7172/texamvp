@@ -1,6 +1,7 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { DatePicker, Form, Input, TimePicker } from "antd";
 import { debounce, isUndefined, uniqueId } from "lodash";
+import moment from "moment";
 import { formatMomentDate, formatMomentTime } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
@@ -18,10 +19,12 @@ export const ItineraryFormTab = ({
   captureBulletData,
   keyValue,
   updateTabFormData,
+  initialData,
 }: {
   captureBulletData: boolean;
   keyValue: string;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
+  initialData?: any;
 }) => {
   const generateActivityList = (value: ActivityFieldType[]) => {
     const newValue = value.map((d) => {
@@ -63,6 +66,18 @@ export const ItineraryFormTab = ({
     <Form
       name={"itinerary" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
+      initialValues={
+        initialData
+          ? {
+              ...initialData,
+              date: moment(initialData.date, "DD-MM-YYYY"),
+              activityDetails: initialData.itineraryDetails.map((d: any) => ({
+                activityTime: moment(d.time, "h:mm:ss a"),
+                activityDetail: d.activity,
+              })),
+            }
+          : undefined
+      }
       onValuesChange={debounceFunction}
     >
       <Form.Item name="date" label="Date of that day">
@@ -96,28 +111,30 @@ export const ItineraryFormTab = ({
           </Form.Item>
 
           <Form.Item className="tw-flex">
-            <div className="tw-flex tw-items-center tw-gap-10 tw-mb-5">
-              <Form.Item
-                label="Time"
-                name="activityTimeFirstField"
-                className="tw-m-0"
-              >
-                <TimePicker className="tw-rounded-md" />
-              </Form.Item>
+            {!initialData && (
+              <div className="tw-flex tw-items-center tw-gap-10 tw-mb-5">
+                <Form.Item
+                  label="Time"
+                  name="activityTimeFirstField"
+                  className="tw-m-0"
+                >
+                  <TimePicker className="tw-rounded-md" />
+                </Form.Item>
 
-              <Form.Item
-                label="Activity detail"
-                name="activityDetailFirstField"
-                className="tw-w-10/12 tw-m-0"
-              >
-                <Input
-                  className="tw-rounded-md"
-                  placeholder="Activity detail"
-                />
-              </Form.Item>
+                <Form.Item
+                  label="Activity detail"
+                  name="activityDetailFirstField"
+                  className="tw-w-10/12 tw-m-0"
+                >
+                  <Input
+                    className="tw-rounded-md"
+                    placeholder="Activity detail"
+                  />
+                </Form.Item>
 
-              <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
-            </div>
+                <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
+              </div>
+            )}
             <Form.List name="activityDetails">
               {(fields, { add, remove }) => {
                 activityDetailsField = add;

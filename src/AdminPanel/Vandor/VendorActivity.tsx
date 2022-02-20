@@ -36,6 +36,7 @@ const VendorActivity = () => {
                 ? "Single Day"
                 : "Multi Day",
             activeDate: d.data.departureDate[0].dateRange.start,
+            originalData: d,
           };
         });
         setListItem(activityListItem);
@@ -55,11 +56,10 @@ const VendorActivity = () => {
     }
   }, [selectedService]);
 
-  const handleViewClick = (id: string, service: string, index: number) => {
-    console.log({ id, service, index });
+  const handleViewClick = (item: any, service: string) => {
     switch (service) {
       case "activity":
-        setActiveActivity(dummyActivityData[index]);
+        setActiveActivity(item);
         setIsActivityModalOpen(true);
         break;
       case "event":
@@ -113,7 +113,7 @@ const VendorActivity = () => {
           </Row>
         }
         dataSource={listItem}
-        renderItem={(item, index) => (
+        renderItem={(item) => (
           <List.Item key={item.title}>
             <Row gutter={20}>
               <Col span={7} className="tw-items-center tw-flex">
@@ -133,7 +133,7 @@ const VendorActivity = () => {
                   type="default"
                   className="tw-texa-button tw-m-0"
                   onClick={() =>
-                    handleViewClick(item.id, selectedService, index)
+                    handleViewClick(item.originalData, selectedService)
                   }
                 >
                   View Detail
@@ -164,6 +164,7 @@ const VendorActivity = () => {
                   : "multiDay"
               }
               data={activeActivity}
+              handleModalClose={handleActivityModalCancel}
             />
           </div>
         </Modal>

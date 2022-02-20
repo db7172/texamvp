@@ -246,6 +246,7 @@ export const multiDayDataHelper = (value: any) => {
       ...(reportingDroppingPointList || []),
     ],
     accomodation: value.accomodationFormData,
+    transpotation: value.transpotationFormData,
     itinerary: value.itineraryPanesFormData,
     featureKeyWord: value.tags,
     inclusion,
