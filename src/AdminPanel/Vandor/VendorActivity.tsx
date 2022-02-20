@@ -2,8 +2,9 @@ import { Button, Col, Form, List, Modal, Row, Select } from "antd";
 import { capitalize } from "lodash";
 import { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
-import { ALL_ACTIVITY } from "../PopularService/mockData";
+import { ALL_ACTIVITY, ALL_EVENT } from "../PopularService/mockData";
 import ActivityModalForm from "./ModalForm/ActivityModalForm";
+import EventModalForm from "./ModalForm/EventModalForm";
 
 const serviceType = ["activity", "event", "retreat", "workcation"];
 const dummyActivityData = [
@@ -13,13 +14,19 @@ const dummyActivityData = [
   ...ALL_ACTIVITY,
 ];
 
+const dummyEventData = [...ALL_EVENT, ...ALL_EVENT, ...ALL_EVENT, ...ALL_EVENT];
+
 const VendorActivity = () => {
-  const [selectedService, setSelectedService] = useState(serviceType[0]);
+  const [selectedService, setSelectedService] = useState(serviceType[1]);
   const [listItem, setListItem] = useState<any[]>([]);
 
   //activity states
   const [activeActivity, setActiveActivity] = useState<any>({});
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
+
+  //event states
+  const [activeEvent, setActiveEvent] = useState<any>({});
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
 
   useEffect(() => {
     switch (selectedService) {
@@ -42,7 +49,17 @@ const VendorActivity = () => {
         setListItem(activityListItem);
         break;
       case "event":
-        setListItem([]);
+        const eventListItem = dummyEventData.map((d) => {
+          return {
+            title: d.data.eventName,
+            destination: d.data.location?.destination || "-",
+            id: d.id,
+            type: d.data.eventType,
+            activeDate: d.data.sailentFeatures.startDate,
+            originalData: d,
+          };
+        });
+        setListItem(eventListItem);
         break;
       case "retreat":
         setListItem([]);
@@ -63,6 +80,8 @@ const VendorActivity = () => {
         setIsActivityModalOpen(true);
         break;
       case "event":
+        setActiveEvent(item);
+        setIsEventModalOpen(true);
         break;
       case "retreat":
         break;
@@ -77,6 +96,11 @@ const VendorActivity = () => {
   const handleActivityModalCancel = () => {
     setIsActivityModalOpen(false);
     setActiveActivity({});
+  };
+
+  const handleEventModalCancel = () => {
+    setIsEventModalOpen(false);
+    setActiveEvent({});
   };
 
   return (
@@ -165,6 +189,27 @@ const VendorActivity = () => {
               }
               data={activeActivity}
               handleModalClose={handleActivityModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isEventModalOpen && (
+        <Modal
+          title="Event Modal"
+          visible={isEventModalOpen}
+          onCancel={handleEventModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <EventModalForm
+              data={activeEvent}
+              handleModalClose={handleEventModalCancel}
             />
           </div>
         </Modal>

@@ -29,7 +29,6 @@ const WorkationCarousel = ({
   const setData = async () => {
     const data = await getData("workation");
     setWorkations(data);
-    console.log(workations);
     setLoading(false);
   };
 

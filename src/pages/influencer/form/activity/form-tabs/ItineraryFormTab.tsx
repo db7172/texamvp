@@ -1,6 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { DatePicker, Form, Input, TimePicker } from "antd";
-import { debounce, isUndefined, uniqueId } from "lodash";
+import { debounce, isString, isUndefined, uniqueId } from "lodash";
 import moment from "moment";
 import { formatMomentDate, formatMomentTime } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
@@ -71,10 +71,15 @@ export const ItineraryFormTab = ({
           ? {
               ...initialData,
               date: moment(initialData.date, "DD-MM-YYYY"),
-              activityDetails: initialData.itineraryDetails.map((d: any) => ({
-                activityTime: moment(d.time, "h:mm:ss a"),
-                activityDetail: d.activity,
-              })),
+              activityDetails: !isString(initialData?.itineraryDetails)
+                ? initialData?.itineraryDetails?.map((d: any) => ({
+                    activityTime: moment(d.time, "h:mm:ss a"),
+                    activityDetail: d.activity,
+                  }))
+                : [],
+              itineraryDetails: isString(initialData.itineraryDetails)
+                ? initialData?.itineraryDetails
+                : "",
             }
           : undefined
       }

@@ -12,7 +12,6 @@ const RetreatCard = (props) => {
     pathname: getViewMoreDetailsForRetreatPath(type, name),
     state: { name, duration, type, price, imgUrl, language },
   };
-  console.log(props);
   // let data = props.data.formData;
   return (
     <div className="tw-card-wrapper tw-zoom-effect">

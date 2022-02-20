@@ -28,6 +28,7 @@ import {
   stripUndefined,
 } from "../../../pages/influencer/form/formUtils";
 import { useTabs } from "../../../pages/influencer/form/useTabs";
+import { generatePanes } from "../../utils/commonAdminUtils";
 
 type Props = {
   data: any;
@@ -58,25 +59,6 @@ let addReportingDroppingPointField: {
 let addDestinationsField: {
   (): void;
   (defaultValue?: any, insertIndex?: number | undefined): void;
-};
-
-const generatePanes = (
-  count: number,
-  title: string,
-  Content: (prop: any) => JSX.Element
-) => {
-  const arr: any[] = [];
-
-  for (let i = 1; i <= count; i++) {
-    arr.push({
-      title: `${capitalize(title)} ${i}`,
-      Content: Content,
-      key: `${lowerCase(title)}${i}`,
-      closable: false,
-    });
-  }
-
-  return arr;
 };
 
 const ActivityModalForm = ({ data, type, handleModalClose }: Props) => {
@@ -164,20 +146,21 @@ const ActivityModalForm = ({ data, type, handleModalClose }: Props) => {
 
   const onSubmit = (value: any) => {
     if (type === "singleDay") {
-      const formData = hourlyAndSingleDayDataHelper({
+      let formData = hourlyAndSingleDayDataHelper({
         ...value,
         tags,
         transpotationFormData,
       });
       // formatted data
       let finalData = stripUndefined(formData);
-      const data = {
+      formData = {
         ...finalData,
+        imgLink: data.data?.imgLink,
         status: "processing",
         booked: 0,
       };
     } else if (type === "multiDay") {
-      const formData = multiDayDataHelper({
+      let formData = multiDayDataHelper({
         ...value,
         tags,
         transpotationFormData,
@@ -186,8 +169,9 @@ const ActivityModalForm = ({ data, type, handleModalClose }: Props) => {
       });
       // formatted data
       const finalData = stripUndefined(formData);
-      const data = {
+      formData = {
         ...finalData,
+        imgLink: data.data?.imgLink,
         status: "processing",
         booked: 0,
       };

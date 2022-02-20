@@ -569,3 +569,173 @@ export const ALL_ACTIVITY = [
     },
   },
 ];
+
+export const ALL_EVENT = [
+  {
+    id: "3b9e4a08-b327-4cfe-8729-43a0c26b3f31",
+    data: {
+      inclusion: "inclusion",
+      featuredKeyword: ["type"],
+      termsAndCondition: "terms and conditions",
+      collection_name: "events",
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/events%2F9ZaILVB20kPWwdCC54Ilc77Mv0t2%2F3b9e4a08-b327-4cfe-8729-43a0c26b3f31%2F0?alt=media&token=96da6b81-b3f1-4724-8c5e-b7d7d510b30e",
+      ],
+      payment: "566",
+      sailentFeatures: {
+        format: "Comedy",
+        ageGroup: {
+          to: 17,
+          from: 5,
+        },
+        startTime: "4:00:00 am",
+        startDate: "10-02-2022",
+        availableTicket: "30",
+        language: "option1",
+      },
+      eventDescription: "a long description here",
+      exclusion: "exclusion",
+      location: {
+        destination: "Delhi",
+        noOfDays: 4,
+      },
+      status: "processing",
+      venderName: "Krishna Saxena",
+      booked: 0,
+      eventName: "Event Name 1",
+      eventType: "offline",
+      venderId: "9ZaILVB20kPWwdCC54Ilc77Mv0t2",
+      cancellationPolicy: "cancellation policy",
+      summary: {
+        day1: {
+          title: "Itinerary title",
+          itineraryDetails: "details",
+          date: "04-02-2022",
+        },
+      },
+    },
+  },
+  {
+    id: "72ea70d2-7ac7-46b7-a376-1679e6819ae9",
+    data: {
+      collection_name: "events",
+      inclusion: "inclusion",
+      exclusion: "exclusion",
+      eventName: "Event 3 ",
+      featuredKeyword: ["tag"],
+      payment: "799",
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/events%2F9ZaILVB20kPWwdCC54Ilc77Mv0t2%2F72ea70d2-7ac7-46b7-a376-1679e6819ae9%2F0?alt=media&token=58e93bcd-a6a5-4634-baa0-ea618fae97d6",
+      ],
+      summary: {
+        day1: {
+          itineraryDetails: "Itinerary Details",
+          date: "04-02-2022",
+          title: "Mail Itinerary",
+        },
+      },
+      eventType: "offline",
+      venderName: "Krishna Saxena",
+      status: "processing",
+      termsAndCondition: "terms and conditions",
+      sailentFeatures: {
+        ageGroup: {
+          from: 5,
+          to: 10,
+        },
+        startTime: "4:00:00 am",
+        availableTicket: "30",
+        format: "Music Fest",
+        language: "option2",
+        startDate: "12-02-2022",
+      },
+      location: {
+        destination: "Noida",
+        noOfDays: 0,
+      },
+      venderId: "9ZaILVB20kPWwdCC54Ilc77Mv0t2",
+      eventDescription: "A long description about event",
+      cancellationPolicy: "cancellation policy",
+      booked: 0,
+    },
+  },
+  {
+    id: "8f9bd111-0678-4f7c-826e-36985bb0e849",
+    data: {
+      eventType: "online",
+      collection_name: "events",
+      status: "processing",
+      venderId: "9ZaILVB20kPWwdCC54Ilc77Mv0t2",
+      venderName: "Krishna Saxena",
+      cancellationPolicy: "cancellation policy",
+      eventName: "Event 2",
+      payment: "788",
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/events%2F9ZaILVB20kPWwdCC54Ilc77Mv0t2%2F8f9bd111-0678-4f7c-826e-36985bb0e849%2F0?alt=media&token=1477cc92-27d6-4089-acfa-5439b23135ff",
+      ],
+      termsAndCondition: "terms and conditions",
+      exclusion: "exclusion",
+      booked: 0,
+      featuredKeyword: ["tag"],
+      eventDescription: "A long description about the event",
+      sailentFeatures: {
+        format: "Theatre",
+        language: "option2",
+        startDate: "04-02-2022",
+        ageGroup: {
+          to: 40,
+          from: 18,
+        },
+        startTime: "4:00:00 am",
+        availableTicket: "20",
+      },
+      inclusion: "inclusion",
+    },
+  },
+  {
+    id: "d0b574ed-7491-4574-b6b5-57b1eb986992",
+    data: {
+      exclusion: "exclusion",
+      eventDescription: "a long description about event",
+      venderId: "9ZaILVB20kPWwdCC54Ilc77Mv0t2",
+      booked: 0,
+      termsAndCondition: "terms and conditions",
+      payment: [
+        {
+          ticketCategory: "Ticket Category Title",
+          ratePerPerson: "200",
+          numberOfTicket: "100",
+          ticketCategoryDescription: "Ticket Category Description",
+        },
+        {
+          ticketCategory: "Ticket Category Title 2",
+          ratePerPerson: "2000",
+          numberOfTicket: "1000",
+          ticketCategoryDescription: "Ticket Category Description 2",
+        },
+      ],
+      venderName: "Krishna Saxena",
+      eventType: "online",
+      inclusion: "inclusion",
+      featuredKeyword: ["tag", "tag2", "tag3"],
+      cancellationPolicy: "cancellation policy",
+      eventName: "Event 4",
+      collection_name: "events",
+      sailentFeatures: {
+        startTime: "4:00:00 am",
+        format: "Music Fest",
+        ageGroup: {
+          from: 3,
+          to: 13,
+        },
+        language: "option2",
+        startDate: "11-02-2022",
+        availableTicket: "30",
+      },
+      status: "processing",
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/events%2F9ZaILVB20kPWwdCC54Ilc77Mv0t2%2Fd0b574ed-7491-4574-b6b5-57b1eb986992%2F0?alt=media&token=63a6ab04-56cb-4861-9ccb-ed271432056a",
+      ],
+    },
+  },
+];
