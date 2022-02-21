@@ -90,10 +90,6 @@ const Workation = () => {
         ...accomodationFormData,
         [key]: value.data,
       });
-      console.log({
-        ...accomodationFormData,
-        [key]: value.data,
-      });
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
         ...itineraryPanesFormData,

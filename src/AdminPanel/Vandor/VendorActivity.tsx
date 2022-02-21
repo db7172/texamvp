@@ -2,22 +2,24 @@ import { Button, Col, Form, List, Modal, Row, Select } from "antd";
 import { capitalize } from "lodash";
 import { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
-import { ALL_ACTIVITY, ALL_EVENT } from "../PopularService/mockData";
+import {
+  ALL_ACTIVITY,
+  ALL_EVENT,
+  ALL_WORKCATION,
+} from "../PopularService/mockData";
 import ActivityModalForm from "./ModalForm/ActivityModalForm";
 import EventModalForm from "./ModalForm/EventModalForm";
+import WorkcationModalForm from "./ModalForm/WorkcationModalForm";
 
 const serviceType = ["activity", "event", "retreat", "workcation"];
-const dummyActivityData = [
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-];
+const dummyActivityData = [...ALL_ACTIVITY];
 
-const dummyEventData = [...ALL_EVENT, ...ALL_EVENT, ...ALL_EVENT, ...ALL_EVENT];
+const dummyEventData = [...ALL_EVENT];
+
+const dummyWorkcationData = [...ALL_WORKCATION];
 
 const VendorActivity = () => {
-  const [selectedService, setSelectedService] = useState(serviceType[1]);
+  const [selectedService, setSelectedService] = useState(serviceType[3]);
   const [listItem, setListItem] = useState<any[]>([]);
 
   //activity states
@@ -28,8 +30,12 @@ const VendorActivity = () => {
   const [activeEvent, setActiveEvent] = useState<any>({});
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
 
-  useEffect(() => {
-    switch (selectedService) {
+  //workcation state
+  const [activeWorkcation, setActiveWorkcation] = useState<any>({});
+  const [isWorkcationModalOpen, setIsWorkcationModalOpen] = useState(false);
+
+  const handleListItemUpdate = (value: string) => {
+    switch (value) {
       case "activity":
         const activityListItem = dummyActivityData.map((d) => {
           return {
@@ -65,13 +71,27 @@ const VendorActivity = () => {
         setListItem([]);
         break;
       case "workcation":
-        setListItem([]);
+        const workcationListItem = dummyWorkcationData.map((d) => {
+          return {
+            title: d.data.workationName,
+            destination: d.data.destinations.destination || "-",
+            id: d.id,
+            type: "Workcation",
+            activeDate: d.data.checkinAndCheckOutTime.checkIn,
+            originalData: d,
+          };
+        });
+        setListItem(workcationListItem);
         break;
 
       default:
         break;
     }
-  }, [selectedService]);
+  };
+
+  const handleSelectionChange = (value: string) => {
+    setSelectedService(value);
+  };
 
   const handleViewClick = (item: any, service: string) => {
     switch (service) {
@@ -86,6 +106,8 @@ const VendorActivity = () => {
       case "retreat":
         break;
       case "workcation":
+        setActiveWorkcation(item);
+        setIsWorkcationModalOpen(true);
         break;
 
       default:
@@ -103,6 +125,15 @@ const VendorActivity = () => {
     setActiveEvent({});
   };
 
+  const handleWorkcationModalCancel = () => {
+    setIsWorkcationModalOpen(false);
+    setActiveWorkcation({});
+  };
+
+  useEffect(() => {
+    handleListItemUpdate(selectedService);
+  }, [selectedService]);
+
   return (
     <div>
       <Form size="middle" layout="vertical">
@@ -112,7 +143,7 @@ const VendorActivity = () => {
               <Select
                 placeholder="Select event type"
                 defaultValue={selectedService}
-                onChange={(value) => setSelectedService(value)}
+                onChange={handleSelectionChange}
               >
                 {serviceType.map((d) => (
                   <Select.Option value={d}>{capitalize(d)}</Select.Option>
@@ -210,6 +241,27 @@ const VendorActivity = () => {
             <EventModalForm
               data={activeEvent}
               handleModalClose={handleEventModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isWorkcationModalOpen && (
+        <Modal
+          title="Workcation Modal"
+          visible={isWorkcationModalOpen}
+          onCancel={handleWorkcationModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <WorkcationModalForm
+              data={activeWorkcation}
+              handleModalClose={handleWorkcationModalCancel}
             />
           </div>
         </Modal>

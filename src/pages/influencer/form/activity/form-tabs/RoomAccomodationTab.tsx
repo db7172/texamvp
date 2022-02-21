@@ -6,8 +6,10 @@ import { TabsVariant } from "../HourlyAndSingleDay";
 export const RoomAccomodationTab = ({
   keyValue,
   updateTabFormData,
+  initialData,
 }: {
   keyValue: string;
+  initialData?: any;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
 }) => {
   return (
@@ -24,6 +26,15 @@ export const RoomAccomodationTab = ({
         delete newObj.data.photos;
         updateTabFormData("accomodation", newObj, keyValue);
       }}
+      initialValues={
+        initialData
+          ? {
+              roomName: initialData.roomName,
+              paymentRatePerPerson: initialData.paymentRatePerPerson,
+              note: initialData.note,
+            }
+          : undefined
+      }
     >
       <Form.Item noStyle>
         <Row gutter={20}>

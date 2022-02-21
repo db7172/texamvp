@@ -739,3 +739,122 @@ export const ALL_EVENT = [
     },
   },
 ];
+
+export const ALL_WORKCATION = [
+  {
+    id: "5badb18d-e31e-4d89-9925-32f3869f247b",
+    data: {
+      inclusion: "inclusion",
+      termsAndCondition: "terms and conditions",
+      description: "workation about",
+      exclusion: "exclusion",
+      featuredKeyword: ["places ", "you", "want", "hit", "enter"],
+      destinations: {
+        destination: "destination",
+        googleMap: "google map link",
+      },
+      booked: 0,
+      checkinAndCheckOutTime: {
+        chcekOut: "12-02-2022",
+        checkIn: "09-02-2022",
+      },
+      workationName: "Workation",
+      itinerary: {
+        day1: {
+          itineraryDetails: "itinerary",
+          title: "title ",
+          date: "10-02-2022",
+        },
+        day2: {
+          itineraryDetails: "itinerary2",
+          title: "title 2",
+          date: "10-02-2022",
+        },
+      },
+      includes: ["picAnddrop", "hotalStay", "photography"],
+      cancellationPolicy: "cancellation policy",
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/workation%2F9ZaILVB20kPWwdCC54Ilc77Mv0t2%2F5badb18d-e31e-4d89-9925-32f3869f247b%2F0?alt=media&token=a3f9455c-210e-49f6-8baa-8645cc00e0e0",
+      ],
+      venderName: "Krishna Saxena",
+      status: "processing",
+      venderId: "9ZaILVB20kPWwdCC54Ilc77Mv0t2",
+      accomodation: {
+        accomodationName: "accomodation name",
+        data: {
+          room1: {
+            paymentRatePerPerson: "7899",
+            note: "note 1",
+            roomName: "room type 1",
+          },
+          room2: {
+            paymentRatePerPerson: "9999",
+            note: "note 2",
+            roomName: "room type 2",
+          },
+        },
+      },
+      collection_name: "hr_sg_avy",
+    },
+  },
+  {
+    id: "e91b9c31-93bf-455f-a5b1-df88f8a22207",
+    data: {
+      exclusion:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
+      userID: "iAX80AQUj3YVYIa8c9z8vBLK5Lu2",
+      inclusion:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
+      includes: ["picAnddrop", "hotalStay"],
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      itinerary: {
+        day1: {
+          itineraryDetails: "some description goes here",
+          title: "Main highlight line goes here",
+          date: "26-02-2022",
+        },
+        day2: {
+          title: "Main highlight line goes here",
+          itineraryDetails: "Description line goes here",
+          date: "27-02-2022",
+        },
+      },
+      checkinAndCheckOutTime: {
+        chcekOut: "28-02-2022",
+        checkIn: "26-02-2022",
+      },
+      destinations: {
+        destination: "Mumbai",
+        googleMap: "mumbaiGMapLink",
+      },
+      featuredKeyword: ["mumbai", "workcation", "trip", "stay", "highlight"],
+      workationName: "Test workcation",
+      collection_name: "hr_sg_avy",
+      termsAndCondition:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
+      cancellationPolicy:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
+      status: "processing",
+      booked: 0,
+      accomodation: {
+        data: {
+          room1: {
+            roomName: "room type 1",
+            note: "special note here",
+            paymentRatePerPerson: "2000",
+          },
+          room2: {
+            paymentRatePerPerson: "3000",
+            roomName: "Room type 2",
+            note: "special note here",
+          },
+        },
+        accomodationName: "Five star accomodation",
+      },
+      imgLink: [
+        "https://firebasestorage.googleapis.com/v0/b/texatrove-feaf2.appspot.com/o/workation%2FiAX80AQUj3YVYIa8c9z8vBLK5Lu2%2Fe91b9c31-93bf-455f-a5b1-df88f8a22207%2F0?alt=media&token=92b2c274-08db-4a56-bec8-145069c725bd",
+      ],
+    },
+  },
+];

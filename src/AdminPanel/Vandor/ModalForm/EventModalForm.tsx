@@ -59,7 +59,7 @@ const EventModalForm = ({ data, handleModalClose }: Props) => {
     {
       activeKey: "day1",
       panes: generatePanes(
-        Object.keys(data.data?.transpotation || {}).length || 1,
+        Object.keys(data.data?.summary || {}).length || 1,
         "Day",
         ItineraryFormTab
       ),
