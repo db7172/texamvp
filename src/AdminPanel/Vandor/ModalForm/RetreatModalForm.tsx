@@ -88,13 +88,6 @@ const RetreatModalForm = ({ data, handleModalClose }: Props) => {
   };
 
   const onSubmit = (value: any) => {
-    const departureDetails = value.departure
-      ? formateDeparture(value.departure)
-      : [];
-    const instructor = value.instructor
-      ? formateInstructor(value.instructor)
-      : [];
-
     const formValue: any = {
       retreatName: value.retreatName,
       description: value.description,
