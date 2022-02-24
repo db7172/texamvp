@@ -122,6 +122,7 @@ const WorkcationModalForm = ({ data, handleModalClose }: Props) => {
       userID: data.data.userID,
       status: "processing",
       booked: 0,
+      imgLink: data.data.imgLink,
     };
     console.log(formValue);
     const finalData = stripUndefined(formValue);

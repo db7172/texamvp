@@ -858,3 +858,198 @@ export const ALL_WORKCATION = [
     },
   },
 ];
+
+export const ALL_RETREAT = [
+  {
+    id: "id1",
+    data: {
+      retreatName: "retreat name 1",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      payment: "3000",
+      departureDates: [
+        {
+          dateRange: {
+            start: "22-02-2022",
+            end: "26-02-2022",
+          },
+          ratePerPerson: "1000",
+        },
+        {
+          dateRange: {
+            start: "24-02-2022",
+            end: "26-02-2022",
+          },
+          ratePerPerson: "2000",
+        },
+      ],
+      sailentFeatures: {
+        format: "Spiritual Balance",
+        ageGroup: {
+          from: 16,
+          to: 31,
+        },
+        language: "option1",
+        startTime: "12:00:00 pm",
+        availableTicket: "100",
+        skillLevel: "easy",
+      },
+      instructor: [
+        {
+          fullName: "person 1",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+      ],
+      destination: {
+        destination: "mumbai",
+        googleMap: "googleLink",
+      },
+      accomodation: {
+        accomodationName: "accomodation name",
+        data: {
+          room1: {
+            roomName: "Room Type 1",
+            paymentRatePerPerson: "2000",
+            note: "note here",
+          },
+          room2: {
+            roomName: "room type 2",
+            paymentRatePerPerson: "3000",
+            note: "note goes here",
+          },
+        },
+      },
+      itinerary: {
+        day1: {
+          date: "22-02-2022",
+          title: "Title - Main Highlight",
+          itineraryDetails:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+        day2: {
+          date: "23-02-2022",
+          title: "title goes here",
+          itineraryDetails:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+      },
+      featuredKeyword: ["some", "key", "word", "here"],
+      inclusion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      exclusion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      termsAndCondition:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      cancellationPolicy:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      status: "processing",
+      booked: 0,
+    },
+  },
+  {
+    id: "id2",
+    data: {
+      retreatName: "retreat name 2",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      payment: [
+        {
+          ticketCategory: "title 1",
+          ratePerPerson: "3000",
+          numberOfTicket: "50",
+          ticketDescription: "ticket description goes here",
+        },
+        {
+          ticketCategory: "title 2",
+          ratePerPerson: "6000",
+          numberOfTicket: "50",
+          ticketDescription: "ticket description goes here",
+        },
+      ],
+      departureDates: [
+        {
+          dateRange: {
+            start: "22-02-2022",
+            end: "26-02-2022",
+          },
+          ratePerPerson: "1000",
+        },
+        {
+          dateRange: {
+            start: "24-02-2022",
+            end: "26-02-2022",
+          },
+          ratePerPerson: "2000",
+        },
+      ],
+      sailentFeatures: {
+        format: "Spiritual Balance",
+        ageGroup: {
+          from: 16,
+          to: 31,
+        },
+        language: "option1",
+        startTime: "12:00:00 pm",
+        availableTicket: "100",
+        skillLevel: "easy",
+      },
+      instructor: [
+        {
+          fullName: "person 1",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+        {
+          fullName: "person 2",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+      ],
+      destination: {
+        destination: "mumbai",
+        googleMap: "googleLink",
+      },
+      accomodation: {
+        accomodationName: "accomodation name",
+        data: {
+          room1: {
+            roomName: "Room Type 1",
+            paymentRatePerPerson: "2000",
+            note: "note here",
+          },
+          room2: {
+            roomName: "room type 2",
+            paymentRatePerPerson: "3000",
+            note: "note goes here",
+          },
+        },
+      },
+      itinerary: {
+        day1: {
+          date: "22-02-2022",
+          title: "Title - Main Highlight",
+          itineraryDetails:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+        day2: {
+          date: "23-02-2022",
+          title: "title goes here",
+          itineraryDetails:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+        },
+      },
+      featuredKeyword: ["some", "key", "word", "here"],
+      inclusion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      exclusion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      termsAndCondition:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      cancellationPolicy:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+      status: "processing",
+      booked: 0,
+    },
+  },
+];

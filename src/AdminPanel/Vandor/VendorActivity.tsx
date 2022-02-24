@@ -6,9 +6,11 @@ import {
   ALL_ACTIVITY,
   ALL_EVENT,
   ALL_WORKCATION,
+  ALL_RETREAT,
 } from "../PopularService/mockData";
 import ActivityModalForm from "./ModalForm/ActivityModalForm";
 import EventModalForm from "./ModalForm/EventModalForm";
+import RetreatModalForm from "./ModalForm/RetreatModalForm";
 import WorkcationModalForm from "./ModalForm/WorkcationModalForm";
 
 const serviceType = ["activity", "event", "retreat", "workcation"];
@@ -19,7 +21,7 @@ const dummyEventData = [...ALL_EVENT];
 const dummyWorkcationData = [...ALL_WORKCATION];
 
 const VendorActivity = () => {
-  const [selectedService, setSelectedService] = useState(serviceType[3]);
+  const [selectedService, setSelectedService] = useState(serviceType[0]);
   const [listItem, setListItem] = useState<any[]>([]);
 
   //activity states
@@ -29,6 +31,10 @@ const VendorActivity = () => {
   //event states
   const [activeEvent, setActiveEvent] = useState<any>({});
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
+  //retreat states
+  const [activeRetreat, setActiveRetreat] = useState<any>({});
+  const [isRetreatModalOpen, setIsRetreatModalOpen] = useState(false);
 
   //workcation state
   const [activeWorkcation, setActiveWorkcation] = useState<any>({});
@@ -68,7 +74,17 @@ const VendorActivity = () => {
         setListItem(eventListItem);
         break;
       case "retreat":
-        setListItem([]);
+        const retreatListItem = ALL_RETREAT.map((d) => {
+          return {
+            title: d.data.retreatName,
+            destination: d.data.destination.destination || "-",
+            id: d.id,
+            type: "Workcation",
+            activeDate: d.data.departureDates[0].dateRange.start,
+            originalData: d,
+          };
+        });
+        setListItem(retreatListItem);
         break;
       case "workcation":
         const workcationListItem = dummyWorkcationData.map((d) => {
@@ -76,7 +92,7 @@ const VendorActivity = () => {
             title: d.data.workationName,
             destination: d.data.destinations.destination || "-",
             id: d.id,
-            type: "Workcation",
+            type: "Retreat",
             activeDate: d.data.checkinAndCheckOutTime.checkIn,
             originalData: d,
           };
@@ -104,6 +120,8 @@ const VendorActivity = () => {
         setIsEventModalOpen(true);
         break;
       case "retreat":
+        setActiveRetreat(item);
+        setIsRetreatModalOpen(true);
         break;
       case "workcation":
         setActiveWorkcation(item);
@@ -123,6 +141,11 @@ const VendorActivity = () => {
   const handleEventModalCancel = () => {
     setIsEventModalOpen(false);
     setActiveEvent({});
+  };
+
+  const handleRetreatModalCancel = () => {
+    setIsRetreatModalOpen(false);
+    setActiveRetreat({});
   };
 
   const handleWorkcationModalCancel = () => {
@@ -241,6 +264,27 @@ const VendorActivity = () => {
             <EventModalForm
               data={activeEvent}
               handleModalClose={handleEventModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isRetreatModalOpen && (
+        <Modal
+          title="Retreat Modal"
+          visible={isRetreatModalOpen}
+          onCancel={handleRetreatModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <RetreatModalForm
+              data={activeRetreat}
+              handleModalClose={handleRetreatModalCancel}
             />
           </div>
         </Modal>
