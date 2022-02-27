@@ -50,6 +50,11 @@ const leftPannelData = [
     title: "Vendor",
   },
   {
+    path: "/admin/dashboard/relaunchservice",
+    key: "relaunchservice",
+    title: "Relaunch Service",
+  },
+  {
     path: "/admin/dashboard/requests",
     key: "requests",
     title: "Call Requests",

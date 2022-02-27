@@ -39,6 +39,7 @@ import { formatMomentDate, formatMomentTime } from "../../../utils/utils";
 type Props = {
   data: any;
   handleModalClose: () => void;
+  isRelaunch: boolean;
 };
 
 let addPaymentField: {
@@ -56,7 +57,7 @@ let addInstructor: {
   (defaultValue?: any, insertIndex?: number | undefined): void;
 };
 
-const RetreatModalForm = ({ data, handleModalClose }: Props) => {
+const RetreatModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   const paymentCategory = !isString(data.data.payment);
   const [accomodationFormData, setAccomodationFormData] = useState<any>(
     data.data?.accomodation?.data || {}
@@ -231,7 +232,7 @@ const RetreatModalForm = ({ data, handleModalClose }: Props) => {
     };
   };
   return (
-    <div>
+    <div className={classNames({ "tw-pointer-events-none": isRelaunch })}>
       <Form
         name="workcationForm"
         onKeyDown={onKeyDownEvent}
@@ -794,30 +795,32 @@ const RetreatModalForm = ({ data, handleModalClose }: Props) => {
               />
             </Form.Item>
           </Col>
-          <Col span={24}>
-            <div className="tw-flex tw-gap-5">
-              <div className="tw-w-6/12">
-                <Button
-                  className="tw-w-full border-btn tw-rounded-lg tw-m-0"
-                  onClick={() => {
-                    setIsRejected(true);
-                  }}
-                >
-                  Reject
-                </Button>
-              </div>
+          {!isRelaunch && (
+            <Col span={24}>
+              <div className="tw-flex tw-gap-5">
+                <div className="tw-w-6/12">
+                  <Button
+                    className="tw-w-full border-btn tw-rounded-lg tw-m-0"
+                    onClick={() => {
+                      setIsRejected(true);
+                    }}
+                  >
+                    Reject
+                  </Button>
+                </div>
 
-              <div className="tw-w-6/12">
-                <Button
-                  type="default"
-                  className="tw-texa-button tw-w-full tw-m-0"
-                  htmlType="submit"
-                >
-                  Approve
-                </Button>
+                <div className="tw-w-6/12">
+                  <Button
+                    type="default"
+                    className="tw-texa-button tw-w-full tw-m-0"
+                    htmlType="submit"
+                  >
+                    Approve
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+          )}
         </Row>
       </Form>
 

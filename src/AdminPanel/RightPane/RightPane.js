@@ -12,6 +12,7 @@ import DestinationPage from "../DestinationPage/DestinationPage";
 import PopularService from "../PopularService/PopularService";
 import ServiceOfTheMonth from "../ServiceOfTheMonth/ServiceOfTheMonth";
 import Vendor from "../Vandor/Vendor";
+import RelaunchedService from "../RelaunchedService/RelaunchedService";
 
 const rightPane = () => {
   return (
@@ -86,6 +87,14 @@ const rightPane = () => {
           render={() => (
             <Fragment>
               <Vendor />
+            </Fragment>
+          )}
+        />
+        <Route
+          path="/admin/dashboard/relaunchservice"
+          render={() => (
+            <Fragment>
+              <RelaunchedService />
             </Fragment>
           )}
         />

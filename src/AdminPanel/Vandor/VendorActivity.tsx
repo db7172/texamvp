@@ -20,7 +20,7 @@ const dummyEventData = [...ALL_EVENT];
 
 const dummyWorkcationData = [...ALL_WORKCATION];
 
-const VendorActivity = () => {
+const VendorActivity = ({ isRelaunch = false }: { isRelaunch?: boolean }) => {
   const [selectedService, setSelectedService] = useState(serviceType[0]);
   const [listItem, setListItem] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -263,6 +263,7 @@ const VendorActivity = () => {
             className="tw-overflow-y-auto tw-py-3 tw-px-7"
           >
             <ActivityModalForm
+              isRelaunch={isRelaunch}
               type={
                 activeActivity.data.collection_name === "hr_sg_avy"
                   ? "singleDay"
@@ -289,6 +290,7 @@ const VendorActivity = () => {
             className="tw-overflow-y-auto tw-py-3 tw-px-7"
           >
             <EventModalForm
+              isRelaunch={isRelaunch}
               data={activeEvent}
               handleModalClose={handleEventModalCancel}
             />
@@ -310,6 +312,7 @@ const VendorActivity = () => {
             className="tw-overflow-y-auto tw-py-3 tw-px-7"
           >
             <RetreatModalForm
+              isRelaunch={isRelaunch}
               data={activeRetreat}
               handleModalClose={handleRetreatModalCancel}
             />
@@ -331,6 +334,7 @@ const VendorActivity = () => {
             className="tw-overflow-y-auto tw-py-3 tw-px-7"
           >
             <WorkcationModalForm
+              isRelaunch={isRelaunch}
               data={activeWorkcation}
               handleModalClose={handleWorkcationModalCancel}
             />
