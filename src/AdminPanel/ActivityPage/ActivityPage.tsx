@@ -6,9 +6,14 @@ import {
 import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { capitalize, uniqueId } from "lodash";
-import React, { useState } from "react";
-import { normFile } from "../../pages/influencer/form/formUtils";
+import React, { useEffect, useState } from "react";
+import {
+  normFile,
+  stripUndefined,
+} from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
 
 const MOCK_ACTIVITY = ["skiing", "camping", "scooba diving", "surfing"];
 
@@ -19,6 +24,7 @@ let addFAQ: {
 
 const ActivityPage = () => {
   const [activityForm] = useForm();
+  const [categories, setCategories] = useState() as any;
   const [details, setDetails] = useState({
     heading1: "",
     heading2: "",
@@ -26,6 +32,37 @@ const ActivityPage = () => {
     line2: "",
     line3: "",
   });
+  const [loading, setLoading] = useState(0);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .where("type", "==", "activity")
+      .get()
+      .then((querySnap) => {
+        setCategories(querySnap.docs.map((doc) => doc.data().name));
+      });
+  }, []);
+
+  const submitForm = async () => {
+    // setLoading(1);
+    const data = stripUndefined(activityForm.getFieldsValue());
+    console.log(data);
+    // let storageRef = firebase.storage().ref("activityPage/banner");
+    console.log(data);
+    // await storageRef.put(data.banner[0].originFileObj);
+    // let downloadLink = await storageRef.getDownloadURL();
+
+    // await firebase.firestore().collection("admin").doc("activityPage").set({
+    //   description: data.activityDescription,
+    //   title: data.bannerLine,
+    //   startingPrice: data.startingPrice,
+    //   activityType: data.activityType,
+    //   banner: downloadLink,
+    // });
+    // setLoading(0);
+  };
 
   return (
     <div className="page-layout">
@@ -36,6 +73,9 @@ const ActivityPage = () => {
 
         <Form
           form={activityForm}
+          onFinish={(value) => {
+            console.log(value);
+          }}
           size="large"
           layout="vertical"
           className="tw-mt-5"
@@ -53,8 +93,10 @@ const ActivityPage = () => {
                 ]}
               >
                 <Select placeholder="Select activity type">
-                  {MOCK_ACTIVITY.map((d) => (
-                    <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                  {categories?.map((d: any, i: any) => (
+                    <Select.Option key={i} value={d}>
+                      {capitalize(d)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -94,7 +136,6 @@ const ActivityPage = () => {
                   name="banner"
                   beforeUpload={() => false}
                   maxCount={1}
-                  multiple
                   listType="picture"
                 >
                   <Button
@@ -217,13 +258,24 @@ const ActivityPage = () => {
             <Col span={24}>
               <div className="tw-flex tw-justify-end tw-gap-5">
                 <div style={{ width: "200px" }}>
-                  <Button
-                    type="default"
-                    className="tw-texa-button tw-w-full"
-                    htmlType="submit"
-                  >
-                    Submit
-                  </Button>
+                  {loading ? (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      <Loader size={"small"} />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                      // onClick={submitForm}
+                    >
+                      Submit
+                    </Button>
+                  )}
                 </div>
                 <div style={{ width: "200px" }}>
                   <Button

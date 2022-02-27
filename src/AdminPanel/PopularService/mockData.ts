@@ -93,20 +93,7 @@ export const ALL_ACTIVITY = [
           "https://www.google.com/maps/place/Gurugram,+Haryana/@28.4228859,76.8496631,11z/data=!3m1!4b1!4m5!3m4!1s0x390d19d582e38859:0x2cf5fe8e5c64b1e!8m2!3d28.4594965!4d77.0266383",
       },
       inclusion: "Inclusion",
-      payment: [
-        {
-          ticketCategory: "Ticket Category Title",
-          ratePerPerson: "200",
-          numberOfTicket: "100",
-          ticketCategoryDescription: "Ticket Category Description",
-        },
-        {
-          ticketCategory: "Ticket Category Title 2",
-          ratePerPerson: "2000",
-          numberOfTicket: "1000",
-          ticketCategoryDescription: "Ticket Category Description 2",
-        },
-      ],
+      payment: "2000",
       departureCity: ["Noida"],
       transpotation: {
         transportation1: {

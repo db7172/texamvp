@@ -125,6 +125,7 @@ const Retreat = () => {
         ...accomodationFormData,
         [key]: value.data,
       });
+      console.log(value.photos);
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
         ...itineraryPanesFormData,
