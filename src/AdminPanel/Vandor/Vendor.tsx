@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { mockVendorList } from "./vendor.mock";
 import VendorActivity from "./VendorActivity";
+import VendorApproval from "./VendorApproval";
 import VendorList from "./VendorList";
 
 type ButtonType = "vendorList" | "vendorActivity" | "vendorApproval";
@@ -62,7 +63,7 @@ const Vendor = () => {
               <VendorList listData={mockVendorList} />
             )}
             {activeButton === "vendorActivity" && <VendorActivity />}
-            {activeButton === "vendorApproval" && <div>vendorApproval</div>}
+            {activeButton === "vendorApproval" && <VendorApproval />}
           </div>
         </div>
       </Col>

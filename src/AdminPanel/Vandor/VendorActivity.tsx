@@ -1,5 +1,5 @@
-import { Button, Col, Form, List, Modal, Row, Select } from "antd";
-import { capitalize } from "lodash";
+import { Button, Col, Form, Input, List, Modal, Row, Select } from "antd";
+import { capitalize, debounce } from "lodash";
 import { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
 import {
@@ -23,6 +23,7 @@ const dummyWorkcationData = [...ALL_WORKCATION];
 const VendorActivity = () => {
   const [selectedService, setSelectedService] = useState(serviceType[0]);
   const [listItem, setListItem] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   //activity states
   const [activeActivity, setActiveActivity] = useState<any>({});
@@ -157,10 +158,22 @@ const VendorActivity = () => {
     handleListItemUpdate(selectedService);
   }, [selectedService]);
 
+  const handleUserFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    if (term.length > 0) {
+      setListItem(listItem.filter((d) => d.id.toString().includes(term)));
+    } else {
+      handleListItemUpdate(selectedService);
+    }
+  };
+
+  const debounceUseridFilter = debounce(handleUserFilter, 500);
+
   return (
     <div>
       <Form size="middle" layout="vertical">
-        <Row>
+        <Row gutter={25}>
           <Col span={6}>
             <Form.Item name="serviceType" label="Service Type">
               <Select
@@ -174,6 +187,16 @@ const VendorActivity = () => {
               </Select>
             </Form.Item>
           </Col>
+          <Col span={6}>
+            <Form.Item name="userId" label="Vendor ID">
+              <Input
+                value={searchTerm}
+                className="tw-rounded-lg"
+                placeholder="Enter User Id"
+                onChange={debounceUseridFilter}
+              />
+            </Form.Item>
+          </Col>
         </Row>
       </Form>
 
@@ -182,9 +205,10 @@ const VendorActivity = () => {
         size="large"
         pagination={paginationSetting}
         header={
-          <Row gutter={20} className="tw-px-6">
-            <Col span={7}>Title</Col>
-            <Col span={7}>Destination</Col>
+          <Row gutter={24} className="tw-px-6">
+            <Col span={5}>Title</Col>
+            <Col span={4}>Service Id</Col>
+            <Col span={5}>Destination</Col>
             <Col span={3}>Type</Col>
             <Col span={4}>Active Date</Col>
             <Col span={3}>Action</Col>
@@ -193,11 +217,14 @@ const VendorActivity = () => {
         dataSource={listItem}
         renderItem={(item) => (
           <List.Item key={item.title}>
-            <Row gutter={20}>
-              <Col span={7} className="tw-items-center tw-flex">
+            <Row gutter={24}>
+              <Col span={5} className="tw-items-center tw-flex">
                 {item.title}
               </Col>
-              <Col span={7} className="tw-items-center tw-flex">
+              <Col span={4} className="tw-items-center tw-flex">
+                {item.id}
+              </Col>
+              <Col span={5} className="tw-items-center tw-flex">
                 {item.destination}
               </Col>
               <Col span={3} className="tw-items-center tw-flex">
