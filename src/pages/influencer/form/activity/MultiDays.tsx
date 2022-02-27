@@ -22,7 +22,7 @@ import { Link, useHistory } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
@@ -36,7 +36,6 @@ import {
   onKeyDownEvent,
   stripUndefined,
 } from "../formUtils";
-import { AuthContext } from "../../../../Auth";
 import firebase from "../../../../firebase";
 import { v4 as uuid } from "uuid";
 

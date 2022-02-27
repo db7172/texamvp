@@ -20,8 +20,8 @@ const ServiceList = ({
       pagination={paginationSetting}
       header={
         <Row gutter={20} className="tw-px-6">
-          <Col span={12}>Title</Col>
-          <Col span={4}>Price</Col>
+          <Col span={11}>Title</Col>
+          <Col span={5}>Price</Col>
           <Col span={4}>Sales</Col>
           <Col span={4}>Action</Col>
         </Row>
@@ -30,10 +30,10 @@ const ServiceList = ({
       renderItem={(item) => (
         <List.Item key={item.title}>
           <Row gutter={20}>
-            <Col span={12} className="tw-items-center tw-flex">
+            <Col span={11} className="tw-items-center tw-flex">
               {item.title}
             </Col>
-            <Col span={4} className="tw-items-center tw-flex">
+            <Col span={5} className="tw-items-center tw-flex">
               {item.price}
             </Col>
             <Col span={4} className="tw-items-center tw-flex">

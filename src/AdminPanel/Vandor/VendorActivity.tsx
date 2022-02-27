@@ -2,16 +2,23 @@ import { Button, Col, Form, List, Modal, Row, Select } from "antd";
 import { capitalize } from "lodash";
 import { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
-import { ALL_ACTIVITY } from "../PopularService/mockData";
+import {
+  ALL_ACTIVITY,
+  ALL_EVENT,
+  ALL_WORKCATION,
+  ALL_RETREAT,
+} from "../PopularService/mockData";
 import ActivityModalForm from "./ModalForm/ActivityModalForm";
+import EventModalForm from "./ModalForm/EventModalForm";
+import RetreatModalForm from "./ModalForm/RetreatModalForm";
+import WorkcationModalForm from "./ModalForm/WorkcationModalForm";
 
 const serviceType = ["activity", "event", "retreat", "workcation"];
-const dummyActivityData = [
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-  ...ALL_ACTIVITY,
-];
+const dummyActivityData = [...ALL_ACTIVITY];
+
+const dummyEventData = [...ALL_EVENT];
+
+const dummyWorkcationData = [...ALL_WORKCATION];
 
 const VendorActivity = () => {
   const [selectedService, setSelectedService] = useState(serviceType[0]);
@@ -21,8 +28,20 @@ const VendorActivity = () => {
   const [activeActivity, setActiveActivity] = useState<any>({});
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
 
-  useEffect(() => {
-    switch (selectedService) {
+  //event states
+  const [activeEvent, setActiveEvent] = useState<any>({});
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
+  //retreat states
+  const [activeRetreat, setActiveRetreat] = useState<any>({});
+  const [isRetreatModalOpen, setIsRetreatModalOpen] = useState(false);
+
+  //workcation state
+  const [activeWorkcation, setActiveWorkcation] = useState<any>({});
+  const [isWorkcationModalOpen, setIsWorkcationModalOpen] = useState(false);
+
+  const handleListItemUpdate = (value: string) => {
+    switch (value) {
       case "activity":
         const activityListItem = dummyActivityData.map((d) => {
           return {
@@ -36,37 +55,77 @@ const VendorActivity = () => {
                 ? "Single Day"
                 : "Multi Day",
             activeDate: d.data.departureDate[0].dateRange.start,
+            originalData: d,
           };
         });
         setListItem(activityListItem);
         break;
       case "event":
-        setListItem([]);
+        const eventListItem = dummyEventData.map((d) => {
+          return {
+            title: d.data.eventName,
+            destination: d.data.location?.destination || "-",
+            id: d.id,
+            type: d.data.eventType,
+            activeDate: d.data.sailentFeatures.startDate,
+            originalData: d,
+          };
+        });
+        setListItem(eventListItem);
         break;
       case "retreat":
-        setListItem([]);
+        const retreatListItem = ALL_RETREAT.map((d) => {
+          return {
+            title: d.data.retreatName,
+            destination: d.data.destination.destination || "-",
+            id: d.id,
+            type: "Workcation",
+            activeDate: d.data.departureDates[0].dateRange.start,
+            originalData: d,
+          };
+        });
+        setListItem(retreatListItem);
         break;
       case "workcation":
-        setListItem([]);
+        const workcationListItem = dummyWorkcationData.map((d) => {
+          return {
+            title: d.data.workationName,
+            destination: d.data.destinations.destination || "-",
+            id: d.id,
+            type: "Retreat",
+            activeDate: d.data.checkinAndCheckOutTime.checkIn,
+            originalData: d,
+          };
+        });
+        setListItem(workcationListItem);
         break;
 
       default:
         break;
     }
-  }, [selectedService]);
+  };
 
-  const handleViewClick = (id: string, service: string, index: number) => {
-    console.log({ id, service, index });
+  const handleSelectionChange = (value: string) => {
+    setSelectedService(value);
+  };
+
+  const handleViewClick = (item: any, service: string) => {
     switch (service) {
       case "activity":
-        setActiveActivity(dummyActivityData[index]);
+        setActiveActivity(item);
         setIsActivityModalOpen(true);
         break;
       case "event":
+        setActiveEvent(item);
+        setIsEventModalOpen(true);
         break;
       case "retreat":
+        setActiveRetreat(item);
+        setIsRetreatModalOpen(true);
         break;
       case "workcation":
+        setActiveWorkcation(item);
+        setIsWorkcationModalOpen(true);
         break;
 
       default:
@@ -79,6 +138,25 @@ const VendorActivity = () => {
     setActiveActivity({});
   };
 
+  const handleEventModalCancel = () => {
+    setIsEventModalOpen(false);
+    setActiveEvent({});
+  };
+
+  const handleRetreatModalCancel = () => {
+    setIsRetreatModalOpen(false);
+    setActiveRetreat({});
+  };
+
+  const handleWorkcationModalCancel = () => {
+    setIsWorkcationModalOpen(false);
+    setActiveWorkcation({});
+  };
+
+  useEffect(() => {
+    handleListItemUpdate(selectedService);
+  }, [selectedService]);
+
   return (
     <div>
       <Form size="middle" layout="vertical">
@@ -88,7 +166,7 @@ const VendorActivity = () => {
               <Select
                 placeholder="Select event type"
                 defaultValue={selectedService}
-                onChange={(value) => setSelectedService(value)}
+                onChange={handleSelectionChange}
               >
                 {serviceType.map((d) => (
                   <Select.Option value={d}>{capitalize(d)}</Select.Option>
@@ -113,7 +191,7 @@ const VendorActivity = () => {
           </Row>
         }
         dataSource={listItem}
-        renderItem={(item, index) => (
+        renderItem={(item) => (
           <List.Item key={item.title}>
             <Row gutter={20}>
               <Col span={7} className="tw-items-center tw-flex">
@@ -133,7 +211,7 @@ const VendorActivity = () => {
                   type="default"
                   className="tw-texa-button tw-m-0"
                   onClick={() =>
-                    handleViewClick(item.id, selectedService, index)
+                    handleViewClick(item.originalData, selectedService)
                   }
                 >
                   View Detail
@@ -164,6 +242,70 @@ const VendorActivity = () => {
                   : "multiDay"
               }
               data={activeActivity}
+              handleModalClose={handleActivityModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isEventModalOpen && (
+        <Modal
+          title="Event Modal"
+          visible={isEventModalOpen}
+          onCancel={handleEventModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <EventModalForm
+              data={activeEvent}
+              handleModalClose={handleEventModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isRetreatModalOpen && (
+        <Modal
+          title="Retreat Modal"
+          visible={isRetreatModalOpen}
+          onCancel={handleRetreatModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <RetreatModalForm
+              data={activeRetreat}
+              handleModalClose={handleRetreatModalCancel}
+            />
+          </div>
+        </Modal>
+      )}
+
+      {isWorkcationModalOpen && (
+        <Modal
+          title="Workcation Modal"
+          visible={isWorkcationModalOpen}
+          onCancel={handleWorkcationModalCancel}
+          width={650}
+          footer={null}
+          className="tw-top-5 no-padding-modal"
+        >
+          <div
+            style={{ height: 700 }}
+            className="tw-overflow-y-auto tw-py-3 tw-px-7"
+          >
+            <WorkcationModalForm
+              data={activeWorkcation}
+              handleModalClose={handleWorkcationModalCancel}
             />
           </div>
         </Modal>

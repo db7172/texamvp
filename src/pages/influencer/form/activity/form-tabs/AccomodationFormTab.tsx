@@ -11,6 +11,7 @@ import {
   Checkbox,
 } from "antd";
 import { isUndefined, uniqueId } from "lodash";
+import moment from "moment";
 import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
@@ -37,14 +38,27 @@ const AMENITIES = [
 export const AccomodationFormTab = ({
   keyValue,
   updateTabFormData,
+  initialData,
 }: {
   keyValue: string;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
+  initialData?: any;
 }) => {
   return (
     <Form
       name={"accomodation" + keyValue}
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
+      initialValues={
+        initialData
+          ? {
+              ...initialData,
+              dateRange: [
+                moment(initialData.dateRange[0], "DD-MM-YYYY"),
+                moment(initialData.dateRange[1], "DD-MM-YYYY"),
+              ],
+            }
+          : undefined
+      }
       onValuesChange={(_, obj) => {
         const newObj = {
           photos: obj.photos,
