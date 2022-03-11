@@ -55,6 +55,16 @@ const leftPannelData = [
     title: "Relaunch Service",
   },
   {
+    path: "/admin/dashboard/customer",
+    key: "customer",
+    title: "Daily User",
+  },
+  {
+    path: "/admin/dashboard/servicecustomer",
+    key: "servicecustomer",
+    title: "Service User",
+  },
+  {
     path: "/admin/dashboard/requests",
     key: "requests",
     title: "Call Requests",

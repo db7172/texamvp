@@ -30,7 +30,7 @@
   list-style: none;
   letter-spacing: 1px;
   overflow-y: auto;
-  /* height: calc(100vh - 65px); */
+  height: calc(100vh - 110px);
 }
 .side-nav li span img {
   width: 30px;

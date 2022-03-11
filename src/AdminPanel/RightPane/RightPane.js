@@ -13,6 +13,7 @@ import PopularService from "../PopularService/PopularService";
 import ServiceOfTheMonth from "../ServiceOfTheMonth/ServiceOfTheMonth";
 import Vendor from "../Vandor/Vendor";
 import RelaunchedService from "../RelaunchedService/RelaunchedService";
+import UserActivity from "../User/UserActivity";
 
 const rightPane = () => {
   return (
@@ -95,6 +96,14 @@ const rightPane = () => {
           render={() => (
             <Fragment>
               <RelaunchedService />
+            </Fragment>
+          )}
+        />
+        <Route
+          path="/admin/dashboard/customer"
+          render={() => (
+            <Fragment>
+              <UserActivity />
             </Fragment>
           )}
         />
