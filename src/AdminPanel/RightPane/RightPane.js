@@ -14,6 +14,7 @@ import ServiceOfTheMonth from "../ServiceOfTheMonth/ServiceOfTheMonth";
 import Vendor from "../Vandor/Vendor";
 import RelaunchedService from "../RelaunchedService/RelaunchedService";
 import UserActivity from "../User/UserActivity";
+import UserDetails from "../User/UserDetails";
 
 const rightPane = () => {
   return (
@@ -104,6 +105,14 @@ const rightPane = () => {
           render={() => (
             <Fragment>
               <UserActivity />
+            </Fragment>
+          )}
+        />
+        <Route
+          path="/admin/dashboard/servicecustomer"
+          render={() => (
+            <Fragment>
+              <UserDetails />
             </Fragment>
           )}
         />
