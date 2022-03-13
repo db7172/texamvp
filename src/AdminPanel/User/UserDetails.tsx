@@ -1,4 +1,4 @@
-import { Button, Col, List, Modal, Row } from "antd";
+import { Button, Col, List, Modal, Row, Table } from "antd";
 import { useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
 import { mockUserData } from "./mockUser";
@@ -16,6 +16,59 @@ const UserDetails = () => {
     setIsModalOpen(false);
     setActiveUserDetails(undefined);
   };
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Service",
+      dataIndex: "type",
+      key: "type",
+    },
+    {
+      title: "People",
+      dataIndex: "noPpl",
+      key: "noPpl",
+    },
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Cost",
+      dataIndex: "totalCost",
+      key: "totalCost",
+    },
+    {
+      title: "Paid",
+      dataIndex: "paid",
+      key: "paid",
+    },
+    {
+      title: "Unpaid",
+      dataIndex: "unpaid",
+      key: "unpaid",
+    },
+    {
+      title: "Booking Date",
+      dataIndex: "bookingDate",
+      key: "bookingDate",
+    },
+    {
+      title: "Completed Date",
+      dataIndex: "completedDate",
+      key: "completedDate",
+    },
+  ];
 
   return (
     <div className="page-layout">
@@ -72,39 +125,10 @@ const UserDetails = () => {
           footer={null}
           onCancel={handleModalCancel}
         >
-          <List
-            itemLayout="vertical"
-            size="large"
+          <Table
             pagination={paginationSetting}
-            header={
-              <Row gutter={24} className="tw-px-6">
-                <Col span={6}>Name</Col>
-                <Col span={6}>ID</Col>
-                <Col span={4}>Service</Col>
-                <Col span={4}>Booking Date</Col>
-                <Col span={4}>Completed Date</Col>
-              </Row>
-            }
             dataSource={activeUserDetails?.services || []}
-            renderItem={(item: any, i) => (
-              <List.Item key={i}>
-                <Row gutter={24}>
-                  <Col span={6} className="tw-items-center tw-flex">
-                    {item.name}
-                  </Col>
-                  <Col span={6} className="tw-items-center tw-flex">
-                    {item.id}
-                  </Col>
-                  <Col span={4} className="tw-items-center tw-flex">
-                    {item.type}
-                  </Col>
-                  <Col span={4} className="tw-items-center tw-flex">
-                    {item.bookingDate}
-                  </Col>
-                  <Col span={4}>{item.completedDate}</Col>
-                </Row>
-              </List.Item>
-            )}
+            columns={columns}
           />
         </Modal>
       </div>
