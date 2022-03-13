@@ -15,6 +15,7 @@ import Vendor from "../Vandor/Vendor";
 import RelaunchedService from "../RelaunchedService/RelaunchedService";
 import UserActivity from "../User/UserActivity";
 import UserDetails from "../User/UserDetails";
+import VendorEarnings from "../VendorEarnings/VendorEarnings";
 
 const rightPane = () => {
   return (
@@ -89,6 +90,14 @@ const rightPane = () => {
           render={() => (
             <Fragment>
               <Vendor />
+            </Fragment>
+          )}
+        />
+        <Route
+          path="/admin/dashboard/earning"
+          render={() => (
+            <Fragment>
+              <VendorEarnings />
             </Fragment>
           )}
         />
