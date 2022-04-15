@@ -37,6 +37,7 @@ const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
 const RETREAT_NAME = ":retreatName";
 const REVIEW_TYPE = ":reviewType";
+const USER_ID = ":userId";
 
 export const ROUTES = {
   HOME: "/",
@@ -61,6 +62,7 @@ export const ROUTES = {
   PAYMENT: "/payment",
   ALL_REVIEWS: "/reviews",
   SINGLE_REVIEWS: `/review/${REVIEW_TYPE}`,
+  PUBLIC_PROFILE: `/profile/${USER_ID}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
   DESTINATIONS: `/destinations`,
   RETREATS: `/retreats`,
