@@ -40,6 +40,7 @@ const ActivityCarousel = ({ setting, title, data, path, description }) => {
     } else {
       const singleDay = await getData("hr_sg_avy");
       const multiday = await getData("multi-activity");
+      console.log([...singleDay, ...multiday]);
       setActivityData([...singleDay, ...multiday]);
       setIsLoading(false);
     }
