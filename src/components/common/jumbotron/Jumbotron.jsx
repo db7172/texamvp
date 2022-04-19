@@ -3,6 +3,8 @@ import { indCurrency } from "../../../utils/utils";
 import { startCase } from "lodash";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
+import firebase from "../../../firebase";
+import { useEffect, useState } from "react";
 
 const Jumbotron = ({
   className,
@@ -12,8 +14,34 @@ const Jumbotron = ({
   startingPrice,
   ratting,
   review,
+  type,
+  destinationName,
   path = "#",
 }) => {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    if (destinationName) {
+      let docName = destinationName.toLowerCase();
+      firebase
+        .firestore()
+        .collection("destinations")
+        .doc(docName)
+        .get()
+        .then((doc) => {
+          setData(doc.data());
+        });
+    } else {
+      firebase
+        .firestore()
+        .collection("categories")
+        .doc(type)
+        .get()
+        .then((doc) => {
+          setData(doc.data());
+        });
+    }
+  });
+
   return (
     <>
       <div className={classNames("tw-w-full tw-h-96 tw-relative", className)}>
@@ -21,19 +49,24 @@ const Jumbotron = ({
         <img
           className="tw-h-full tw-w-full tw-object-cover"
           src={
-            image
-              ? image
+            data?.image || data.banner
+              ? data.banner || data.image
               : "https://images.unsplash.com/photo-1501555088652-021faa106b9b"
           }
+          // src={
+          //   data?.image
+          //     ? data.image || data.banner
+          //     : "https://images.unsplash.com/photo-1501555088652-021faa106b9b"
+          // }
           alt=""
         />
         <div className="tw-absolute tw-inset-0 tw-bg-black tw-bg-opacity-20 tw-z-10 tw-flex tw-items-center tw-flex-col tw-justify-evenly tw-text-white">
           <div className="tw-text-center">
             <h3 className="tw-main-title-other-page tw-text-white">
-              {startCase(title)}
+              {startCase(data.name)}
             </h3>
             <p className="tw-subtitle-other-page lg:tw-mt-4 tw-mt-0">
-              {description}
+              {data.title || data.bannerLine}
             </p>
             <p className="tw-text-lg tw-mt-14 tw-font-lato tw-animate-bounce">
               <a
@@ -54,7 +87,7 @@ const Jumbotron = ({
           <p className="tw-text-center tw-font-medium">
             Starting from{" "}
             <span className="tw-price tw-text-2xl tw-mx-1">
-              {indCurrency(startingPrice)}
+              {indCurrency(data.startingPrice)}
             </span>{" "}
             Per Person on twin sharing
           </p>

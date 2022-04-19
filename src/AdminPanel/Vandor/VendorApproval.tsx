@@ -4,6 +4,7 @@ import { paginationSetting } from "../constant/common.cont";
 import panCardImg from "../../assets/png/influencer/panMock.png";
 import aadharCardImg from "../../assets/png/influencer/aadharMock.png";
 import { onKeyDownEvent } from "../../pages/influencer/form/formUtils";
+import firebase from "../../firebase";
 
 const DUMMY_USER = {
   name: "Person Name",
@@ -31,6 +32,7 @@ const DUMMY_USER = {
       "https://qph.fs.quoracdn.net/main-qimg-ff42a46cc4109fe3f20258b176828485-lq",
   },
 };
+
 const VendorApproval = () => {
   const [data, setData] = useState<any[]>();
   const [activeData, setActiveData] = useState<any>();
@@ -38,15 +40,27 @@ const VendorApproval = () => {
   const [isRejected, setIsRejected] = useState(false);
 
   useEffect(() => {
-    const dummyData: any[] = Array(20)
-      .fill(null)
-      .map(() => DUMMY_USER as any);
-    setData(dummyData);
+    // const dummyData: any[] = Array(20)
+    //   .fill(null)
+    //   .map(() => DUMMY_USER as any);
+    // setData(dummyData);
+    firebase
+      .firestore()
+      .collection("venders")
+      .get()
+      .then((querySnap) => {
+        setData(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
   }, []);
 
-  const handleClick = (data: any) => {
-    setActiveData(data);
-    setIsModalActive(true);
+  const handleClick = (id: any) => {
+    let active = data?.filter((data) => data.id === id);
+    if (active) {
+      setActiveData(active[0]);
+      setIsModalActive(true);
+    }
   };
 
   const handleModalCancel = () => {
@@ -94,19 +108,21 @@ const VendorApproval = () => {
           <List.Item key={item.title}>
             <Row gutter={20}>
               <Col span={7} className="tw-items-center tw-flex">
-                {item.name}
+                {item?.data.name}
               </Col>
               <Col span={6} className="tw-items-center tw-flex">
-                {item.number}
+                {item?.data.number}
               </Col>
               <Col span={7} className="tw-items-center tw-flex">
-                {item.email}
+                {item?.data.email}
               </Col>
               <Col span={4} className="tw-items-center tw-flex">
                 <Button
                   type="default"
                   className="tw-texa-button tw-m-0"
-                  onClick={() => handleClick(item)}
+                  onClick={() => {
+                    handleClick(item.id);
+                  }}
                 >
                   View Detail
                 </Button>
@@ -135,39 +151,39 @@ const VendorApproval = () => {
                 {showUserInfo([
                   {
                     key: "Name",
-                    value: activeData.name,
+                    value: activeData.data.name,
                   },
                   {
                     key: "Mobile",
-                    value: activeData.number,
+                    value: activeData.data.number,
                   },
                   {
                     key: "Email",
-                    value: activeData.email,
+                    value: activeData.data.email,
                   },
                   {
                     key: "Company Name",
-                    value: activeData.activityInfo.companyName,
+                    value: activeData.data.companyName,
                   },
                   {
                     key: "Service Type",
-                    value: activeData.activityInfo.type,
+                    value: activeData.data.activity,
                   },
                   {
                     key: "Country",
-                    value: activeData.activityInfo.country,
+                    value: activeData.data.country,
                   },
                   {
                     key: "State",
-                    value: activeData.activityInfo.state,
+                    value: activeData.data.state,
                   },
                   {
                     key: "City",
-                    value: activeData.activityInfo.city,
+                    value: activeData.data.city,
                   },
                   {
                     key: "Operating Since",
-                    value: activeData.activityInfo.operationSince,
+                    value: activeData.data.operationSince,
                   },
                 ])}
               </Row>
@@ -179,12 +195,12 @@ const VendorApproval = () => {
                   <div className="tw-flex tw-gap-2">
                     <p>Pan number: </p>
                     <p className="tw-text-secondary-color">
-                      {activeData.kyc.pan}
+                      {activeData.data.panCard}
                     </p>
                   </div>
                 </Col>
 
-                {activeData.kyc.panPhoto?.map((d: any, i: number) => (
+                {activeData.data.panCardPhoto?.map((d: any, i: number) => (
                   <Col span={12} key={i}>
                     <img className="tw-w-60" src={d} alt="img" />
                   </Col>
@@ -195,12 +211,12 @@ const VendorApproval = () => {
                   <div className="tw-flex tw-gap-2">
                     <p>Aadhar number: </p>
                     <p className="tw-text-secondary-color">
-                      {activeData.kyc.aadhar}
+                      {activeData.data.aadharCard}
                     </p>
                   </div>
                 </Col>
 
-                {activeData.kyc.aadharPhoto?.map((d: any, i: number) => (
+                {activeData.data.aadharCardPhoto?.map((d: any, i: number) => (
                   <Col span={12} key={i}>
                     <img className="tw-w-60" src={d} alt="img" />
                   </Col>
@@ -215,21 +231,21 @@ const VendorApproval = () => {
                 {showUserInfo([
                   {
                     key: "Bank Name:",
-                    value: activeData.bankDetails.acName,
+                    value: activeData.data.accountName,
                   },
                   {
                     key: "Account Number:",
-                    value: activeData.bankDetails.number,
+                    value: activeData.data.accountNumber,
                   },
                   {
                     key: "IFSC Code:",
-                    value: activeData.bankDetails.ifscCode,
+                    value: activeData.data.ifscCode,
                   },
                 ])}
                 <Col span={24}>
                   <img
                     className="tw-w-80"
-                    src={activeData.bankDetails.cancelCheck}
+                    src={activeData.data.cancelCheck[0]}
                     alt="img"
                   />
                 </Col>

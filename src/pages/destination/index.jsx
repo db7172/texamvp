@@ -40,30 +40,30 @@ const DestinationPage = () => {
         url: "",
       },
     ]);
+    let docName = DESTINATION_NAME.toLowerCase();
+    console.log(docName);
     firebase
       .firestore()
-      .collection("homepage")
-      .doc("destinations")
+      .collection("destinations")
+      .doc(docName)
       .get()
       .then((doc) => {
-        setDestinationDetails(
-          ...doc.data().destinations.filter((item) => {
-            return item.title === DESTINATION_NAME;
-          })
-        );
+        setDestinationDetails(doc.data());
       });
   }, [DESTINATION_NAME]);
 
+  console.log(DESTINATION_NAME, destinationDetails);
+
   return destinationDetails ? (
     <ExploreMoreWrapper
-      coverImage={destinationDetails.coverImg}
-      coverTitle={destinationName}
-      coverDescription="Go on a trekking trip to the man-made heaven"
+      coverImage={destinationDetails.banner}
+      coverTitle={destinationDetails.name}
+      coverDescription={destinationDetails.destinationDescription}
       ratting={5}
       path="#destination"
       review="1970 reviews"
-      startingPrice={16949}
-      destinationName={destinationName}
+      startingPrice={destinationDetails.startingPrice}
+      destinationName={DESTINATION_NAME}
     >
       <div id="destination" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
@@ -71,7 +71,7 @@ const DestinationPage = () => {
       <div className="tw-mt-9">
         <PageHeader
           title={destinationName}
-          desc={destinationDetails.description}
+          desc={destinationDetails.destinationDescription}
         />
       </div>
       <div className="md:tw-mt-20 tw-mt-14">

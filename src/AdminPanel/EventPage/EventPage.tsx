@@ -6,11 +6,15 @@ import {
 import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { capitalize, uniqueId } from "lodash";
-import React, { useState } from "react";
-import { normFile } from "../../pages/influencer/form/formUtils";
+import React, { useEffect, useState } from "react";
+import {
+  normFile,
+  stripUndefined,
+} from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
-
-const MOCK_ACTIVITY = ["event1", "event2", "event3", "event4"];
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
+import Success from "../Cards/Success/Success";
 
 let addFAQ: {
   (): void;
@@ -19,9 +23,50 @@ let addFAQ: {
 
 const EventPage = () => {
   const [eventForm] = useForm();
+  const [categories, setCategories] = useState() as any;
+  const [loading, setLoading] = useState(0);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .where("type", "==", "event")
+      .get()
+      .then((querySnap) => {
+        setCategories(querySnap.docs.map((doc) => doc.data().name));
+      });
+  }, []);
+
+  const handleSubmit = async () => {
+    const data = stripUndefined(eventForm.getFieldsValue());
+    setLoading(1);
+    let storageRef = firebase.storage().ref("eventPage/banner");
+    await storageRef.put(data.banner[0].originFileObj);
+    let downloadLink = await storageRef.getDownloadURL();
+    let docName = data.eventType.toLowerCase();
+    await firebase.firestore().collection("categories").doc(docName).set(
+      {
+        description: data.eventDescription,
+        title: data.bannerLine,
+        startingPrice: data.startingPrice,
+        banner: downloadLink,
+      },
+      { merge: true }
+    );
+    setLoading(0);
+    setSuccess(true);
+  };
 
   return (
     <div className="page-layout">
+      {success ? (
+        <Success
+          close={() => {
+            setSuccess(false);
+          }}
+        />
+      ) : null}
       <div className="home-cover">
         <div className="card-title">
           <h3>Event Section</h3>
@@ -29,6 +74,9 @@ const EventPage = () => {
 
         <Form
           form={eventForm}
+          onFinish={(value) => {
+            handleSubmit();
+          }}
           size="large"
           layout="vertical"
           className="tw-mt-5"
@@ -36,7 +84,7 @@ const EventPage = () => {
           <Row gutter={30}>
             <Col span={12}>
               <Form.Item
-                name="EventType"
+                name="eventType"
                 label="Event Type"
                 rules={[
                   {
@@ -46,8 +94,10 @@ const EventPage = () => {
                 ]}
               >
                 <Select placeholder="Select event type">
-                  {MOCK_ACTIVITY.map((d) => (
-                    <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                  {categories?.map((d: any, i: any) => (
+                    <Select.Option key={i} value={d}>
+                      {capitalize(d)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -87,7 +137,6 @@ const EventPage = () => {
                   name="banner"
                   beforeUpload={() => false}
                   maxCount={1}
-                  multiple
                   listType="picture"
                 >
                   <Button
@@ -198,13 +247,24 @@ const EventPage = () => {
             <Col span={24}>
               <div className="tw-flex tw-justify-end tw-gap-5">
                 <div style={{ width: "200px" }}>
-                  <Button
-                    type="default"
-                    className="tw-texa-button tw-w-full"
-                    htmlType="submit"
-                  >
-                    Submit
-                  </Button>
+                  {loading ? (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      <Loader size={"small"} />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                      // onClick={submitForm}
+                    >
+                      Submit
+                    </Button>
+                  )}
                 </div>
                 <div style={{ width: "200px" }}>
                   <Button

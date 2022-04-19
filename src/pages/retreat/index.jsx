@@ -159,6 +159,7 @@ const RetreatPage = () => {
       review="1970 reviews"
       path="#retreat"
       startingPrice={16949}
+      type={retreatType}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
       <div id="retreat" className="tw--mt-5">

@@ -86,6 +86,8 @@ const Activites = () => {
           review="1970 Reviews"
           path={"#activites-page"}
           startingPrice={16948}
+          type={null}
+          destinationName={null}
         />
       </div>
       <Container className="tw-pb-12">

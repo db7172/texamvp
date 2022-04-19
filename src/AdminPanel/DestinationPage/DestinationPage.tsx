@@ -6,10 +6,16 @@ import {
 import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { capitalize, uniqueId } from "lodash";
-import React, { useState } from "react";
-import { normFile } from "../../pages/influencer/form/formUtils";
+import React, { useEffect, useState } from "react";
+import {
+  normFile,
+  stripUndefined,
+} from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
 import PopularService from "../PopularService/PopularService";
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
+import Success from "../Cards/Success/Success";
 
 const MOCK_ACTIVITY = ["delhi", "mumbai", "goa", "maldives"];
 
@@ -20,9 +26,173 @@ let addFAQ: {
 
 const DestinationPage = () => {
   const [destinationForm] = useForm();
+  const [createDestination] = useForm();
+  const [loading, setLoading] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [destinations, setDestinations] = useState() as any;
+
+  const handleSubmit = async () => {
+    const data = stripUndefined(destinationForm.getFieldsValue());
+    console.log(data);
+    let downloadLink;
+    setLoading(1);
+    if (data.banner) {
+      let storageRef = firebase.storage().ref(`destination/${data.name}`);
+      await storageRef.put(data.banner[0].originFileObj);
+      downloadLink = await storageRef.getDownloadURL();
+      let docName = data.destinationType.toLowerCase();
+      await firebase
+        .firestore()
+        .collection("destinations")
+        .doc(docName)
+        .set(
+          {
+            banner: downloadLink,
+            ...data,
+          },
+          { merge: true }
+        );
+    } else {
+      let docName = data.destinationType.toLowerCase();
+      await firebase
+        .firestore()
+        .collection("destinations")
+        .doc(docName)
+        .set({ ...data }, { merge: true });
+    }
+    setLoading(0);
+    setSuccess(true);
+  };
+  const handleCreate = async () => {
+    const data = createDestination.getFieldsValue();
+    console.log(data);
+    setLoading(1);
+    let storageRef = firebase.storage().ref(`destination/${data.name}`);
+    await storageRef.put(data.banner[0].originFileObj);
+    let downloadLink = await storageRef.getDownloadURL();
+    let docName = data.name.toLowerCase();
+    await firebase.firestore().collection("destinations").doc(docName).set({
+      name: data.name,
+      banner: downloadLink,
+    });
+    setLoading(0);
+    setSuccess(true);
+  };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("destinations")
+      .get()
+      .then((querySnap) => {
+        setDestinations(querySnap.docs.map((doc) => doc.data().name));
+      });
+  }, []);
 
   return (
     <div className="page-layout">
+      {success ? (
+        <Success
+          close={() => {
+            setSuccess(false);
+          }}
+        />
+      ) : null}
+      <div className="home-cover" style={{ marginBottom: "20px" }}>
+        <div className="card-title">
+          <h3>Create Destination</h3>
+        </div>
+        <Form
+          form={createDestination}
+          size="large"
+          onFinish={handleCreate}
+          layout="vertical"
+          className="tw-mt-5"
+        >
+          <Row gutter={30}>
+            <Col span={12}>
+              <Form.Item
+                label="Destination Name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the name of destination!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Destination Name"
+                  className="tw-rounded-lg"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="banner"
+                label="Upload Banner"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please upload destination banner!",
+                  },
+                ]}
+              >
+                <Upload
+                  name="banner"
+                  beforeUpload={() => false}
+                  maxCount={1}
+                  listType="picture"
+                >
+                  <Button
+                    type="default"
+                    className="tw-bg-gray-background tw-rounded-lg tw-m-0 hover:tw-bg-gray-background"
+                    icon={<UploadOutlined />}
+                  >
+                    Click to upload
+                  </Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <div className="tw-flex tw-justify-end tw-gap-5">
+                <div style={{ width: "200px" }}>
+                  {loading ? (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      <Loader size={"small"} />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                      // onClick={submitForm}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </div>
+                <div style={{ width: "200px" }}>
+                  <Button
+                    className="tw-w-full border-btn tw-rounded-lg"
+                    onClick={() => {
+                      createDestination.resetFields();
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Form>
+      </div>
       <div className="home-cover">
         <div className="card-title">
           <h3>Destination Section</h3>
@@ -31,6 +201,7 @@ const DestinationPage = () => {
         <Form
           form={destinationForm}
           size="large"
+          onFinish={handleSubmit}
           layout="vertical"
           className="tw-mt-5"
         >
@@ -47,8 +218,10 @@ const DestinationPage = () => {
                 ]}
               >
                 <Select placeholder="Select destination type">
-                  {MOCK_ACTIVITY.map((d) => (
-                    <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                  {destinations?.map((d: any, i: any) => (
+                    <Select.Option key={i} value={d}>
+                      {capitalize(d)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -77,12 +250,12 @@ const DestinationPage = () => {
                 label="Upload Banner"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please upload destination banner!",
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Please upload destination banner!",
+                //   },
+                // ]}
               >
                 <Upload
                   name="banner"
@@ -211,13 +384,23 @@ const DestinationPage = () => {
             <Col span={24}>
               <div className="tw-flex tw-justify-end tw-gap-5">
                 <div style={{ width: "200px" }}>
-                  <Button
-                    type="default"
-                    className="tw-texa-button tw-w-full"
-                    htmlType="submit"
-                  >
-                    Submit
-                  </Button>
+                  {loading ? (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      <Loader size={"small"} />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      Submit
+                    </Button>
+                  )}
                 </div>
                 <div style={{ width: "200px" }}>
                   <Button
@@ -235,9 +418,7 @@ const DestinationPage = () => {
         </Form>
       </div>
 
-      <div>
-        <PopularService destination="" />
-      </div>
+      <div>{/* <PopularService destination="" /> */}</div>
     </div>
   );
 };

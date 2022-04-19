@@ -1,15 +1,28 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mockVendorList } from "./vendor.mock";
 import VendorActivity from "./VendorActivity";
 import VendorApproval from "./VendorApproval";
 import VendorList from "./VendorList";
+import firebase from "../../firebase";
 
 type ButtonType = "vendorList" | "vendorActivity" | "vendorApproval";
 
 const Vendor = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("vendorList");
+  const [venders, setVenders] = useState() as any;
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("venders")
+      .get()
+      .then((querySnap) => {
+        setVenders(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+  }, []);
   return (
     <Row gutter={[0, 0]}>
       <Col span={24}>
@@ -59,9 +72,7 @@ const Vendor = () => {
       <Col span={24}>
         <div className="page-layout">
           <div className="home-cover">
-            {activeButton === "vendorList" && (
-              <VendorList listData={mockVendorList} />
-            )}
+            {activeButton === "vendorList" && <VendorList listData={venders} />}
             {activeButton === "vendorActivity" && <VendorActivity />}
             {activeButton === "vendorApproval" && <VendorApproval />}
           </div>

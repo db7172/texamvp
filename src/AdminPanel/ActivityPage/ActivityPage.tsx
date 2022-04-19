@@ -15,8 +15,6 @@ import "../adminStyle.css";
 import firebase from "../../firebase";
 import Loader from "../../components/common/Loader/Loader";
 
-const MOCK_ACTIVITY = ["skiing", "camping", "scooba diving", "surfing"];
-
 let addFAQ: {
   (): void;
   (defaultValue?: any, insertIndex?: number | undefined): void;
@@ -25,13 +23,6 @@ let addFAQ: {
 const ActivityPage = () => {
   const [activityForm] = useForm();
   const [categories, setCategories] = useState() as any;
-  const [details, setDetails] = useState({
-    heading1: "",
-    heading2: "",
-    line1: "",
-    line2: "",
-    line3: "",
-  });
   const [loading, setLoading] = useState(0);
 
   useEffect(() => {
@@ -46,22 +37,24 @@ const ActivityPage = () => {
   }, []);
 
   const submitForm = async () => {
-    // setLoading(1);
     const data = stripUndefined(activityForm.getFieldsValue());
     console.log(data);
-    // let storageRef = firebase.storage().ref("activityPage/banner");
-    console.log(data);
-    // await storageRef.put(data.banner[0].originFileObj);
-    // let downloadLink = await storageRef.getDownloadURL();
-
-    // await firebase.firestore().collection("admin").doc("activityPage").set({
-    //   description: data.activityDescription,
-    //   title: data.bannerLine,
-    //   startingPrice: data.startingPrice,
-    //   activityType: data.activityType,
-    //   banner: downloadLink,
-    // });
-    // setLoading(0);
+    setLoading(1);
+    let storageRef = firebase.storage().ref("activityPage/banner");
+    await storageRef.put(data.banner[0].originFileObj);
+    let downloadLink = await storageRef.getDownloadURL();
+    let docName = data.activityType.toLowerCase();
+    await firebase.firestore().collection("categories").doc(docName).set(
+      {
+        description: data.activityDescription,
+        title: data.bannerLine,
+        startingPrice: data.startingPrice,
+        // activityType: data.activityType,
+        banner: downloadLink,
+      },
+      { merge: true }
+    );
+    setLoading(0);
   };
 
   return (
@@ -74,7 +67,7 @@ const ActivityPage = () => {
         <Form
           form={activityForm}
           onFinish={(value) => {
-            console.log(value);
+            submitForm();
           }}
           size="large"
           layout="vertical"

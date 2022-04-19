@@ -6,9 +6,15 @@ import {
 import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { capitalize, uniqueId } from "lodash";
-import React, { useState } from "react";
-import { normFile } from "../../pages/influencer/form/formUtils";
+import React, { useEffect, useState } from "react";
+import {
+  normFile,
+  stripUndefined,
+} from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
+import Success from "../Cards/Success/Success";
 
 const MOCK_ACTIVITY = ["retreat1", "retreat2", "retreat3", "retreat4"];
 
@@ -19,9 +25,50 @@ let addFAQ: {
 
 const RetreatPage = () => {
   const [retreatForm] = useForm();
+  const [categories, setCategories] = useState() as any;
+  const [loading, setLoading] = useState(0);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .where("type", "==", "retreat")
+      .get()
+      .then((querySnap) => {
+        setCategories(querySnap.docs.map((doc) => doc.data().name));
+      });
+  }, []);
+
+  const handleSubmit = async () => {
+    const data = stripUndefined(retreatForm.getFieldsValue());
+    setLoading(1);
+    let storageRef = firebase.storage().ref("retreatPage/banner");
+    await storageRef.put(data.banner[0].originFileObj);
+    let downloadLink = await storageRef.getDownloadURL();
+    let docName = data.retreatType.toLowerCase();
+    await firebase.firestore().collection("categories").doc(docName).set(
+      {
+        description: data.retreatDescription,
+        title: data.retreatType,
+        startingPrice: data.startingPrice,
+        banner: downloadLink,
+      },
+      { merge: true }
+    );
+    setLoading(0);
+    setSuccess(true);
+  };
 
   return (
     <div className="page-layout">
+      {success ? (
+        <Success
+          close={() => {
+            setSuccess(false);
+          }}
+        />
+      ) : null}
       <div className="home-cover">
         <div className="card-title">
           <h3>Retreat Section</h3>
@@ -29,6 +76,7 @@ const RetreatPage = () => {
 
         <Form
           form={retreatForm}
+          onFinish={handleSubmit}
           size="large"
           layout="vertical"
           className="tw-mt-5"
@@ -46,7 +94,7 @@ const RetreatPage = () => {
                 ]}
               >
                 <Select placeholder="Select retreat type">
-                  {MOCK_ACTIVITY.map((d) => (
+                  {categories?.map((d: any, i: any) => (
                     <Select.Option value={d}>{capitalize(d)}</Select.Option>
                   ))}
                 </Select>
@@ -198,13 +246,24 @@ const RetreatPage = () => {
             <Col span={24}>
               <div className="tw-flex tw-justify-end tw-gap-5">
                 <div style={{ width: "200px" }}>
-                  <Button
-                    type="default"
-                    className="tw-texa-button tw-w-full"
-                    htmlType="submit"
-                  >
-                    Submit
-                  </Button>
+                  {loading ? (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                    >
+                      <Loader size={"small"} />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="default"
+                      className="tw-texa-button tw-w-full"
+                      htmlType="submit"
+                      // onClick={submitForm}
+                    >
+                      Submit
+                    </Button>
+                  )}
                 </div>
                 <div style={{ width: "200px" }}>
                   <Button

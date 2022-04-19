@@ -136,6 +136,7 @@ const Activity = () => {
 
   const [allActivity, setAllActivity] = useState([]);
   const [filterActivity, setFilterActivity] = useState([]);
+  const [coverData, setCoverData] = useState({});
 
   const getData = async (collection, type) => {
     const snapshot = await firebase.firestore().collection(collection).get();
@@ -252,6 +253,18 @@ const Activity = () => {
       ]);
     }
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
+
+  useEffect(() => {
+    console.log(activityType);
+    firebase
+      .firestore()
+      .collection("categories")
+      .doc(activityType)
+      .get()
+      .then((doc) => {
+        setCoverData(doc.data());
+      });
+  }, []);
 
   const handleShowCallbackModalCancel = () => {
     setShowRequestCallbackModal(false);
@@ -388,20 +401,21 @@ const Activity = () => {
 
   return (
     <ExploreMoreWrapper
-      coverImage={DESTINATION_IMAGE}
-      coverTitle={coverTitle}
-      coverDescription="Go on a trekking trip to the man-made heaven"
+      coverImage={coverData.banner}
+      coverTitle={coverData.name}
+      coverDescription={coverData.title}
       ratting={5}
       review="1970 reviews"
       path="#activity"
-      startingPrice={16949}
+      startingPrice={coverData.startingPrice}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
+      type={activityType}
     >
       <div id="activity" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-10">
-        <PageHeader title={coverTitle} />
+        <PageHeader title={coverTitle} desc={coverData.description} />
       </div>
       <Row id="row-header" className="tw-mt-10" gutter={40}>
         {/* filter part */}
