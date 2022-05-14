@@ -10,6 +10,7 @@ import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import Container from "../../components/common/container/Container";
 import Jumbotron from "../../components/common/jumbotron/Jumbotron";
+import Loader from "../../components/common/Loader/Loader";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
 import Title from "../../components/common/title/Title";
@@ -35,7 +36,7 @@ const Activites = () => {
   >([]);
   // const [activityIcon, setActivityIcon] = useState<Array<Icon>>([]);
   const [cardCount, setCardCount] = useState(23);
-  const [activities, setActivities] = useState([]) as any;
+  const [activities, setActivities] = useState() as any;
 
   useEffect(() => {
     setSlashedTableName([
@@ -85,6 +86,8 @@ const Activites = () => {
           review="1970 Reviews"
           path={"#activites-page"}
           startingPrice={16948}
+          type={null}
+          destinationName={null}
         />
       </div>
       <Container className="tw-pb-12">
@@ -99,18 +102,24 @@ const Activites = () => {
           </Col>
           <Col span={24}>
             <Row gutter={[20, 20]}>
-              {activities.map((activity: any, i: number) => (
-                <Col span={4} className="effect">
-                  <Link to={getActivityPagePath(lowerCase(activity.data.name))}>
-                    <IconCard
-                      path={"path/"}
-                      name={activity.data.name}
-                      description={`124 Activites`}
-                      key={i}
-                    />
-                  </Link>
-                </Col>
-              ))}
+              {activities ? (
+                activities.map((activity: any, i: number) => (
+                  <Col span={4} className="effect">
+                    <Link
+                      to={getActivityPagePath(lowerCase(activity.data.name))}
+                    >
+                      <IconCard
+                        path={"path/"}
+                        name={activity.data.name}
+                        description={`124 Activites`}
+                        key={i}
+                      />
+                    </Link>
+                  </Col>
+                ))
+              ) : (
+                <Loader />
+              )}
               <Col span={4}>
                 <div
                   className="tw-shadow-card tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white tw-cursor-pointer"

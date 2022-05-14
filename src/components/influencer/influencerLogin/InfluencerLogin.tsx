@@ -4,7 +4,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../../Auth";
+import CallCodes from "../../../constant/CallCodes";
 import firebase from "../../../firebase";
+import Loader from "../../common/Loader/Loader";
 
 // const mobileOTP = 123456;
 
@@ -18,6 +20,7 @@ const InfluencerLogin = () => {
   });
   const [mobile, setMobile] = useState("");
   const [show, setShow] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -31,16 +34,7 @@ const InfluencerLogin = () => {
     });
   };
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        {/* add loop/map for dynamic data from back end */}
-        <Select.Option value="91">+91</Select.Option>
-        <Select.Option value="86">+86</Select.Option>
-        <Select.Option value="87">+87</Select.Option>
-      </Select>
-    </Form.Item>
-  );
+  const prefixSelector = <CallCodes />;
 
   const onFinish = (values: any) => {
     if (loginWithEmail) {
@@ -54,8 +48,7 @@ const InfluencerLogin = () => {
           history.push("/influencer/dashboard");
         })
         .catch((error) => {
-          console.log(error.message);
-          console.log(error.code);
+          setIsValidIdPwd(true);
         });
     } else {
       const mobileNo = values.prefix + values.mobile;
@@ -120,7 +113,7 @@ const InfluencerLogin = () => {
         // history.push("/influencer/dashboard");
       })
       .catch((error: any) => {
-        console.log("encounted some error");
+        setIsValidIdPwd(true);
       });
   };
 
@@ -307,7 +300,7 @@ const InfluencerLogin = () => {
               maxLength={6}
             />
 
-            {otp.mobileOtp.length < 6 ? (
+            {otp.mobileOtp.length < 6 || isValidIdPwd ? (
               <Typography.Text type="danger">Enter valid OTP.</Typography.Text>
             ) : null}
 

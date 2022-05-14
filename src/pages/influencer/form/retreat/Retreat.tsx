@@ -22,7 +22,7 @@ import {
 import classNames from "classnames";
 import { uniqueId } from "lodash";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
@@ -36,11 +36,13 @@ import {
   formateInstructor,
   normFile,
   onKeyDownEvent,
+  stripUndefined,
 } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
+import { v4 as uuid } from "uuid";
 
 let addPaymentField: {
   (): void;
@@ -89,6 +91,7 @@ const Retreat = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
   const [retreatCategory, setRetreatCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -122,6 +125,7 @@ const Retreat = () => {
         ...accomodationFormData,
         [key]: value.data,
       });
+      console.log(value.photos);
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
         ...itineraryPanesFormData,
@@ -206,31 +210,49 @@ const Retreat = () => {
       cancellationPolicy: value.cancellationPolicy,
     };
 
-    console.log(formValue);
+    let finalData = stripUndefined(formValue);
+
     const data = {
-      formData: formValue,
-      userID: user.uid,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
-    let imgLink = [];
-    imgLink = await Promise.all(
-      value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase.storage().ref(`retreat/${user.uid}/${i}/`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
-        return downloadLink;
-      })
-    );
-    await firebase
-      .firestore()
-      .collection("retreat")
-      .add({ data, imgLink })
-      .then(() => {})
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+
+    // let docId = uuid();
+
+    console.log(value);
+
+    // let imgLink = [];
+    // imgLink = await Promise.all(
+    //   value.dragger.map(async (image: any, i: Number) => {
+    //     console.log(image);
+    //     console.log(user.uid);
+    //     let storageRef = firebase
+    //       .storage()
+    //       .ref(`retreat/${user.uid}/${docId}/${i}`);
+    //     await storageRef.put(image.originFileObj);
+    //     let downloadLink = await storageRef.getDownloadURL();
+    //     return downloadLink;
+    //   })
+    // );
+
+    // firebase
+    //   .firestore()
+    //   .collection("retreat")
+    //   .doc(docId)
+    //   .set({
+    //     ...data,
+    //     imgLink,
+    //     venderId: user.uid,
+    //     venderName: user.displayName,
+    //     collection_name: "retreat",
+    //   })
+    //   .then(() => {
+    //     history.push("/influencer/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error writing document: ", error);
+    //   });
   };
 
   return (
@@ -448,7 +470,10 @@ const Retreat = () => {
                     name="departureDateFirstField"
                     className="tw-w-10/12 tw-m-0"
                   >
-                    <DatePicker.RangePicker className="tw-rounded-md" />
+                    <DatePicker.RangePicker
+                      className="tw-rounded-md"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Rate Per Person"
@@ -483,7 +508,10 @@ const Retreat = () => {
                                 fieldKey={[field.fieldKey, "dateOfDeparture"]}
                                 className="tw-w-10/12 tw-m-0"
                               >
-                                <DatePicker.RangePicker className="tw-rounded-md" />
+                                <DatePicker.RangePicker
+                                  className="tw-rounded-md"
+                                  format="DD/MM/YYYY"
+                                />
                               </Form.Item>
                               <Form.Item
                                 {...field}

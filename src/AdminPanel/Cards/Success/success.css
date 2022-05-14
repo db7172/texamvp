@@ -1,0 +1,41 @@
+.success-card {
+  width: 350px;
+  height: 210px;
+  background: #fff;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+}
+.success-card p:first-child {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.success-card p:not(:first-child) {
+  color: #c4c4c4;
+  font-weight: 600;
+}
+.action-box {
+  margin-top: 20px;
+}
+.action-box button:first-child {
+  background: #cb444a;
+  border: 0;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+  cursor: pointer;
+}
+.action-box button:not(:first-child) {
+  border: 0;
+  background: #fff;
+  padding: 10px;
+  cursor: pointer;
+}

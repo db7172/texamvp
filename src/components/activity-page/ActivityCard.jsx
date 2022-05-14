@@ -6,18 +6,14 @@ import taxi from "../../assets/png/taxi.png";
 import { getViewMoreDetailsForActivityPath } from "../../constant/comman.const";
 import { Link } from "react-router-dom";
 import PageCardContainer from "../card/page-card-container/PageCardContainer";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import firebase from "../../firebase";
 import img from "../../assets/png/activity.png";
 import { useEffect, useState } from "react";
 
 const ActivityCard = (props) => {
-  const { imgUrl } = props;
-
-  // const { totalActivities } = props;
-  // const { multi } = props;
   const { data } = props;
-  const activityData = data.data.data.formData;
+  const activityData = data.data;
   const [vender, setVender] = useState({});
 
   const routingDetails = {
@@ -32,25 +28,26 @@ const ActivityCard = (props) => {
       duration: "3 Days",
       rating: 5,
       review: "89 Reviews",
-      venderName: vender.name,
+      venderName: vender.companyName,
     },
   };
-  // let totalActivities = single.concat(multi);
-  // console.log(totalActivities[0].data.data.formData);
 
   useEffect(() => {
     firebase
       .firestore()
       .collection("venders")
-      .doc(data.data.data.userID)
+      .doc(data.data.user)
       .get()
       .then((doc) => {
         if (doc.exists) setVender(doc.data());
       });
-  }, [data.data.data.userID]);
+  }, [data.data.user]);
 
   return (
-    <PageCardContainer imgUrl={img} title={activityData.activityName}>
+    <PageCardContainer
+      imgUrl={data.data.imgLink[0]}
+      title={activityData.activityName}
+    >
       <div className="tw-flex tw-flex-wrap tw-mt-3">
         {/* {tags.map((t, i) => (
           <Tags className="tw-my-1 tw-mr-2 tw-text-xs" tag={t} key={i} />
@@ -58,7 +55,12 @@ const ActivityCard = (props) => {
       </div>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Cities : </span>
-        <span>{activityData.destinations.destination}</span>
+        {activityData.destinations
+          ? activityData.destinations.destination
+          : activityData.destination.map((d) => d.destination + ", ")}
+        {/* <span>{activityData.destination[0].destination}</span>,{" "}
+        <span>{activityData.destination[1]?.destination}</span>,{" "}
+        <span>{activityData.destination[2]?.destination}</span> */}
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Duration : </span>
@@ -74,20 +76,26 @@ const ActivityCard = (props) => {
       </p>
       <p className="tw-font-medium tw-mt-3">
         <span className="tw-text-secondary-color">Activity By : </span>
-        <span>{vender ? vender.name : null}</span>
+        <span>{vender ? vender.companyName : null}</span>
       </p>
       <div className="tw-font-medium tw-mt-3 tw-flex tw-items-center">
         <span className="tw-text-secondary-color tw-mr-3">Includes : </span>
         <span className="tw-flex">
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={hotel} alt="" />
-          </div>
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={taxi} alt="" />
-          </div>
-          <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
-            <img className="tw-w-full h-auto" src={camera} alt="" />
-          </div>
+          <Tooltip title="Hotel stay">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={hotel} alt="" />
+            </div>
+          </Tooltip>
+          <Tooltip title="Traveling">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={taxi} alt="" />
+            </div>
+          </Tooltip>
+          <Tooltip title="Photography">
+            <div className="tw-mr-3 tw-p-3 tw-w-10 tw-h-10 tw-bg-gray-background tw-rounded-full">
+              <img className="tw-w-full h-auto" src={camera} alt="" />
+            </div>
+          </Tooltip>
         </span>
       </div>
 

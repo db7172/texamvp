@@ -1,6 +1,7 @@
 import { EditOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Modal, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import firebase from "../../../firebase";
 
 const userDetails = {
   mobileNo: "+91-1234567890",
@@ -10,9 +11,9 @@ const userDetails = {
 };
 
 const bankData = {
-  bankName: "ICICI Bank LTD",
+  bankName: "Enter your bank name",
   bankAccountNO: 123456789010,
-  ifscCode: "icic15345689",
+  ifscCode: "Enter your ifsc code",
 };
 
 const ProfileSetting = () => {
@@ -21,6 +22,7 @@ const ProfileSetting = () => {
   const [gstForm] = Form.useForm();
 
   const [userData, setUserData] = useState(userDetails);
+  const [details, setDetails] = useState([]) as any;
   const [bankDetails, setBankDetails] = useState(bankData);
   const [gstDetail, setGstDetail] = useState(2745638964522);
 
@@ -55,27 +57,79 @@ const ProfileSetting = () => {
   const handleUserDetailsFormSubmit = (value: any) => {
     console.log(value);
     const changedData = {
-      mobileNo: `+${value.prefix}-${value.mobileNo}`,
+      mobileNo: `+${value.prefix}${value.mobileNo}`,
       landlineNo: value.landlineNo,
       address: value.address,
-      bankAccountNO: value.bankAccountNO,
     };
     setUserData(changedData);
+    console.log(changedData.landlineNo);
+    let user = firebase.auth().currentUser;
+    if (user) {
+      firebase.firestore().collection("venders").doc(user.uid).set(
+        {
+          landlineNo: value.landlineNo,
+          address: value.address,
+        },
+        { merge: true }
+      );
+    }
     handleUserModalCancel();
     userForm.resetFields();
+    window.location.reload();
   };
 
   const handleBankDetailsFormSubmit = (value: any) => {
     console.log(value);
+    let user = firebase.auth().currentUser;
+    if (user) {
+      firebase.firestore().collection("venders").doc(user.uid).set(
+        {
+          accountName: value.bankName,
+          accountNumber: value.bankAccountNO,
+          ifscCode: value.ifscCode,
+        },
+        { merge: true }
+      );
+    }
     setBankDetails(value);
     handleBankModalCancel();
+    window.location.reload();
   };
 
   const handleGstDetailFormSubmit = (value: any) => {
     console.log(value);
+    let user = firebase.auth().currentUser;
+    if (user) {
+      firebase.firestore().collection("venders").doc(user.uid).set(
+        {
+          gstNumber: value.gstNo,
+        },
+        { merge: true }
+      );
+    }
     setGstDetail(value.gstNo);
     handleGstDetailModalCancel();
+    window.location.reload();
   };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setDetails(doc.data());
+            }
+          });
+      }
+    });
+  }, []);
+
+  console.log(details);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -96,22 +150,24 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Mobile Number</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {userData.mobileNo}
+            {details.number}
           </p>
-          <Button
+          {/* <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
             type="text"
             icon={<EditOutlined />}
             size="small"
             onClick={handleShowUserModal}
-          />
+          /> */}
         </div>
       </div>
       <div className="tw-flex tw-justify-between tw-w-full tw-mb-5">
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Landline Number</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {userData.landlineNo}
+            {details.landlineNo
+              ? details.landlineNo
+              : "Update your landline number"}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -126,7 +182,7 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Address</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {userData.address}
+            {details.address ? details.address : "Update your address"}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -145,7 +201,7 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">Bank Name</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {bankDetails.bankName}
+            {details.accountName}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -163,7 +219,7 @@ const ProfileSetting = () => {
         </p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {bankDetails.bankAccountNO}
+            {details.accountNumber}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -179,7 +235,7 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">IFSC code</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {bankDetails.ifscCode}
+            {details.ifscCode}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -198,7 +254,7 @@ const ProfileSetting = () => {
         <p className="tw-w-4/12 tw-text-base tw-font-medium">GST Number</p>
         <div className="tw-w-8/12 tw-flex tw-justify-between">
           <p className="tw-w-10/12 tw-text-secondary-color tw-text-base">
-            {gstDetail}
+            {details.gstNumber}
           </p>
           <Button
             className="tw-w-2/12 tw-m-0 tw-text-secondary-color "
@@ -218,11 +274,15 @@ const ProfileSetting = () => {
         <Form
           form={userForm}
           name="userDetails"
-          initialValues={{
-            ...userData,
-            mobileNo: userData.mobileNo.split("-")[1],
-            prefix: userData.mobileNo.slice(1, 3),
-          }}
+          initialValues={
+            details.number
+              ? {
+                  ...details,
+                  mobileNo: details.number?.slice(3, details.number.length),
+                  prefix: details.number?.slice(1, 3),
+                }
+              : { prefix: userData.mobileNo.slice(3) }
+          }
           size="large"
           layout="vertical"
           onFinish={handleUserDetailsFormSubmit}
@@ -241,6 +301,7 @@ const ProfileSetting = () => {
             ]}
           >
             <Input
+              disabled
               addonBefore={prefixSelector}
               className="tw-rounded-lg"
               type="tel"
@@ -301,7 +362,15 @@ const ProfileSetting = () => {
         <Form
           form={bankForm}
           name="bankDetails"
-          initialValues={bankDetails}
+          initialValues={
+            details
+              ? {
+                  bankName: details.accountName,
+                  bankAccountNO: details.accountNumber,
+                  ifscCode: details.ifscCode,
+                }
+              : bankData
+          }
           size="large"
           layout="vertical"
           onFinish={handleBankDetailsFormSubmit}
@@ -366,9 +435,9 @@ const ProfileSetting = () => {
         <Form
           form={gstForm}
           name="gstDetails"
-          initialValues={{
-            gstNo: gstDetail,
-          }}
+          initialValues={
+            details ? { gstNo: details.gstNumber } : { gstNo: gstDetail }
+          }
           size="large"
           layout="vertical"
           onFinish={handleGstDetailFormSubmit}

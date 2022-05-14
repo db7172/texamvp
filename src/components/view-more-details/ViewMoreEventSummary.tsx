@@ -14,20 +14,44 @@ const mockData = [
   },
 ];
 
-const ViewMoreEventSummary = () => {
-  return (
-    <section>
-      <ViewMoreSectionTitleWithImg image={location} header="Summary" />
-      <div>
-        {mockData.map((d, i) => (
-          <div className="tw-my-5" key={i}>
-            <h4 className="tw-text-base tw-font-medium">{d.title}</h4>
-            <p className="tw-mt-3 tw-text-secondary-color">{d.description}</p>
+const ViewMoreEventSummary = (props: any) => {
+  console.log(props);
+  if (props.summary) {
+    return (
+      <section>
+        <ViewMoreSectionTitleWithImg image={location} header="Summary" />
+        <div>
+          {Object.values(props.summary).map((d: any, i: any) => (
+            <div className="tw-my-5" key={i}>
+              <h4 className="tw-text-base tw-font-medium">
+                {d.date}: {d.title}
+              </h4>
+              <p className="tw-mt-3 tw-text-secondary-color">
+                {d.itineraryDetails}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  } else {
+    return (
+      <section>
+        <ViewMoreSectionTitleWithImg image={location} header="Summary" />
+        <div>
+          <div className="tw-my-5">
+            <h4 className="tw-text-base tw-font-medium">
+              {`${props.sailentFeatures.startDate} | ${props.sailentFeatures.startTime} `}
+              : {props.eventName}
+            </h4>
+            <p className="tw-mt-3 tw-text-secondary-color">
+              {props.eventDescription}
+            </p>
           </div>
-        ))}
-      </div>
-    </section>
-  );
+        </div>
+      </section>
+    );
+  }
 };
 
 export default ViewMoreEventSummary;

@@ -25,7 +25,7 @@ const SECTION_DETAILS = {
   image: hotel,
 };
 
-const ROOM_DETAILS: Array<RoomType[]> = [
+const ROOM_DETAILS = [
   [
     {
       roomType: {
@@ -107,7 +107,8 @@ const ROOM_DETAILS: Array<RoomType[]> = [
   ],
 ];
 
-const ViewMoreRoomDetails = () => {
+const ViewMoreRoomDetails = (props: any) => {
+  console.log(props);
   return (
     <div>
       <ViewMoreSectionTitleWithImg
@@ -125,27 +126,28 @@ const ViewMoreRoomDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {ROOM_DETAILS.map((data) =>
-              data.map((d) => (
+            {Object.values(props.accomodation.data).map(
+              (d: any) => (
+                // data.map((d) => (
                 <tr>
-                  {d.roomType && (
+                  {d.roomName && (
                     <td
                       className="tw-w-1/3 tw-border tw-p-5"
-                      rowSpan={data.length}
+                      rowSpan={d.length}
                     >
                       <div className="tw-pt-4 tw-flex tw-flex-col">
                         <p className="tw-mb-4 tw-font-medium tw-text-base">
-                          {d.roomType.name}
+                          {d.roomName}
                         </p>
                         <div className="tw-mb-4">
                           <img
                             className="tw-rounded-lg"
-                            src={d.roomType.imgage}
+                            src={room1}
                             alt="roomPhoto"
                           />
                         </div>
                         <div>
-                          {d.roomType.service.map((list) => (
+                          {props.includes.map((list: any) => (
                             <li className="tw-text-secondary-color" key={list}>
                               {list}
                             </li>
@@ -156,29 +158,26 @@ const ViewMoreRoomDetails = () => {
                   )}
                   <td className="tw-w-1/3 tw-border tw-p-5">
                     <ul className="tw-list-disc tw-list-outside tw-p-2 tw-pl-4 tw-pt-4">
-                      {d.notes.map((list) => (
-                        <li
-                          className="tw-text-secondary-color tw-pb-1"
-                          key={list}
-                        >
-                          {list}
-                        </li>
-                      ))}
+                      {/* {d.notes.map((list) => ( */}
+                      <li className="tw-text-secondary-color tw-pb-1">
+                        {d.note}
+                      </li>
+                      {/* ))} */}
                     </ul>
                   </td>
                   <td className="tw-w-1/3 tw-border tw-p-5">
                     <div className="tw-text-secondary-color tw-text-xs tw-p-2 tw-pt-4">
                       <p className="tw-line-through tw-mb-1.5">
-                        {indCurrency(d.price.mrp)}
+                        {indCurrency(d.paymentRatePerPerson)}
                       </p>
                       <p className="tw-mb-1.5">
                         <span className="tw-text-2xl tw-text-primary-color tw-font-medium tw-mr-2">
-                          {indCurrency(d.price.discountPrice)}
+                          {indCurrency(d.paymentRatePerPerson)}
                         </span>
-                        <span className="">For {d.price.nights} Nights</span>
+                        <span className="">For 1 Nights</span>
                       </p>
                       <p className="tw-text-secondary-color tw-font-medium">
-                        + {indCurrency(d.price.tax)} Taxes & Fees
+                        + {indCurrency(1311)} Taxes & Fees
                       </p>
                       <div className="tw-pt-5">
                         <Button
@@ -191,7 +190,8 @@ const ViewMoreRoomDetails = () => {
                     </div>
                   </td>
                 </tr>
-              ))
+              )
+              // ))
             )}
           </tbody>
         </table>

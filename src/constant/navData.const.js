@@ -1,26 +1,27 @@
 import { chunkArray } from "../utils/utils";
+import firebase from "../firebase";
 
-export const activityOptions = [
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-  "Cycle Trip",
-  "Trekking",
-  "Camping",
-  "Skiingg",
-  "Surfing",
-  "Kayking",
-  "Scuba Diving",
-  "Snookering",
-  "Web Shows",
-  "Ladakh",
-];
+let activityData = [];
+
+async function getAcitivty() {
+  await firebase
+    .firestore()
+    .collection("categories")
+    .get()
+    .then((querySnap) => {
+      activityData.push(
+        querySnap.docs
+          .map((doc) => doc.data())
+          .filter((item) => {
+            return item.type === "activity";
+          })
+      );
+    });
+}
+
+getAcitivty();
+
+export const activityOption = activityData;
 
 export const eventOptions = [
   "Comedy",
@@ -92,7 +93,7 @@ export const retreatOptions = [
 
 export const ACTIVITY_DATA = {
   title: "Activity Type",
-  options: chunkArray(activityOptions, 5),
+  options: chunkArray(activityOption, 5),
 };
 
 export const EVENT_DATA = {

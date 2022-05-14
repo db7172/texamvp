@@ -44,7 +44,7 @@ const notificationData = [
 ];
 
 const LogedIn = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
@@ -56,8 +56,12 @@ const LogedIn = () => {
           .doc(user.uid)
           .get()
           .then((doc) => {
+            let data = [] as any;
             if (doc.exists) {
               setUserData({ id: doc.id, data: doc.data() });
+              if (data.aadharCard) {
+                setCurrentUser(user);
+              }
             } else {
               console.log("does'nt existss");
             }
@@ -80,7 +84,16 @@ const LogedIn = () => {
       <Link to="/influencer/profile">
         <div className="tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
           <div className="tw-flex tw-gap-3">
-            <Avatar src={avatarImg} className="tw-mr-2" />
+            <Avatar
+              src={`${
+                currentUser
+                  ? currentUser.photoURL
+                    ? currentUser.photoURL
+                    : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+                  : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+              }`}
+              className="tw-mr-2"
+            />
             <div>
               <p className="tw-text-base tw-font-medium tw-text-primary-color">
                 {currentUser ? currentUser.displayName : "Profile Name"}
@@ -143,7 +156,6 @@ const LogedIn = () => {
       ))}
     </div>
   );
-
   return (
     <div className="tw-flex tw-items-center tw-gap-10">
       <Badge dot={true}>
@@ -159,7 +171,16 @@ const LogedIn = () => {
       </Badge>
       <Popover className="tw-cursor-pointer" content={menu} trigger="click">
         <div>
-          <Avatar src={avatarImg} className="tw-mr-2" />
+          <Avatar
+            src={`${
+              currentUser
+                ? currentUser.photoURL
+                  ? currentUser.photoURL
+                  : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+                : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+            }`}
+            className="tw-mr-2"
+          />
           <DownOutlined className="tw-text-xs tw-text-secondary-color" />
         </div>
       </Popover>

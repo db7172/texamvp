@@ -1,4 +1,5 @@
 import { Row, Form, Col, Input, DatePicker } from "antd";
+import moment from "moment";
 import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
@@ -12,16 +13,27 @@ import { TabsVariant } from "../HourlyAndSingleDay";
 
 export const TranspotationFormTab = ({
   keyValue,
+  initialData,
   updateTabFormData,
   singleDay = true,
 }: {
   keyValue: string;
+  initialData?: any;
   updateTabFormData: (type: TabsVariant, a: any, b: any) => void;
   singleDay: boolean;
 }) => {
   return (
     <Form
       name={"transpotation" + keyValue}
+      initialValues={
+        initialData
+          ? {
+              ...initialData,
+              pickupDate: moment(initialData.pickupDate, "DD-MM-YYYY"),
+              droppingDate: moment(initialData.droppingDate, "DD-MM-YYYY"),
+            }
+          : undefined
+      }
       className="tw-border-2 tw-p-5 tw-border-dashed tw-rounded-md"
       onValuesChange={(_, obj) => {
         const newObj = {
@@ -111,6 +123,7 @@ export const TranspotationFormTab = ({
               <DatePicker
                 className="tw-rounded-md tw-w-full"
                 placeholder="Enter Pick up Date"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>
@@ -132,6 +145,7 @@ export const TranspotationFormTab = ({
               <DatePicker
                 className="tw-rounded-md tw-w-full"
                 placeholder="Enter Dropping Date"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>

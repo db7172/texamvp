@@ -2,18 +2,20 @@ import { InfoCircleOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Col, Divider, Modal, Row, Tooltip } from "antd";
 import { isNumber, uniqueId } from "lodash";
 import { ReviewData, TripData } from "Models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
 import UserReview from "../../../common/UserReview/UserReview";
 import { addtionalInfomation } from "../DashboardUtils";
+import firebase from "../../../../firebase";
 
-type Props = {
-  data: Array<TripData>;
-};
+// type Props = {
+//   data: Array<TripData>;
+// };
 
-const CompletedTabComponent = ({ data }: Props) => {
+const CompletedTabComponent = ({ activity }: any) => {
   const [activeReview, setActiveReview] = useState<Array<ReviewData>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [review, setReview] = useState([]) as any;
 
   const handleViewAllClick = (value: Array<ReviewData>) => {
     setActiveReview(value);
@@ -25,10 +27,21 @@ const CompletedTabComponent = ({ data }: Props) => {
     setActiveReview([]);
   };
 
+  const calcAvg = async () => {
+    let sum = 0;
+    await activity.map((data: any) => {
+      return (sum += data.review.rating);
+      let avg = sum / review.length;
+    });
+  };
+
+  console.log(activity);
+
   return (
+    // <div>Loading</div>
     <div>
       <Row gutter={[0, 40]}>
-        {data.map((d) => (
+        {activity.map((d: any) => (
           <Col
             span={24}
             key={uniqueId()}
@@ -38,33 +51,33 @@ const CompletedTabComponent = ({ data }: Props) => {
             <div className="tw-flex tw-justify-between">
               <div className="tw-flex tw-gap-3" style={{ maxWidth: "220px" }}>
                 <div>
-                  <img src={d.image} alt="details card" />
+                  <img src={d.data.img} alt="details card" />
                 </div>
                 <div style={{ width: "150px" }}>
-                  <Tooltip title={d.title}>
+                  <Tooltip title={d.data.title}>
                     <h5 className="tw-text-base tw-font-medium tw-mb-3 tw-text-ellipsis">
-                      {d.title}
+                      {d.data.title}
                     </h5>
                   </Tooltip>
                   <p className="tw-text-xs tw-text-secondary-color tw-font-medium">
-                    {d.description}
+                    {d.data.description}
                   </p>
                 </div>
               </div>
 
               {/* price */}
-              {isNumber(d.price) ? (
+              {isNumber(d.data.paidAmt) ? (
                 <div>
                   <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                     Price
                   </p>
                   <p className="tw-text-base tw-font-medium">
-                    {indCurrency(d.price)}
+                    {indCurrency(d.data.paidAmt)}
                   </p>
                 </div>
               ) : (
                 <div>
-                  <p className="tw-text-secondary-color tw-text-base tw-mb-3">
+                  {/* <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                     {d.price.label}
                   </p>
                   <p className="tw-text-base tw-font-medium tw-flex tw-items-center">
@@ -75,7 +88,7 @@ const CompletedTabComponent = ({ data }: Props) => {
                     >
                       <InfoCircleOutlined className="tw-text-secondary-color" />
                     </Tooltip>
-                  </p>
+                  </p> */}
                 </div>
               )}
 
@@ -85,7 +98,7 @@ const CompletedTabComponent = ({ data }: Props) => {
                   Status
                 </p>
                 <p className="tw-rounded-md tw-p-2 tw-text-xs tw-font-medium tw-max-w-max tw-text-yellow-color tw-bg-lite-yellow">
-                  {d.status}
+                  {"Completed"}
                 </p>
               </div>
 
@@ -94,7 +107,9 @@ const CompletedTabComponent = ({ data }: Props) => {
                 <p className="tw-text-secondary-color tw-text-base tw-mb-3">
                   No. of Reviews
                 </p>
-                <p className="tw-text-base tw-font-medium">{d.review.length}</p>
+                <p className="tw-text-base tw-font-medium">
+                  {d.data.review.length}
+                </p>
               </div>
 
               {/* ratting */}
@@ -103,7 +118,7 @@ const CompletedTabComponent = ({ data }: Props) => {
                   Avg. Ratings
                 </p>
                 <p className="tw-text-base tw-font-medium tw-flex tw-items-center">
-                  <span>4.5</span>{" "}
+                  <span>{4.5}</span>{" "}
                   <StarFilled className="tw-text-yellow-color tw-ml-2" />
                 </p>
               </div>
@@ -117,7 +132,7 @@ const CompletedTabComponent = ({ data }: Props) => {
             <div className="tw-mt-10">
               <UserReview
                 ViewAll
-                d={d.review[0]}
+                d={d.data.review[0]}
                 handleViewAllClick={() => handleViewAllClick(d.review)}
               />
             </div>

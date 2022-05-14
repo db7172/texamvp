@@ -21,15 +21,24 @@ const UserDashboard = () => {
 
   const history = useHistory();
   const { confirm } = Modal;
-
-  function handleLogout() {
-    firebase.auth().signOut();
-  }
+  const [user, setUser] = useState([]) as any;
+  const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         history.push("/");
+      } else {
+        setUser(user);
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            console.log(doc.data());
+            setUserData({ id: doc.id, data: doc.data() });
+          });
       }
     });
   }, []);
@@ -61,12 +70,14 @@ const UserDashboard = () => {
             <Col span={24}>
               <div className="tw-flex tw-gap-4">
                 <div>
-                  <Avatar src={avatarImg} />
+                  <Avatar src={user.photoURL} />
                 </div>
                 <div>
-                  <p className="tw-text-base">User Name</p>
+                  <p className="tw-text-base">
+                    {user ? user.displayName : "User Name"}
+                  </p>
                   <p className="tw-text-xs tw-text-secondary-color">
-                    user.name@gmail.com
+                    {user ? user.email : "user.name@gmail.com"}
                   </p>
                 </div>
               </div>
@@ -105,7 +116,7 @@ const UserDashboard = () => {
           {activeTab === 1 && <UserMyProfile />}
           {activeTab === 2 && <UserMyTrip />}
           {activeTab === 3 && <UserMyEnquiry />}
-          {activeTab === 4 && <UserReviewsTab />}
+          {activeTab === 4 && <UserReviewsTab {...userData} />}
           {activeTab === 5 && <UserSupport />}
         </Col>
       </Row>

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./homeCover.css";
+import firebase from "../../firebase";
+import Success from "../Cards/Success/Success";
 
 const HomeCover = () => {
   const [details, setDetails] = useState({
@@ -9,6 +11,7 @@ const HomeCover = () => {
     line2: "",
     line3: "",
   });
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setDetails({
@@ -32,10 +35,38 @@ const HomeCover = () => {
     document.getElementById("line3").value = "";
   };
 
-  console.log(details);
+  const handleSubmit = async () => {
+    firebase
+      .firestore()
+      .collection("admin")
+      .doc("hero")
+      .set(details)
+      .then(() => {
+        console.log("Success");
+        setSuccess(true);
+      });
+  };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("admin")
+      .doc("hero")
+      .get()
+      .then((doc) => {
+        setDetails(doc.data());
+      });
+  }, []);
 
   return (
     <div className="home-cover">
+      {success ? (
+        <Success
+          close={() => {
+            setSuccess(false);
+          }}
+        />
+      ) : null}
       <div className="card-title">
         <h3>Cover Section</h3>
       </div>
@@ -46,6 +77,7 @@ const HomeCover = () => {
             type="text"
             id="heading1"
             name="heading1"
+            defaultValue={details.heading1}
             className="form_inputs"
             onChange={handleChange}
           />
@@ -57,6 +89,7 @@ const HomeCover = () => {
             name="heading2"
             className="form_inputs"
             id="heading2"
+            defaultValue={details.heading2}
             onChange={handleChange}
           />
         </div>
@@ -67,6 +100,7 @@ const HomeCover = () => {
             name="line1"
             className="form_inputs"
             id="line1"
+            defaultValue={details.line1}
             onChange={handleChange}
           />
         </div>
@@ -77,6 +111,7 @@ const HomeCover = () => {
             name="line2"
             className="form_inputs"
             id="line2"
+            defaultValue={details.line2}
             onChange={handleChange}
           />
         </div>
@@ -87,12 +122,15 @@ const HomeCover = () => {
             name="line3"
             className="form_inputs"
             id="line3"
+            defaultValue={details.line3}
             onChange={handleChange}
           />
         </div>
       </div>
       <div className="action-box">
-        <button className="btn btn-submit">Submit</button>
+        <button className="btn btn-submit" onClick={handleSubmit}>
+          Submit
+        </button>
         <button className="btn btn-reset" onClick={resetFunc}>
           Reset
         </button>

@@ -29,6 +29,7 @@ export const RETREAT_TYPES = {
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
 const ACTIVITY_NAME = ":activityName";
+const COLLECTION_NAME = ":collectionName";
 const ACTIVITY_ID = ":id";
 const EVENT_TYPE = ":eventType";
 const EVENT_NAME = ":eventName";
@@ -36,6 +37,7 @@ const WORKATION_TYPE = ":workationType";
 const RETREAT_TYPE = ":retreatType";
 const RETREAT_NAME = ":retreatName";
 const REVIEW_TYPE = ":reviewType";
+const USER_ID = ":userId";
 
 export const ROUTES = {
   HOME: "/",
@@ -60,7 +62,9 @@ export const ROUTES = {
   PAYMENT: "/payment",
   ALL_REVIEWS: "/reviews",
   SINGLE_REVIEWS: `/review/${REVIEW_TYPE}`,
+  PUBLIC_PROFILE: `/profile/${USER_ID}`,
   DESTINATION: `/destination/${DESTINATION_NAME}`,
+  DESTINATIONS: `/destinations`,
   RETREATS: `/retreats`,
   WORKCATIONS: `/workcations`,
   ACTIVITES: `/activities`,
@@ -73,7 +77,7 @@ export const ROUTES = {
   WORKATION_IN_CITY: `/workcation/${WORKATION_TYPE}/${DESTINATION_NAME}`,
   RETREAT: `/retreat/${RETREAT_TYPE}`,
   RETREAT_IN_CITY: `/retreat/${RETREAT_TYPE}/${DESTINATION_NAME}`,
-  VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${ACTIVITY_NAME}/${ACTIVITY_ID}`,
+  VIEW_MORE_DETAILS_ACTIVITY: `/details/activity/${ACTIVITY_TYPE}/${COLLECTION_NAME}`,
   VIEW_MORE_DETAILS_EVENT: `/details/event/${EVENT_TYPE}/${EVENT_NAME}`,
   VIEW_MORE_DETAILS_RETREAT: `/details/retreat/${RETREAT_TYPE}/${RETREAT_NAME}`,
   VIEW_MORE_DETAILS_WORKCATION: `/details/workcation/${DESTINATION_NAME}/${WORKATION_TYPE}`,
@@ -99,7 +103,6 @@ export const getActivityPageWithCityPath = (activityType, destinationName) => {
   let path = ROUTES.ACTIVITY_IN_CITY;
   path = path.replace(ACTIVITY_TYPE, activityType);
   path = path.replace(DESTINATION_NAME, destinationName);
-
   return path;
 };
 
@@ -158,14 +161,12 @@ export const getWorkationPageWithCityPath = (
 
 export const getViewMoreDetailsForActivityPath = (
   activityType,
-  activityName,
-  id
+  collectionName
 ) => {
   let path = ROUTES.VIEW_MORE_DETAILS_ACTIVITY;
   path = path.replace(ACTIVITY_TYPE, activityType);
-  path = path.replace(ACTIVITY_NAME, activityName);
-  path = path.replace(ACTIVITY_ID, id);
-
+  // path = path.replace(ACTIVITY_NAME, activityName);
+  path = path.replace(COLLECTION_NAME, collectionName);
   return path;
 };
 

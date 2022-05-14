@@ -7,6 +7,8 @@ const MoreDetailsPageCarousal = ({ images }) => {
     ...defaultSettings,
   };
 
+  // 771 × 279 px
+
   return (
     <Carousel
       className="menual-carousal details_page_carousal"
@@ -14,7 +16,7 @@ const MoreDetailsPageCarousal = ({ images }) => {
       {...settings}
     >
       {images.map((d, i) => (
-        <div>
+        <div style={{ width: "771px", height: "279px" }}>
           <img className="tw-w-full tw-h-auto" src={d} alt="" />
         </div>
       ))}

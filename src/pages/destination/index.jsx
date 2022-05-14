@@ -15,11 +15,15 @@ import {
 } from "../../constant/comman.const";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
+import firebase from "../../firebase";
 
 const DestinationPage = () => {
   const { destinationName } = useParams();
   const DESTINATION_NAME = startCase(destinationName);
+  const [destinationDetails, setDestinationDetails] = useState([]);
   const [slashedTableName, setSlashedTableName] = useState([]);
+  const DUMMY_DESCRIPTION =
+    "The human instinct to explore new places and things is always there. People travel for all sorts of reasons, be it to spend time with their loved ones or today North Andaman and Baratang Island are also popular with travelers. From pristine beaches to bewildering Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team.";
 
   useEffect(() => {
     setSlashedTableName([
@@ -36,24 +40,39 @@ const DestinationPage = () => {
         url: "",
       },
     ]);
+    let docName = DESTINATION_NAME.toLowerCase();
+    console.log(docName);
+    firebase
+      .firestore()
+      .collection("destinations")
+      .doc(docName)
+      .get()
+      .then((doc) => {
+        setDestinationDetails(doc.data());
+      });
   }, [DESTINATION_NAME]);
 
-  return (
+  console.log(DESTINATION_NAME, destinationDetails);
+
+  return destinationDetails ? (
     <ExploreMoreWrapper
-      coverImage={DESTINATION_IMAGE}
-      coverTitle={destinationName}
-      coverDescription="Go on a trekking trip to the man-made heaven"
+      coverImage={destinationDetails.banner}
+      coverTitle={destinationDetails.name}
+      coverDescription={destinationDetails.destinationDescription}
       ratting={5}
       path="#destination"
       review="1970 reviews"
-      startingPrice={16949}
-      destinationName={destinationName}
+      startingPrice={destinationDetails.startingPrice}
+      destinationName={DESTINATION_NAME}
     >
       <div id="destination" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-9">
-        <PageHeader title={destinationName} />
+        <PageHeader
+          title={destinationName}
+          desc={destinationDetails.destinationDescription}
+        />
       </div>
       <div className="md:tw-mt-20 tw-mt-14">
         <ActivityCarousel
@@ -95,6 +114,8 @@ const DestinationPage = () => {
         />
       </div>
     </ExploreMoreWrapper>
+  ) : (
+    <p>Loading...</p>
   );
 };
 

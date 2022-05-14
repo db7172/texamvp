@@ -1,12 +1,20 @@
-import { ArrowLeftOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Typography } from "antd";
+import {
+  ArrowLeftOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
+import { Button, Col, Form, Input, Modal, Row, Typography } from "antd";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
+import firebase from "../../../firebase";
 
 const mobileOTP = 123456;
+const { confirm } = Modal;
 
 const PasswordReset = () => {
+  const location = useLocation();
+  const history = useHistory();
   const [step, setStep] = useState(1);
   const [emailOrMobile, setEmailOrMobile] = useState("");
   const [otp, setOtp] = useState({
@@ -14,29 +22,52 @@ const PasswordReset = () => {
     error: false,
   });
 
-  const onFinish = (value: any) => {
-    console.log(value);
-    setEmailOrMobile(value.emailOrMobile);
-    setStep(2);
-  };
+  // const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setOtp({
+  //     error: !(mobileOTP === +e.target.value),
+  //     mobileOtp: e.target.value,
+  //   });
+  // };
 
-  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOtp({
-      error: !(mobileOTP === +e.target.value),
-      mobileOtp: e.target.value,
-    });
-  };
-
-  const handleVerify = () => {
-    if (!otp.error && +otp.mobileOtp === mobileOTP) {
-      console.log("OTP verified");
-      setStep(3);
-    }
-  };
+  // const handleVerify = () => {
+  //   if (!otp.error && +otp.mobileOtp === mobileOTP) {
+  //     console.log("OTP verified");
+  //     setStep(3);
+  //   }
+  // };
 
   const onPasswordReset = (value: any) => {
     console.log(value);
-    setStep(4);
+    setStep(3);
+  };
+
+  function showConfirm() {
+    Modal.success({
+      title: "Password reset link has been send to you'r email id.",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Ok",
+
+      onOk() {
+        history.push("/influencer");
+      },
+    });
+  }
+
+  const onFinish = (value: any) => {
+    console.log(value);
+    setEmailOrMobile(value.emailOrMobile);
+    firebase
+      .auth()
+      .sendPasswordResetEmail(value.email)
+      .then(() => {
+        showConfirm();
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+      });
   };
 
   return (
@@ -61,7 +92,7 @@ const PasswordReset = () => {
                     </Col>{" "}
                   </>
                 )}
-
+                {/* 
                 {step === 2 && (
                   <>
                     {" "}
@@ -76,15 +107,15 @@ const PasswordReset = () => {
                       </div>
                     </Col>{" "}
                   </>
-                )}
+                )} */}
 
-                {step === 3 && (
+                {step === 2 && (
                   <Col span={24} className="tw-flex tw-justify-center">
                     <p className="tw-text-2xl">Change your password</p>
                   </Col>
                 )}
 
-                {step === 4 && (
+                {step === 3 && (
                   <Col span={24} className="tw-flex tw-justify-center">
                     <p className="tw-text-2xl">
                       Your password change successfully
@@ -110,18 +141,22 @@ const PasswordReset = () => {
                     onFinish={onFinish}
                   >
                     <Form.Item
-                      label="Email / Mobile No"
-                      name="emailOrMobile"
+                      name="email"
+                      label="E-mail ID"
                       rules={[
                         {
+                          type: "email",
+                          message: "The input is not valid e-mail!",
+                        },
+                        {
                           required: true,
-                          message: "Please input your e-mail / mobile no.!",
+                          message: "Please input your e-mail!",
                         },
                       ]}
                     >
                       <Input
-                        placeholder="Enter your email or mobile no"
                         className="tw-rounded-lg"
+                        placeholder="Enter Your E-mail id"
                       />
                     </Form.Item>
 
@@ -131,13 +166,13 @@ const PasswordReset = () => {
                         className="tw-w-full tw-texa-button tw-m-0"
                         htmlType="submit"
                       >
-                        SEND OTP
+                        verify Email
                       </Button>
                     </Form.Item>
                   </Form>
                 </>
               )}
-              {step === 2 && (
+              {/* {step === 2 && (
                 <>
                   <div className="tw-flex tw-flex-col tw-items-center">
                     <p className="tw-max-w-xs tw-text-center tw-text-secondary-color tw-font-lato tw-mb-5">
@@ -179,9 +214,9 @@ const PasswordReset = () => {
                     Verify
                   </Button>
                 </>
-              )}
+              )} */}
 
-              {step === 3 && (
+              {step === 2 && (
                 <div className="tw-flex tw-flex-col tw-items-center">
                   <p className="tw-max-w-xs tw-text-center tw-text-secondary-color tw-font-lato tw-mb-5">
                     Lorem ipsum, or lipsum as it is sometimes known, is dummy
@@ -200,9 +235,8 @@ const PasswordReset = () => {
                       label="Password"
                       rules={[
                         {
-                          pattern:
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,16}$/,
-                          message: "The password is not valid!",
+                          min: 6,
+                          message: "The password should have min 6 character !",
                         },
                         {
                           required: true,
@@ -258,7 +292,7 @@ const PasswordReset = () => {
                 </div>
               )}
 
-              {step === 4 && (
+              {step === 3 && (
                 <div className="tw-flex tw-flex-col tw-items-center">
                   <p className="tw-max-w-xs tw-text-center tw-text-secondary-color tw-font-lato tw-mb-5">
                     Lorem ipsum, or lipsum as it is sometimes known, is dummy

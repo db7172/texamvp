@@ -57,7 +57,7 @@ const MOCK_PACKAGE: Package[] = [
   },
 ];
 
-const ViewMoreActivityBookingCard = () => {
+const ViewMoreActivityBookingCard = (props: any) => {
   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
   const [isDateSelected, setIsDateSelected] = useState(true);
@@ -111,11 +111,13 @@ const ViewMoreActivityBookingCard = () => {
 
   const handleModalSubmit = () => {
     setIsModalVisible(false);
+    const data = props;
     history.push({
       pathname: "/payment",
       state: {
         numberOfPpl: formValue.noOfPerson,
         price: active.price,
+        activity: data,
       },
     });
   };
@@ -123,6 +125,8 @@ const ViewMoreActivityBookingCard = () => {
   const handlePlanClick = (value: Package) => {
     setActive(value);
   };
+
+  console.log(props);
 
   return (
     <section>
@@ -132,13 +136,13 @@ const ViewMoreActivityBookingCard = () => {
           <Select
             showSearch
             // defaultValue="mumbai"
-            value={departureCity}
+            value={props.departureCity[0]}
             className="tw-font-medium"
             style={{ width: 120 }}
             placeholder="Location"
             onChange={(e) => setDepartureCity(e)}
           >
-            {CITY_ARR.map((c, i) => (
+            {props.departureCity.map((c: any, i: any) => (
               <Select.Option key={i} value={lowerCase(c)}>
                 {c}
               </Select.Option>
@@ -219,9 +223,14 @@ const ViewMoreActivityBookingCard = () => {
             </div>
             <div>
               <h4 className="tw-font-medium tw-text-base">
-                Exciting Hampta Pass Trek trip
+                {props.activityName}
               </h4>
-              <p className="tw-text-secondary-color">Mumbai . Trekking</p>
+              <p className="tw-text-secondary-color">
+                {props.destinations
+                  ? props.destinations.destination
+                  : props.destination[0]?.destination}
+                . {props.sailentFeatures.activityType}
+              </p>
             </div>
           </div>
           <Row
@@ -257,6 +266,7 @@ const ViewMoreActivityBookingCard = () => {
                     >
                       <DatePicker
                         className="tw-w-full tw-rounded-md"
+                        format="DD/MM/YYYY"
                         onChange={(_, d) =>
                           setFormValue({ ...formValue, dateOfTravel: d })
                         }

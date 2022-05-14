@@ -18,7 +18,7 @@ import {
   Upload,
 } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../../Auth";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
@@ -32,6 +32,7 @@ import { normFile, onKeyDownEvent, stripUndefined } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import firebase from "../../../../firebase";
+import { v4 as uuid } from "uuid";
 
 const accomodationPanes = [
   {
@@ -64,6 +65,7 @@ const Workation = () => {
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
   const [workationCategory, setWorkationCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -85,10 +87,6 @@ const Workation = () => {
   const updateTabFormData = (type: TabsVariant, value: any, key: any) => {
     if (type === "accomodation") {
       setAccomodationFormData({
-        ...accomodationFormData,
-        [key]: value.data,
-      });
-      console.log({
         ...accomodationFormData,
         [key]: value.data,
       });
@@ -137,7 +135,7 @@ const Workation = () => {
         googleMap: value.googleMap,
       },
       checkinAndCheckOutTime: {
-        chcekIn: formatMomentDate(value.checkIn),
+        checkIn: formatMomentDate(value.checkIn),
         chcekOut: formatMomentDate(value.checkOut),
       },
       accomodation: {
@@ -153,30 +151,44 @@ const Workation = () => {
       includes: value.includes,
     };
     const finalData = stripUndefined(formValue);
-    console.log(finalData);
+
     const data = {
-      formData: formValue,
+      ...finalData,
       userID: user.uid,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
           .storage()
-          .ref(`workation/${user.uid}/${i}/`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+          .ref(`workation/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await firebase
+
+    firebase
       .firestore()
       .collection("workation")
-      .add({ data, imgLink })
-      .then(() => {})
+      .doc(docId)
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "hr_sg_avy",
+      })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
@@ -321,6 +333,7 @@ const Workation = () => {
                     >
                       <DatePicker
                         className="tw-rounded-md tw-w-full"
+                        format="DD/MM/YYYY"
                         placeholder="Eneter Check In Timing"
                       />
                     </Form.Item>
@@ -332,6 +345,7 @@ const Workation = () => {
                     >
                       <DatePicker
                         className="tw-rounded-md tw-w-full"
+                        format="DD/MM/YYYY"
                         placeholder="Eneter Check Out Timing"
                       />
                     </Form.Item>

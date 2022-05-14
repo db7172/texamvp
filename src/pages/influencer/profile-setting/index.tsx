@@ -1,19 +1,42 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router";
+import { AuthContext } from "../../../Auth";
 import Container from "../../../components/common/container/Container";
 import InfluencerChangePasswoard from "../../../components/influencer/profile-setting/InfluencerChangePasswoard";
 import InfluencerDocuments from "../../../components/influencer/profile-setting/InfluencerDocuments";
 import InfluencerEditMyProfile from "../../../components/influencer/profile-setting/InfluencerEditMyProfile";
 import ProfileSetting from "../../../components/influencer/profile-setting/ProfileSetting";
 import { EDIT_PROFILE_OPTION } from "./data";
+import firebase from "../../../firebase";
 
 const InfluencerProfileSetting = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(
     location.state || EDIT_PROFILE_OPTION[0].id
   );
+
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+              firebase.auth().signOut();
+            }
+          });
+      }
+    });
+  }, []);
+
   return (
     <Container>
       <Row gutter={40} className="tw-mt-10">

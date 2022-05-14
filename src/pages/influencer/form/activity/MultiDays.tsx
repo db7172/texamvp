@@ -18,11 +18,11 @@ import {
   Tag,
   Checkbox,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { AccomodationFormTab } from "./form-tabs/AccomodationFormTab";
@@ -36,8 +36,8 @@ import {
   onKeyDownEvent,
   stripUndefined,
 } from "../formUtils";
-import { AuthContext } from "../../../../Auth";
 import firebase from "../../../../firebase";
+import { v4 as uuid } from "uuid";
 
 const db = firebase.firestore();
 
@@ -115,6 +115,7 @@ const MultiDays = () => {
   const [paymentCategory, setPaymentCategory] = useState(false);
   const [user, setUser] = useState([]) as any;
   const [activityCategory, setActivityCategory] = useState([]) as any;
+  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -198,29 +199,41 @@ const MultiDays = () => {
     });
     // formatted data
     const finalData = stripUndefined(formData);
-    // const data = { formData: finalData, userId: currentUser.uid };
-    // console.log(data);
-    // db.collection("multi-activity").add(data);
     const data = {
-      formData: finalData,
-      userID: user.uid,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+    console.log(formData);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase.storage().ref(`multiDay/${user.uid}/${i}`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
+          .storage()
+          .ref(`multi-activity/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await db
-      .collection("multi-activity")
-      .add({ data, imgLink })
-      .then(() => {})
+
+    db.collection("multi-activity")
+      .doc(docId)
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "multi-activity",
+      })
+      .then(() => {
+        history.push("/influencer/dashboard");
+      })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
@@ -447,7 +460,10 @@ const MultiDays = () => {
                     name="departureDateFirstField"
                     className="tw-w-10/12 tw-m-0"
                   >
-                    <DatePicker.RangePicker className="tw-rounded-md" />
+                    <DatePicker.RangePicker
+                      className="tw-rounded-md"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Rate Per Person"
@@ -483,7 +499,10 @@ const MultiDays = () => {
                                 fieldKey={[field.fieldKey, "dateOfDeparture"]}
                                 className="tw-w-10/12 tw-m-0"
                               >
-                                <DatePicker.RangePicker className="tw-rounded-md" />
+                                <DatePicker.RangePicker
+                                  className="tw-rounded-md"
+                                  format="DD/MM/YYYY"
+                                />
                               </Form.Item>
                               <Form.Item
                                 {...field}
@@ -687,7 +706,10 @@ const MultiDays = () => {
                       name="destinationDateRang"
                       className="tw-w-10/12 tw-m-0"
                     >
-                      <DatePicker.RangePicker className="tw-rounded-md" />
+                      <DatePicker.RangePicker
+                        className="tw-rounded-md"
+                        format="DD/MM/YYYY"
+                      />
                     </Form.Item>
 
                     <MinusCircleOutlined className="tw-text-lg tw-opacity-0" />
@@ -726,7 +748,10 @@ const MultiDays = () => {
                                   ]}
                                   className="tw-w-10/12 tw-m-0"
                                 >
-                                  <DatePicker.RangePicker className="tw-rounded-md" />
+                                  <DatePicker.RangePicker
+                                    className="tw-rounded-md"
+                                    format="DD/MM/YYYY"
+                                  />
                                 </Form.Item>
 
                                 <MinusCircleOutlined

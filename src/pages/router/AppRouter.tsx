@@ -25,6 +25,8 @@ import WorkcationLandingPage from "../landingPage/WorkcationLandingPage";
 import TermsOfService from "../landingPage/TermsOfService";
 import PrivacyPolicy from "../landingPage/PrivacyPolicy";
 import AboutUs from "../landingPage/AboutUs";
+import DestinationsPage from "../destinations";
+import InfluencerPublicProfile from "../profile/Profile";
 
 const AppRouter = () => {
   return (
@@ -36,6 +38,7 @@ const AppRouter = () => {
 
         {/* Destination page */}
         <Route component={DestinationPage} path={ROUTES.DESTINATION} />
+        <Route component={DestinationsPage} path={ROUTES.DESTINATIONS} />
 
         {/* workation */}
         <Route component={Workcations} path={ROUTES.WORKCATIONS} />
@@ -97,6 +100,13 @@ const AppRouter = () => {
 
         {/* single review page */}
         <Route exact component={SingleReview} path={ROUTES.SINGLE_REVIEWS} />
+
+        {/* Influencer Public Profile page */}
+        <Route
+          exact
+          component={InfluencerPublicProfile}
+          path={ROUTES.PUBLIC_PROFILE}
+        />
 
         {/* landing page */}
         <Route

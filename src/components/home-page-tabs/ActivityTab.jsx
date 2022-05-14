@@ -15,10 +15,15 @@ const ActivityTab = ({
   const [dateTime, setDateTime] = useState("");
   const [form] = Form.useForm();
 
-  console.log(DropDownOptions);
-
   const handleClick = () => {
     onClick(selectedOption, dateTime, type);
+  };
+
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e);
+    form.setFieldsValue({
+      startDate: moment().add(1, "d"),
+    });
   };
 
   return (
@@ -34,7 +39,7 @@ const ActivityTab = ({
             showSearch
             placeholder={placeHolder}
             optionFilterProp="children"
-            onChange={(e) => setSelectedOption(e)}
+            onChange={handleDropdownChange}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
@@ -51,6 +56,7 @@ const ActivityTab = ({
             onChange={(_, d) => setDateTime(d)}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
+            format="DD/MM/YYYY"
           />
         </Form.Item>
       </Form>

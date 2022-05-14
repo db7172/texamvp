@@ -22,6 +22,7 @@ import ViewMoreTestimonial from "../../components/view-more-details/ViewMoreTest
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import Title from "../../components/common/title/Title";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
+import firebase from "../../firebase";
 
 // dummy data
 
@@ -45,6 +46,7 @@ const RetreatPage = () => {
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
+  const [retreats, setRetreats] = useState([]);
 
   const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -93,6 +95,15 @@ const RetreatPage = () => {
       types: formatActiveButton(unqTypes),
       categories: formatActiveButton(unqCategories),
     });
+    firebase
+      .firestore()
+      .collection("retreats")
+      .get()
+      .then((querySnap) => {
+        setRetreats(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
   }, [DESTINATION_NAME, RETREAT_TYPE]);
 
   const handlePageChange = (pageNumber) => {
@@ -148,6 +159,7 @@ const RetreatPage = () => {
       review="1970 reviews"
       path="#retreat"
       startingPrice={16949}
+      type={retreatType}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
       <div id="retreat" className="tw--mt-5">
@@ -279,6 +291,7 @@ const RetreatPage = () => {
         </Col>
         <Col span={24}>
           <Title
+            hideViewAll
             title="Visitors Reviews"
             description="Lorem ipsum is the dummy text for placing any thing"
           />

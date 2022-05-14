@@ -10,19 +10,25 @@ import {
   Upload,
 } from "antd";
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import userIcon from "../../../assets/png/userIcon.png";
 import profile from "../../../assets/png/influencer/user/user1.png";
 import { formatMomentDate } from "../../../utils/utils";
 import UserCard from "../card/UserCard";
+import firebase from "../../../firebase";
+import { stripUndefined } from "../../../pages/influencer/form/formUtils";
 
 const OPTIONS = ["Option 1", "Option 2", "Option 3"];
 
 const UserMyProfile = () => {
   const [profilePic, setProfilePic] = useState(profile);
+  const [data, setData] = useState([]) as any;
+  const [user, setUser] = useState([]) as any;
+  const [profileImg, setProfileImg] = useState([]) as any;
 
   const handleUserProfileUpload = (e: any) => {
     console.log("Upload event:", e);
+    setProfileImg(e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -32,11 +38,41 @@ const UserMyProfile = () => {
     return e && e.fileList;
   };
 
-  const handleSubmit = (value: any) => {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            setData(doc.data());
+          });
+      }
+    });
+  }, []);
+
+  // console.log(user);
+
+  const handleSubmit = async (value: any) => {
+    let downloadLink = user.photoURL;
+    if (profileImg.file) {
+      let storageRef = firebase.storage().ref(`users/${user.uid}/profile`);
+      await storageRef.put(profileImg.file);
+      downloadLink = await storageRef.getDownloadURL();
+      await user.updateProfile({
+        photoURL: downloadLink,
+      });
+    }
     const backendvalue = {
       ...value,
       dateOfBirth: formatMomentDate(value.dateOfBirth),
+      profileUrl: downloadLink,
     };
+
+    const finalData = stripUndefined(backendvalue);
 
     if (value.dateOfAnniversary) {
       backendvalue["dateOfAnniversary"] = formatMomentDate(
@@ -44,7 +80,11 @@ const UserMyProfile = () => {
       );
     }
 
-    console.log(backendvalue);
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .set(finalData, { merge: true });
     setIsEdit(false);
   };
 
@@ -75,8 +115,20 @@ const UserMyProfile = () => {
       {isEdit ? (
         <div className="tw-shadow-card tw-bg-white tw-p-5 tw-rounded-lg">
           <div className="tw-flex tw-gap-5 tw-justify-center tw-items-center tw-w-full tw-mb-5">
-            <div className="tw-w-20 tw-h-20 tw-rounded-full">
-              <img src={`${profilePic}`} alt="profile" />
+            <div
+              className="tw-w-20 tw-h-20 tw-rounded-full"
+              style={{ overflow: "hidden" }}
+            >
+              <img
+                src={`${
+                  data
+                    ? data.profileUrl
+                      ? data.profileUrl
+                      : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+                    : "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
+                }`}
+                alt="profile"
+              />
             </div>
             <div>
               <Upload
@@ -98,9 +150,22 @@ const UserMyProfile = () => {
           </div>
           <Form
             name="userForm"
-            initialValues={{
-              prefix: "91",
-            }}
+            initialValues={
+              data && user
+                ? {
+                    prefix: "91",
+                    firstName: data.name.split(" ")[0],
+                    lastName: data.name.split(" ")[1],
+                    email: data.email,
+                    number: parseInt(user.phoneNumber.slice(3, 13)),
+                    country: data.country,
+                    state: data.state,
+                    gender: data.gender,
+                    dateOfBirth: data.dob,
+                    dateOfAnniversary: data.doa,
+                  }
+                : { prefix: "91" }
+            }
             className="tw-w-9/12 tw-mx-auto"
             size="large"
             layout="vertical"
@@ -120,8 +185,9 @@ const UserMyProfile = () => {
                   ]}
                 >
                   <Input
-                    placeholder="Enter Your First Name"
+                    placeholder="Enter your first name"
                     className="tw-rounded-lg"
+                    defaultValue={data.firstName}
                   />
                 </Form.Item>
               </Col>
@@ -134,8 +200,9 @@ const UserMyProfile = () => {
                   ]}
                 >
                   <Input
-                    placeholder="Enter Your Last Name"
+                    placeholder="Enter your last name"
                     className="tw-rounded-lg"
+                    defaultValue={data.lastName}
                   />
                 </Form.Item>
               </Col>
@@ -156,10 +223,7 @@ const UserMyProfile = () => {
                     },
                   ]}
                 >
-                  <Input
-                    className="tw-rounded-lg"
-                    placeholder="Enter Your E-mail id"
-                  />
+                  <Input className="tw-rounded-lg" defaultValue={data.email} />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -179,6 +243,7 @@ const UserMyProfile = () => {
                   <Input
                     addonBefore={prefixSelector}
                     className="tw-rounded-lg"
+                    defaultValue={user.phoneNumber.slice(3)}
                     type="tel"
                     pattern="[0-9]*"
                     placeholder="Enter Your Phone Number"
@@ -195,7 +260,10 @@ const UserMyProfile = () => {
                     { required: true, message: "Please select your country!" },
                   ]}
                 >
-                  <Select placeholder="Country">
+                  <Select
+                    placeholder={data.country}
+                    defaultValue={data.country}
+                  >
                     {/* add loop/map for dynamic data from back end */}
 
                     {OPTIONS.map((option) => (
@@ -214,7 +282,7 @@ const UserMyProfile = () => {
                     { required: true, message: "Please select your state!" },
                   ]}
                 >
-                  <Select placeholder="State">
+                  <Select placeholder={data.state}>
                     {/* add loop/map for dynamic data from back end */}
 
                     {OPTIONS.map((option) => (
@@ -235,14 +303,17 @@ const UserMyProfile = () => {
                     { required: true, message: "Please select your gender!" },
                   ]}
                 >
-                  <Select placeholder="Gender">
+                  <Select placeholder={data.gender}>
                     {/* add loop/map for dynamic data from back end */}
-
-                    {OPTIONS.map((option) => (
-                      <Select.Option key={uniqueId()} value={option}>
-                        {option}
-                      </Select.Option>
-                    ))}
+                    <Select.Option key={uniqueId()} value={"Male"}>
+                      Male
+                    </Select.Option>
+                    <Select.Option key={uniqueId()} value={"Male"}>
+                      Female
+                    </Select.Option>
+                    <Select.Option key={uniqueId()} value={"Male"}>
+                      Other
+                    </Select.Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -258,16 +329,18 @@ const UserMyProfile = () => {
                   ]}
                 >
                   <DatePicker
-                    placeholder="Date Of Birth"
+                    placeholder={data.dateOfBirth}
                     className="tw-rounded-lg"
+                    format="DD/MM/YYYY"
                   />
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="Date of Anniversary" name="dateOfAnniversary">
                   <DatePicker
-                    placeholder="Date Of Anniversary"
+                    placeholder={data.dateOfAnniversary}
                     className="tw-rounded-lg"
+                    format="DD/MM/YYYY"
                   />
                 </Form.Item>
               </Col>

@@ -1,7 +1,9 @@
-import { Button, Divider, Form, Input, Modal, Select } from "antd";
+import { Button, Divider, Form, Input, Modal, Select, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth";
+import CallCodes from "../../constant/CallCodes";
+
 import firebase from "../../firebase";
 
 type Props = {
@@ -23,17 +25,9 @@ const UserLoginModal = ({
   const [userData, setUserData] = useState({}) as any;
   const description =
     "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print";
+  const [LoginError, setLoginError] = useState("");
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }} disabled={isNumDisable}>
-        {/* add loop/map for dynamic data from back end */}
-        <Select.Option value="91">+91</Select.Option>
-        <Select.Option value="86">+86</Select.Option>
-        <Select.Option value="87">+87</Select.Option>
-      </Select>
-    </Form.Item>
-  );
+  const prefixSelector = <CallCodes isNumDisable={isNumDisable} />;
 
   let number = "";
 
@@ -66,9 +60,28 @@ const UserLoginModal = ({
       });
   }
 
-  const handleNumberSubmit = (value: any) => {
+  const handleNumberSubmit = async (value: any) => {
     // handle sending otp to mobile things here
     // console.log(value);
+    let num = "+" + value.prefix + value.number;
+    let isVender = false;
+    await firebase
+      .firestore()
+      .collection("venders")
+      .where("number", "==", num)
+      .get()
+      .then((querySnap) => {
+        querySnap.docs.map((doc) => {
+          if (doc.exists) {
+            return (isVender = true);
+          }
+        });
+      });
+    if (isVender) {
+      return setLoginError(
+        "You are registered as an influencer, kindly use influencer login panel."
+      );
+    }
     onSignInSubmit(value);
     setIsNumDisable(true);
   };
@@ -83,23 +96,6 @@ const UserLoginModal = ({
         // User signed in successfully.
         const user = result.user;
         console.log(user);
-        // const checkIfVender = firebase
-        //   .firestore()
-        //   .collection("venders")
-        //   .doc(user.uid);
-        // checkIfVender
-        //   .get()
-        //   .then((doc) => {
-        //     if (doc.exists) {
-        //       // Show an error that user is already a vender.
-        //       console.log("already exists");
-        //       firebase.auth().signOut();
-        //     } else {
-        //       console.log("does not exists");
-        //       setIsNewUser(true);
-        //     }
-        //   })
-        //   .catch((err) => console.log(err));
         const checkIfNew = firebase
           .firestore()
           .collection("users")
@@ -123,24 +119,14 @@ const UserLoginModal = ({
         // User couldn't sign in (bad verification code?)
         // ...
       });
-    console.log(value);
-    // const newUser = value.otp === mockOtpNewUser;
-    // console.log(value);
-    // if (newUser) {
-    //   setIsNewUser(true);
-    // } else {
-    //   handleModalCancel();
-    //   handleLogin(true);
-    // }
   };
-  const handleUserDetailsSubmit = (value: any) => {
+  const handleUserDetailsSubmit = async (value: any) => {
     console.log(value);
-
-    // console.log(userData.uid);
-    firebase.firestore().collection("users").doc(userData.uid).set(value);
-    firebase.auth().currentUser?.updateProfile({
+    await firebase.firestore().collection("users").doc(userData.uid).set(value);
+    await firebase.auth().currentUser?.updateProfile({
       displayName: value.name,
     });
+    await firebase.auth().currentUser?.updateEmail(value.email);
     handleLogin(true);
     handleModalCancel();
   };
@@ -226,6 +212,9 @@ const UserLoginModal = ({
                     disabled={isNumDisable}
                   />
                 </Form.Item>
+                {LoginError && (
+                  <Typography.Text type="danger">{LoginError}</Typography.Text>
+                )}
 
                 {isNumDisable ? (
                   <>

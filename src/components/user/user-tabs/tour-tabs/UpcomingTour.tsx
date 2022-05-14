@@ -223,6 +223,8 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
             <TripDetailCard
               key={id}
               id={id}
+              tripId={"krisis"}
+              collection_name={"dkdk"}
               title={value.title}
               description={value.duration}
               icon={value.icon}

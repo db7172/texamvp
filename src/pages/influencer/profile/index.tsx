@@ -14,6 +14,8 @@ import { COMPLETED } from "../../../components/influencer/dashboard-tab/data";
 import InfluencerProfileCard from "../../../components/influencer/profile/InfluencerProfileCard";
 import { ACTIVITY } from "../../../constant/dummyData";
 import { defaultSettings } from "../../../utils/utils";
+import { useEffect, useState } from "react";
+import firebase from "../../../firebase";
 
 const reviewData = [
   {
@@ -40,6 +42,32 @@ type Props = {
 const comments = COMPLETED.ACTIVITY[0].review.splice(0, 3);
 
 const InfluencerProfile = ({ history }: Props) => {
+  const [userData, setUserData] = useState([]) as any;
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("venders")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            setUserData(doc.data());
+          });
+        firebase
+          .firestore()
+          .collection("hr_sg_avy")
+          .where("data.userId", "==", user.uid)
+          .get()
+          .then((querySnap) => {
+            querySnap.docs.map((doc) => console.log(doc.data()));
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  }, []);
+
   return (
     <Container>
       <div className="tw-inline-block">
@@ -54,7 +82,7 @@ const InfluencerProfile = ({ history }: Props) => {
 
       <Row gutter={40}>
         <Col span={7}>
-          <InfluencerProfileCard />
+          <InfluencerProfileCard {...userData} />
           <Row gutter={[0, 20]} className="card-container tw-mt-10">
             {reviewData.map(({ title, desciption, icon: Icon }) => (
               <Col
@@ -76,17 +104,12 @@ const InfluencerProfile = ({ history }: Props) => {
         <Col span={17}>
           <div className="card-container tw-mb-10">
             <p className="tw-font-medium tw-text-base tw-mb-5">About</p>
-            <p className="tw-text-secondary-color">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.{" "}
-            </p>
+            <p className="tw-text-secondary-color">{userData.about}</p>
           </div>
           <div>
             <div className="tw-flex tw-justify-between">
               <p className="tw-text-lg tw-font-medium">
-                Up Coming Trip of Darshan Bhatt
+                Up Coming Trip of {userData.name}
               </p>
               <Link to="#">
                 <span className="tw-underline tw-text-blue-500">View More</span>
@@ -94,9 +117,9 @@ const InfluencerProfile = ({ history }: Props) => {
             </div>
             <div className="tw-p-5">
               <Carousel autoplay {...settings}>
-                {ACTIVITY.map((d, i) => (
+                {/* {ACTIVITY.map((d, i) => (
                   <TourCard {...d} key={i} />
-                ))}
+                ))} */}
               </Carousel>
             </div>
           </div>

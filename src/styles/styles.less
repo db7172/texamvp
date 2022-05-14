@@ -393,12 +393,23 @@ select.arrowGray {
 
 // carousal and cards
 
+.auto-width-carousal {
+  .slick-track {
+    width: auto !important;
+  }
+}
+
+.destination-card {
+  width: 268px;
+  height: 362px;
+}
+
 .card_img_height {
   height: 200px;
 
   img {
     height: 100%;
-    width: auto;
+    width: 100%;
     object-fit: cover;
   }
 }

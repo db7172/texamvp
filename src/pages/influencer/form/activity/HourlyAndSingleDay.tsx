@@ -37,6 +37,7 @@ import {
 } from "../formUtils";
 import firebase from "../../../../firebase";
 import { AuthContext } from "../../../../Auth";
+import { v4 as uuid } from "uuid";
 
 const db = firebase.firestore();
 
@@ -144,26 +145,36 @@ const HourlyAndSingleDay = () => {
     // formatted data
     let finalData = stripUndefined(formData);
     const data = {
-      formData: finalData,
-      userID: user.uid,
+      ...finalData,
       status: "processing",
       booked: 0,
     };
-    console.log(data);
+
+    let docId = uuid();
+
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        const storageRef = firebase
+        console.log(image);
+        console.log(user.uid);
+        let storageRef = firebase
           .storage()
-          .ref(`hourlyAndSingle/${user.uid}/${i}`);
-        await storageRef.put(image);
-        const downloadLink = storageRef.getDownloadURL();
+          .ref(`hourlyAndSingle/${user.uid}/${docId}/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
         return downloadLink;
       })
     );
-    await db
-      .collection("hr_sg_avy")
-      .add({ data, imgLink })
+
+    db.collection("hr_sg_avy")
+      .doc(docId)
+      .set({
+        ...data,
+        imgLink,
+        venderId: user.uid,
+        venderName: user.displayName,
+        collection_name: "hr_sg_avy",
+      })
       .then(() => {
         history.push("/influencer/dashboard");
       })
@@ -400,7 +411,10 @@ const HourlyAndSingleDay = () => {
                     name="departureDateFirstField"
                     className="tw-w-10/12 tw-m-0"
                   >
-                    <DatePicker.RangePicker className="tw-rounded-md" />
+                    <DatePicker.RangePicker
+                      className="tw-rounded-md"
+                      format="DD/MM/YYYY"
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Rate Per Person"
@@ -437,7 +451,10 @@ const HourlyAndSingleDay = () => {
                                 fieldKey={[field.fieldKey, "dateOfDeparture"]}
                                 className="tw-w-10/12 tw-m-0"
                               >
-                                <DatePicker.RangePicker className="tw-rounded-md" />
+                                <DatePicker.RangePicker
+                                  className="tw-rounded-md"
+                                  format="DD/MM/YYYY"
+                                />
                               </Form.Item>
                               <Form.Item
                                 {...field}
@@ -863,6 +880,7 @@ const HourlyAndSingleDay = () => {
                   <Form.Item name="date" label="Date of that day">
                     <DatePicker
                       className="tw-rounded-md tw-w-1/2"
+                      format="DD/MM/YYYY"
                       placeholder="Select Date of that day"
                     />
                   </Form.Item>

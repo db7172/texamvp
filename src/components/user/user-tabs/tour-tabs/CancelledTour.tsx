@@ -207,6 +207,8 @@ const CancelledTour = ({
           {UPCOMING_TRIP_DATA.map((value, id) => (
             <TripDetailCard
               key={id}
+              tripId={"krishna"}
+              collection_name={"lksdfksdl"}
               id={id}
               title={value.title}
               description={value.duration}

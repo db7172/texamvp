@@ -176,6 +176,7 @@ const EventPage = () => {
       path="#event"
       review="1970 reviews"
       startingPrice={16949}
+      type={eventType}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
     >
       <div id="event" className="tw--mt-5">
@@ -308,6 +309,7 @@ const EventPage = () => {
         </Col>
         <Col span={24}>
           <Title
+            hideViewAll
             title="Visitors Reviews"
             description="Lorem ipsum is the dummy text for placing any thing"
           />

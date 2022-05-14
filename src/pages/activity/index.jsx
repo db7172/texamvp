@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { capitalize, isEmpty, startCase, uniq } from "lodash";
+import {
+  capitalize,
+  debounce,
+  isEmpty,
+  lowerCase,
+  startCase,
+  uniq,
+} from "lodash";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ActivityCard from "../../components/activity-page/ActivityCard";
@@ -23,47 +30,87 @@ import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import RequestCallbackModal from "../../components/common/request-callback/RequestCallbackModal";
 import firebase from "../../firebase";
 
-const option = ["Hourly", "SingleDay", "MultiDay", "MultiDay"];
-const MIN = 10000,
-  MAX = 80000;
-const INITIAL_RANGE = [MIN, MAX];
-const ACTIVITY_LEVEL = [
-  "Easy",
-  "Moderate",
-  "Difficult",
-  "Pro",
-  "Difficult",
-  "Pro",
-];
-const DESTINATION_LEVEL = [
-  "Baku",
-  "Bhutan",
-  "Paris",
-  "Toronto",
-  "Rome",
-  "Tokyo",
-  "Cape Town",
-];
-const FROM_CITY = [
-  "From Lucknow",
-  "From Thane",
-  "From Pune",
-  "From Banglore",
-  "From Kolkata",
-  "From Amritsar",
-];
-const CATEGORIES = [
-  "Adventure",
-  "Trekking",
-  "Rentals",
-  "Local Experiences",
-  "Water Sports",
-  "Outdoors",
-  "Theme Park",
-  "Resorts",
-  "Events",
-  "Activity",
-];
+let appliedFileter = {};
+
+const getDurationFilterData = (data) => {
+  return data.filter((d) =>
+    appliedFileter["duration"].includes(d.data.activityType)
+  );
+};
+
+const getLevelFilterData = (data) => {
+  return data.filter((d) =>
+    appliedFileter["level"].includes(
+      capitalize(d.data.sailentFeatures.activityLevel)
+    )
+  );
+};
+
+const getCategoriesFilterData = (data) => {
+  return data.filter((d) =>
+    appliedFileter["categories"].includes(
+      capitalize(d.data.sailentFeatures.activityType)
+    )
+  );
+};
+
+const getDestinationFilterData = (data) => {
+  const newData = data.filter((d) => {
+    if (lowerCase(d.data.activityType) === "single day") {
+      return appliedFileter["destination"].includes(
+        capitalize(d.data.destinations.destination)
+      );
+    } else if (lowerCase(d.data.activityType) === "multi day") {
+      let isMatches = false;
+      for (let index = 0; index < d.data.destination.length; index++) {
+        if (
+          appliedFileter["destination"].includes(
+            capitalize(d.data.destination[index].destination)
+          )
+        ) {
+          isMatches = true;
+          break;
+        }
+      }
+
+      return isMatches;
+    }
+
+    return false;
+  });
+
+  return newData;
+};
+
+const getFromCityFilterData = (data) => {
+  const newData = data.filter((d) => {
+    let isMatches = false;
+    for (let index = 0; index < d.data.departureCity.length; index++) {
+      if (
+        appliedFileter["fromCity"].includes(
+          capitalize(d.data.departureCity[index])
+        )
+      ) {
+        isMatches = true;
+        break;
+      }
+    }
+
+    return isMatches;
+  });
+
+  return newData;
+};
+
+const getPriceRangeFilterData = (data) => {
+  return data.filter(
+    (d) =>
+      +d.data.payment >= +appliedFileter["priceRange"][0] &&
+      +d.data.payment <= +appliedFileter["priceRange"][1]
+  );
+};
+
+const DEBOUNCE_TIME = 200;
 
 const Activity = () => {
   const { destinationName, activityType } = useParams();
@@ -76,24 +123,98 @@ const Activity = () => {
   const [destinationfilter, setDestinationfilter] = useState({});
   const [activeCategories, setActiveCategorie] = useState({});
   const [fromCityFilter, setFromCityFilter] = useState({});
-  const [priceRange, setPriceRange] = useState(INITIAL_RANGE);
+  const [priceRangeFilter, setPriceRangeFilter] = useState([0, 1]);
+  const [minMaxRange, setMinMaxRange] = useState([0, 1]);
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const coverTitle = `${activityType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
   }`;
 
-  const [singleActivity, setSingleActivity] = useState([]);
-  const [multiDay, setmultiDay] = useState([]);
+  const [allActivity, setAllActivity] = useState([]);
+  const [filterActivity, setFilterActivity] = useState([]);
+  const [coverData, setCoverData] = useState({});
 
-  let totalActivities = [];
+  const getData = async (collection, type) => {
+    const snapshot = await firebase.firestore().collection(collection).get();
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      data: { ...doc.data(), activityType: type },
+    }));
+  };
 
-  console.log(activeDuration);
-  console.log(activeLevel);
-  console.log(destinationfilter);
-  console.log(priceRange);
+  const setData = async () => {
+    const singleDay = await getData("hr_sg_avy", "Single Day");
+    const multiday = await getData("multi-activity", "Multi Day");
+    const mixedActivity = [...singleDay, ...multiday];
+    setAllActivity(mixedActivity);
+    setFilterActivity(mixedActivity);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    setData();
+  }, []);
+
+  useEffect(() => {
+    if (allActivity.length) {
+      const option = [];
+      const priceRange = [];
+      const activityLevel = [];
+      const destination = [];
+      const categories = [];
+      const fromCity = [];
+
+      allActivity.forEach((value) => {
+        option.push(value.data.activityType);
+        priceRange.push(+value.data.payment);
+        activityLevel.push(
+          capitalize(value.data.sailentFeatures.activityLevel)
+        );
+        if (value.data.activityType === "Single Day") {
+          destination.push(capitalize(value.data.destinations?.destination));
+        } else {
+          value.data.destination.forEach((d) => {
+            destination.push(capitalize(d.destination));
+          });
+        }
+        categories.push(capitalize(value.data.sailentFeatures.activityType));
+        value.data.departureCity.forEach((d) => {
+          fromCity.push(capitalize(d));
+        });
+      });
+      priceRange.sort(function (a, b) {
+        return a - b;
+      });
+
+      const unq = uniq(option);
+      const unqLevel = uniq(activityLevel);
+      const unqDestination = uniq(destination);
+      const unqCategories = uniq(categories);
+      const unqFromCity = uniq(fromCity);
+
+      setActiveDuration(formatActiveButton(unq));
+      setMinMaxRange([priceRange[0], priceRange[priceRange.length - 1]]);
+      setPriceRangeFilter([priceRange[0], priceRange[priceRange.length - 1]]);
+      setActiveLevel(formatActiveButton(unqLevel));
+      setDestinationfilter(formatActiveButton(unqDestination));
+      setFromCityFilter(formatActiveButton(unqFromCity));
+      setActiveCategorie(formatActiveButton(unqCategories));
+
+      setResetValue({
+        ...resetValue,
+        fromCity: formatActiveButton(unqFromCity),
+        duration: formatActiveButton(unq),
+        destination: formatActiveButton(unqDestination),
+        priceRange: [priceRange[0], priceRange[priceRange.length - 1]],
+        level: formatActiveButton(unqLevel),
+        categories: formatActiveButton(unqCategories),
+      });
+    }
+  }, [allActivity]);
 
   useEffect(() => {
     if (isEmpty(DESTINATION_NAME)) {
@@ -103,8 +224,8 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: "Activites",
-          url: "/activites",
+          name: "Activities",
+          url: "/activities",
         },
         {
           name: ACTIVITY_TYPE,
@@ -118,7 +239,7 @@ const Activity = () => {
           url: "/",
         },
         {
-          name: "Activites",
+          name: "Activities",
           url: "/activites",
         },
         {
@@ -131,63 +252,19 @@ const Activity = () => {
         },
       ]);
     }
-
-    const unq = uniq(option);
-    const unqLevel = uniq(ACTIVITY_LEVEL);
-    const unqDestination = uniq(DESTINATION_LEVEL);
-    const unqCategories = uniq(CATEGORIES);
-    const unqFromCity = uniq(FROM_CITY);
-
-    setActiveDuration(formatActiveButton(unq));
-    setActiveLevel(formatActiveButton(unqLevel));
-    setDestinationfilter(formatActiveButton(unqDestination));
-    setFromCityFilter(formatActiveButton(unqFromCity));
-    setActiveCategorie(formatActiveButton(unqCategories));
-
-    setResetValue({
-      ...resetValue,
-      fromCity: formatActiveButton(unqFromCity),
-      duration: formatActiveButton(unq),
-      destination: formatActiveButton(unqDestination),
-      priceRange: INITIAL_RANGE,
-      level: formatActiveButton(unqLevel),
-      categories: formatActiveButton(unqCategories),
-    });
-
-    firebase
-      .firestore()
-      .collection("hr_sg_avy")
-      .get()
-      .then((querySnap) => {
-        setSingleActivity(
-          querySnap.docs
-            .map((doc) => ({ id: doc.id, data: doc.data() }))
-            .filter((item) => {
-              return (
-                item.data.data.formData.sailentFeatures.activityType ===
-                activityType
-              );
-            })
-        );
-      });
-
-    firebase
-      .firestore()
-      .collection("multi-activity")
-      .get()
-      .then((querySnap) => {
-        setmultiDay(
-          querySnap.docs
-            .map((doc) => ({ id: doc.id, data: doc.data() }))
-            .filter((item) => {
-              return (
-                item.data.data.formData.sailentFeatures.activityType ===
-                activityType
-              );
-            })
-        );
-      });
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
+
+  useEffect(() => {
+    console.log(activityType);
+    firebase
+      .firestore()
+      .collection("categories")
+      .doc(activityType)
+      .get()
+      .then((doc) => {
+        setCoverData(doc.data());
+      });
+  }, []);
 
   const handleShowCallbackModalCancel = () => {
     setShowRequestCallbackModal(false);
@@ -202,33 +279,107 @@ const Activity = () => {
     setActivePage(pageNumber);
   };
 
-  const handleDurationClick = (e) => {
-    const name = e.target.name;
-    setActiveDuration((pre) => ({ ...pre, [name]: !pre[name] }));
+  const getAllFilterData = () => {
+    let data = [...allActivity];
+    if (!isEmpty(appliedFileter)) {
+      Object.keys(appliedFileter).forEach((key) => {
+        switch (key) {
+          case "duration": {
+            if (appliedFileter["duration"].length) {
+              data = getDurationFilterData(data);
+            }
+            break;
+          }
+
+          case "priceRange":
+            data = getPriceRangeFilterData(data);
+            break;
+
+          case "level":
+            if (appliedFileter["level"].length) {
+              data = getLevelFilterData(data);
+            }
+            break;
+
+          case "destination":
+            if (appliedFileter["destination"].length) {
+              data = getDestinationFilterData(data);
+            }
+            break;
+
+          case "categories":
+            if (appliedFileter["categories"].length) {
+              data = getCategoriesFilterData(data);
+            }
+            break;
+
+          case "fromCity":
+            if (appliedFileter["fromCity"].length) {
+              data = getFromCityFilterData(data);
+            }
+            break;
+
+          default:
+            break;
+        }
+      });
+    }
+
+    return data;
   };
 
-  const handleLevelClick = (e) => {
-    const name = e.target.name;
-    setActiveLevel((pre) => ({ ...pre, [name]: !pre[name] }));
+  const getFilterData = (pre, name, filterType) => {
+    const isAddition = !pre[name];
+    const newData = { ...pre, [name]: !pre[name] };
+    if (appliedFileter[filterType]?.length) {
+      appliedFileter[filterType] = uniq(
+        isAddition
+          ? [...appliedFileter[filterType], name]
+          : appliedFileter[filterType].filter((d) => d !== name)
+      );
+    } else {
+      appliedFileter[filterType] = uniq([name]);
+    }
+
+    const newFilterData = getAllFilterData();
+    console.log(newFilterData);
+    setFilterActivity(newFilterData);
+
+    return newData;
   };
 
-  const handleDestinationClick = (e) => {
+  const handleDurationClick = debounce((e) => {
     const name = e.target.name;
-    setDestinationfilter((pre) => ({ ...pre, [name]: !pre[name] }));
-  };
+    setActiveDuration((pre) => getFilterData(pre, name, "duration"));
+  }, DEBOUNCE_TIME);
 
-  const handleFromCityClick = (e) => {
+  const handleLevelClick = debounce((e) => {
     const name = e.target.name;
-    setFromCityFilter((pre) => ({ ...pre, [name]: !pre[name] }));
-  };
+    setActiveLevel((pre) => getFilterData(pre, name, "level"));
+  }, DEBOUNCE_TIME);
 
-  const handleCategoriesClick = (e) => {
+  const handleDestinationClick = debounce((e) => {
     const name = e.target.name;
-    setActiveCategorie((pre) => ({ ...pre, [name]: !pre[name] }));
-  };
+    setDestinationfilter((pre) => getFilterData(pre, name, "destination"));
+  }, DEBOUNCE_TIME);
+
+  const handleFromCityClick = debounce((e) => {
+    const name = e.target.name;
+    setFromCityFilter((pre) => getFilterData(pre, name, "fromCity"));
+  }, DEBOUNCE_TIME);
+
+  const handleCategoriesClick = debounce((e) => {
+    const name = e.target.name;
+    setActiveCategorie((pre) => getFilterData(pre, name, "categories"));
+  }, DEBOUNCE_TIME);
 
   const handleRangeChange = (e) => {
-    setPriceRange(e);
+    setPriceRangeFilter(e);
+    appliedFileter["priceRange"] = e;
+
+    const newFilterData = getAllFilterData();
+
+    setFilterActivity(newFilterData);
   };
 
   const handleRequestCallbackSubmit = (value) => {
@@ -242,61 +393,29 @@ const Activity = () => {
     setDestinationfilter(resetValue.destination);
     setFromCityFilter(resetValue.fromCity);
     setActiveCategorie(resetValue.categories);
-    setPriceRange(resetValue.priceRange);
+    setMinMaxRange(resetValue.priceRange);
+    setPriceRangeFilter(resetValue.priceRange);
+    setFilterActivity(allActivity);
+    appliedFileter = {};
   };
-
-  if (activeDuration.Hourly) {
-    totalActivities = singleActivity;
-  }
-  if (activeDuration.SingleDay) {
-    totalActivities = singleActivity;
-  }
-  if (activeDuration.MultiDay) {
-    totalActivities = multiDay;
-  }
-
-  // if (activeLevel.Easy) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activityLevel === "Easy";
-  //   });
-  // }
-  // if (activeLevel.Moderate) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activeLevel === "Moderate";
-  //   });
-  // }
-  // if (activeLevel.Difficult) {
-  //   totalActivities.filter((item) => {
-  //     return (
-  //       item.data.data.formData.sailentFeatures.activeLevel === "Difficult"
-  //     );
-  //   });
-  // }
-  // if (activeLevel.Pro) {
-  //   totalActivities.filter((item) => {
-  //     return item.data.data.formData.sailentFeatures.activeLevel === "Pro";
-  //   });
-  // }
-  else {
-    totalActivities = singleActivity.concat(multiDay);
-  }
 
   return (
     <ExploreMoreWrapper
-      coverImage={DESTINATION_IMAGE}
-      coverTitle={coverTitle}
-      coverDescription="Go on a trekking trip to the man-made heaven"
+      coverImage={coverData.banner}
+      coverTitle={coverData.name}
+      coverDescription={coverData.title}
       ratting={5}
       review="1970 reviews"
       path="#activity"
-      startingPrice={16949}
+      startingPrice={coverData.startingPrice}
       destinationName={isEmpty(DESTINATION_NAME) ? "" : DESTINATION_NAME}
+      type={activityType}
     >
       <div id="activity" className="tw--mt-5">
         <TitleBreadcrumb titleLinks={slashedTableName} />
       </div>
       <div className="tw-mt-10">
-        <PageHeader title={coverTitle} />
+        <PageHeader title={coverTitle} desc={coverData.description} />
       </div>
       <Row id="row-header" className="tw-mt-10" gutter={40}>
         {/* filter part */}
@@ -312,50 +431,60 @@ const Activity = () => {
                   Reset all
                 </button>
               </div>
-              <div className="tw-py-7 tw-border-b">
-                <ButtonGroup
-                  title="Duration ( in Days )"
-                  option={activeDuration}
-                  handleClick={handleDurationClick}
-                />
-              </div>
+              {!isEmpty(activeDuration) && (
+                <div className="tw-py-7 tw-border-b">
+                  <ButtonGroup
+                    title="Duration ( in Days )"
+                    option={activeDuration}
+                    handleClick={handleDurationClick}
+                  />
+                </div>
+              )}
               <div className="tw-py-7 tw-border-b">
                 <RangeSelector
                   title="Budget Per Person ( in Rs. )"
-                  min={MIN}
-                  max={MAX}
-                  value={priceRange}
+                  min={minMaxRange[0]}
+                  max={minMaxRange[1]}
+                  value={priceRangeFilter}
                   handleClick={handleRangeChange}
                 />
               </div>
-              <div className="tw-py-7 tw-border-b">
-                <ButtonGroup
-                  title="Destination"
-                  option={destinationfilter}
-                  handleClick={handleDestinationClick}
-                />
-              </div>
-              <div className="tw-py-7 tw-border-b">
-                <ButtonGroup
-                  title="Activity Level"
-                  option={activeLevel}
-                  handleClick={handleLevelClick}
-                />
-              </div>
-              <div className="tw-py-7 tw-border-b">
-                <ButtonGroup
-                  title="Categories"
-                  option={activeCategories}
-                  handleClick={handleCategoriesClick}
-                />
-              </div>
-              <div className="tw-py-7">
-                <ButtonGroup
-                  title="From City"
-                  option={fromCityFilter}
-                  handleClick={handleFromCityClick}
-                />
-              </div>
+              {!isEmpty(destinationfilter) && (
+                <div className="tw-py-7 tw-border-b">
+                  <ButtonGroup
+                    title="Destination"
+                    option={destinationfilter}
+                    handleClick={handleDestinationClick}
+                  />
+                </div>
+              )}
+              {!isEmpty(activeLevel) && (
+                <div className="tw-py-7 tw-border-b">
+                  <ButtonGroup
+                    title="Activity Level"
+                    option={activeLevel}
+                    handleClick={handleLevelClick}
+                  />
+                </div>
+              )}
+              {!isEmpty(activeCategories) && (
+                <div className="tw-py-7 tw-border-b">
+                  <ButtonGroup
+                    title="Categories"
+                    option={activeCategories}
+                    handleClick={handleCategoriesClick}
+                  />
+                </div>
+              )}
+              {!isEmpty(fromCityFilter) && (
+                <div className="tw-py-7">
+                  <ButtonGroup
+                    title="From City"
+                    option={fromCityFilter}
+                    handleClick={handleFromCityClick}
+                  />
+                </div>
+              )}
             </div>
           </Sticky>
         </Col>
@@ -402,21 +531,25 @@ const Activity = () => {
             </div>
           </div>
           {/* cards start from here */}
-          <div className="tw-mt-5">
-            <div>
-              {totalActivities.map((d, i) => (
-                <ActivityCard key={i} data={d} />
-              ))}
+          {!isLoading && filterActivity.length ? (
+            <div className="tw-mt-5">
+              <div>
+                {filterActivity.map((d, i) => (
+                  <ActivityCard key={i} data={d} />
+                ))}
+              </div>
+              <div className="tw-flex tw-justify-center tw-mt-10">
+                <Pagination
+                  currentPage={activePage}
+                  paginate={handlePageChange}
+                  sizePerPage={10}
+                  totalNumberOfValues={100}
+                />
+              </div>
             </div>
-            <div className="tw-flex tw-justify-center tw-mt-10">
-              <Pagination
-                currentPage={activePage}
-                paginate={handlePageChange}
-                sizePerPage={10}
-                totalNumberOfValues={100}
-              />
-            </div>
-          </div>
+          ) : (
+            <div>No data available</div>
+          )}
         </Col>
       </Row>
       <div id="row-bottom" />
@@ -435,6 +568,7 @@ const Activity = () => {
         </Col>
         <Col span={24}>
           <Title
+            hideViewAll
             title="Traveller Reviews"
             description="Lorem ipsum is the dummy text for placing any thing"
           />

@@ -85,24 +85,39 @@ const DetailsTab = () => {
     db.collection("hr_sg_avy")
       .get()
       .then((querySnap) => {
-        setSingleDetails(querySnap.docs.map((doc) => doc.data()));
+        setSingleDetails(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
       });
     db.collection("multi-activity")
       .get()
       .then((querySnap) => {
-        setMultiDetails(querySnap.docs.map((doc) => doc.data()));
+        setMultiDetails(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
       });
     db.collection("events")
       .get()
       .then((querySnap) => {
-        setEvents(querySnap.docs.map((doc) => doc.data()));
-        // console.log(events);
+        setEvents(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
       });
-    // db.collection("retreat")
-    //   .get()
-    //   .then((querySnap) => {
-    //     setMultiDetails(querySnap.docs.map((doc) => doc.data()));
-    //   });
+    db.collection("retreat")
+      .get()
+      .then((querySnap) => {
+        setRetreat(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    db.collection("workation")
+      .get()
+      .then((querySnap) => {
+        setRetreat([
+          ...retreat,
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
+        ]);
+      });
   }, []);
 
   activity = singleDetails.concat(multiDetails);
@@ -306,7 +321,7 @@ const DetailsTab = () => {
               : null}
             {activeButton === "retreat" && (
               <DetailsTabCardContainer
-                data={DETAILS.RETREAT}
+                data={retreat}
                 viewMore={handleViewMore}
               />
             )}

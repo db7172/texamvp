@@ -19,6 +19,7 @@ import {
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
+  ROUTES,
 } from "../../constant/comman.const";
 import { EVENT } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
@@ -29,6 +30,8 @@ import {
   TERMS_AND_CONDITIONS,
   VIEW_MORE_EVENT_DETAILS,
 } from "./data.mock";
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
 
 type ParamTypes = {
   eventName: string;
@@ -39,14 +42,13 @@ const ViewMoreDetailsForEvent = () => {
   const [slashedTableName, setSlashedTableName] = useState<
     Array<TitleBreadCrumb>
   >([]);
-  const [eventDetails, setEventDetails] = useState<EventObjectTypes>();
+  const [eventDetails, setEventDetails] = useState() as any;
   const { eventName, eventType } = useParams<ParamTypes>();
   const EVENT_TYPE = startCase(eventType);
   const EVENT_NAME = startCase(eventName);
-  const { state }: { state: EventObjectTypes } = useLocation();
+  const { search }: { search: string } = useLocation();
 
   useEffect(() => {
-    setEventDetails(state);
     setSlashedTableName([
       {
         name: "Home",
@@ -54,18 +56,35 @@ const ViewMoreDetailsForEvent = () => {
       },
       {
         name: "Events",
-        url: "/events",
+        url: ROUTES.EVENTS,
       },
       {
         name: EVENT_TYPE,
-        url: `/event/${EVENT_TYPE}`,
-      },
-      {
-        name: EVENT_NAME,
-        url: "",
+        url: getEventPagePath(EVENT_TYPE),
       },
     ]);
-  }, [EVENT_NAME, EVENT_TYPE, state]);
+    firebase
+      .firestore()
+      .collection("events")
+      .doc(search.substring(1))
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          setEventDetails(data);
+
+          setSlashedTableName((pre) => [
+            ...pre,
+            {
+              name: data?.eventName || "",
+              url: "",
+            },
+          ]);
+        } else {
+          console.log("Not found");
+        }
+      });
+  }, [EVENT_NAME, EVENT_TYPE, search]);
 
   return (
     <Container className="">
@@ -81,7 +100,7 @@ const ViewMoreDetailsForEvent = () => {
                   span={24}
                   className="tw-p-5 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
-                  <ViewMoreEventCard />
+                  <ViewMoreEventCard {...eventDetails} />
                 </Col>
                 {/* <Col
                   span={24}
@@ -95,11 +114,11 @@ const ViewMoreDetailsForEvent = () => {
               <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
                 <Col span={24}>
                   <div className="tw-mt-5">
-                    <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
+                    <MoreDetailsPageCarousal images={eventDetails?.imgLink} />
                   </div>
                   <div className="tw-mt-5">
                     <MoreDetailsPageHeader
-                      title={eventDetails.name}
+                      title={eventDetails.eventName}
                       ratting={5}
                       review={"125 Reviews"}
                     />
@@ -110,8 +129,9 @@ const ViewMoreDetailsForEvent = () => {
                   className="tw-p-6 tw-rounded-md tw-shadow-card tw-bg-white"
                 >
                   <PageHeader
-                    title={`About ${eventDetails.name}`}
+                    title={`About ${eventDetails.eventName}`}
                     className="tw-text-lg"
+                    desc={eventDetails.eventDescription}
                   />
                 </Col>
                 <Col span={24}>
@@ -134,34 +154,47 @@ const ViewMoreDetailsForEvent = () => {
                 >
                   <Row gutter={[0, 20]}>
                     <Col span={24}>
-                      <ViewMoreEventSummary />
+                      <ViewMoreEventSummary {...eventDetails} />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={INCLUSION_DETAILS.header}
                         image={INCLUSION_DETAILS.image}
-                        data={INCLUSION_DETAILS.content}
+                        data={{
+                          header: "Tour Inclusion by TexaTrove",
+                          content: eventDetails.inclusion,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={EXCLUSION_DETAILS.header}
                         image={EXCLUSION_DETAILS.image}
-                        data={EXCLUSION_DETAILS.content}
+                        data={{
+                          header: "Tour Exlusion by TexaTrove",
+                          content: eventDetails.exlusion,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={EVENT_ESSENTIALS.header}
                         image={EVENT_ESSENTIALS.image}
-                        data={EVENT_ESSENTIALS.content}
+                        data={{
+                          header: "Cancellation Policy by TexaTrove",
+                          content: eventDetails.cancellationPolicy,
+                        }}
                       />
                     </Col>
                     <Col span={24}>
                       <ViewMoreOtherInformation
                         header={TERMS_AND_CONDITIONS.header}
                         image={TERMS_AND_CONDITIONS.image}
-                        data={TERMS_AND_CONDITIONS.content}
+                        // data={TERMS_AND_CONDITIONS.content}
+                        data={{
+                          header: "Terms and Conditions by TexaTrove",
+                          content: eventDetails.termsAndCondition,
+                        }}
                       />
                     </Col>
                   </Row>
@@ -184,7 +217,7 @@ const ViewMoreDetailsForEvent = () => {
           </Row>
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loader />
       )}
     </Container>
   );

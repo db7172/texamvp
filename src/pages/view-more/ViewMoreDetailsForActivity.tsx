@@ -23,6 +23,7 @@ import {
   LEFT_SPACING_LARGE_VALUE,
   RIGHT_SPACING_SMAL_VALUE,
   RIGHT_SPACING_VALUE,
+  ROUTES,
 } from "../../constant/comman.const";
 
 import checkMark from "../../assets/svg/check-mark.svg";
@@ -33,10 +34,13 @@ import info from "../../assets/svg/info.svg";
 import { ACTIVITY } from "../../constant/dummyData";
 import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import { VIEW_MORE_ACTIVITY_DETAILS } from "./data.mock";
+import firebase from "../../firebase";
+import Loader from "../../components/common/Loader/Loader";
 
 type ParamTypes = {
   activityName: string;
   activityType: string;
+  collectionName: string;
 };
 
 const ViewMoreDetailsForActivity = () => {
@@ -44,13 +48,13 @@ const ViewMoreDetailsForActivity = () => {
     Array<TitleBreadCrumb>
   >([]);
   const [activityDetails, setActivityDetails] = useState() as any;
-  const { activityName, activityType } = useParams<ParamTypes>();
+  const { activityName, activityType, collectionName } =
+    useParams<ParamTypes>();
   const ACTIVITY_TYPE = startCase(activityType);
   const ACTIVITY_NAME = startCase(activityName);
-  const { state }: { state: ActivityObjectTypes } = useLocation();
+  const { search }: { search: string } = useLocation();
 
   useEffect(() => {
-    setActivityDetails(state);
     setSlashedTableName([
       {
         name: "Home",
@@ -58,20 +62,38 @@ const ViewMoreDetailsForActivity = () => {
       },
       {
         name: "Activites",
-        url: "/activites",
+        url: ROUTES.ACTIVITES,
       },
       {
         name: ACTIVITY_TYPE,
-        url: `/activity/${ACTIVITY_TYPE}`,
-      },
-      {
-        name: ACTIVITY_NAME,
-        url: "",
+        url: getActivityPagePath(ACTIVITY_TYPE),
       },
     ]);
-  }, [ACTIVITY_NAME, ACTIVITY_TYPE, state]);
 
-  console.log(activityDetails);
+    firebase
+      .firestore()
+      .collection(collectionName)
+      .doc(search.substring(1))
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          setActivityDetails(data);
+
+          setSlashedTableName((pre) => [
+            ...pre,
+            {
+              name: data?.activityName || "",
+              url: "",
+            },
+          ]);
+        } else {
+          console.log("not found");
+        }
+      });
+  }, [ACTIVITY_NAME, ACTIVITY_TYPE]);
+
+  console.log(search.substring(1), collectionName);
 
   return (
     <Container className="tw-pb-11">
@@ -104,7 +126,9 @@ const ViewMoreDetailsForActivity = () => {
               <Row gutter={[0, RIGHT_SPACING_SMAL_VALUE]}>
                 <Col span={24}>
                   <div className="tw-mt-5">
-                    <MoreDetailsPageCarousal images={CAROUSAL_ACTIVITY} />
+                    <MoreDetailsPageCarousal
+                      images={activityDetails?.imgLink}
+                    />
                   </div>
                   <div className="tw-mt-5">
                     <MoreDetailsPageHeader
@@ -122,7 +146,7 @@ const ViewMoreDetailsForActivity = () => {
                   <PageHeader
                     title={`About ${activityDetails.activityName}`}
                     className="tw-text-lg"
-                    desc={activityDetails.data.data.data.formData.description}
+                    desc={activityDetails.description}
                   />
                 </Col>
                 <Col span={24}>
@@ -145,13 +169,13 @@ const ViewMoreDetailsForActivity = () => {
                 >
                   <Row gutter={[0, 20]}>
                     <Col span={24}>
-                      <BookingTimeLineX />
+                      <BookingTimeLineX {...activityDetails} />
                     </Col>
                     <Col span={24}>
-                      <ViewMoreSummary />
+                      <ViewMoreSummary {...activityDetails} />
                     </Col>
                     <Col span={24}>
-                      <Accomodations />
+                      <Accomodations {...activityDetails} />
                     </Col>
                     <Col span={24}>
                       <ViewMoreTravellingInfo />
@@ -162,9 +186,7 @@ const ViewMoreDetailsForActivity = () => {
                         image={checkMark}
                         data={{
                           header: `Inclusion by ${activityDetails.venderName} `,
-                          content: [
-                            activityDetails.data.data.data.formData.inclusion,
-                          ],
+                          content: [activityDetails.inclusion],
                         }}
                       />
                     </Col>
@@ -174,9 +196,7 @@ const ViewMoreDetailsForActivity = () => {
                         image={cancel}
                         data={{
                           header: `Tour exclusion by ${activityDetails.venderName}`,
-                          content: [
-                            activityDetails.data.data.data.formData.exclusion,
-                          ],
+                          content: [activityDetails.exclusion],
                         }}
                       />
                     </Col>
@@ -188,36 +208,30 @@ const ViewMoreDetailsForActivity = () => {
                           {
                             header: "How to reach Hempta Pass Trekk",
                             content: [
-                              activityDetails.data.data.data.formData
-                                .tripEssential.howToReachPickupPoint,
+                              activityDetails.tripEssential
+                                .howToReachPickupPoint,
                             ],
                           },
                           {
                             header: "Thing To Carry",
                             content: [
-                              activityDetails.data.data.data.formData
-                                .tripEssential.thingsToCarry,
+                              activityDetails.tripEssential.thingsToCarry,
                             ],
                           },
                           {
                             header: "Thing Not Allowed",
                             content: [
-                              activityDetails.data.data.data.formData
-                                .tripEssential.thingsProhibitted,
+                              activityDetails.tripEssential.thingsProhibitted,
                             ],
                           },
                           {
                             header: "Safty Norms",
-                            content: [
-                              activityDetails.data.data.data.formData
-                                .tripEssential.saftyNorms,
-                            ],
+                            content: [activityDetails.tripEssential.saftyNorms],
                           },
                           {
                             header: "Certificate Require",
                             content: [
-                              activityDetails.data.data.data.formData
-                                .tripEssential.certificateRequired,
+                              activityDetails.tripEssential.certificateRequired,
                             ],
                           },
                         ]}
@@ -230,8 +244,7 @@ const ViewMoreDetailsForActivity = () => {
                         data={{
                           header: `Terms & Conditions by ${activityDetails.venderName}`,
                           content: [
-                            activityDetails.data.data.data.formData
-                              .tripEssential.termsAndCondition,
+                            activityDetails.tripEssential.termsAndCondition,
                           ],
                         }}
                       />
@@ -241,13 +254,13 @@ const ViewMoreDetailsForActivity = () => {
               </Row>
             </Col>
             <Col span={24} order={3}>
-              <ActivityCarousel
+              {/* <ActivityCarousel
                 setting={{ slidesToShow: 3 }}
                 title="Similar Activities"
                 data={ACTIVITY}
                 path={getActivityPagePath("Similar Activities")}
                 description="Lorem ipsum is the dummy text for placing any thing"
-              />
+              /> */}
             </Col>
             <Col span={24} order={4}>
               <FaqSection />
@@ -255,7 +268,7 @@ const ViewMoreDetailsForActivity = () => {
           </Row>
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loader />
       )}
     </Container>
   );

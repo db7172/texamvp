@@ -10,6 +10,7 @@ const ExploreMoreWrapper = ({
   review,
   startingPrice,
   destinationName,
+  type,
   path,
 }) => {
   return (
@@ -23,6 +24,8 @@ const ExploreMoreWrapper = ({
           review={review}
           path={path}
           startingPrice={startingPrice}
+          type={type}
+          destinationName={destinationName}
         />
       </div>
       <Container>{children}</Container>

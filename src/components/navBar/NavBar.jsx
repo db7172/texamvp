@@ -48,7 +48,7 @@ function NavBar() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
+        // console.log(user);
         firebase
           .firestore()
           .collection("users")
@@ -94,7 +94,7 @@ function NavBar() {
       });
   }, []);
 
-  console.log(allData.activities);
+  // console.log(allData.activities);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -199,7 +199,7 @@ function NavBar() {
           </div>
           <div className="tw-flex">
             <ul className="tw-flex tw-gap-4 tw-items-center">
-              <li className="tw-navbar-link">
+              {/* <li className="tw-navbar-link">
                 <span>
                   <Location />
                 </span>
@@ -216,7 +216,7 @@ function NavBar() {
                     </Select.Option>
                   ))}
                 </Select>
-              </li>
+              </li> */}
               <li className="tw-navbar-link">
                 <span className="tw-mr-2">
                   <Telephone />

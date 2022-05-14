@@ -7,16 +7,28 @@ import { indCurrency } from "../../../utils/utils";
 import { getViewMoreDetailsForWorkcationPath } from "../../../constant/comman.const";
 import { Link } from "react-router-dom";
 
-const WorkationCard = ({ name, duration, facility, price, imgUrl, city }) => {
+const WorkationCard = (props) => {
+  // const { name, duration, facility, price, imgUrl, city } = props;
   const routingDetails = {
-    pathname: getViewMoreDetailsForWorkcationPath(city, name),
-    state: { name, duration, facility, price, imgUrl, city },
+    pathname: getViewMoreDetailsForWorkcationPath(
+      props.data.destinations.destination,
+      props.data.workationName
+    ),
+    search: props.id,
+    // state: { name, duration, facility, price, imgUrl, city },
   };
+
+  const data = props.data;
+
   return (
     <div className="tw-card-wrapper tw-zoom-effect">
       <div className="card-container">
         <div className="card_img_height">
-          <img className="tw-rounded-lg" src={imgUrl} alt={name} />
+          <img
+            className="tw-rounded-lg"
+            src={data.imgLink[0]}
+            alt={data.workationName}
+          />
         </div>
         <div className="tw-mt-5 tw-text-secondary-color">
           <div className="tw-flex tw-justify-between tw-items-center">
@@ -31,23 +43,23 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl, city }) => {
             <GreenBadge ratting={4.4} />
           </div>
           <p className="tw-text-primary-color tw-mt-2 tw-font-medium">
-            Phuentsholing
+            {data.destinations.destination}
           </p>
           <h3 className="tw-font-medium tw-tracking-1 tw-text-base tw-mt-2 tw-text-primary-color tw-text-ellipsis">
-            {name}
+            {data.workationName}
           </h3>
           <p className="tw-flex tw-mt-2 tw-items-center">
             <img src={time} alt="" />{" "}
-            <span className="tw-ml-2">{duration}</span>
+            <span className="tw-ml-2">2 Days and 4 Nights</span>
           </p>
           <div className="tw-flex tw-mt-2">
-            {facility.Breakfast && (
+            {data.includes && (
               <p className="tw-flex tw-mr-3 tw-items-center">
                 <img src={cooking} alt="" />{" "}
                 <span className="tw-ml-2">Breakfast at hotel</span>
               </p>
             )}
-            {facility.FreeWifi && (
+            {data.includes && (
               <p className="tw-flex tw-items-center">
                 <img src={wifi} alt="" />{" "}
                 <span className="tw-ml-2">Free Wifi</span>
@@ -60,7 +72,7 @@ const WorkationCard = ({ name, duration, facility, price, imgUrl, city }) => {
             <span className="tw-text-secondary-color tw-font-normal tw-mr-2 tw-text-xs">
               Starting from
             </span>
-            {indCurrency(price)}
+            {indCurrency(data.accomodation.data.room1.paymentRatePerPerson)}
             <span className="tw-text-secondary-color tw-font-normal tw-text-xs tw-ml-2">
               Onwards
             </span>

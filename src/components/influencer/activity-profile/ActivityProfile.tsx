@@ -11,13 +11,14 @@ import {
   Upload,
   Modal,
 } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import process_completed from "../../../assets/png/influencer/process-completed.png";
 import { Link } from "react-router-dom";
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
+import { Country, State, City } from "country-state-city";
 
 const db = firebase.firestore();
 
@@ -151,6 +152,11 @@ function ActivityInformation({
   updateFormData,
 }: Information) {
   const { currentUser } = useContext(AuthContext);
+  const [allCountries, setAllCountries] = useState([]) as any;
+  const [allStates, setAllStates] = useState([]) as any;
+  const [allCities, setAllCities] = useState([]) as any;
+  const [countryId, setCountryId] = useState("");
+  const [stateId, setStateId] = useState("");
 
   const handleFormSubmit = (value: any) => {
     const updatedValue: ProfileDataFormType = {
@@ -164,6 +170,32 @@ function ActivityInformation({
       .set(updatedValue, { merge: true });
     nextStep();
   };
+  const fetchCountries = async () => {
+    await setAllCountries(Country.getAllCountries());
+  };
+  const fetchStates = async (countryId: string) => {
+    await setAllStates(State.getStatesOfCountry(countryId));
+  };
+  const fetchCities = async (stateId: string, counterId: string) => {
+    await setAllCities(City.getCitiesOfState(countryId, stateId));
+  };
+
+  useEffect(() => {
+    fetchCountries();
+    if (countryId.length > 0) {
+      fetchStates(countryId);
+    }
+    if (stateId.length > 0) {
+      fetchCities(stateId, countryId);
+    }
+  }, [countryId, stateId]);
+
+  function handleSelectCountry(e: any) {
+    setCountryId(e);
+  }
+  function handleSelectState(e: any) {
+    setStateId(e);
+  }
 
   return (
     <>
@@ -214,10 +246,20 @@ function ActivityInformation({
                 placeholder="Select Country"
                 className="tw-rounded-lg"
                 allowClear
+                onChange={(e) => {
+                  handleSelectCountry(e);
+                }}
               >
-                <Select.Option value="india">India</Select.Option>
+                {allCountries?.map((country: any) => {
+                  return (
+                    <Select.Option value={country.isoCode}>
+                      {country.name}
+                    </Select.Option>
+                  );
+                })}
+                {/* <Select.Option value="india">India</Select.Option>
                 <Select.Option value="usa">USA</Select.Option>
-                <Select.Option value="dubai">Dubai</Select.Option>
+                <Select.Option value="dubai">Dubai</Select.Option> */}
               </Select>
             </Form.Item>
           </Col>
@@ -231,10 +273,20 @@ function ActivityInformation({
                 className="tw-rounded-lg"
                 placeholder="Select state"
                 allowClear
+                onChange={(e) => {
+                  handleSelectState(e);
+                }}
               >
-                <Select.Option value="maharashtra">Maharashtra</Select.Option>
+                {allStates?.map((state: any) => {
+                  return (
+                    <Select.Option value={state.isoCode}>
+                      {state.name}
+                    </Select.Option>
+                  );
+                })}
+                {/* <Select.Option value="maharashtra">Maharashtra</Select.Option>
                 <Select.Option value="gujrat">Gujrat</Select.Option>
-                <Select.Option value="delhi">Delhi</Select.Option>
+                <Select.Option value="delhi">Delhi</Select.Option> */}
               </Select>
             </Form.Item>
           </Col>
@@ -249,9 +301,14 @@ function ActivityInformation({
                 placeholder="Select city"
                 allowClear
               >
-                <Select.Option value="mumbai">Mumbai</Select.Option>
+                {allCities?.map((city: any) => {
+                  return (
+                    <Select.Option value={city.name}>{city.name}</Select.Option>
+                  );
+                })}
+                {/* <Select.Option value="mumbai">Mumbai</Select.Option>
                 <Select.Option value="thane">Thane</Select.Option>
-                <Select.Option value="mul">Mul</Select.Option>
+                <Select.Option value="mul">Mul</Select.Option> */}
               </Select>
             </Form.Item>
           </Col>
@@ -319,11 +376,77 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
 
     return e && e.fileList;
   };
+  const { currentUser } = useContext(AuthContext);
 
-  const handleFormSubmit = (value: any) => {
+  const handleFormSubmit = async (value: any) => {
     console.log(value);
+    let adhaarLink = [];
+    adhaarLink = await Promise.all(
+      value.aadharCardPhoto.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/adhaar/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let cancelLink = [];
+    cancelLink = await Promise.all(
+      value.cancelCheck.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/cancelCheck/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let certificationLink = [];
+    certificationLink = await Promise.all(
+      value.certification.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/certifications/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+    let panLink = [];
+    panLink = await Promise.all(
+      value.panCardPhoto.map(async (image: any, i: Number) => {
+        console.log(image);
+        let storageRef = firebase
+          .storage()
+          .ref(`venders/${currentUser.uid}/pancard/${i}`);
+        await storageRef.put(image.originFileObj);
+        let downloadLink = await storageRef.getDownloadURL();
+        return downloadLink;
+      })
+    );
+
+    await db.collection("venders").doc(currentUser.uid).set(
+      {
+        aadharCard: value.aadhaarCard,
+        aadharCardPhoto: adhaarLink,
+        accountName: value.accountName,
+        accountNumber: value.accountNumber,
+        cancelCheck: cancelLink,
+        certifications: certificationLink,
+        gstNumber: value.gstNumber,
+        ifscCode: value.ifscCode,
+        panCard: value.panCard,
+        panCardPhoto: panLink,
+        address: "Update your address",
+        landline: "Update your landline",
+      },
+      { merge: true }
+    );
     updateKycData(value);
-    // firebase.auth().signOut();
     showModal();
   };
 
