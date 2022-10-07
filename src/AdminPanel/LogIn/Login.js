@@ -26,15 +26,15 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <div class="background">
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
+      <div className="background">
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
       </div>
-      <div class="content">
-        <div class="login-lg">
+      <div className="content">
+        <div className="login-lg">
           <h2
             style={{
               marginBottom: "100px",
@@ -44,35 +44,35 @@ const Login = () => {
           >
             Member Login
           </h2>
-          {/* <div class='login-role'>
+          {/* <div className='login-role'>
                         <div className='select-box' style={start?employee:admin}></div>
                         <p style={start?{color:'#000'}:{color:'#fff'}} onClick={() => setStart(false)}>I am admin</p>
                         <p style={start?{color:'#fff'}:{color:'#000'}} onClick={() => setStart(true)}>I am employee</p>
                     </div> */}
           <div>
-            <div class="form__group">
+            <div className="form__group">
               <input
                 type="text"
-                class="form__input"
+                className="form__input"
                 id="username"
                 onChange={handleChange}
                 placeholder="Username"
                 required
               ></input>
-              <label for="text" class="form__label">
+              <label for="text" className="form__label">
                 Username
               </label>
             </div>
-            <div class="form__group">
+            <div className="form__group">
               <input
                 type="password"
-                class="form__input"
+                className="form__input"
                 id="password"
                 placeholder="Password"
                 onChange={handleChange}
                 required
               ></input>
-              <label for="password" class="form__label">
+              <label for="password" className="form__label">
                 Password
               </label>
             </div>
@@ -81,7 +81,7 @@ const Login = () => {
             Login
           </button>
         </div>
-        <div class="cover-lg">
+        <div className="cover-lg">
           {/* <img alt='' src={imgCover} className='cover-img'></img> */}
           {/* <h3>Artisan inventory system</h3> */}
         </div>

@@ -13,7 +13,7 @@ const TitleBreadcrumb = ({ titleLinks, className = "" }) => {
                 </Link>
                 <span className="link-title tw-px-2 tw-cursor-default">
                   <span
-                    class="iconify"
+                    className="iconify"
                     data-icon="akar-icons:chevron-right"
                     data-inline="false"
                   />

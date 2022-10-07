@@ -14,10 +14,10 @@ const Pagination = ({
       <Paginations
         activePage={currentPage}
         firstPageText="<<"
-        itemClass="item"
+        itemclassName="item"
         itemsCountPerPage={sizePerPage}
         lastPageText=">>"
-        linkClass="link"
+        linkclassName="link"
         nextPageText="Next"
         pageRangeDisplayed={5}
         prevPageText="Previous"

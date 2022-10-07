@@ -17,7 +17,7 @@ const CallRequests = () => {
 
   return (
     <div className="call-requests">
-      <table class="fl-table">
+      <table className="fl-table">
         <thead>
           <tr>
             <th></th>

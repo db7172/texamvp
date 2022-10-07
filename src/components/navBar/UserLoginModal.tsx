@@ -162,6 +162,7 @@ const UserLoginModal = ({
       style={{ top: 50 }}
       width={500}
       onCancel={handleModalCancel}
+      forceRender
     >
       <div className="tw-py-7">
         <div className="px-10">
