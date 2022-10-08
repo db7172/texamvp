@@ -85,8 +85,6 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
   };
 
   const handleClosingBookingSubmit = (value: any) => {
-    console.log(activeCard);
-    console.log(value);
     cancelBookingForm.setFieldsValue({ radioButton: "", otherMessage: "" });
     firebase
       .firestore()
@@ -117,7 +115,6 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
   };
 
   const handleSendMessageSubmit = (value: any) => {
-    console.log(value);
     shareMessageForm.setFieldsValue({ message: "" });
     setShareMessageModal(false);
   };

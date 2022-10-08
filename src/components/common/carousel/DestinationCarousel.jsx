@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { defaultSettings } from "../../../utils/utils";
 import { Link } from "react-router-dom";
 import { getDestinationPagePath } from "../../../constant/comman.const";
-import place from "../../../assets/png/place4.png";
 import { Carousel } from "antd";
 import { capitalize } from "lodash";
 import firebase from "../../../firebase";

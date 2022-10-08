@@ -22,11 +22,8 @@ import { isString, uniqueId } from "lodash";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import {
-  formateDeparture,
-  formateInstructor,
   normFile,
   onKeyDownEvent,
-  stripUndefined,
 } from "../../../pages/influencer/form/formUtils";
 import firebase from "../../../firebase";
 import { useTabs } from "../../../pages/influencer/form/useTabs";
@@ -34,7 +31,6 @@ import { generatePanes } from "../../utils/commonAdminUtils";
 import { RoomAccomodationTab } from "../../../pages/influencer/form/activity/form-tabs/RoomAccomodationTab";
 import { TabsVariant } from "../../../pages/influencer/form/activity/HourlyAndSingleDay";
 import { ItineraryFormTab } from "../../../pages/influencer/form/activity/form-tabs/ItineraryFormTab";
-import { formatMomentDate, formatMomentTime } from "../../../utils/utils";
 
 type Props = {
   data: any;
@@ -74,7 +70,6 @@ const RetreatModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   const [isRejected, setIsRejected] = useState(false);
 
   const handleRejectionConfirmation = (value: any) => {
-    console.log(value);
     setIsRejected(false);
     handleModalClose();
   };
@@ -89,52 +84,50 @@ const RetreatModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   };
 
   const onSubmit = (value: any) => {
-    const formValue: any = {
-      retreatName: value.retreatName,
-      description: value.description,
-      payment: value.payment,
-      departureDates: value.departure.map((d: any) => ({
-        dateRange: {
-          start: formatMomentDate(d.dateOfDeparture[0]),
-          end: formatMomentDate(d.dateOfDeparture[1]),
-        },
-        ratePerPerson: d.ratePerPerson,
-      })),
+    // const formValue: any = {
+    //   retreatName: value.retreatName,
+    //   description: value.description,
+    //   payment: value.payment,
+    //   departureDates: value.departure.map((d: any) => ({
+    //     dateRange: {
+    //       start: formatMomentDate(d.dateOfDeparture[0]),
+    //       end: formatMomentDate(d.dateOfDeparture[1]),
+    //     },
+    //     ratePerPerson: d.ratePerPerson,
+    //   })),
 
-      sailentFeatures: {
-        format: value.retreatFormat,
-        ageGroup: {
-          from: value.ageGroupFrom,
-          to: value.ageGroupTo,
-        },
-        language: value.retreatLanguage,
-        startTime: formatMomentTime(value.startTime),
-        availableTicket: value.numberOfTicket,
-        skillLevel: value.skillLevel,
-      },
-      instructor: value.instructor.map((d: any) => ({
-        fullName: d.fullName,
-        description: d.instructorDescription,
-      })),
-      destination: {
-        destination: value.destinationFistField,
-        googleMap: value.googleMap,
-      },
-      accomodation: {
-        accomodationName: value.accomodationName,
-        data: accomodationFormData,
-      },
-      itinerary: itineraryPanesFormData,
-      featuredKeyword: tags,
-      inclusion: value.inclusion,
-      exclusion: value.exclusion,
-      termsAndCondition: value.termsAndCondition,
-      cancellationPolicy: value.cancellationPolicy,
-      status: "processing",
-      booked: 0,
-    };
-    console.log(formValue);
-    let finalData = stripUndefined(formValue);
+    //   sailentFeatures: {
+    //     format: value.retreatFormat,
+    //     ageGroup: {
+    //       from: value.ageGroupFrom,
+    //       to: value.ageGroupTo,
+    //     },
+    //     language: value.retreatLanguage,
+    //     startTime: formatMomentTime(value.startTime),
+    //     availableTicket: value.numberOfTicket,
+    //     skillLevel: value.skillLevel,
+    //   },
+    //   instructor: value.instructor.map((d: any) => ({
+    //     fullName: d.fullName,
+    //     description: d.instructorDescription,
+    //   })),
+    //   destination: {
+    //     destination: value.destinationFistField,
+    //     googleMap: value.googleMap,
+    //   },
+    //   accomodation: {
+    //     accomodationName: value.accomodationName,
+    //     data: accomodationFormData,
+    //   },
+    //   itinerary: itineraryPanesFormData,
+    //   featuredKeyword: tags,
+    //   inclusion: value.inclusion,
+    //   exclusion: value.exclusion,
+    //   termsAndCondition: value.termsAndCondition,
+    //   cancellationPolicy: value.cancellationPolicy,
+    //   status: "processing",
+    //   booked: 0,
+    // };
 
     handleModalClose();
   };

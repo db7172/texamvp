@@ -149,7 +149,7 @@ const EarningTab = () => {
           size="small"
           autoComplete="off"
           layout="vertical"
-          onValuesChange={(values) => console.log(values)}
+          onValuesChange={(values) =>{}}
         >
           <div className="tw-flex tw-justify-between tw-items-center">
             <div className="tw-flex tw-gap-5">

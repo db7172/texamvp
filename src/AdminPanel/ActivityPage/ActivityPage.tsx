@@ -38,7 +38,6 @@ const ActivityPage = () => {
 
   const submitForm = async () => {
     const data = stripUndefined(activityForm.getFieldsValue());
-    console.log(data);
     setLoading(1);
     let storageRef = firebase.storage().ref("activityPage/banner");
     await storageRef.put(data.banner[0].originFileObj);

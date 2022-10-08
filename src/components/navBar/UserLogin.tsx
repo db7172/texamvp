@@ -10,8 +10,8 @@ import firebase from "../../firebase";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth";
 
-const avatarImg =
-  "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
+// const avatarImg =
+//   "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserLogin = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
@@ -35,12 +35,12 @@ const UserLogin = () => {
           });
       }
     });
-  }, [currentUser]);
+  }, [currentUser, setCurrentUser]);
 
-  function signOut() {
-    firebase.auth().signOut();
-    window.location.reload();
-  }
+//   function signOut() {
+//     firebase.auth().signOut();
+//     window.location.reload();
+//   }
 
   function showConfirm() {
     confirm({
@@ -54,7 +54,6 @@ const UserLogin = () => {
         window.location.reload();
       },
       onCancel() {
-        console.log("Cancel");
       },
     });
   }

@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import TopPane from "../TopPane/TopPane";
 import { Switch, Route } from "react-router-dom";
 import "./rightPane.css";
 import HomePage from "../Homepage/HomePage";

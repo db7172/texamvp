@@ -4,7 +4,7 @@ import { isNumber, uniqueId } from "lodash";
 import { DataDetailsType, DetailsTabTable } from "Models";
 import { useEffect, useState } from "react";
 import { indCurrency } from "../../../utils/utils";
-import { DETAILS, highLowOptions, statusOptions } from "./data";
+import { highLowOptions, statusOptions } from "./data";
 import DetailsTabCardContainer from "./details-tab-component/DetailsTabCardContainer";
 import DetailsTabTableComponent from "./details-tab-component/DetailsTabTable";
 import firebase from "../../../firebase";
@@ -121,7 +121,6 @@ const DetailsTab = () => {
   }, []);
 
   activity = singleDetails.concat(multiDetails);
-  // console.log(activity);
 
   return (
     <>
@@ -262,7 +261,7 @@ const DetailsTab = () => {
               size="large"
               autoComplete="off"
               layout="vertical"
-              onValuesChange={(values) => console.log(values)}
+              onValuesChange={(values) =>{}}
             >
               <Row gutter={20}>
                 <Col span={6}>

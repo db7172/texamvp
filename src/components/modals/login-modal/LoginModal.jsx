@@ -80,7 +80,6 @@ export const LoginModal = ({ header, onCancel }) => {
       .then((result) => {
         // User signed in successfully.
         const user = result.user;
-        console.log(JSON.stringify(user));
         firebaseUser
           .firestore()
           .collection("users")

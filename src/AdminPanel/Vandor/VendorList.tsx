@@ -25,7 +25,6 @@ const VendorList = ({ listData }: Props) => {
   useEffect(() => {
     setData(listData);
   }, [listData]);
-  console.log(data);
 
   const debounceUseridFilter = debounce(handleUserFilter, 500);
   if (data) {

@@ -46,7 +46,7 @@ const RetreatPage = () => {
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
-  const [retreats, setRetreats] = useState([]);
+//   const [retreats, setRetreats] = useState([]);
 
   const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -100,14 +100,13 @@ const RetreatPage = () => {
       .collection("retreats")
       .get()
       .then((querySnap) => {
-        setRetreats(
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
-        );
+        // setRetreats(
+        //   querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        // );
       });
   }, [DESTINATION_NAME, RETREAT_TYPE]);
 
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
@@ -146,7 +145,6 @@ const RetreatPage = () => {
   };
 
   const handleRequestCallbackSubmit = (value) => {
-    console.log(value);
     handleShowCallbackModalCancel();
   };
 

@@ -23,16 +23,14 @@ export const reteratOptions = [
 
 const Retreat = () => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
-  const [numberOfPeople, setNumberOfPeople] = useState();
+//   const [checkInDate, setCheckInDate] = useState("");
+//   const [checkOutDate, setCheckOutDate] = useState("");
+//   const [numberOfPeople, setNumberOfPeople] = useState();
   const history = useHistory();
 
   const [form] = Form.useForm();
 
   const handleClick = () => {
-    console.log({ selectedOption, checkInDate, checkOutDate, numberOfPeople });
-
     history.push(`/workcation/${lowerCase(selectedOption)}`);
   };
 
@@ -72,7 +70,7 @@ const Retreat = () => {
 
         <Form.Item name="startDate" label="Check In">
           <DatePicker
-            onChange={(_, d) => setCheckInDate(d)}
+            onChange={(_, d) => {}}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
             format="DD/MM/YYYY"
@@ -81,7 +79,7 @@ const Retreat = () => {
 
         <Form.Item name="endDate" label="Check Out">
           <DatePicker
-            onChange={(_, d) => setCheckOutDate(d)}
+            onChange={(_, d) => {}}
             placeholder="Select Your Date"
             className="width_full tw-rounded-md"
             format="DD/MM/YYYY"
@@ -92,7 +90,7 @@ const Retreat = () => {
           <InputNumber
             min={1}
             placeholder="Select No. of People"
-            handleChange={(e) => setNumberOfPeople(e)}
+            handleChange={(e) => {}}
             className="width_full tw-rounded-md"
           />
         </Form.Item>

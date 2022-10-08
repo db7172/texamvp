@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, Modal, Select, Typography } from "antd";
+import { Button, Divider, Form, Input, Modal, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth";
@@ -38,7 +38,6 @@ const UserLoginModal = ({
         size: "invisible",
         callback: (response: any) => {
           onSignInSubmit(null);
-          console.log("Recaptcha verified");
         },
       }
     );
@@ -53,7 +52,6 @@ const UserLoginModal = ({
       .signInWithPhoneNumber(number, appVerifier)
       .then((confirmationResult: any) => {
         window.confirmationResult = confirmationResult;
-        console.log("OTP sent.");
       })
       .catch((error: any) => {
         console.log(error);
@@ -62,7 +60,6 @@ const UserLoginModal = ({
 
   const handleNumberSubmit = async (value: any) => {
     // handle sending otp to mobile things here
-    // console.log(value);
     let num = "+" + value.prefix + value.number;
     let isVender = false;
     await firebase
@@ -75,6 +72,7 @@ const UserLoginModal = ({
           if (doc.exists) {
             return (isVender = true);
           }
+          return false
         });
       });
     if (isVender) {
@@ -95,7 +93,6 @@ const UserLoginModal = ({
       .then((result: any) => {
         // User signed in successfully.
         const user = result.user;
-        console.log(user);
         const checkIfNew = firebase
           .firestore()
           .collection("users")
@@ -121,7 +118,6 @@ const UserLoginModal = ({
       });
   };
   const handleUserDetailsSubmit = async (value: any) => {
-    console.log(value);
     await firebase.firestore().collection("users").doc(userData.uid).set(value);
     await firebase.auth().currentUser?.updateProfile({
       displayName: value.name,

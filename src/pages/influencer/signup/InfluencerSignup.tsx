@@ -1,6 +1,6 @@
 import Container from "../../../components/common/container/Container";
 import { Steps, Button, Input, Form } from "antd";
-import { ChangeEvent, ReactNode, useState, useContext, useEffect } from "react";
+import { ChangeEvent, ReactNode, useState, useContext } from "react";
 import checkMark from "../../../assets/png/influencer/check-mark-yellow.png";
 import circal from "../../../assets/png/influencer/circal.png";
 import Modal from "antd/lib/modal/Modal";
@@ -9,7 +9,7 @@ import ActivityProfile from "../../../components/influencer/activity-profile/Act
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
 import CallCodes from "../../../constant/CallCodes";
-import { Country, State, City } from "country-state-city";
+// import { Country, State, City } from "country-state-city";
 
 const auth = firebase.auth();
 
@@ -82,7 +82,6 @@ const PersonalDetails = ({
 }: PersonalDetailsProps) => {
   const handleSubmit = async (value: PersonalFormData) => {
     let isUser = false;
-    console.log(value);
     name = value.fullName;
     number = "+91" + value.number;
     email = value.email;
@@ -97,6 +96,7 @@ const PersonalDetails = ({
           if (doc.exists) {
             return (isUser = true);
           }
+          return false;
         });
       });
     if (isUser) {
@@ -258,8 +258,6 @@ const InfluencerSignup = () => {
     emailOTP: false,
   });
 
-  console.log(otp.mobileOTP);
-
   const handleOtpChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     let name = e.target.name;
@@ -291,7 +289,6 @@ const InfluencerSignup = () => {
         const user = result.user;
         setCurrentUser(user);
         setCurrent(1);
-        console.log(current);
         setIsModalVisible(false);
         auth.currentUser
           ?.linkWithCredential(
@@ -299,7 +296,6 @@ const InfluencerSignup = () => {
           )
           .then((usercred) => {
             var user = usercred.user;
-            console.log("Account linking success", user);
             user?.updateProfile({
               displayName: name,
             });

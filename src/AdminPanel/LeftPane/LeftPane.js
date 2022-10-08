@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./leftPane.css";
 import { Link, useLocation } from "react-router-dom";
 // import { AuthContext } from '../../Auth';

@@ -96,13 +96,11 @@ const EventModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   };
 
   const handleRejectionConfirmation = (value: any) => {
-    console.log(value);
     setIsRejected(false);
     handleModalClose();
   };
 
   const onSubmit = (value: any) => {
-    console.log(value);
     let formValue: any = {
       eventType: data.data.eventType,
       eventName: value.eventName,
@@ -143,7 +141,6 @@ const EventModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
       booked: 0,
     };
 
-    console.log(formValue);
     handleModalClose();
   };
 

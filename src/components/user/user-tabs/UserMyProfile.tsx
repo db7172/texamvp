@@ -12,7 +12,6 @@ import {
 import { uniqueId } from "lodash";
 import { useEffect, useState } from "react";
 import userIcon from "../../../assets/png/userIcon.png";
-import profile from "../../../assets/png/influencer/user/user1.png";
 import { formatMomentDate } from "../../../utils/utils";
 import UserCard from "../card/UserCard";
 import firebase from "../../../firebase";
@@ -21,19 +20,18 @@ import { stripUndefined } from "../../../pages/influencer/form/formUtils";
 const OPTIONS = ["Option 1", "Option 2", "Option 3"];
 
 const UserMyProfile = () => {
-  const [profilePic, setProfilePic] = useState(profile);
+//   const [profilePic, setProfilePic] = useState(profile);
   const [data, setData] = useState([]) as any;
   const [user, setUser] = useState([]) as any;
   const [profileImg, setProfileImg] = useState([]) as any;
 
   const handleUserProfileUpload = (e: any) => {
-    console.log("Upload event:", e);
     setProfileImg(e);
     if (Array.isArray(e)) {
       return e;
     }
     setTimeout(() => {
-      setProfilePic(e?.fileList[0]?.thumbUrl || profile);
+    //   setProfilePic(e?.fileList[0]?.thumbUrl || profile);
     }, 1000);
     return e && e.fileList;
   };
@@ -54,7 +52,6 @@ const UserMyProfile = () => {
     });
   }, []);
 
-  // console.log(user);
 
   const handleSubmit = async (value: any) => {
     let downloadLink = user.photoURL;

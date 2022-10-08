@@ -41,7 +41,6 @@ const DestinationPage = () => {
       },
     ]);
     let docName = DESTINATION_NAME.toLowerCase();
-    console.log(docName);
     firebase
       .firestore()
       .collection("destinations")
@@ -51,8 +50,6 @@ const DestinationPage = () => {
         setDestinationDetails(doc.data());
       });
   }, [DESTINATION_NAME]);
-
-  console.log(DESTINATION_NAME, destinationDetails);
 
   return destinationDetails ? (
     <ExploreMoreWrapper

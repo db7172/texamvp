@@ -15,7 +15,7 @@ import {
   Upload,
 } from "antd";
 import { useEffect, useState } from "react";
-import profile from "../../../assets/png/influencer/user/user1.png";
+// import profile from "../../../assets/png/influencer/user/user1.png";
 import certificate from "../../../assets/png/influencer/certificate.png";
 import { uniqueId } from "lodash";
 import { normFile } from "../../../pages/influencer/form/formUtils";
@@ -36,12 +36,12 @@ type CertificateType = {
   credentialId: string;
 };
 
-const mockUserDetails = {
-  name: "Travel Monk",
-  email: "travelm23@gmail.com",
-  about:
-    "Vel maecenas sagittis, aliquet nisi magna facilisis massa rhoncus sagittis. Sem fringilla erat massa nascetur facilisis nec viverra consequat. Vel enim iaculis porttitor bibendum suspendisse purus tellus feugiat. Consequat metus arcu commodo eleifend auctor volutpat odio. Rutrum est cursus et, amet. Eget sit interdum in at cum proin luctus.",
-};
+// const mockUserDetails = {
+//   name: "Travel Monk",
+//   email: "travelm23@gmail.com",
+//   about:
+//     "Vel maecenas sagittis, aliquet nisi magna facilisis massa rhoncus sagittis. Sem fringilla erat massa nascetur facilisis nec viverra consequat. Vel enim iaculis porttitor bibendum suspendisse purus tellus feugiat. Consequat metus arcu commodo eleifend auctor volutpat odio. Rutrum est cursus et, amet. Eget sit interdum in at cum proin luctus.",
+// };
 
 const mockCertificates: CertificateType[] = [
   {
@@ -70,9 +70,9 @@ const mockCertificates: CertificateType[] = [
 
 const InfluencerEditMyProfile = () => {
   const [certificateForm] = Form.useForm();
-  const [profilePic, setProfilePic] = useState(profile);
+//   const [profilePic, setProfilePic] = useState(profile);
   const [profileImg, setProfileImg] = useState([]) as any;
-  const [userDetails, setUserDetails] = useState(mockUserDetails);
+//   const [userDetails, setUserDetails] = useState(mockUserDetails);
   const [userData, setUserData] = useState([]) as any;
   const [userCertificate, setUserCertificate] =
     useState<CertificateType[]>(mockCertificates);
@@ -87,7 +87,7 @@ const InfluencerEditMyProfile = () => {
   const history = useHistory();
 
   const handleUserDetailsModalCancel = () => {
-    setProfilePic(profile);
+    // setProfilePic(profile);
     setIsModalUserDetailsVisible(false);
   };
 
@@ -96,7 +96,7 @@ const InfluencerEditMyProfile = () => {
   };
 
   const handleUserDetailsFormSubmit = async (value: any) => {
-    setUserDetails(value);
+    // setUserDetails(value);
     const user = await firebase.auth().currentUser;
     if (user) {
       let downloadLink = user.photoURL;
@@ -122,7 +122,6 @@ const InfluencerEditMyProfile = () => {
           { merge: true }
         )
         .then(() => {
-          console.log("document written");
         })
         .catch((err) => {
           console.log(err);
@@ -182,8 +181,6 @@ const InfluencerEditMyProfile = () => {
       credentialId: value.credentialId,
     };
 
-    console.log({ value, newCertificate });
-
     if (isExpire) {
       newCertificate["expMonth"] = moment(value.expDate).format("MMM");
       newCertificate["expYear"] = moment(value.expDate).format("YYYY");
@@ -206,14 +203,13 @@ const InfluencerEditMyProfile = () => {
   };
 
   const handleUserProfileUpload = (e: any) => {
-    console.log("Upload event:", e);
     setProfileImg(e);
     if (Array.isArray(e)) {
       return e;
     }
     setTimeout(() => {
       // setProfileImg(e?.FileList[0]);
-      setProfilePic(e?.fileList[0].thumbUrl || profile);
+    //   setProfilePic(e?.fileList[0].thumbUrl || profile);
     }, 1000);
     return e && e.fileList;
   };
@@ -233,7 +229,7 @@ const InfluencerEditMyProfile = () => {
         history.push("/influencer");
       }
     });
-  }, []);
+  },[]);
 
   if (userData) {
     return (

@@ -23,7 +23,7 @@ const ProfileSetting = () => {
 
   const [userData, setUserData] = useState(userDetails);
   const [details, setDetails] = useState([]) as any;
-  const [bankDetails, setBankDetails] = useState(bankData);
+//   const [bankDetails, setBankDetails] = useState(bankData);
   const [gstDetail, setGstDetail] = useState(2745638964522);
 
   const [showUserModal, setShowUserModal] = useState(false);
@@ -55,14 +55,12 @@ const ProfileSetting = () => {
   };
 
   const handleUserDetailsFormSubmit = (value: any) => {
-    console.log(value);
     const changedData = {
       mobileNo: `+${value.prefix}${value.mobileNo}`,
       landlineNo: value.landlineNo,
       address: value.address,
     };
     setUserData(changedData);
-    console.log(changedData.landlineNo);
     let user = firebase.auth().currentUser;
     if (user) {
       firebase.firestore().collection("venders").doc(user.uid).set(
@@ -79,7 +77,6 @@ const ProfileSetting = () => {
   };
 
   const handleBankDetailsFormSubmit = (value: any) => {
-    console.log(value);
     let user = firebase.auth().currentUser;
     if (user) {
       firebase.firestore().collection("venders").doc(user.uid).set(
@@ -91,13 +88,12 @@ const ProfileSetting = () => {
         { merge: true }
       );
     }
-    setBankDetails(value);
+    // setBankDetails(value);
     handleBankModalCancel();
     window.location.reload();
   };
 
   const handleGstDetailFormSubmit = (value: any) => {
-    console.log(value);
     let user = firebase.auth().currentUser;
     if (user) {
       firebase.firestore().collection("venders").doc(user.uid).set(
@@ -128,8 +124,6 @@ const ProfileSetting = () => {
       }
     });
   }, []);
-
-  console.log(details);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>

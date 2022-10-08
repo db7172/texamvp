@@ -28,9 +28,9 @@ export const RETREAT_TYPES = {
 
 const DESTINATION_NAME = ":destinationName";
 const ACTIVITY_TYPE = ":activityType";
-const ACTIVITY_NAME = ":activityName";
+// const ACTIVITY_NAME = ":activityName";
 const COLLECTION_NAME = ":collectionName";
-const ACTIVITY_ID = ":id";
+// const ACTIVITY_ID = ":id";
 const EVENT_TYPE = ":eventType";
 const EVENT_NAME = ":eventName";
 const WORKATION_TYPE = ":workationType";

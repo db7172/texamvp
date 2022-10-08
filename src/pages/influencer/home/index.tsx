@@ -22,7 +22,6 @@ const Influencer = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user && currentUser) {
-        console.log(currentUser);
         // setCurrentUser(user);
         history.push("/influencer/dashboard");
         firebase

@@ -9,7 +9,7 @@ import {
   Steps,
   Typography,
 } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Container from "../../components/common/container/Container";
 import { indCurrency } from "../../utils/utils";
 import icon from "../../assets/svg/bag.svg";
@@ -451,8 +451,6 @@ const PaymentPage = (props: any) => {
         contact: any;
       }
     );
-
-    console.log(details);
 
     return (
       <div>

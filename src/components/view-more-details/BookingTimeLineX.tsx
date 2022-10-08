@@ -1,40 +1,37 @@
 import { Steps } from "antd";
 import moment from "moment";
 
-const stepsData = [
-  {
-    title: "Phuentsholing",
-    description: "( 1 Day )",
-  },
-  {
-    title: "Thimpu",
-    description: "( 1 Day )",
-  },
-  {
-    title: "Paro",
-    description: "( 2 Day )",
-  },
-  {
-    title: "Phuentsholing",
-    description: "( 1 Day )",
-  },
-  {
-    title: "Phuentsholing",
-    description: "( 1 Day )",
-  },
-];
+// const stepsData = [
+//   {
+//     title: "Phuentsholing",
+//     description: "( 1 Day )",
+//   },
+//   {
+//     title: "Thimpu",
+//     description: "( 1 Day )",
+//   },
+//   {
+//     title: "Paro",
+//     description: "( 2 Day )",
+//   },
+//   {
+//     title: "Phuentsholing",
+//     description: "( 1 Day )",
+//   },
+//   {
+//     title: "Phuentsholing",
+//     description: "( 1 Day )",
+//   },
+// ];
 
 const BookingTimeLineX = (props: any) => {
   const { Step } = Steps;
-  console.log(props);
 
   var startDate = moment(props.departureDate[0].dateRange.start, "DD.MM.YYYY");
   var endDate = moment(props.departureDate[0].dateRange.end, "DD.MM.YYYY");
   var numDays = endDate.diff(startDate, "days");
 
-  Object.values(props.itinerary).map((entry) => {
-    return console.log(entry);
-  });
+//   Object.values(props.itinerary).map((entry) => false );
 
   if (Array.isArray(props.itinerary)) {
     return (

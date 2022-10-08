@@ -1,30 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as DownArrow } from "../../assets/svg/downArrow.svg";
-import { ReactComponent as Location } from "../../assets/svg/location.svg";
+// import { ReactComponent as Location } from "../../assets/svg/location.svg";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import NavBarOption from "./NavBarOption";
-import {
-  ACTIVITY_DATA,
-  EVENT_DATA,
-  RETREAT_DATA,
-  WORKCATION_DATA,
-} from "../../constant/navData.const";
+// import {
+//   ACTIVITY_DATA,
+//   EVENT_DATA,
+//   RETREAT_DATA,
+//   WORKCATION_DATA,
+// } from "../../constant/navData.const";
 import { upperCase } from "../../utils/utils";
 import { Link } from "react-router-dom";
-import { Select } from "antd";
-import { CITY_ARR } from "../../constant/city-array";
-import { lowerCase } from "lodash";
+// import { Select } from "antd";
+// import { CITY_ARR } from "../../constant/city-array";
+// import { lowerCase } from "lodash";
 import UserLoginModal from "./UserLoginModal";
 import UserLogin from "./UserLogin";
 import firebase from "../../firebase";
-import { AuthContext } from "../../Auth";
-import { chunkArray } from "../../utils/utils";
+// import { AuthContext } from "../../Auth";
+// import { chunkArray } from "../../utils/utils";
 
-const default_Options = {
-  data: { title: "", options: [] },
-  path: "",
-};
+// const default_Options = {
+//   data: { title: "", options: [] },
+//   path: "",
+// };
 
 function NavBar() {
   const [isShow, setIsShow] = useState(false);
@@ -39,7 +39,7 @@ function NavBar() {
     workations: [],
   });
   const [path, setPath] = useState("");
-  const { currentUser } = useContext(AuthContext);
+//   const { currentUser } = useContext(AuthContext);
   // const [flag, setFlag] = useState(0);
 
   const wrapperRef = useRef(null);
@@ -48,7 +48,6 @@ function NavBar() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        // console.log(user);
         firebase
           .firestore()
           .collection("users")
@@ -94,7 +93,6 @@ function NavBar() {
       });
   }, []);
 
-  // console.log(allData.activities);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -115,7 +113,6 @@ function NavBar() {
 
   const handleShow = (data, path) => {
     // setShowReterat(false);
-    // console.log(data.data.title, navData.data.title);
     // if (data.data.title === navData.data.title) {
     //   setIsShow(false);
     //   setNavData(default_Options);

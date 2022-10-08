@@ -26,13 +26,12 @@ const WorkationCarousel = ({
     return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
   };
 
-  const setData = async () => {
-    const data = await getData("workation");
-    setWorkations(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const setData = async () => {
+        const data = await getData("workation");
+        setWorkations(data);
+        setLoading(false);
+      };
     setLoading(true);
     setData();
   }, []);

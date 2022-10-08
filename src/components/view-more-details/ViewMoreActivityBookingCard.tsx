@@ -13,7 +13,6 @@ import Modal from "antd/lib/modal/Modal";
 import classNames from "classnames";
 import { lowerCase } from "lodash";
 import { useState } from "react";
-import { CITY_ARR } from "../../constant/city-array";
 import banner from "../../assets/png/carousal1.png";
 import { indCurrency } from "../../utils/utils";
 import { Package } from "Models";
@@ -58,7 +57,7 @@ const MOCK_PACKAGE: Package[] = [
 ];
 
 const ViewMoreActivityBookingCard = (props: any) => {
-  const [departureCity, setDepartureCity] = useState("mumbai");
+//   const [departureCity, setDepartureCity] = useState("mumbai");
   const [selectedDate, setSelectedDate] = useState("");
   const [isDateSelected, setIsDateSelected] = useState(true);
   const [active, setActive] = useState<Package>(MOCK_PACKAGE[0]);
@@ -126,8 +125,6 @@ const ViewMoreActivityBookingCard = (props: any) => {
     setActive(value);
   };
 
-  console.log(props);
-
   return (
     <section>
       <div className="tw-pt-4 tw-pb-8 tw-border-b tw-border-t">
@@ -140,7 +137,8 @@ const ViewMoreActivityBookingCard = (props: any) => {
             className="tw-font-medium"
             style={{ width: 120 }}
             placeholder="Location"
-            onChange={(e) => setDepartureCity(e)}
+            onChange={(e) =>{}}
+            // onChange={(e) => setDepartureCity(e)}
           >
             {props.departureCity.map((c: any, i: any) => (
               <Select.Option key={i} value={lowerCase(c)}>

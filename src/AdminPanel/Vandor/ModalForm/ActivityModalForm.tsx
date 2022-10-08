@@ -14,7 +14,7 @@ import {
   TimePicker,
 } from "antd";
 import classNames from "classnames";
-import { capitalize, isString, lowerCase, uniqueId } from "lodash";
+import { isString, uniqueId } from "lodash";
 import moment from "moment";
 import { useState } from "react";
 import { AccomodationFormTab } from "../../../pages/influencer/form/activity/form-tabs/AccomodationFormTab";
@@ -181,14 +181,12 @@ const ActivityModalForm = ({
         status: "processing",
         booked: 0,
       };
-      console.log(formData);
     }
 
     handleModalClose();
   };
 
   const handleRejectionConfirmation = (value: any) => {
-    console.log(value);
     setIsRejected(false);
     handleModalClose();
   };
@@ -230,7 +228,6 @@ const ActivityModalForm = ({
   };
 
   const multiDayData = () => {
-    console.log(data.data);
     return {
       activityName: data.data.activityName,
       description: data.data.description,

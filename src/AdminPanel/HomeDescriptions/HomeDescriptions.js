@@ -33,7 +33,6 @@ const HomeDescriptions = () => {
     document.getElementById("line3").value = "";
   };
 
-  console.log(details);
 
   return (
     <div className="home-descriptions">

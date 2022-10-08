@@ -17,9 +17,9 @@ import {
   Tag,
   Upload,
 } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../../../../Auth";
+// import { AuthContext } from "../../../../Auth";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { formatMomentDate } from "../../../../utils/utils";
@@ -64,7 +64,7 @@ const Workation = () => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [user, setUser] = useState([]) as any;
-  const [workationCategory, setWorkationCategory] = useState([]) as any;
+//   const [workationCategory, setWorkationCategory] = useState([]) as any;
   const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
@@ -164,8 +164,6 @@ const Workation = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        console.log(image);
-        console.log(user.uid);
         let storageRef = firebase
           .storage()
           .ref(`workation/${user.uid}/${docId}/${i}`);

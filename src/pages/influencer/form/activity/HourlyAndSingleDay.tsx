@@ -23,7 +23,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
 import { uniqueId } from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SIDE_PENAL_DATA } from "./mockData";
 import { useTabs } from "../useTabs";
 import { TranspotationFormTab } from "./form-tabs/TranspotationFormTab";
@@ -36,7 +36,6 @@ import {
   stripUndefined,
 } from "../formUtils";
 import firebase from "../../../../firebase";
-import { AuthContext } from "../../../../Auth";
 import { v4 as uuid } from "uuid";
 
 const db = firebase.firestore();
@@ -64,7 +63,6 @@ let addReportingDroppingPointField: {
 };
 
 const normFile = (e: any) => {
-  console.log("Upload event:", e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -136,7 +134,6 @@ const HourlyAndSingleDay = () => {
   }, []);
 
   const onSubmit = async (value: any) => {
-    console.log(value.dragger);
     const formData = hourlyAndSingleDayDataHelper({
       ...value,
       tags,
@@ -155,8 +152,6 @@ const HourlyAndSingleDay = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        console.log(image);
-        console.log(user.uid);
         let storageRef = firebase
           .storage()
           .ref(`hourlyAndSingle/${user.uid}/${docId}/${i}`);
@@ -182,8 +177,6 @@ const HourlyAndSingleDay = () => {
         console.error("Error writing document: ", error);
       });
   };
-
-  console.log(activityCategory);
 
   return (
     <Container>
@@ -217,8 +210,8 @@ const HourlyAndSingleDay = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={onSubmit}
-                onValuesChange={(value, obj) => console.log(obj)}
-                onFinishFailed={(error) => console.log(error)}
+                onValuesChange={(value, obj) => {}}
+                onFinishFailed={(error) => {}}
                 layout="vertical"
                 size="large"
                 autoComplete="off"

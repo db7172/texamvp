@@ -1,12 +1,11 @@
-import { Form, Input, Button, Divider, Select, Modal, Typography } from "antd";
+import { Form, Input, Button, Divider, Modal, Typography } from "antd";
 import { upperCase } from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../../Auth";
 import CallCodes from "../../../constant/CallCodes";
 import firebase from "../../../firebase";
-import Loader from "../../common/Loader/Loader";
 
 // const mobileOTP = 123456;
 
@@ -20,7 +19,6 @@ const InfluencerLogin = () => {
   });
   const [mobile, setMobile] = useState("");
   const [show, setShow] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -40,7 +38,6 @@ const InfluencerLogin = () => {
     if (loginWithEmail) {
       let email = values.email;
       let password = values.password;
-      console.log(loginWithEmail, email, password);
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
@@ -65,7 +62,6 @@ const InfluencerLogin = () => {
         size: "invisible",
         callback: (response: any) => {
           onSignInSubmit(null);
-          console.log("Recaptcha verified");
         },
       }
     );
@@ -75,7 +71,6 @@ const InfluencerLogin = () => {
     configureRecaptcha();
     const number = "+" + phoneNumber;
     const appVerifier = window.recaptchaVerifier;
-    console.log(number);
     firebase
       .auth()
       .signInWithPhoneNumber(number, appVerifier)

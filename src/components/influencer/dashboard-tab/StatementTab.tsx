@@ -197,7 +197,7 @@ const StatementTab = () => {
               autoComplete="off"
               className="tw-w-6/12"
               //   for converting moment date in to string use formatMomentDate(momentObj) function
-              onValuesChange={(value) => console.log(value)}
+              onValuesChange={(value) => {}}
               initialValues={{
                 category: "all",
               }}

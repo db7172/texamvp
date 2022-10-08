@@ -72,8 +72,6 @@ const Activites = () => {
     setCardCount(cardCount + 12);
   };
 
-  console.log(activities);
-
   return (
     <>
       <div className="tw-mt-0">

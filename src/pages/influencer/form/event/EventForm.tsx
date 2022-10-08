@@ -22,7 +22,7 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -36,7 +36,6 @@ import { normFile, onKeyDownEvent } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
-import { AuthContext } from "../../../../Auth";
 import firebase from "../../../../firebase";
 import { v4 as uuid } from "uuid";
 
@@ -156,7 +155,6 @@ const EventForm = () => {
       formValue["summary"] = itineraryPanesFormData;
     }
 
-    console.log(formValue);
 
     const data = {
       ...formValue,
@@ -169,8 +167,6 @@ const EventForm = () => {
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        console.log(image);
-        console.log(user.uid);
         let storageRef = firebase
           .storage()
           .ref(`events/${user.uid}/${docId}/${i}`);
@@ -231,8 +227,8 @@ const EventForm = () => {
                 name="eventForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={onFinish}
-                onFinishFailed={(error) => console.log(error)}
-                onValuesChange={(value, obj) => console.log(obj)}
+                onFinishFailed={(error) => {}}
+                onValuesChange={(value, obj) => {}}
                 layout="vertical"
                 size="large"
                 autoComplete="off"

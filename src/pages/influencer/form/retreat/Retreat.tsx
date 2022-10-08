@@ -21,28 +21,25 @@ import {
 } from "antd";
 import classNames from "classnames";
 import { uniqueId } from "lodash";
-import { useContext, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "../../../../components/common/container/Container";
 import FormLeftPenal from "../../../../components/influencer/form/FormLeftPenal";
-import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
+// import { formatMomentDate, formatMomentTime } from "../../../../utils/utils";
 import { ItineraryFormTab } from "../activity/form-tabs/ItineraryFormTab";
 import { RoomAccomodationTab } from "../activity/form-tabs/RoomAccomodationTab";
 import { TabsVariant } from "../activity/HourlyAndSingleDay";
 import { SIDE_PENAL_DATA } from "../activity/mockData";
 import CreateActivity from "../CreateActivity";
 import {
-  formateDeparture,
-  formateInstructor,
+//   formateDeparture,
+//   formateInstructor,
   normFile,
   onKeyDownEvent,
-  stripUndefined,
 } from "../formUtils";
 import { RightSidePenal } from "../RightSidePenal";
 import { useTabs } from "../useTabs";
 import firebase from "../../../../firebase";
-import { AuthContext } from "../../../../Auth";
-import { v4 as uuid } from "uuid";
 
 let addPaymentField: {
   (): void;
@@ -89,9 +86,8 @@ const Retreat = () => {
   const [itineraryPanesFormData, setItineraryPanesFormData] = useState<any>();
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<Array<string>>([]);
-  const [user, setUser] = useState([]) as any;
+//   const [user, setUser] = useState([]) as any;
   const [retreatCategory, setRetreatCategory] = useState([]) as any;
-  const history = useHistory();
 
   const { state: accomodationTabs, methods: accomodationMethods } = useTabs(
     {
@@ -125,7 +121,6 @@ const Retreat = () => {
         ...accomodationFormData,
         [key]: value.data,
       });
-      console.log(value.photos);
     } else if (type === "itinerary") {
       setItineraryPanesFormData({
         ...itineraryPanesFormData,
@@ -149,78 +144,76 @@ const Retreat = () => {
         );
       });
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) setUser(user);
+    //   if (user) setUser(user);
     });
   }, []);
 
   const onFinishForm = async (value: any) => {
-    const departureDetails = value.departure
-      ? formateDeparture(value.departure)
-      : [];
-    const instructor = value.instructor
-      ? formateInstructor(value.instructor)
-      : [];
-    const formValue: any = {
-      retreatName: value.retreatName,
-      description: value.description,
-      payment: value.paymentList
-        ? value.paymentList
-        : value.paymentRatePerPerson,
-      departureDates: [
-        {
-          dateRange: {
-            start: formatMomentDate(value.departureDateFirstField[0]),
-            end: formatMomentDate(value.departureDateFirstField[1]),
-          },
-          ratePerPerson: value.ratePerPersonFirstField,
-        },
-        ...departureDetails,
-      ],
-      sailentFeatures: {
-        format: value.retreatFormat,
-        ageGroup: {
-          from: value.ageGroupFrom,
-          to: value.ageGroupTo,
-        },
-        language: value.retreatLanguage,
-        startTime: formatMomentTime(value.startTime),
-        availableTicket: value.numberOfTicket,
-        skillLevel: value.skillLevel,
-      },
-      instructor: [
-        {
-          fullName: value.fullName,
-          description: value.instructorDescription,
-        },
-        ...instructor,
-      ],
-      destination: {
-        destination: value.destinationFistField,
-        googleMap: value.googleMap,
-      },
-      accomodation: {
-        accomodationName: value.accomodationName,
-        data: accomodationFormData,
-      },
-      itinerary: itineraryPanesFormData,
-      featuredKeyword: tags,
-      inclusion: value.inclusion,
-      exclusion: value.exclusion,
-      termsAndCondition: value.termsAndCondition,
-      cancellationPolicy: value.cancellationPolicy,
-    };
+    // const departureDetails = value.departure
+    //   ? formateDeparture(value.departure)
+    //   : [];
+    // const instructor = value.instructor
+    //   ? formateInstructor(value.instructor)
+    //   : [];
+    // const formValue: any = {
+    //   retreatName: value.retreatName,
+    //   description: value.description,
+    //   payment: value.paymentList
+    //     ? value.paymentList
+    //     : value.paymentRatePerPerson,
+    //   departureDates: [
+    //     {
+    //       dateRange: {
+    //         start: formatMomentDate(value.departureDateFirstField[0]),
+    //         end: formatMomentDate(value.departureDateFirstField[1]),
+    //       },
+    //       ratePerPerson: value.ratePerPersonFirstField,
+    //     },
+    //     ...departureDetails,
+    //   ],
+    //   sailentFeatures: {
+    //     format: value.retreatFormat,
+    //     ageGroup: {
+    //       from: value.ageGroupFrom,
+    //       to: value.ageGroupTo,
+    //     },
+    //     language: value.retreatLanguage,
+    //     startTime: formatMomentTime(value.startTime),
+    //     availableTicket: value.numberOfTicket,
+    //     skillLevel: value.skillLevel,
+    //   },
+    //   instructor: [
+    //     {
+    //       fullName: value.fullName,
+    //       description: value.instructorDescription,
+    //     },
+    //     ...instructor,
+    //   ],
+    //   destination: {
+    //     destination: value.destinationFistField,
+    //     googleMap: value.googleMap,
+    //   },
+    //   accomodation: {
+    //     accomodationName: value.accomodationName,
+    //     data: accomodationFormData,
+    //   },
+    //   itinerary: itineraryPanesFormData,
+    //   featuredKeyword: tags,
+    //   inclusion: value.inclusion,
+    //   exclusion: value.exclusion,
+    //   termsAndCondition: value.termsAndCondition,
+    //   cancellationPolicy: value.cancellationPolicy,
+    // };
 
-    let finalData = stripUndefined(formValue);
+    // let finalData = stripUndefined(formValue);
 
-    const data = {
-      ...finalData,
-      status: "processing",
-      booked: 0,
-    };
+    // const data = {
+    //   ...finalData,
+    //   status: "processing",
+    //   booked: 0,
+    // };
 
     // let docId = uuid();
-
-    console.log(value);
 
     // let imgLink = [];
     // imgLink = await Promise.all(
@@ -287,7 +280,7 @@ const Retreat = () => {
                 name="retreatForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={onFinishForm}
-                onFinishFailed={(error) => console.log(error)}
+                onFinishFailed={(error) => {}}
                 // onValuesChange={(value, obj) => console.log(obj)}
                 layout="vertical"
                 size="large"

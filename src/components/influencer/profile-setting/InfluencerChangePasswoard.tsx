@@ -2,14 +2,13 @@ import { Button, Form, Input } from "antd";
 import { useState } from "react";
 import firebase from "../../../firebase";
 
-const mockOldPassword = "Test@123";
+// const mockOldPassword = "Test@123";
 
 const InfluencerChangePasswoard = () => {
   const [isOldPasswordIsCorrect, setIsOldPasswordIsCorrect] = useState(true);
   const [step, setStep] = useState(1);
   const [form] = Form.useForm();
   const handleSubmit = (value: any) => {
-    console.log(value);
     const user = firebase.auth().currentUser;
     if (user) {
       user
@@ -26,7 +25,6 @@ const InfluencerChangePasswoard = () => {
 
   const handleValidationClick = () => {
     const formDetails = form.getFieldsValue();
-    console.log(formDetails);
     // some verification stuff from backend
     const user = firebase.auth().currentUser;
     const credentials = firebase.auth.EmailAuthProvider.credential(

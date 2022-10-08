@@ -136,12 +136,10 @@ const WorkationPage = () => {
   };
 
   const handleRequestCallbackSubmit = (value) => {
-    console.log(value);
     handleShowCallbackModalCancel();
   };
 
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 

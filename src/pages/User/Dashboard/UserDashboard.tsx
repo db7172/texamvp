@@ -36,7 +36,6 @@ const UserDashboard = () => {
           .doc(user.uid)
           .get()
           .then((doc) => {
-            console.log(doc.data());
             setUserData({ id: doc.id, data: doc.data() });
           });
       }
@@ -54,7 +53,6 @@ const UserDashboard = () => {
         firebase.auth().signOut();
       },
       onCancel() {
-        console.log("Cancel");
       },
     });
   }

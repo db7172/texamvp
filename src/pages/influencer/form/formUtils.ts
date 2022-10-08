@@ -1,7 +1,6 @@
 import { formatMomentDate, formatMomentTime } from "../../../utils/utils";
 
 export const normFile = (e: any) => {
-  console.log("Upload event:", e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -48,7 +47,6 @@ export const formateDestination = (
     destination: string;
   }[]
 ) => {
-  console.log(value);
   return value.map((d) => ({
     destinationDateRang: {
       start: formatMomentDate(d?.destinationDateRang[0]),

@@ -1,7 +1,6 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { mockVendorList } from "./vendor.mock";
 import VendorActivity from "./VendorActivity";
 import VendorApproval from "./VendorApproval";
 import VendorList from "./VendorList";

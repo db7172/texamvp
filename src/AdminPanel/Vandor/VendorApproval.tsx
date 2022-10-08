@@ -1,37 +1,37 @@
 import { Button, Col, Form, Input, List, Modal, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
-import panCardImg from "../../assets/png/influencer/panMock.png";
-import aadharCardImg from "../../assets/png/influencer/aadharMock.png";
+// import panCardImg from "../../assets/png/influencer/panMock.png";
+// import aadharCardImg from "../../assets/png/influencer/aadharMock.png";
 import { onKeyDownEvent } from "../../pages/influencer/form/formUtils";
 import firebase from "../../firebase";
 
-const DUMMY_USER = {
-  name: "Person Name",
-  number: "+911234567890",
-  email: "person.name@gmail.com",
-  activityInfo: {
-    companyName: "Dummy company",
-    type: "activity",
-    country: "India",
-    state: "Maharashtra",
-    city: "Mumbai",
-    operationSince: 1999,
-  },
-  kyc: {
-    pan: "ABCD123C",
-    panPhoto: [panCardImg, panCardImg],
-    aadhar: "1234-5678-9101-1112",
-    aadharPhoto: [aadharCardImg, aadharCardImg],
-  },
-  bankDetails: {
-    acName: "Person Name",
-    number: 12345678900987,
-    ifscCode: "CITI00001",
-    cancelCheck:
-      "https://qph.fs.quoracdn.net/main-qimg-ff42a46cc4109fe3f20258b176828485-lq",
-  },
-};
+// const DUMMY_USER = {
+//   name: "Person Name",
+//   number: "+911234567890",
+//   email: "person.name@gmail.com",
+//   activityInfo: {
+//     companyName: "Dummy company",
+//     type: "activity",
+//     country: "India",
+//     state: "Maharashtra",
+//     city: "Mumbai",
+//     operationSince: 1999,
+//   },
+//   kyc: {
+//     pan: "ABCD123C",
+//     panPhoto: [panCardImg, panCardImg],
+//     aadhar: "1234-5678-9101-1112",
+//     aadharPhoto: [aadharCardImg, aadharCardImg],
+//   },
+//   bankDetails: {
+//     acName: "Person Name",
+//     number: 12345678900987,
+//     ifscCode: "CITI00001",
+//     cancelCheck:
+//       "https://qph.fs.quoracdn.net/main-qimg-ff42a46cc4109fe3f20258b176828485-lq",
+//   },
+// };
 
 const VendorApproval = () => {
   const [data, setData] = useState<any[]>();
@@ -73,7 +73,6 @@ const VendorApproval = () => {
   };
 
   const handleRejectionConfirmation = (value: any) => {
-    console.log(value);
     setIsRejected(false);
     handleModalCancel();
   };

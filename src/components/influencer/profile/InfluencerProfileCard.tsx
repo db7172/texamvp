@@ -1,5 +1,4 @@
 import { Col, Progress, Row } from "antd";
-import { uniqueId } from "lodash";
 
 import user1 from "../../../assets/png/influencer/user/user1.png";
 

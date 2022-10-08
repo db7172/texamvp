@@ -65,7 +65,6 @@ const VendorEarnings = () => {
   const debounceChange = debounce(handleValueChange, 1000);
 
   const onSubmit = (value: any) => {
-    console.log(value);
     handleModalCancel();
   };
 

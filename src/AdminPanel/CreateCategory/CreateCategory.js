@@ -26,7 +26,6 @@ const CreateCategory = () => {
   };
 
   const onSubmit = () => {
-    console.log(details);
     firebase
       .firestore()
       .collection("categories")

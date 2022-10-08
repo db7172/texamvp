@@ -22,7 +22,6 @@ const Login = () => {
     else alert("Invalid credentials");
   }
 
-  console.log(details);
 
   return (
     <div className="login-page">

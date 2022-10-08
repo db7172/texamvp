@@ -8,7 +8,6 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import { RIGHT_SPACING_VALUE, ROUTES } from "../../constant/comman.const";
 import map from "../../assets/svg/map.svg";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
-import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import ViewMoreWorkcationBookingCard from "../../components/view-more-details/ViewMoreWorkcationBookingCard";
 import { indCurrency } from "../../utils/utils";
 import ViewMoreOtherInformation from "../../components/view-more-details/ViewMoreOtherInformation";
@@ -73,7 +72,6 @@ const ViewMoreDetailsForWorkcation = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log(doc.data());
           setWorkationDetails(doc.data());
         } else {
           console.log("not found");

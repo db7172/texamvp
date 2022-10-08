@@ -1,68 +1,67 @@
 import { Timeline } from "antd";
 
-const tripTimeline = [
-  {
-    day: "Day 1 : 12 May’ 2020 ( Monday )  →  Pick up Lonavala to Longhard",
-    activity: [
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Bagdgora",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Departure for Psling",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Psling and proceed for late lunch",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Proceed for Biometric",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Proceed towards Thimphu",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Thimphu & Check into Hotel",
-      },
-    ],
-  },
-  {
-    day: "Day 2 : 13 May’ 2020 ( Tuesday )  →  Pick up Longhard to Lonavala",
-    activity: [
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Bagdgora",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Departure for Psling",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Psling and proceed for late lunch",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Proceed for Biometric",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Proceed towards Thimphu",
-      },
-      {
-        time: "10:45 hrs",
-        activity: "Arrive at Thimphu & Check into Hotel",
-      },
-    ],
-  },
-];
+// const tripTimeline = [
+//   {
+//     day: "Day 1 : 12 May’ 2020 ( Monday )  →  Pick up Lonavala to Longhard",
+//     activity: [
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Bagdgora",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Departure for Psling",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Psling and proceed for late lunch",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Proceed for Biometric",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Proceed towards Thimphu",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Thimphu & Check into Hotel",
+//       },
+//     ],
+//   },
+//   {
+//     day: "Day 2 : 13 May’ 2020 ( Tuesday )  →  Pick up Longhard to Lonavala",
+//     activity: [
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Bagdgora",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Departure for Psling",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Psling and proceed for late lunch",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Proceed for Biometric",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Proceed towards Thimphu",
+//       },
+//       {
+//         time: "10:45 hrs",
+//         activity: "Arrive at Thimphu & Check into Hotel",
+//       },
+//     ],
+//   },
+// ];
 
 const BookingTimeLineY = (props: any) => {
-  console.log(props);
   if (Array.isArray(props.itinerary)) {
     return (
       <div className="tw-pt-8 time-line-y">

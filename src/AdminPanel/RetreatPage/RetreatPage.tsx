@@ -16,8 +16,6 @@ import firebase from "../../firebase";
 import Loader from "../../components/common/Loader/Loader";
 import Success from "../Cards/Success/Success";
 
-const MOCK_ACTIVITY = ["retreat1", "retreat2", "retreat3", "retreat4"];
-
 let addFAQ: {
   (): void;
   (defaultValue?: any, insertIndex?: number | undefined): void;

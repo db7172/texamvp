@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { indCurrency } from "../../utils/utils";
 import ViewMorePriceCard from "./ViewMorePriceCard";
 
-type ViewMoreEventCardType = {
-  retreat?: boolean;
-  props?: any;
-};
+// type ViewMoreEventCardType = {
+//   retreat?: boolean;
+//   props?: any;
+// };
 
 const MOCK_PACKAGE: Package[] = [
   {
@@ -53,8 +53,6 @@ const ViewMoreEventCard = (props: any) => {
     setRedirectState(() => ({ ...redirectState, state }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, numberOfPpl]);
-
-  console.log(props);
 
   if (props) {
     return (

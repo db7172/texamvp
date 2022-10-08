@@ -19,10 +19,8 @@ import { RoomAccomodationTab } from "../../../pages/influencer/form/activity/for
 import { TabsVariant } from "../../../pages/influencer/form/activity/HourlyAndSingleDay";
 import {
   onKeyDownEvent,
-  stripUndefined,
 } from "../../../pages/influencer/form/formUtils";
 import { useTabs } from "../../../pages/influencer/form/useTabs";
-import { formatMomentDate } from "../../../utils/utils";
 import { generatePanes } from "../../utils/commonAdminUtils";
 
 type Props = {
@@ -45,7 +43,6 @@ const WorkcationModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   const [isRejected, setIsRejected] = useState(false);
 
   const handleRejectionConfirmation = (value: any) => {
-    console.log(value);
     setIsRejected(false);
     handleModalClose();
   };
@@ -99,35 +96,33 @@ const WorkcationModalForm = ({ data, handleModalClose, isRelaunch }: Props) => {
   };
 
   const onSubmit = (value: any) => {
-    let formValue: any = {
-      workationName: value.eventName,
-      description: value.description,
-      destinations: {
-        destination: value.destinationFistField,
-        googleMap: value.googleMap,
-      },
-      checkinAndCheckOutTime: {
-        checkIn: formatMomentDate(value.checkIn),
-        chcekOut: formatMomentDate(value.checkOut),
-      },
-      accomodation: {
-        accomodationName: value.accomodationName,
-        data: accomodationFormData,
-      },
-      itinerary: itineraryPanesFormData,
-      featuredKeyword: tags,
-      inclusion: value.inclusion,
-      exclusion: value.exclusion,
-      termsAndCondition: value.termsAndCondition,
-      cancellationPolicy: value.cancellationPolicy,
-      includes: value.includes,
-      userID: data.data.userID,
-      status: "processing",
-      booked: 0,
-      imgLink: data.data.imgLink,
-    };
-    console.log(formValue);
-    const finalData = stripUndefined(formValue);
+    // let formValue: any = {
+    //   workationName: value.eventName,
+    //   description: value.description,
+    //   destinations: {
+    //     destination: value.destinationFistField,
+    //     googleMap: value.googleMap,
+    //   },
+    //   checkinAndCheckOutTime: {
+    //     checkIn: formatMomentDate(value.checkIn),
+    //     chcekOut: formatMomentDate(value.checkOut),
+    //   },
+    //   accomodation: {
+    //     accomodationName: value.accomodationName,
+    //     data: accomodationFormData,
+    //   },
+    //   itinerary: itineraryPanesFormData,
+    //   featuredKeyword: tags,
+    //   inclusion: value.inclusion,
+    //   exclusion: value.exclusion,
+    //   termsAndCondition: value.termsAndCondition,
+    //   cancellationPolicy: value.cancellationPolicy,
+    //   includes: value.includes,
+    //   userID: data.data.userID,
+    //   status: "processing",
+    //   booked: 0,
+    //   imgLink: data.data.imgLink,
+    // };
 
     handleModalClose();
   };

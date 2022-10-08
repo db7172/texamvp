@@ -44,8 +44,6 @@ const UserReviewsTab = (props: any) => {
   };
 
   const onRatingSubmit = (value: any) => {
-    console.log({ ...value, rating });
-    console.log(activeModalId);
     if (collectionName) {
       firebase
         .firestore()

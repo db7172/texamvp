@@ -6,7 +6,7 @@ import {
 import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { capitalize, uniqueId } from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { normFile } from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
 

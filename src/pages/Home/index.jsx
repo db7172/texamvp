@@ -195,7 +195,6 @@ function Home() {
   }, [width]);
 
   const handleClick = (activity, date, type) => {
-    console.log({ activity, date, type });
     switch (type) {
       case "activity":
         history.push(`/activity/${lowerCase(activity)}`);
@@ -215,7 +214,6 @@ function Home() {
     }
   };
 
-  console.log(dropData.activities);
 
   return (
     <>

@@ -70,7 +70,6 @@ const ViewMoreDetailsForRetreat = () => {
     ]);
   }, [RETREAT_NAME, RETREAT_TYPE, state]);
 
-  console.log({ retreatName, retreatType });
   return (
     <Container>
       {retreatDetails ? (

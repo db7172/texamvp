@@ -169,7 +169,6 @@ const PopularService = ({ destination = "" }) => {
                       type="default"
                       className="tw-texa-button tw-w-full"
                       onClick={() => {
-                        console.log(selectedActivityData);
                       }}
                     >
                       Submit
@@ -200,7 +199,6 @@ const PopularService = ({ destination = "" }) => {
                       type="default"
                       className="tw-texa-button tw-w-full"
                       onClick={() => {
-                        console.log(selectedActivityData);
                       }}
                     >
                       Submit
@@ -231,7 +229,6 @@ const PopularService = ({ destination = "" }) => {
                       type="default"
                       className="tw-texa-button tw-w-full"
                       onClick={() => {
-                        console.log(selectedActivityData);
                       }}
                     >
                       Submit
@@ -262,7 +259,6 @@ const PopularService = ({ destination = "" }) => {
                       type="default"
                       className="tw-texa-button tw-w-full"
                       onClick={() => {
-                        console.log(selectedActivityData);
                       }}
                     >
                       Submit

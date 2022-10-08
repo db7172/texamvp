@@ -16,7 +16,6 @@ import { formatMomentDate } from "../../../../../utils/utils";
 import { TabsVariant } from "../HourlyAndSingleDay";
 
 const normFile = (e: any) => {
-  console.log("Upload event:", e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -73,7 +72,6 @@ export const AccomodationFormTab = ({
           ];
         }
         delete newObj.data["photos"];
-        console.log(newObj);
         updateTabFormData("accomodation", newObj, keyValue);
       }}
     >

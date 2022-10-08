@@ -83,7 +83,6 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
   };
 
   function callback(key: any) {
-    console.log(key);
   }
 
   const prefixSelector = (
@@ -371,7 +370,7 @@ const UpcomingTour = ({ isParentHeaderVisible, handleParentHeader }: Props) => {
                           className="tw-w-5/6"
                           size="large"
                           layout="vertical"
-                          onFinish={(value) => console.log(value)}
+                          onFinish={(value) => {}}
                           // onFinishFailed={onFinishFailed}
                         >
                           <Form.Item

@@ -12,12 +12,10 @@ import {
   stripUndefined,
 } from "../../pages/influencer/form/formUtils";
 import "../adminStyle.css";
-import PopularService from "../PopularService/PopularService";
 import firebase from "../../firebase";
 import Loader from "../../components/common/Loader/Loader";
 import Success from "../Cards/Success/Success";
 
-const MOCK_ACTIVITY = ["delhi", "mumbai", "goa", "maldives"];
 
 let addFAQ: {
   (): void;
@@ -33,7 +31,6 @@ const DestinationPage = () => {
 
   const handleSubmit = async () => {
     const data = stripUndefined(destinationForm.getFieldsValue());
-    console.log(data);
     let downloadLink;
     setLoading(1);
     if (data.banner) {
@@ -65,7 +62,6 @@ const DestinationPage = () => {
   };
   const handleCreate = async () => {
     const data = createDestination.getFieldsValue();
-    console.log(data);
     setLoading(1);
     let storageRef = firebase.storage().ref(`destination/${data.name}`);
     await storageRef.put(data.banner[0].originFileObj);

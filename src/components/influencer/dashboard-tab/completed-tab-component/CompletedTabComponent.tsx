@@ -1,12 +1,11 @@
-import { InfoCircleOutlined, StarFilled } from "@ant-design/icons";
+import { StarFilled } from "@ant-design/icons";
 import { Button, Col, Divider, Modal, Row, Tooltip } from "antd";
 import { isNumber, uniqueId } from "lodash";
-import { ReviewData, TripData } from "Models";
-import { useEffect, useState } from "react";
+import { ReviewData} from "Models";
+import { useState } from "react";
 import { indCurrency } from "../../../../utils/utils";
 import UserReview from "../../../common/UserReview/UserReview";
-import { addtionalInfomation } from "../DashboardUtils";
-import firebase from "../../../../firebase";
+
 
 // type Props = {
 //   data: Array<TripData>;
@@ -15,7 +14,6 @@ import firebase from "../../../../firebase";
 const CompletedTabComponent = ({ activity }: any) => {
   const [activeReview, setActiveReview] = useState<Array<ReviewData>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [review, setReview] = useState([]) as any;
 
   const handleViewAllClick = (value: Array<ReviewData>) => {
     setActiveReview(value);
@@ -26,16 +24,6 @@ const CompletedTabComponent = ({ activity }: any) => {
     setShowReviewModal(false);
     setActiveReview([]);
   };
-
-  const calcAvg = async () => {
-    let sum = 0;
-    await activity.map((data: any) => {
-      return (sum += data.review.rating);
-      let avg = sum / review.length;
-    });
-  };
-
-  console.log(activity);
 
   return (
     // <div>Loading</div>

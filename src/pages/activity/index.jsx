@@ -255,7 +255,6 @@ const Activity = () => {
   }, [DESTINATION_NAME, ACTIVITY_TYPE]);
 
   useEffect(() => {
-    console.log(activityType);
     firebase
       .firestore()
       .collection("categories")
@@ -275,7 +274,6 @@ const Activity = () => {
   };
 
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
@@ -342,7 +340,6 @@ const Activity = () => {
     }
 
     const newFilterData = getAllFilterData();
-    console.log(newFilterData);
     setFilterActivity(newFilterData);
 
     return newData;
@@ -383,7 +380,6 @@ const Activity = () => {
   };
 
   const handleRequestCallbackSubmit = (value) => {
-    console.log(value);
     handleShowCallbackModalCancel();
   };
 

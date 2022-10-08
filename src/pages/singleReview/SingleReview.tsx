@@ -68,7 +68,6 @@ const SingleReview = () => {
   };
 
   const handlePageChange = (pageNumber: number) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 

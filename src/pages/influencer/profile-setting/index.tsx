@@ -1,8 +1,8 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import { AuthContext } from "../../../Auth";
+// import { AuthContext } from "../../../Auth";
 import Container from "../../../components/common/container/Container";
 import InfluencerChangePasswoard from "../../../components/influencer/profile-setting/InfluencerChangePasswoard";
 import InfluencerDocuments from "../../../components/influencer/profile-setting/InfluencerDocuments";
@@ -17,12 +17,12 @@ const InfluencerProfileSetting = () => {
     location.state || EDIT_PROFILE_OPTION[0].id
   );
 
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+//   const { currentUser, setCurrentUser } = useContext(AuthContext);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setCurrentUser(user);
+        // setCurrentUser(user);
         firebase
           .firestore()
           .collection("venders")

@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Router, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import ScrollToTop from "../components/common/scroll-to-top/ScrollToTop";
 import Dashboard from "./Dashboard/Dashboard";
 import Login from "./LogIn/Login";

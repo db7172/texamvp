@@ -31,10 +31,14 @@ function NavBarOption(props) {
       default:
         break;
     }
+    return () => {
+        setViewAllPath("#");
+    }
   }, [path]);
 
   const handleLinkClick = (label = "") => {
-    console.log(`${url}${path}/${label}`);
+    // console.log(`${url}${path}/${label}`);
+    
     props.toggleNavBar();
   };
 

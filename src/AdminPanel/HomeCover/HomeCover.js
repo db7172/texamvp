@@ -42,7 +42,6 @@ const HomeCover = () => {
       .doc("hero")
       .set(details)
       .then(() => {
-        console.log("Success");
         setSuccess(true);
       });
   };

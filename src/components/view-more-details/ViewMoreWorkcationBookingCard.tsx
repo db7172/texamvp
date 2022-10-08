@@ -21,8 +21,6 @@ const mockSummery = [
 ];
 
 const ViewMoreWorkcationBookingCard = (props: any) => {
-  console.log(props.checkinAndCheckOutTime.chcekOut);
-
   return (
     <div className="tw-relative">
       <p className="tw-px-5 tw-py-1 tw-bg-lite-red tw-text-dark-red tw-absolute tw-right-0 tw-rounded-l-full">

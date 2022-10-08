@@ -7,12 +7,11 @@ import { Carousel, Col, Row } from "antd";
 import { uniqueId } from "lodash";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
-import TourCard from "../../../components/card/tour-card/TourCard";
 import UserReview from "../../../components/common/UserReview/UserReview";
 import Container from "../../../components/common/container/Container";
 import { COMPLETED } from "../../../components/influencer/dashboard-tab/data";
 import InfluencerProfileCard from "../../../components/influencer/profile/InfluencerProfileCard";
-import { ACTIVITY } from "../../../constant/dummyData";
+// import { ACTIVITY } from "../../../constant/dummyData";
 import { defaultSettings } from "../../../utils/utils";
 import { useEffect, useState } from "react";
 import firebase from "../../../firebase";
@@ -61,7 +60,7 @@ const InfluencerProfile = ({ history }: Props) => {
           .where("data.userId", "==", user.uid)
           .get()
           .then((querySnap) => {
-            querySnap.docs.map((doc) => console.log(doc.data()));
+            querySnap.docs.map((doc) => false);
           })
           .catch((error) => console.log(error));
       }

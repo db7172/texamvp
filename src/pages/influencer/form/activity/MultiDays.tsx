@@ -69,7 +69,6 @@ let addReportingDroppingPointField: {
 };
 
 const normFile = (e: any) => {
-  console.log("Upload event:", e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -204,15 +203,12 @@ const MultiDays = () => {
       status: "processing",
       booked: 0,
     };
-    console.log(formData);
 
     let docId = uuid();
 
     let imgLink = [];
     imgLink = await Promise.all(
       value.dragger.map(async (image: any, i: Number) => {
-        console.log(image);
-        console.log(user.uid);
         let storageRef = firebase
           .storage()
           .ref(`multi-activity/${user.uid}/${docId}/${i}`);
@@ -271,8 +267,8 @@ const MultiDays = () => {
                 name="activityForm"
                 onKeyDown={onKeyDownEvent}
                 onFinish={(value) => onSubmit(value)}
-                onValuesChange={(value, obj) => console.log(obj)}
-                onFinishFailed={(error) => console.log(error)}
+                onValuesChange={(value, obj) => {}}
+                onFinishFailed={(error) => {}}
                 layout="vertical"
                 size="large"
                 autoComplete="off"

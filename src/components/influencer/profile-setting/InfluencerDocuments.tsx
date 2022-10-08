@@ -1,6 +1,6 @@
 import { Button, Carousel, Divider, Modal } from "antd";
-import panCardImg from "../../../assets/png/influencer/panMock.png";
-import aadharCardImg from "../../../assets/png/influencer/aadharMock.png";
+// import panCardImg from "../../../assets/png/influencer/panMock.png";
+// import aadharCardImg from "../../../assets/png/influencer/aadharMock.png";
 import agreement from "../../../assets/png/influencer/payment-agreement-template.png";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -10,17 +10,17 @@ import firebase from "../../../firebase";
 
 type KycDocs = { images: string[]; title: string };
 
-const mockData = {
-  panCard: {
-    number: "CAWDFG1257",
-    img: panCardImg,
-  },
+// const mockData = {
+//   panCard: {
+//     number: "CAWDFG1257",
+//     img: panCardImg,
+//   },
 
-  aadharCard: {
-    number: "5485-5000-8000",
-    img: [aadharCardImg, aadharCardImg],
-  },
-};
+//   aadharCard: {
+//     number: "5485-5000-8000",
+//     img: [aadharCardImg, aadharCardImg],
+//   },
+// };
 
 const mockAgreement = [agreement, agreement, agreement];
 

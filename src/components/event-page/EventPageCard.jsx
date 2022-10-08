@@ -13,7 +13,6 @@ const EventPageCard = (props) => {
     state: { props },
   };
 
-  console.log(props.data);
   const data = props.data;
 
   return (

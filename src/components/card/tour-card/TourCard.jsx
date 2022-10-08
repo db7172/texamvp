@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { getViewMoreDetailsForActivityPath } from "../../../constant/comman.const";
 import { indCurrency } from "../../../utils/utils";
 import RattingReview from "../../common/ratting/RattingReview";
-import firebase from "../../../firebase";
 
 const TourCard = (props) => {
   const { activityName, otherDetails, payment } = props.data;

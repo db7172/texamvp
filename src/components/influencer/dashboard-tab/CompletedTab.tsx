@@ -26,7 +26,6 @@ const CompletedTab = () => {
     }
   }, []);
 
-  console.log(activity);
 
   return (
     <Row gutter={[0, 40]}>
@@ -84,7 +83,7 @@ const CompletedTab = () => {
           size="large"
           autoComplete="off"
           layout="vertical"
-          onValuesChange={(values) => console.log(values)}
+          onValuesChange={(values) => {}}
         >
           <Row gutter={20}>
             <Col span={8}>

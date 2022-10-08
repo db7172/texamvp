@@ -132,7 +132,6 @@ const EventPage = () => {
   };
 
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
 
@@ -163,7 +162,6 @@ const EventPage = () => {
   };
 
   const handleRequestCallbackSubmit = (value) => {
-    console.log(value);
     handleShowCallbackModalCancel();
   };
 

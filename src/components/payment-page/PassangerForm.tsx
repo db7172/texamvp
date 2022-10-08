@@ -98,7 +98,6 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
         .then((doc) => {
           if (doc.exists) {
             setUser(doc.data());
-            console.log(doc.data());
           }
         });
     }

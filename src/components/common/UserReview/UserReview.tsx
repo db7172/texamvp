@@ -1,6 +1,4 @@
-import { Button, Modal, Rate } from "antd";
-import { uniqueId } from "lodash";
-import { ReviewData } from "Models";
+import { Button, Modal } from "antd";
 import { useState, useEffect } from "react";
 import UserReply from "./UserReply";
 import dp from "../../../assets/png/influencer/dp.png";

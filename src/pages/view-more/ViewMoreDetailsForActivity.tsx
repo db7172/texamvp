@@ -93,7 +93,6 @@ const ViewMoreDetailsForActivity = () => {
       });
   }, [ACTIVITY_NAME, ACTIVITY_TYPE]);
 
-  console.log(search.substring(1), collectionName);
 
   return (
     <Container className="tw-pb-11">

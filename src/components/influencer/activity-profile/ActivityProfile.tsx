@@ -163,7 +163,6 @@ function ActivityInformation({
       ...value,
       operatingSince: parseFloat(value.operatingSince.format("YYYY")),
     };
-    console.log(updatedValue);
     updateFormData(updatedValue);
     db.collection("venders")
       .doc(currentUser.uid)
@@ -176,11 +175,11 @@ function ActivityInformation({
   const fetchStates = async (countryId: string) => {
     await setAllStates(State.getStatesOfCountry(countryId));
   };
-  const fetchCities = async (stateId: string, counterId: string) => {
-    await setAllCities(City.getCitiesOfState(countryId, stateId));
-  };
 
   useEffect(() => {
+    const fetchCities = async (stateId: string, counterId: string) => {
+        await setAllCities(City.getCitiesOfState(countryId, stateId));
+    };
     fetchCountries();
     if (countryId.length > 0) {
       fetchStates(countryId);
@@ -369,7 +368,6 @@ type Kyc = {
 
 function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -379,11 +377,9 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
   const { currentUser } = useContext(AuthContext);
 
   const handleFormSubmit = async (value: any) => {
-    console.log(value);
     let adhaarLink = [];
     adhaarLink = await Promise.all(
       value.aadharCardPhoto.map(async (image: any, i: Number) => {
-        console.log(image);
         let storageRef = firebase
           .storage()
           .ref(`venders/${currentUser.uid}/adhaar/${i}`);
@@ -395,7 +391,6 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
     let cancelLink = [];
     cancelLink = await Promise.all(
       value.cancelCheck.map(async (image: any, i: Number) => {
-        console.log(image);
         let storageRef = firebase
           .storage()
           .ref(`venders/${currentUser.uid}/cancelCheck/${i}`);
@@ -407,7 +402,6 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
     let certificationLink = [];
     certificationLink = await Promise.all(
       value.certification.map(async (image: any, i: Number) => {
-        console.log(image);
         let storageRef = firebase
           .storage()
           .ref(`venders/${currentUser.uid}/certifications/${i}`);
@@ -419,7 +413,6 @@ function ActivityKYC({ kycData, updateKycData, showModal }: Kyc) {
     let panLink = [];
     panLink = await Promise.all(
       value.panCardPhoto.map(async (image: any, i: Number) => {
-        console.log(image);
         let storageRef = firebase
           .storage()
           .ref(`venders/${currentUser.uid}/pancard/${i}`);

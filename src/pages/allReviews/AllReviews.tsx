@@ -43,7 +43,7 @@ const AllReviews = () => {
               <Form
                 name="formSearch"
                 size="large"
-                onFinish={(value) => console.log(value)}
+                onFinish={(value) => {}}
               >
                 <Row gutter={25}>
                   <Col span={16}>

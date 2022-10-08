@@ -79,7 +79,6 @@ const CancelledTour = ({
   };
 
   function callback(key: any) {
-    console.log(key);
   }
 
   const hotelColumnSchema: TableColumnsType<HotelDetailsType> = [

@@ -7,7 +7,7 @@ import exit from "../../../assets/svg/exit.svg";
 import trip from "../../../assets/png/influencer/details_activity.png";
 import { uniqueId } from "lodash";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import firebase from "../../../firebase";
 import { AuthContext } from "../../../Auth";
 import MenuItem from "../../common/MenuItem/MenuItem";
@@ -45,7 +45,7 @@ const notificationData = [
 
 const LogedIn = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState([]) as any;
+//   const [userData, setUserData] = useState([]) as any;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -58,7 +58,7 @@ const LogedIn = () => {
           .then((doc) => {
             let data = [] as any;
             if (doc.exists) {
-              setUserData({ id: doc.id, data: doc.data() });
+            //   setUserData({ id: doc.id, data: doc.data() });
               if (data.aadharCard) {
                 setCurrentUser(user);
               }
@@ -70,10 +70,7 @@ const LogedIn = () => {
         window.location.href = "/influencer";
       }
     });
-  }, []);
-
-  console.log(currentUser);
-  console.log(userData);
+}, []);
 
   const signOut = () => {
     firebase.auth().signOut();

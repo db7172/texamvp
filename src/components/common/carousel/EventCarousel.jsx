@@ -11,7 +11,6 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
   const [eventData, setEventData] = useState([]);
-  const [retreatData, setRetreatData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const settings = {
@@ -59,7 +58,6 @@ const EventCarousel = ({ title, setting, data, event, path, description }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, online, offline, event]);
 
-  console.log(eventData);
 
   return (
     <div>

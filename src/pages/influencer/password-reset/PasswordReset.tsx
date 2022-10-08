@@ -3,24 +3,24 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Form, Input, Modal, Row, Typography } from "antd";
+import { Button, Col, Form, Input, Modal, Row } from "antd";
 import { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Container from "../../../components/common/container/Container";
 import firebase from "../../../firebase";
 
-const mobileOTP = 123456;
-const { confirm } = Modal;
+// const mobileOTP = 123456;
+// const { confirm } = Modal;
 
 const PasswordReset = () => {
-  const location = useLocation();
+//   const location = useLocation();
   const history = useHistory();
   const [step, setStep] = useState(1);
   const [emailOrMobile, setEmailOrMobile] = useState("");
-  const [otp, setOtp] = useState({
-    mobileOtp: "",
-    error: false,
-  });
+//   const [otp, setOtp] = useState({
+//     mobileOtp: "",
+//     error: false,
+//   });
 
   // const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   setOtp({
@@ -37,7 +37,6 @@ const PasswordReset = () => {
   // };
 
   const onPasswordReset = (value: any) => {
-    console.log(value);
     setStep(3);
   };
 
@@ -54,7 +53,6 @@ const PasswordReset = () => {
   }
 
   const onFinish = (value: any) => {
-    console.log(value);
     setEmailOrMobile(value.emailOrMobile);
     firebase
       .auth()
@@ -63,10 +61,8 @@ const PasswordReset = () => {
         showConfirm();
       })
       .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
       });
   };
 
