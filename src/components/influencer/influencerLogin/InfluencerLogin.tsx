@@ -76,10 +76,10 @@ const InfluencerLogin = () => {
       .signInWithPhoneNumber(number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log("OTP sent.");
+        // console.log("OTP sent.");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }
 

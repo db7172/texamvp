@@ -14,7 +14,6 @@ import {
   getWorkationPageWithCityPath,
 } from "../../constant/comman.const";
 import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
-import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import firebase from "../../firebase";
 
 const DestinationPage = () => {
@@ -22,8 +21,6 @@ const DestinationPage = () => {
   const DESTINATION_NAME = startCase(destinationName);
   const [destinationDetails, setDestinationDetails] = useState([]);
   const [slashedTableName, setSlashedTableName] = useState([]);
-  const DUMMY_DESCRIPTION =
-    "The human instinct to explore new places and things is always there. People travel for all sorts of reasons, be it to spend time with their loved ones or today North Andaman and Baratang Island are also popular with travelers. From pristine beaches to bewildering Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team. Ant Design, a design language for background applications, is refined by Ant UED Team.";
 
   useEffect(() => {
     setSlashedTableName([

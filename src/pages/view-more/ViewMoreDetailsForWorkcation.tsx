@@ -74,10 +74,10 @@ const ViewMoreDetailsForWorkcation = () => {
         if (doc.exists) {
           setWorkationDetails(doc.data());
         } else {
-          console.log("not found");
+        //   console.log("not found");
         }
       });
-  }, [DESTINATION_NAME, WORKCATION_TYPE]);
+  }, [DESTINATION_NAME, WORKCATION_TYPE, search]);
 
   return (
     <>

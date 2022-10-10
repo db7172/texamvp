@@ -12,8 +12,6 @@ import { USER_DASHBOAR_TABS } from "./userData";
 import firebase from "../../../firebase";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-const avatarImg =
-  "https://imgr.search.brave.com/JuLSZUsD98Tow_UcPp9WhSQGohn_xuKhVDZRvE9AEi4/fit/1000/1080/ce/1/aHR0cHM6Ly9jZG4y/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80OS84Ni9t/YW4tY2hhcmFjdGVy/LWZhY2UtYXZhdGFy/LWluLWdsYXNzZXMt/dmVjdG9yLTE3MDc0/OTg2LmpwZw";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -40,7 +38,7 @@ const UserDashboard = () => {
           });
       }
     });
-  }, []);
+  }, [history]);
 
   function showConfirm() {
     confirm({

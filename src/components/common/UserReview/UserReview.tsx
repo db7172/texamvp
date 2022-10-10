@@ -59,7 +59,7 @@ const UserReview = ({
       .then((doc) => {
         setUser(doc.data());
       });
-  }, []);
+  });
 
   return (
     <div>

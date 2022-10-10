@@ -124,7 +124,7 @@ const InfluencerEditMyProfile = () => {
         .then(() => {
         })
         .catch((err) => {
-          console.log(err);
+        //   console.log(err);
         });
       if (value.email !== user.email) {
         await user
@@ -134,7 +134,7 @@ const InfluencerEditMyProfile = () => {
             window.location.reload();
           })
           .catch((err) => {
-            console.log("Login again to change email .");
+            // console.log("Login again to change email .");
           });
       }
       setIsModalUserDetailsVisible(false);
@@ -229,7 +229,7 @@ const InfluencerEditMyProfile = () => {
         history.push("/influencer");
       }
     });
-  },[]);
+  });
 
   if (userData) {
     return (

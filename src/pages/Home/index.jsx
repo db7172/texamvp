@@ -14,9 +14,8 @@ import ActivityTab from "../../components/home-page-tabs/ActivityTab";
 import Retreat from "../../components/home-page-tabs/Retreat";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
-import { ACTIVITY, EVENT, RETREAT, WORKATION } from "../../constant/dummyData";
+import {RETREAT} from "../../constant/dummyData";
 import Title from "../../components/common/title/Title";
-import { getActivityIcon } from "../../constant/activity-icon";
 import IconCard from "../../components/card/icon-card/IconCard";
 import useWindowDimensions from "../../components/common/useWindowDimensions/useWindowDimensions";
 import EventCarousel from "../../components/common/carousel/EventCarousel";
@@ -76,7 +75,6 @@ const getIcon = (icon, active) => (active ? icon(SECONDARY_COLOR) : icon());
 
 function Home() {
   const [activeTab, setActiveTab] = useState(1);
-  const [activityIcon, setActivityIcon] = useState([]);
   const [popData, setPopData] = useState([]);
   const [aomData, setAomData] = useState([]);
   const [bestActivites, setBestActivities] = useState([]);
@@ -95,22 +93,12 @@ function Home() {
   const history = useHistory();
 
   useEffect(() => {
-    if (width >= 1440) {
-      setActivityIcon(getActivityIcon(6));
-    } else if (width < 1440 && width >= 1024) {
-      setActivityIcon(getActivityIcon(6));
-    } else if (width < 1024 && width >= 768) {
-      setActivityIcon(getActivityIcon(4));
-    } else {
-      setActivityIcon(getActivityIcon(3));
-    }
     firebase
       .firestore()
       .collection("categories")
       .get()
       .then((querySnap) => {
         setDropData({
-          ...dropData,
           activities: querySnap.docs
             .map((doc) => ({ id: doc.id, data: doc.data() }))
             .filter((item) => {
@@ -347,16 +335,17 @@ function Home() {
               path="/activities"
             />
             <div className="tw-flex tw-justify-between tw-mt-5">
-              {dropData.activities.map((d, i) => (
+              {dropData.activities.map((d, i) => {
+                return (
                 <Link key={i} to={getActivityPagePath(lowerCase(d.data.name))}>
                   <IconCard
-                    // path={icon}
+                    path={d.data.banner}
                     name={d.data.name}
                     description={`124 Activites`}
                     key={i}
                   />
                 </Link>
-              ))}
+              )})}
             </div>
           </div>
           <div className="tw-mt-20">

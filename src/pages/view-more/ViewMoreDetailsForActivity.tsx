@@ -1,10 +1,9 @@
 import { Col, Row } from "antd";
 import { startCase } from "lodash";
-import { ActivityObjectTypes, TitleBreadCrumb } from "Models";
+import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import IconCard from "../../components/card/icon-card/IconCard";
-import ActivityCarousel from "../../components/common/carousel/ActivityCarousel";
 import MoreDetailsPageCarousal from "../../components/common/carousel/MoreDetailsPageCarousal";
 import Container from "../../components/common/container/Container";
 import PageHeader from "../../components/common/page-header/PageHeader";
@@ -31,8 +30,6 @@ import cancel from "../../assets/svg/cancel.svg";
 import bag from "../../assets/svg/bag.svg";
 import info from "../../assets/svg/info.svg";
 
-import { ACTIVITY } from "../../constant/dummyData";
-import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
 import { VIEW_MORE_ACTIVITY_DETAILS } from "./data.mock";
 import firebase from "../../firebase";
 import Loader from "../../components/common/Loader/Loader";
@@ -88,10 +85,10 @@ const ViewMoreDetailsForActivity = () => {
             },
           ]);
         } else {
-          console.log("not found");
+        //   console.log("not found");
         }
       });
-  }, [ACTIVITY_NAME, ACTIVITY_TYPE]);
+  }, [ACTIVITY_NAME, ACTIVITY_TYPE, search, collectionName]);
 
 
   return (

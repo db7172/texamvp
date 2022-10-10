@@ -86,7 +86,7 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
         isUser = true;
       } else {
         isUser = false;
-        console.log("user not found");
+        // console.log("user not found");
       }
     });
     if (isUser) {
@@ -101,7 +101,7 @@ export const PassangerForm = ({ handleFormSubmit, id }: PassangerFormProps) => {
           }
         });
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>

@@ -50,7 +50,7 @@ function configureRecaptcha() {
       size: "invisible",
       callback: (response: any) => {
         onSignInSubmit(null);
-        console.log("Recaptcha verified");
+        // console.log("Recaptcha verified");
       },
     }
   );
@@ -65,10 +65,10 @@ function onSignInSubmit(value: any) {
     .signInWithPhoneNumber(phoneNumber, appVerifier)
     .then((confirmationResult) => {
       window.confirmationResult = confirmationResult;
-      console.log("OTP sent.");
+    //   console.log("OTP sent.");
     })
     .catch((error) => {
-      console.log(error);
+    //   console.log(error);
     });
 }
 let name = "";
@@ -100,7 +100,8 @@ const PersonalDetails = ({
         });
       });
     if (isUser) {
-      return console.log("already a user");
+    //   return console.log("already a user");
+      return;
     }
     handlePersonalData(value);
     onSignInSubmit(value);
@@ -301,7 +302,7 @@ const InfluencerSignup = () => {
             });
           })
           .catch((error) => {
-            console.log("Account linking error", error);
+            // console.log("Account linking error", error);
           });
         firebase.firestore().collection("venders").doc(user.uid).set({
           name: name,

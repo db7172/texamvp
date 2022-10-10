@@ -118,7 +118,7 @@ const DetailsTab = () => {
           querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
         ]);
       });
-  }, []);
+  });
 
   activity = singleDetails.concat(multiDetails);
 

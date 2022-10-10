@@ -153,7 +153,7 @@ export const LoginModal = ({ header, onCancel }) => {
         size: "invisible",
         callback: (response) => {
           onSignInSubmit();
-          console.log("Recaptcha verified");
+        //   console.log("Recaptcha verified");
         },
       }
     );
@@ -168,10 +168,10 @@ export const LoginModal = ({ header, onCancel }) => {
       .signInWithPhoneNumber(number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log("OTP sent.");
+        // console.log("OTP sent.");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -317,7 +317,7 @@ export const LoginModal = ({ header, onCancel }) => {
                             className=" tw-underline"
                             onClick={() => {
                               handleLoginMethod();
-                              console.log("clicked");
+                            //   console.log("clicked");
                             }}
                           >
                             {isLoginByMobile

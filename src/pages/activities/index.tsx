@@ -58,6 +58,7 @@ const Activites = () => {
       .collection("categories")
       .get()
       .then((querySnap) => {
+        debugger
         setActivities(
           querySnap.docs
             .map((doc) => ({ id: doc.id, data: doc.data() }))

@@ -63,14 +63,14 @@ const LogedIn = () => {
                 setCurrentUser(user);
               }
             } else {
-              console.log("does'nt existss");
+            //   console.log("does'nt existss");
             }
           });
       } else {
         window.location.href = "/influencer";
       }
     });
-}, []);
+}, [setCurrentUser]);
 
   const signOut = () => {
     firebase.auth().signOut();

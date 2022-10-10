@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { startCase } from "lodash";
-import { EventObjectTypes, TitleBreadCrumb } from "Models";
+import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import IconCard from "../../components/card/icon-card/IconCard";
@@ -22,7 +22,7 @@ import {
   ROUTES,
 } from "../../constant/comman.const";
 import { EVENT } from "../../constant/dummyData";
-import { CAROUSAL_ACTIVITY } from "../../constant/imageConst";
+
 import {
   EVENT_ESSENTIALS,
   EXCLUSION_DETAILS,
@@ -81,7 +81,7 @@ const ViewMoreDetailsForEvent = () => {
             },
           ]);
         } else {
-          console.log("Not found");
+        //   console.log("Not found");
         }
       });
   }, [EVENT_NAME, EVENT_TYPE, search]);

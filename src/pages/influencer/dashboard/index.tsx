@@ -32,7 +32,7 @@ const Dashboard = () => {
           });
       }
     });
-  }, []);
+  }, [setCurrentUser]);
 
   if (currentUser) {
     return (

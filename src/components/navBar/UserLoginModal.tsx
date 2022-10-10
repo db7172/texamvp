@@ -54,7 +54,7 @@ const UserLoginModal = ({
         window.confirmationResult = confirmationResult;
       })
       .catch((error: any) => {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -99,14 +99,14 @@ const UserLoginModal = ({
           .doc(user.uid);
         checkIfNew.get().then((doc) => {
           if (doc.exists) {
-            console.log("already a user");
+            // console.log("already a user");
             setIsNewUser(false);
             setCurrentUser(user);
             handleModalCancel();
             handleLogin(true);
           } else {
             setCurrentUser(user);
-            console.log("does not exists");
+            // console.log("does not exists");
             setIsNewUser(true);
             setUserData(user);
           }
