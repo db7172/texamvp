@@ -1,5 +1,5 @@
 import { Button, Col, Rate, Row } from "antd";
-import { lowerCase, startCase } from "lodash";
+import { lowerCase, startCase, uniqueId } from "lodash";
 import { TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -120,6 +120,7 @@ const ViewMoreDetailsForWorkcation = () => {
                     <a
                       className="hover:tw-text-primary-color"
                       href={`#${lowerCase(d)}`}
+                      key={uniqueId()}
                     >
                       <li
                         key={d}

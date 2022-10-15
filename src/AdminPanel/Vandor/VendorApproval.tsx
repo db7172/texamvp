@@ -5,6 +5,7 @@ import { paginationSetting } from "../constant/common.cont";
 // import aadharCardImg from "../../assets/png/influencer/aadharMock.png";
 import { onKeyDownEvent } from "../../pages/influencer/form/formUtils";
 import firebase from "../../firebase";
+import { uniqueId } from "lodash";
 
 // const DUMMY_USER = {
 //   name: "Person Name",
@@ -79,7 +80,7 @@ const VendorApproval = () => {
 
   const showUserInfo = (info: { key: string; value: string }[]) => {
     return info.map((d) => (
-      <Col span={12}>
+      <Col span={12} key={uniqueId()}>
         <div className="tw-flex tw-gap-2">
           <p>{d.key}</p>
           <p className="tw-text-secondary-color">{d.value}</p>

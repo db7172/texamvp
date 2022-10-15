@@ -148,7 +148,7 @@ const ViewMoreDetailsForActivity = () => {
                 <Col span={24}>
                   <Row gutter={20} justify="space-between">
                     {VIEW_MORE_ACTIVITY_DETAILS.map((d, i) => (
-                      <Col span={6} className="">
+                      <Col span={6} className="" key={i}>
                         <IconCard
                           name={d.title}
                           description={d.description}

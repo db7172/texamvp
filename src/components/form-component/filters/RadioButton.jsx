@@ -37,7 +37,7 @@ const RadioButton = ({ title, value, onChange, selected }) => {
               checked={selected === v}
               onChange={onChange}
             />
-            <label htmlFor={v}>{v}</label>
+            <label htmlhtmlFor={v}>{v}</label>
           </div>
         ))}
         {getLinkText(value.length, viewMore, setViewMore)}

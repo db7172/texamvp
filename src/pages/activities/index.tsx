@@ -9,7 +9,7 @@ import ActivityCarousel from "../../components/common/carousel/ActivityCarousel"
 import BlogCarousel from "../../components/common/carousel/BlogCarousel";
 import DestinationCarousel from "../../components/common/carousel/DestinationCarousel";
 import Container from "../../components/common/container/Container";
-import Jumbotron from "../../components/common/jumbotron/Jumbotron";
+// import Jumbotron from "../../components/common/jumbotron/Jumbotron";
 import Loader from "../../components/common/Loader/Loader";
 import PageHeader from "../../components/common/page-header/PageHeader";
 import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBreadcrumb";
@@ -18,11 +18,10 @@ import FaqSection from "../../components/view-more-details/FaqSection";
 // import { getActivityIcon } from "../../constant/activity-icon";
 import {
   RIGHT_SPACING_VALUE,
-  LEFT_SPACING_VALUE,
   getActivityPagePath,
 } from "../../constant/comman.const";
 import { ACTIVITY } from "../../constant/dummyData";
-import { DESTINATION_IMAGE } from "../../constant/imageConst";
+// import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import firebase from "../../firebase";
 
 // type Icon = {
@@ -58,7 +57,6 @@ const Activites = () => {
       .collection("categories")
       .get()
       .then((querySnap) => {
-        debugger
         setActivities(
           querySnap.docs
             .map((doc) => ({ id: doc.id, data: doc.data() }))
@@ -67,7 +65,7 @@ const Activites = () => {
             })
         );
       });
-  }, [cardCount]);
+  }, []);
 
   const handleCradClick = () => {
     setCardCount(cardCount + 12);
@@ -75,7 +73,7 @@ const Activites = () => {
 
   return (
     <>
-      <div className="tw-mt-0">
+      {/* <div className="tw-mt-0">
         <Jumbotron
           className=""
           image={DESTINATION_IMAGE}
@@ -88,9 +86,10 @@ const Activites = () => {
           type={null}
           destinationName={null}
         />
-      </div>
+      </div> */}
       <Container className="tw-pb-12">
-        <Row gutter={[LEFT_SPACING_VALUE, RIGHT_SPACING_VALUE]}>
+      <Row className="tw-top-m" gutter={[0, RIGHT_SPACING_VALUE]}>
+        {/* <Row gutter={[LEFT_SPACING_VALUE, RIGHT_SPACING_VALUE]}> */}
           <Col span={24}>
             <div id="activites-page" className="tw--mt-5">
               <TitleBreadcrumb titleLinks={slashedTableName} />
@@ -103,7 +102,7 @@ const Activites = () => {
             <Row gutter={[20, 20]}>
               {activities ? (
                 activities.map((activity: any, i: number) => (
-                  <Col span={4} className="effect">
+                  <Col span={4} className="effect" key={i}>
                     <Link
                       to={getActivityPagePath(lowerCase(activity.data.name))}
                     >

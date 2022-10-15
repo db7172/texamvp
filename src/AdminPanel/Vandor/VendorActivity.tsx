@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, List, Modal, Row, Select } from "antd";
-import { capitalize, debounce } from "lodash";
+import { capitalize, debounce, uniqueId } from "lodash";
 import { useEffect, useState } from "react";
 import { paginationSetting } from "../constant/common.cont";
 import {
@@ -172,17 +172,19 @@ const VendorActivity = ({ isRelaunch = false }: { isRelaunch?: boolean }) => {
 
   return (
     <div>
-      <Form size="middle" layout="vertical">
+      <Form size="middle" layout="vertical"
+      initialValues={{
+        serviceType: selectedService,}}>
         <Row gutter={25}>
           <Col span={6}>
             <Form.Item name="serviceType" label="Service Type">
               <Select
                 placeholder="Select event type"
-                defaultValue={selectedService}
+                // defaultValue={selectedService}
                 onChange={handleSelectionChange}
               >
                 {serviceType.map((d) => (
-                  <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                  <Select.Option value={d} key={uniqueId()}>{capitalize(d)}</Select.Option>
                 ))}
               </Select>
             </Form.Item>

@@ -11,7 +11,7 @@ const Input = ({
 }) => {
   return (
     <>
-      <label className="tw-block tw-form-label" htmlFor={name}>
+      <label className="tw-block tw-form-label" htmlhtmlFor={name}>
         {label}
       </label>
       <input

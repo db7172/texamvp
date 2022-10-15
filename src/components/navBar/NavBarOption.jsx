@@ -41,7 +41,6 @@ function NavBarOption(props) {
     
     props.toggleNavBar();
   };
-
   return (
     <div className={`${props.isShow ? "tw-block" : "tw-hidden"} tw-py-6`}>
       <div>
@@ -85,13 +84,13 @@ function NavBarOption(props) {
                   <Link to={`${url}${path}/${data.id}`}>{data.data.name}</Link>
                 </li>
               ))}
-              <li
+              {data.length !== 0 && <li
                 key={"viewAll"}
                 className="tw-p-1 tw-cursor-pointer tw-text-blue-600 tw-underline"
                 onClick={() => handleLinkClick()}
               >
                 <Link to={`${url}${viewAllPath}`}>View All</Link>
-              </li>
+              </li> }
             </>
           ) : (
             <h3>Loading...</h3>

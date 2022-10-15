@@ -3,6 +3,7 @@ import hotel from "../../assets/svg/hotel.svg";
 import room1 from "../../assets/png/hotel_room1.png";
 import { indCurrency } from "../../utils/utils";
 import { Button } from "antd";
+import { uniqueId } from "lodash";
 
 // type RoomType = {
 //   roomType?: {
@@ -127,7 +128,7 @@ const ViewMoreRoomDetails = (props: any) => {
             {Object.values(props.accomodation.data).map(
               (d: any) => (
                 // data.map((d) => (
-                <tr>
+                <tr key={uniqueId()}>
                   {d.roomName && (
                     <td
                       className="tw-w-1/3 tw-border tw-p-5"

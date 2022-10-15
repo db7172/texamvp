@@ -6,6 +6,7 @@ import { Button, Carousel, Col, Row } from "antd";
 import { defaultSettings } from "../../utils/utils";
 import { useState } from "react";
 import Modal from "antd/lib/modal/Modal";
+import { uniqueId } from "lodash";
 
 type TypeModal = {
   title: string;
@@ -155,7 +156,7 @@ const Accomodations = (props: any) => {
         <ViewMoreSectionTitleWithImg header="Accomodations" image={hotel} />
         <Row gutter={[0, 20]} className="tw-mt-8">
           {Object.values(props.accomodation).map((d: any, i: any) => (
-            <Col span={24}>
+            <Col span={24} key={uniqueId()}>
               <Row gutter={20}>
                 <Col span={12} className="small-carousal details_page_carousal">
                   <Carousel
@@ -252,7 +253,7 @@ const Accomodations = (props: any) => {
           >
             <Row gutter={[10, 6]}>
               {data.map((s: any, i: any) => (
-                <Col span={8}>
+                <Col span={8} key={uniqueId()}>
                   <p className="tw-flex tw-items-center">
                     <span className="tw-inline-block tw-h-1 tw-w-1 tw-bg-lightGray-background tw-rounded-full tw-mr-2" />
                     <span className="tw-text-secondary-color">{s}</span>

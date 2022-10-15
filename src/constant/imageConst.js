@@ -10,6 +10,7 @@ import dance from "../assets/png/image-gallery/dance.png";
 import workshop from "../assets/png/image-gallery/work_space.png";
 import game from "../assets/png/image-gallery/game.png";
 import food from "../assets/png/image-gallery/food.png";
+import defaultImd from "../assets/default.jpg"
 
 // destination
 import destination from "../assets/png/destination.png";
@@ -39,3 +40,5 @@ export const IMAGE_GALLERY = {
 export const DESTINATION_IMAGE = destination;
 
 export const CAROUSAL_ACTIVITY = [carousal1, carousal2, carousal3];
+
+export const DefaultImg = defaultImd;

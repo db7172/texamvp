@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import { startCase } from "lodash";
+import { startCase, uniqueId } from "lodash";
 import { RetreatObjectTypes, TitleBreadCrumb } from "Models";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -114,7 +114,7 @@ const ViewMoreDetailsForRetreat = () => {
                 <Col span={24}>
                   <Row gutter={20} justify="space-between">
                     {VIEW_MORE_RETREAT_DETAILS.map((d) => (
-                      <Col span={6} className="">
+                      <Col span={6} className="" key={uniqueId()}>
                         <IconCard
                           name={d.title}
                           description={d.description}

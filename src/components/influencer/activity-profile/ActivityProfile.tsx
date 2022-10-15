@@ -12,6 +12,7 @@ import {
   Modal,
 } from "antd";
 import { useContext, useEffect, useState } from "react";
+import { uniqueId } from "lodash";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
 import process_completed from "../../../assets/png/influencer/process-completed.png";
@@ -162,6 +163,10 @@ function ActivityInformation({
     const updatedValue: ProfileDataFormType = {
       ...value,
       operatingSince: parseFloat(value.operatingSince.format("YYYY")),
+      instaLink : value.instaLink ? value.instaLink : "",
+      facebookLink : value.facebookLink ? value.facebookLink : "",
+      linkedinLink : value.linkedinLink ? value.linkedinLink : "",
+      gstNumber: value.gstNumber ? value.gstNumber : "",
     };
     updateFormData(updatedValue);
     db.collection("venders")
@@ -251,7 +256,7 @@ function ActivityInformation({
               >
                 {allCountries?.map((country: any) => {
                   return (
-                    <Select.Option value={country.isoCode}>
+                    <Select.Option value={country.isoCode} key={uniqueId()}>
                       {country.name}
                     </Select.Option>
                   );
@@ -278,7 +283,7 @@ function ActivityInformation({
               >
                 {allStates?.map((state: any) => {
                   return (
-                    <Select.Option value={state.isoCode}>
+                    <Select.Option value={state.isoCode} key={uniqueId()}>
                       {state.name}
                     </Select.Option>
                   );
@@ -302,7 +307,7 @@ function ActivityInformation({
               >
                 {allCities?.map((city: any) => {
                   return (
-                    <Select.Option value={city.name}>{city.name}</Select.Option>
+                    <Select.Option value={city.name} key={uniqueId()}>{city.name}</Select.Option>
                   );
                 })}
                 {/* <Select.Option value="mumbai">Mumbai</Select.Option>

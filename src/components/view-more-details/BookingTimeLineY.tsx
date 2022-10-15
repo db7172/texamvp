@@ -70,7 +70,7 @@ const BookingTimeLineY = (props: any) => {
             <h4 className="tw-font-bold">{details.title}</h4>
             <Timeline mode="left" className="tw-mt-5">
               {details.itineraryDetails.map((d: any, i: any) => (
-                <Timeline.Item label={d.time}>{d.activity}</Timeline.Item>
+                <Timeline.Item label={d.time} key={i}>{d.activity}</Timeline.Item>
               ))}
             </Timeline>
           </div>

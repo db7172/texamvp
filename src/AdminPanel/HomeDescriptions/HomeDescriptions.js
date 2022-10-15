@@ -41,7 +41,7 @@ const HomeDescriptions = () => {
       </div>
       <div className="input-holder">
         <div className="input-grp">
-          <lable for="heading1">Destination Desc</lable>
+          <label htmlFor="heading1">Destination Desc</label>
           <input
             type="text"
             id="heading1"
@@ -51,7 +51,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="line1">Popular Activities</lable>
+          <label htmlFor="line1">Popular Activities</label>
           <input
             type="text"
             name="line1"
@@ -61,7 +61,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="line2">Activity of the month</lable>
+          <label htmlFor="line2">Activity of the month</label>
           <input
             type="text"
             name="line2"
@@ -71,7 +71,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="line3">Events Desc</lable>
+          <label htmlFor="line3">Events Desc</label>
           <input
             type="text"
             name="line3"
@@ -81,7 +81,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <lable for="line3">Popular events</lable>
+          <label htmlFor="line3">Popular events</label>
           <input
             type="text"
             name="line3"
@@ -91,7 +91,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <lable for="line3">Music Desc</lable>
+          <label htmlFor="line3">Music Desc</label>
           <input
             type="text"
             name="line3"
@@ -101,7 +101,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <lable for="line3">Popular retreat</lable>
+          <label htmlFor="line3">Popular retreat</label>
           <input
             type="text"
             name="line3"
@@ -111,7 +111,7 @@ const HomeDescriptions = () => {
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <lable for="line3">Popular workation</lable>
+          <label htmlFor="line3">Popular workation</label>
           <input
             type="text"
             name="line3"

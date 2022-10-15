@@ -5,6 +5,7 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 import firebase from "../../../firebase";
 import { useEffect, useState } from "react";
+import {DefaultImg} from "../../../constant/imageConst"
 
 const Jumbotron = ({
   className,
@@ -19,6 +20,7 @@ const Jumbotron = ({
   path = "#",
 }) => {
   const [data, setData] = useState({});
+
   useEffect(() => {
     if (destinationName) {
       let docName = destinationName.toLowerCase();
@@ -41,7 +43,6 @@ const Jumbotron = ({
         });
     }
   });
-
   return (
     <>
       <div className={classNames("tw-w-full tw-h-96 tw-relative", className)}>
@@ -49,10 +50,12 @@ const Jumbotron = ({
         <img
           className="tw-h-full tw-w-full tw-object-cover"
           src={
-            data?.image || data.banner
-              ? data.banner || data.image
-              : "https://images.unsplash.com/photo-1501555088652-021faa106b9b"
+            image ? image : data.image || data.banner
+              ? data.banner || data.image : DefaultImg
           }
+          onError={(e) => {
+            e.currentTarget.src = DefaultImg;
+          }}
           // src={
           //   data?.image
           //     ? data.image || data.banner
@@ -87,7 +90,7 @@ const Jumbotron = ({
           <p className="tw-text-center tw-font-medium">
             Starting from{" "}
             <span className="tw-price tw-text-2xl tw-mx-1">
-              {indCurrency(data.startingPrice)}
+              {data.startingPrice? indCurrency(data.startingPrice) : indCurrency(0)}
             </span>{" "}
             Per Person on twin sharing
           </p>

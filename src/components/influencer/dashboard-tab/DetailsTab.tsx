@@ -110,15 +110,13 @@ const DetailsTab = () => {
           querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
         );
       });
-    db.collection("workation")
-      .get()
-      .then((querySnap) => {
-        setRetreat([
-          ...retreat,
-          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
-        ]);
-      });
-  });
+      return () => {
+        setSingleDetails([]);
+        setMultiDetails([]);
+        setEvents([]);
+        setRetreat([]);
+      }
+  }, []);
 
   activity = singleDetails.concat(multiDetails);
 

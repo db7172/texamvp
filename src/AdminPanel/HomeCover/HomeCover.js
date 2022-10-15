@@ -71,7 +71,7 @@ const HomeCover = () => {
       </div>
       <div className="input-holder">
         <div className="input-grp">
-          <lable for="heading1">Heading 1</lable>
+          <label htmlFor="heading1">Heading 1</label>
           <input
             type="text"
             id="heading1"
@@ -82,7 +82,7 @@ const HomeCover = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="heading2">Heading 2</lable>
+          <label htmlFor="heading2">Heading 2</label>
           <input
             type="text"
             name="heading2"
@@ -93,7 +93,7 @@ const HomeCover = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="line1">Line 1</lable>
+          <label htmlFor="line1">Line 1</label>
           <input
             type="text"
             name="line1"
@@ -104,7 +104,7 @@ const HomeCover = () => {
           />
         </div>
         <div className="input-grp">
-          <lable for="line2">Line 2</lable>
+          <label htmlFor="line2">Line 2</label>
           <input
             type="text"
             name="line2"
@@ -115,7 +115,7 @@ const HomeCover = () => {
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <lable for="line3">Line 3</lable>
+          <label htmlFor="line3">Line 3</label>
           <input
             type="text"
             name="line3"

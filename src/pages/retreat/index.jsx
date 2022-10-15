@@ -8,7 +8,6 @@ import TitleBreadcrumb from "../../components/common/title-breadcrumb/TitleBread
 import { DESTINATION_IMAGE } from "../../constant/imageConst";
 import { ReactComponent as Telephone } from "../../assets/svg/telephone.svg";
 import Pagination from "../../components/pagination";
-import { RETREAT } from "../../constant/dummyData";
 import ButtonGroup from "../../components/form-component/filters/ButtonGroup";
 import RangeSelector from "../../components/form-component/filters/RangeSelector";
 import { formatActiveButton } from "../../utils/utils";
@@ -46,7 +45,7 @@ const RetreatPage = () => {
   const [resetValue, setResetValue] = useState({});
   const [showRequestCallbackModal, setShowRequestCallbackModal] =
     useState(false);
-//   const [retreats, setRetreats] = useState([]);
+  const [retreats, setRetreats] = useState([]);
 
   const coverTitle = `${retreatType}${
     isEmpty(DESTINATION_NAME) ? "" : " in " + destinationName
@@ -80,6 +79,7 @@ const RetreatPage = () => {
         },
       ]);
     }
+    
 
     const unq = uniq(option);
     const unqTypes = uniq(RETREAT_TYPES);
@@ -100,9 +100,9 @@ const RetreatPage = () => {
       .collection("retreats")
       .get()
       .then((querySnap) => {
-        // setRetreats(
-        //   querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
-        // );
+        setRetreats(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
       });
   }, [DESTINATION_NAME, RETREAT_TYPE]);
 
@@ -258,7 +258,7 @@ const RetreatPage = () => {
           {/* cards start from here */}
           <div className="tw-mt-5">
             <div>
-              {RETREAT.map((d, i) => (
+              {retreats.map((d, i) => (
                 <RetreatPageCard {...d} key={i} />
               ))}
             </div>
@@ -278,7 +278,7 @@ const RetreatPage = () => {
         <Col span={24}>
           <EventCarousel
             title="Popular Retreat"
-            data={RETREAT}
+            data={retreats}
             setting={{ slidesToShow: 3 }}
             path={getRetreatPagePath("Popular Retreat")}
             description="Lorem ipsum is the dummy text for placing any thing"

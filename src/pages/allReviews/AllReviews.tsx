@@ -4,6 +4,7 @@ import Container from "../../components/common/container/Container";
 import { useState } from "react";
 import ReviewCard from "../../components/card/review-card/ReviewCard";
 import { reviewDummyData } from "../../constant/reviewData.const";
+import { uniqueId } from "lodash";
 
 const AllReviews = () => {
   const [reviewData, setReviewData] = useState(reviewDummyData.slice(0, 6));
@@ -82,7 +83,7 @@ const AllReviews = () => {
         </p>
         <Row className="tw-mt-16" gutter={[25, 25]}>
           {reviewData.map((d) => (
-            <Col span={12}>
+            <Col span={12} key={uniqueId()}>
               <ReviewCard
                 img={d.img}
                 name={d.name}

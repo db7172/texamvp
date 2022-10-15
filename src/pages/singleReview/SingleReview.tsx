@@ -1,5 +1,5 @@
 import { Col, Rate, Row } from "antd";
-import { capitalize } from "lodash";
+import { capitalize, uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sticky from "react-stickynode";
@@ -158,7 +158,7 @@ const SingleReview = () => {
           <Col span={17}>
             <Row className="" gutter={[25, 25]}>
               {reviewData.map((d) => (
-                <Col span={24}>
+                <Col span={24} key={uniqueId()}>
                   <ReviewCard
                     img={d.img}
                     name={d.name}

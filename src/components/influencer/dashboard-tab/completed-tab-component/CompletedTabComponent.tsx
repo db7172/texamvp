@@ -7,11 +7,11 @@ import { indCurrency } from "../../../../utils/utils";
 import UserReview from "../../../common/UserReview/UserReview";
 
 
-// type Props = {
-//   data: Array<TripData>;
-// };
+type Props = {
+    activity: any;
+};
 
-const CompletedTabComponent = ({ activity }: any) => {
+const CompletedTabComponent = ({ activity }: Props) => {
   const [activeReview, setActiveReview] = useState<Array<ReviewData>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
 

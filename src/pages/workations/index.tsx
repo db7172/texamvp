@@ -14,13 +14,15 @@ import {
   getWorkationPagePath,
   RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
-import { VIEW_ALL_DESTINATION, WORKATION } from "../../constant/dummyData";
+import firebase from "../../firebase";
 
 const Workcations = () => {
   const [slashedTableName, setSlashedTableName] = useState<TitleBreadCrumb[]>(
     []
   );
   const [activePage, setActivePage] = useState(1);
+  const [AllDestination, setAllDestination ] = useState([{}]);
+  const [Workation, setWorkation ] = useState({});
 
   useEffect(() => {
     setSlashedTableName([
@@ -33,8 +35,27 @@ const Workcations = () => {
         url: "",
       },
     ]);
-  }, []);
+    // { description: "Netherlands", name: "Amsterdam", imgUrl: netherlands },
+    firebase
+      .firestore()
+      .collection("destinations")
+      .get()
+      .then((querySnap) => {
+        setAllDestination(
+          querySnap.docs.map((doc) => ({ id: doc.id, description: doc.data().destinationDescription, name: doc.data().name, imgUrl: doc.data().banner }))
+        );
+      });
 
+      firebase
+      .firestore()
+      .collection("workation")
+      .get()
+      .then((querySnap) => {
+        setWorkation(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+  }, []);
   const handlePageChange = (pageNumber: number) => {
     setActivePage(pageNumber);
   };
@@ -49,7 +70,7 @@ const Workcations = () => {
           </div>
         </Col>
         <Col span={24}>
-          <ViewAll cards={VIEW_ALL_DESTINATION} path={getDestinationPagePath} />
+          <ViewAll cards={AllDestination} path={getDestinationPagePath} />
         </Col>
         <Col span={24} className="tw-flex tw-justify-center">
           <Pagination
@@ -62,7 +83,7 @@ const Workcations = () => {
         <Col span={24}>
           <WorkationCarousel
             title="Workcation of the month"
-            data={WORKATION}
+            data={Workation}
             setting={{ slidesToShow: 3 }}
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getWorkationPagePath("Workcation of the month")}
@@ -71,7 +92,7 @@ const Workcations = () => {
         <Col span={24}>
           <WorkationCarousel
             title="Popular Workation"
-            data={WORKATION}
+            data={Workation}
             setting={{ slidesToShow: 3 }}
             description="Lorem ipsum is the dummy text for placing any thing"
             path={getWorkationPagePath("Popular Workation")}

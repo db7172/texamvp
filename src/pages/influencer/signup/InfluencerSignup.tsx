@@ -284,6 +284,7 @@ const InfluencerSignup = () => {
 
   function verifyOTP() {
     const code = otp.mobileOTP;
+    if(window.confirmationResult) {
     window.confirmationResult
       .confirm(code)
       .then((result: any) => {
@@ -316,6 +317,12 @@ const InfluencerSignup = () => {
           mobileOTP: true,
         });
       });
+    } else {
+        setOtpError({
+            ...otpError,
+            mobileOTP: true,
+          });
+    }
   }
 
   const handleProceedClick = () => {

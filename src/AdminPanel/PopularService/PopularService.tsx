@@ -8,6 +8,9 @@ import ServiceList from "../common/ServiceList";
 import ViewServiceList from "../common/ViewServiceList";
 import { getPriceData } from "../utils/commonAdminUtils";
 import { ALL_ACTIVITY } from "./mockData";
+import firebase from "firebase";
+
+const db = firebase.firestore();
 
 type ButtonType = "activity" | "event" | "retreat" | "workcation";
 
@@ -16,23 +19,75 @@ const PopularService = ({ destination = "" }) => {
   const [allActivityData, setAllActivityData] = useState<any[]>([]);
   const [selectedActivityData, setSelectedActivityData] = useState<any[]>([]);
 
-  useEffect(() => {
-    if (ALL_ACTIVITY.length) {
-      setAllActivityData(
-        ALL_ACTIVITY.map((data) => {
-          return {
-            title: data.data.activityName,
-            price: isString(data.data.payment)
-              ? indCurrency(data.data.payment)
-              : getPriceData(data.data.payment),
-            sell: 100,
-            id: data.id,
-            isSelected: false,
-          };
-        })
-      );
-    }
+  const [singleDetails, setSingleDetails] = useState([] as any);
+  const [multiDetails, setMultiDetails] = useState([] as any);
+  const [events, setEvents] = useState([] as any);
+  const [retreat, setRetreat] = useState([] as any);
+  const [Workation, setWorkation] = useState([] as any);
+//   useEffect(() => {
+//     if (ALL_ACTIVITY.length) {
+//       setAllActivityData(
+//         ALL_ACTIVITY.map((data) => {
+//           return {
+//             title: data.data.activityName,
+//             price: isString(data.data.payment)
+//               ? indCurrency(data.data.payment)
+//               : getPriceData(data.data.payment),
+//             sell: 100,
+//             id: data.id,
+//             isSelected: false,
+//           };
+//         })
+//       );
+//     }
+//   }, []);
+let activity = [];
+
+useEffect(() => {
+    db.collection("hr_sg_avy")
+      .get()
+      .then((querySnap) => {
+        setSingleDetails(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    db.collection("multi-activity")
+      .get()
+      .then((querySnap) => {
+        setMultiDetails(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    db.collection("events")
+      .get()
+      .then((querySnap) => {
+        setEvents(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    db.collection("retreat")
+      .get()
+      .then((querySnap) => {
+        setRetreat(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+      db.collection("workation")
+      .get()
+      .then((querySnap) => {
+        setWorkation(
+          querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+      return () => {
+        setSingleDetails([]);
+        setMultiDetails([]);
+        setEvents([]);
+        setRetreat([]);
+        setWorkation([]);
+      }
   }, []);
+  activity = singleDetails.concat(multiDetails);
 
   const handleServiceSelection = (serviceType: string, id: string) => {
     switch (serviceType) {
@@ -124,28 +179,28 @@ const PopularService = ({ destination = "" }) => {
           <div className="home-cover">
             {activeButton === "activity" && (
               <ServiceList
-                listData={allActivityData}
+                listData={activity}
                 serviceType="activity"
                 handleServiceSelection={handleServiceSelection}
               />
             )}
             {activeButton === "event" && (
               <ServiceList
-                listData={allActivityData}
+                listData={events}
                 serviceType="activity"
                 handleServiceSelection={handleServiceSelection}
               />
             )}
             {activeButton === "retreat" && (
               <ServiceList
-                listData={allActivityData}
+                listData={retreat}
                 serviceType="activity"
                 handleServiceSelection={handleServiceSelection}
               />
             )}
             {activeButton === "workcation" && (
               <ServiceList
-                listData={allActivityData}
+                listData={Workation}
                 serviceType="activity"
                 handleServiceSelection={handleServiceSelection}
               />

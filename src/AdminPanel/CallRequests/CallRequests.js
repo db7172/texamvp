@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./callRequests.css";
 import firebase from "../../firebase";
+import { uniqueId } from "lodash";
 
 const CallRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -29,7 +30,7 @@ const CallRequests = () => {
         <tbody>
           {requests.map((request, i) => {
             return (
-              <tr>
+              <tr key={uniqueId()}>
                 <td>{i + 1}</td>
                 <td>{request.name}</td>
                 <td>{request.email}</td>

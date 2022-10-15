@@ -1,3 +1,5 @@
+import { uniqueId } from "lodash";
+
 const mockData = [
   {
     date: "Today",
@@ -54,13 +56,13 @@ const NotesTab = () => {
       </p>
       <div>
         {mockData.map((data) => (
-          <div>
+          <div key={uniqueId()}>
             <p className="tw-mb-3 tw-font-lato tw-text-secondary-color">
               {data.date}
             </p>
             <div className="tw-mb-7">
               {data.data.map((d) => (
-                <div className="tw-shadow-card tw-rounded-lg tw-mb-5 tw-p-7">
+                <div className="tw-shadow-card tw-rounded-lg tw-mb-5 tw-p-7" key={uniqueId()}>
                   <p className="tw-font-medium tw-text-lg tw-mb-3">{d.title}</p>
                   <p className="tw-font-lato tw-text-secondary-color">
                     {d.description}

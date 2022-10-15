@@ -28,16 +28,17 @@ const ServiceList = ({
       }
       dataSource={listData}
       renderItem={(item) => (
-        <List.Item key={item.title}>
+        <List.Item key={item.activityName}>
           <Row gutter={20}>
             <Col span={11} className="tw-items-center tw-flex">
-              {item.title}
+              {item.activityName}
             </Col>
             <Col span={5} className="tw-items-center tw-flex">
-              {item.price}
+              {item.payment}
             </Col>
             <Col span={4} className="tw-items-center tw-flex">
-              {item.sell}
+              {/* {item.sell} */}
+              {100}
             </Col>
             <Col span={4}>
               <Button

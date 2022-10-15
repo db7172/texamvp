@@ -58,7 +58,7 @@ const Login = () => {
                 placeholder="Username"
                 required
               ></input>
-              <label for="text" className="form__label">
+              <label htmlFor="text" className="form__label">
                 Username
               </label>
             </div>
@@ -71,7 +71,7 @@ const Login = () => {
                 onChange={handleChange}
                 required
               ></input>
-              <label for="password" className="form__label">
+              <label htmlFor="password" className="form__label">
                 Password
               </label>
             </div>

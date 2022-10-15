@@ -52,7 +52,7 @@ const WorkcationPage = () => {
               >
                 <Select placeholder="Select workcation type">
                   {MOCK_ACTIVITY.map((d) => (
-                    <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                    <Select.Option value={d} key={uniqueId()}>{capitalize(d)}</Select.Option>
                   ))}
                 </Select>
               </Form.Item>

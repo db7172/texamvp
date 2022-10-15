@@ -21,7 +21,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { DataDetailsType } from "Models";
 import { addtionalInfomation } from "../DashboardUtils";
 import firebase from "../../../../firebase";
-
+import { DefaultImg } from "../../../../constant/imageConst";
 // const db = firebase.firestore();
 
 const mockReason = [
@@ -128,7 +128,8 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
         {/* {data.map((d: any) => {
           console.log(d.imgLink);
         })} */}
-        {data.map((d: any) => (
+        {data.length !== 0  ? data.map((d: any) => {
+            return (
           <Col
             span={24}
             key={uniqueId()}
@@ -139,7 +140,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               style={{ maxWidth: d.data.date ? "250px" : "330px" }}
             >
               <div style={{ maxWidth: d.date ? "70px" : "110px" }}>
-                <img src={d.imgLink[0]} alt="details card" />
+                <img src={d.data.imgLink[0]} onError={(e) => {e.currentTarget.src = DefaultImg}} alt="details card" />
               </div>
               <div style={{ width: d.data.date ? "180px" : "220px" }}>
                 <Tooltip title={d.data.activityName}>
@@ -149,7 +150,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
                 </Tooltip>
                 <Tooltip title={d.description}>
                   <p className="tw-text-xs tw-text-secondary-color tw-font-medium tw-truncate">
-                    {d.description}
+                    {d.data.description}
                   </p>
                 </Tooltip>
               </div>
@@ -280,7 +281,8 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
               </p>
             </div>
           </Col>
-        ))}
+        ) }
+        ) : null}
       </Row>
       <Modal
         title="Send Message"
@@ -361,7 +363,7 @@ const DetailsTabCardContainer = ({ data, viewMore }: Props) => {
                 <Radio.Group>
                   <Space direction="vertical">
                     {mockReason.map((d) => (
-                      <Radio value={d.value}>{d.label}</Radio>
+                      <Radio value={d.value} key={uniqueId()}>{d.label}</Radio>
                     ))}
                   </Space>
                 </Radio.Group>

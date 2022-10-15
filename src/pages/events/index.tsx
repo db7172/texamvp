@@ -15,13 +15,22 @@ import {
   getEventPagePath,
   RIGHT_SPACING_VALUE,
 } from "../../constant/comman.const";
-import { EVENT, VIEW_ALL_EVENTS } from "../../constant/dummyData";
+// import { EVENT } from "../../constant/dummyData";
+import firebase from "../../firebase";
 
 const Events = () => {
   const [slashedTableName, setSlashedTableName] = useState<TitleBreadCrumb[]>(
     []
   );
   const [activePage, setActivePage] = useState(1);
+  const [Events, setEvents] = useState() as any;
+
+//   {
+//     name: "Comedy",
+//     imgUrl: comedy,
+//     price: 12000,
+//     numberOfActivity: 1250,
+//   },
 
   useEffect(() => {
     setSlashedTableName([
@@ -35,11 +44,23 @@ const Events = () => {
       },
     ]);
   }, []);
+  useEffect(() => {
+    // setActivityIcon(getActivityIcon(cardCount));
+    firebase
+      .firestore()
+      .collection("events")
+      .get()
+      .then((querySnap) => {
+        setEvents(
+          querySnap.docs
+            .map((doc) => ({ id: doc.id, data: doc.data() }))
+        )
+      });
+  }, []);
 
   const handlePageChange = (pageNumber: number) => {
     setActivePage(pageNumber);
   };
-
   return (
     <Container>
       <Row className="tw-top-m" gutter={[0, RIGHT_SPACING_VALUE]}>
@@ -50,7 +71,7 @@ const Events = () => {
           </div>
         </Col>
         <Col span={24}>
-          <ViewAll cards={VIEW_ALL_EVENTS} path={getEventPagePath} />
+          <ViewAll cards={Events} path={getEventPagePath} />
         </Col>
         <Col span={24} className="tw-flex tw-justify-center">
           <Pagination
@@ -63,7 +84,7 @@ const Events = () => {
         <Col span={24}>
           <EventCarousel
             title="Events of the Month"
-            data={EVENT}
+            data={Events}
             setting={{ slidesToShow: 3 }}
             path={getEventPagePath("Events of the Month")}
             description="Lorem ipsum is the dummy text for placing any thing"
@@ -73,7 +94,7 @@ const Events = () => {
         <Col span={24}>
           <EventCarousel
             title="Popular Events"
-            data={EVENT}
+            data={Events}
             setting={{ slidesToShow: 3 }}
             path={getEventPagePath("Popular Events")}
             description="Lorem ipsum is the dummy text for placing any thing"

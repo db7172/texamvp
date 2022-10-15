@@ -93,7 +93,7 @@ const RetreatPage = () => {
               >
                 <Select placeholder="Select retreat type">
                   {categories?.map((d: any, i: any) => (
-                    <Select.Option value={d}>{capitalize(d)}</Select.Option>
+                    <Select.Option value={d} key={i}>{capitalize(d)}</Select.Option>
                   ))}
                 </Select>
               </Form.Item>

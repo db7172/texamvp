@@ -1,3 +1,4 @@
+import { DefaultImg } from "../../../constant/imageConst";
 type Props = {
   path: string;
   name: string;
@@ -6,10 +7,10 @@ type Props = {
 };
 
 const IconCard = ({ path, name, description, imgClassName }: Props) => {
-  return (
+    return (
     <div className="tw-shadow-card tw-rounded-xl md:tw-h-36 md:tw-w-36 tw-h-32 tw-w-32 tw-flex tw-justify-evenly tw-items-center tw-flex-col tw-bg-white">
       <div className={imgClassName}>
-        <img className="tw-w-full tw-h-auto" src={path} alt={name} />
+        <img className="tw-w-full tw-h-auto" onError={(e) => { e.currentTarget.src = DefaultImg}} src={path ? path : DefaultImg} alt={name} />
       </div>
       <div className="tw-flex tw-items-center tw-justify-center tw-flex-col">
         <h5 className="tw-mb-1 tw-text-base tw-text-center tw-font-medium">

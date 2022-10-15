@@ -23,7 +23,6 @@ const UserReview = ({
   const [data] = useState(d);
   const [comment, setComment] = useState(data.comment);
   const [user, setUser] = useState([]) as any;
-
   const handleShowForReplyModal = () => {
     // handleCancel();
     setShowReplyModal(true);

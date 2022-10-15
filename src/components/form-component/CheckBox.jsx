@@ -11,7 +11,7 @@ const CheckBox = ({ label, checked, name, onChange }) => {
         id={name}
         onChange={onChange}
       />
-      <label className="tw-ml-2 tw-text-base tw-cursor-pointer" htmlFor={name}>
+      <label className="tw-ml-2 tw-text-base tw-cursor-pointer" htmlhtmlFor={name}>
         {label}
       </label>
     </>

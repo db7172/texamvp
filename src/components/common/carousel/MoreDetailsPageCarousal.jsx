@@ -16,7 +16,7 @@ const MoreDetailsPageCarousal = ({ images }) => {
       {...settings}
     >
       {images.map((d, i) => (
-        <div style={{ width: "771px", height: "279px" }}>
+        <div style={{ width: "771px", height: "279px" }} key={i}>
           <img className="tw-w-full tw-h-auto" src={d} alt="" />
         </div>
       ))}

@@ -153,7 +153,7 @@ const ViewMoreActivityBookingCard = (props: any) => {
           </div>
           <div className="tw-py-2">
             {MOCK_DATE.map((d, i) => (
-              <div className="tw-flex-center tw-gap-5 tw-mt-9">
+              <div className="tw-flex-center tw-gap-5 tw-mt-9" key={i}>
                 <p className="tw-text-secondary-color">{d.month}</p>
                 <div className="tw-flex tw-gap-2 tw-flex-wrap">
                   {d.date.map((date, index) => (
@@ -243,6 +243,7 @@ const ViewMoreActivityBookingCard = (props: any) => {
                     data={d}
                     active={active}
                     handlePlanClick={handlePlanClick}
+                    key={i}
                   />
                 ))}
               </div>

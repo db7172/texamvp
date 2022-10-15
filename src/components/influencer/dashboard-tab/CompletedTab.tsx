@@ -2,13 +2,15 @@ import { Button, Col, Row, Form, Select } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import CompletedTabComponent from "./completed-tab-component/CompletedTabComponent";
-import { COMPLETED, highLowOptions } from "./data";
+import { highLowOptions } from "./data";
 import { ButtonType } from "./DetailsTab";
 import firebase from "../../../firebase";
 
 const CompletedTab = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>("activity");
   const [activity, setActivity] = useState([]) as any;
+  const [events, setEvents] = useState([] as any);
+  const [retreat, setRetreat] = useState([] as any);
 
   useEffect(() => {
     const user = firebase.auth().currentUser;
@@ -16,14 +18,28 @@ const CompletedTab = () => {
       firebase
         .firestore()
         .collection("completedTours")
-        .where("venderId", "==", user.uid)
+        // .where("venderId", "==", user.uid)
         .get()
         .then((querySnap) => {
-          setActivity(
-            querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+            const data = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+            setActivity(
+                data.filter((item) => {
+                return item.data.tripType === "activity";
+              })
           );
+          setEvents( data.filter((item) => {
+            return item.data.tripType === "event";
+          }));
+          setRetreat( data.filter((item) => {
+            return item.data.tripType === "retreat";
+          }));
         });
     }
+    return () => {
+        setActivity([]);
+        setEvents([]);
+        setRetreat([]);
+      }
   }, []);
 
 
@@ -119,10 +135,10 @@ const CompletedTab = () => {
           <CompletedTabComponent activity={activity} />
         )}
         {activeButton === "event" && (
-          <CompletedTabComponent data={COMPLETED.EVENT} />
+          <CompletedTabComponent activity={events} />
         )}
         {activeButton === "retreat" && (
-          <CompletedTabComponent data={COMPLETED.RETREAT} />
+          <CompletedTabComponent activity={retreat} />
         )}
       </Col>
     </Row>

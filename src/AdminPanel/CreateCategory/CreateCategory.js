@@ -43,7 +43,7 @@ const CreateCategory = () => {
       </div>
       <div className="input-holder cc">
         <div className="input-grp">
-          <lable for="categoryTitle">Category Title</lable>
+          <label htmlFor="categoryTitle">Category Title</label>
           <input
             type="text"
             id="categoryTitle"
@@ -53,7 +53,7 @@ const CreateCategory = () => {
           />
         </div>
         <div className="input-grp ccg">
-          <lable for="type">Choose Type</lable>
+          <label htmlFor="type">Choose Type</label>
           <select name="type" id="type" onChange={handleChange}>
             <option value="activity">Activity</option>
             <option value="event">Event</option>
