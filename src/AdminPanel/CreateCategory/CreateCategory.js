@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const CreateCategory = () => {
   const [details, setDetails] = useState({
     name: "",
-    type: "",
+    type: "activity",
   });
 
   const handleChange = (e) => {
@@ -25,7 +25,8 @@ const CreateCategory = () => {
     document.getElementById("type").value = "";
   };
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
+    event.preventDefault()
     firebase
       .firestore()
       .collection("categories")
@@ -33,7 +34,9 @@ const CreateCategory = () => {
       .set(details)
       .then(() => {
         toast.success("Successfull");
+        resetFunc();
       });
+    
   };
 
   return (
@@ -41,6 +44,7 @@ const CreateCategory = () => {
       <div className="card-title">
         <h3>Create Category</h3>
       </div>
+      <form onSubmit={onSubmit}>
       <div className="input-holder cc">
         <div className="input-grp">
           <label htmlFor="categoryTitle">Category Title</label>
@@ -50,6 +54,7 @@ const CreateCategory = () => {
             name="name"
             className="form_inputs"
             onChange={handleChange}
+            required={true}
           />
         </div>
         <div className="input-grp ccg">
@@ -64,13 +69,14 @@ const CreateCategory = () => {
         </div>
       </div>
       <div className="action-box">
-        <button className="btn btn-submit" onClick={onSubmit}>
+        <button type="submit" className="btn btn-submit">
           Submit
         </button>
         <button className="btn btn-reset" onClick={resetFunc}>
           Reset
         </button>
       </div>
+      </form>
     </div>
   );
 };

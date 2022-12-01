@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./homeCover.css";
 import firebase from "../../firebase";
 import Success from "../Cards/Success/Success";
+import { toast } from "react-toastify";
 
 const HomeCover = () => {
   const [details, setDetails] = useState({
@@ -36,25 +37,29 @@ const HomeCover = () => {
   };
 
   const handleSubmit = async () => {
-    firebase
-      .firestore()
-      .collection("admin")
-      .doc("hero")
-      .set(details)
-      .then(() => {
-        setSuccess(true);
-      });
+    if(details.heading1 || details.heading2 || details.line1 ||  details.line2 ||  details.line3) {
+        firebase
+        .firestore()
+        .collection("admin")
+        .doc("hero")
+        .set(details)
+        .then(() => {
+            setSuccess(true);
+        });
+    } else {
+        toast.error("fill the detail");
+    }
   };
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("admin")
-      .doc("hero")
-      .get()
-      .then((doc) => {
-        setDetails(doc.data());
-      });
+        firebase
+        .firestore()
+        .collection("admin")
+        .doc("hero")
+        .get()
+        .then((doc) => {
+            setDetails(doc.data());
+        });
   }, []);
 
   return (

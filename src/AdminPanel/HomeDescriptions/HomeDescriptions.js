@@ -1,15 +1,32 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./homeDescriptions.css";
-import { useState } from "react";
+import firebase from "../../firebase";
+import { toast } from "react-toastify";
 
 const HomeDescriptions = () => {
   const [details, setDetails] = useState({
-    heading1: "",
-    heading2: "",
-    line1: "",
-    line2: "",
-    line3: "",
+    DestinationDesc: "",
+    PopularActivities: "",
+    ActivityOfTheMonth: "",
+    EventsDesc: "",
+    PopularEvents: "",
+    MusicDesc: "",
+    PopularRetreat: "",
+    PopularWorkation: "",
   });
+
+  useEffect(() => {
+    firebase
+    .firestore()
+    .collection("admin")
+    .doc("heroDescription")
+    .get()
+    .then((doc) => {
+        if (doc.data()) {
+        setDetails(doc.data());
+        }
+    });
+}, []);
 
   const handleChange = (e) => {
     setDetails({
@@ -20,20 +37,48 @@ const HomeDescriptions = () => {
 
   const resetFunc = () => {
     setDetails({
-      heading1: "",
-      heading2: "",
-      line1: "",
-      line2: "",
-      line3: "",
+        DestinationDesc: "",
+        PopularActivities: "",
+        ActivityOfTheMonth: "",
+        EventsDesc: "",
+        PopularEvents: "",
+        MusicDesc: "",
+        PopularRetreat: "",
+        PopularWorkation: "",
     });
-    document.getElementById("heading1").value = "";
-    document.getElementById("heading2").value = "";
-    document.getElementById("line1").value = "";
-    document.getElementById("line2").value = "";
-    document.getElementById("line3").value = "";
+    document.getElementById("DestinationDesc").value = "";
+    document.getElementById("PopularActivities").value = "";
+    document.getElementById("ActivityOfTheMonth").value = "";
+    document.getElementById("EventsDesc").value = "";
+    document.getElementById("PopularEvents").value = "";
+    document.getElementById("MusicDesc").value = "";
+    document.getElementById("PopularRetreat").value = "";
+    document.getElementById("PopularWorkation").value = "";
   };
 
-
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if( details.DestinationDesc ||
+        details.PopularActivities ||
+        details.ActivityOfTheMonth ||
+        details.EventsDesc ||
+        details.PopularEvents ||
+        details.MusicDesc ||
+        details.PopularRetreat ||
+        details.PopularWorkation ) {
+        firebase
+        .firestore()
+        .collection("admin")
+        .doc("heroDescription")
+        .set(details)
+        .then(() => {
+          toast.success("Successfull");
+          resetFunc();
+        });
+    } else {
+        toast.error("fill the detail");
+    }
+  }
   return (
     <div className="home-descriptions">
       <div className="card-title">
@@ -41,88 +86,88 @@ const HomeDescriptions = () => {
       </div>
       <div className="input-holder">
         <div className="input-grp">
-          <label htmlFor="heading1">Destination Desc</label>
+          <label htmlFor="DestinationDesc">Destination Desc</label>
           <input
             type="text"
-            id="heading1"
-            name="heading1"
+            id="DestinationDesc"
+            name="DestinationDesc"
             className="form_inputs"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp">
-          <label htmlFor="line1">Popular Activities</label>
+          <label htmlFor="PopularActivities">Popular Activities</label>
           <input
             type="text"
-            name="line1"
+            name="PopularActivities"
             className="form_inputs"
-            id="line1"
+            id="PopularActivities"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp">
-          <label htmlFor="line2">Activity of the month</label>
+          <label htmlFor="ActivityOfTheMonth">Activity of the month</label>
           <input
             type="text"
-            name="line2"
+            name="ActivityOfTheMonth"
             className="form_inputs"
-            id="line2"
+            id="ActivityOfTheMonth"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp">
-          <label htmlFor="line3">Events Desc</label>
+          <label htmlFor="EventsDesc">Events Desc</label>
           <input
             type="text"
-            name="line3"
+            name="EventsDesc"
             className="form_inputs"
-            id="line3"
+            id="EventsDesc"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <label htmlFor="line3">Popular events</label>
+          <label htmlFor="PopularEvents">Popular events</label>
           <input
             type="text"
-            name="line3"
+            name="PopularEvents"
             className="form_inputs"
-            id="line3"
+            id="PopularEvents"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <label htmlFor="line3">Music Desc</label>
+          <label htmlFor="MusicDesc">Music Desc</label>
           <input
             type="text"
-            name="line3"
+            name="MusicDesc"
             className="form_inputs"
-            id="line3"
+            id="MusicDesc"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <label htmlFor="line3">Popular retreat</label>
+          <label htmlFor="PopularRetreat">Popular retreat</label>
           <input
             type="text"
-            name="line3"
+            name="PopularRetreat"
             className="form_inputs"
-            id="line3"
+            id="PopularRetreat"
             onChange={handleChange}
           />
         </div>
         <div className="input-grp" style={{ marginTop: "20px" }}>
-          <label htmlFor="line3">Popular workation</label>
+          <label htmlFor="PopularWorkation">Popular workation</label>
           <input
             type="text"
-            name="line3"
+            name="PopularWorkation"
             className="form_inputs"
-            id="line3"
+            id="PopularWorkation"
             onChange={handleChange}
           />
         </div>
       </div>
       <div className="action-box">
-        <button className="btn btn-submit">Submit</button>
+        <button className="btn btn-submit" onClick={onSubmit}>Submit</button>
         <button className="btn btn-reset" onClick={resetFunc}>
           Reset
         </button>

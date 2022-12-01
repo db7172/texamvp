@@ -1,6 +1,4 @@
 import moment from "moment";
-import rightArrow from "../assets/svg/nextArrow.svg";
-import leftArrow from "../assets/svg/prevArrow.svg";
 
 /**
  * Returns an array with arrays of the given size.
@@ -8,6 +6,35 @@ import leftArrow from "../assets/svg/prevArrow.svg";
  * @param myArray {Array} Array to split
  * @param chunkSize {Integer} Size of every group
  */
+
+ const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+    <button
+      {...props}
+      className={
+        "slick-prev slick-arrow" +
+        (currentSlide === 0 ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === 0 ? true : false}
+      type="button"
+    >
+      Previous
+    </button>
+  );
+  const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+    <button
+      {...props}
+      className={
+        "slick-next slick-arrow" +
+        (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === slideCount - 1 ? true : false}
+      type="button"
+    >
+      Next
+    </button>
+  );
 
 export function chunkArray(myArray, chunk_size = 5) {
   if (!myArray) return [];
@@ -30,20 +57,8 @@ export const defaultSettings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   arrows: true,
-  nextArrow: (
-    <img
-      className="tw-flex tw-justify-center tw-items-center tw-rounded-full"
-      src={rightArrow}
-      alt=""
-    />
-  ),
-  prevArrow: (
-    <img
-      className="tw-flex tw-justify-center tw-items-center tw-rounded-full"
-      src={leftArrow}
-      alt=""
-    />
-  ),
+  nextArrow: <SlickArrowRight/>,
+  prevArrow: <SlickArrowLeft/>,
   responsive: [
     {
       breakpoint: 1024,

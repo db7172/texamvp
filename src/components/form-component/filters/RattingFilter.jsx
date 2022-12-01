@@ -16,7 +16,7 @@ const RattingFilter = ({ selected, onChange }) => {
               checked={selected === "+4"}
               onChange={onChange}
             />
-            <label className="tw-text-base tw-cursor-pointer" htmlhtmlFor="+4">
+            <label className="tw-text-base tw-cursor-pointer" htmlFor="+4">
               <GreenBadge
                 ratting="+4"
                 width="tw-w-20"
@@ -33,7 +33,7 @@ const RattingFilter = ({ selected, onChange }) => {
               checked={selected === "+3.5"}
               onChange={onChange}
             />
-            <label className="tw-text-base tw-cursor-pointer" htmlhtmlFor="+3.5">
+            <label className="tw-text-base tw-cursor-pointer" htmlFor="+3.5">
               <GreenBadge
                 ratting="+3.5"
                 bgColor="tw-bg-lightGreen-background"
@@ -51,7 +51,7 @@ const RattingFilter = ({ selected, onChange }) => {
               checked={selected === "+3"}
               onChange={onChange}
             />
-            <label className="tw-text-base tw-cursor-pointer" htmlhtmlFor="+3">
+            <label className="tw-text-base tw-cursor-pointer" htmlFor="+3">
               <GreenBadge
                 ratting="+3"
                 bgColor="tw-bg-darkYellow-background"

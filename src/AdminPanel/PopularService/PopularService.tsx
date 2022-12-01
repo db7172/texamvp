@@ -1,14 +1,10 @@
 import { Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { isString } from "lodash";
 import { useEffect, useState } from "react";
-import { indCurrency } from "../../utils/utils";
 import "../adminStyle.css";
 import ServiceList from "../common/ServiceList";
 import ViewServiceList from "../common/ViewServiceList";
-import { getPriceData } from "../utils/commonAdminUtils";
-import { ALL_ACTIVITY } from "./mockData";
-import firebase from "firebase";
+import firebase from 'firebase/app';
 
 const db = firebase.firestore();
 
